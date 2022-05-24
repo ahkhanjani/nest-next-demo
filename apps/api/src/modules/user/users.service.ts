@@ -11,15 +11,11 @@ import { CreateUserInput } from './dto/create-user-input.dto';
 export class UsersService {
   constructor(
     @InjectModel('users')
-    private readonly userModel: Model<UserModel>,
+    private readonly userModel: Model<UserModel>
   ) {}
 
   async userCount(): Promise<number> {
-    try {
-      return await this.userModel.count({});
-    } catch (err) {
-      throw err;
-    }
+    return await this.userModel.count({});
   }
 
   async findById(id: string): Promise<UserResponse> {
@@ -40,45 +36,31 @@ export class UsersService {
   }
 
   async findOneByUsername(username: string): Promise<UserResponse> {
-    try {
-      const user = await this.userModel
-        .findOne({ username })
-        .select('+password')
-        .exec();
+    const user = await this.userModel
+      .findOne({ username })
+      .select('+password')
+      .exec();
 
-      if (user) return { user };
+    if (user) return { user };
 
-      return {
-        errors: [{ field: 'app', message: 'User (Username) not found.' }],
-      };
-    } catch (err) {
-      throw err;
-    }
+    return {
+      errors: [{ field: 'app', message: 'User (Username) not found.' }],
+    };
   }
 
   async findAll(): Promise<User[]> {
-    try {
-      return await this.userModel.find().exec();
-    } catch (err) {
-      throw err;
-    }
+    return await this.userModel.find().exec();
   }
 
   async create({ username, password }: CreateUserInput): Promise<UserResponse> {
     const hashedPassword = await hash(password, { type: argon2id });
 
-    try {
-      const createdUser = new this.userModel({
-        username: username.toLowerCase(),
-        password: hashedPassword,
-      });
-
-      const user = await createdUser.save();
-
-      return { user };
-    } catch (err) {
-      throw err;
-    }
+    const createdUser = new this.userModel({
+      username: username.toLowerCase(),
+      password: hashedPassword,
+    });
+    const user = await createdUser.save();
+    return { user };
   }
 
   async updateOne(userId: string): Promise<User> {

@@ -24,50 +24,34 @@ export class MaterialsService {
     page,
     categoryId,
   }: MaterialPaginateInput): Promise<MaterialPaginateResponse> {
-    try {
-      const offset: number = (page - 1) * limit;
-      const materials: Material[] = await this.materialModel
-        .find({ category: categoryId })
-        .sort([['_id', -1]])
-        .skip(offset)
-        .limit(limit)
-        .exec();
-      const materialsCount: number = await this.materialModel.count({
-        categoryId,
-      });
-      const pagesCount: number = Math.ceil(materialsCount / limit);
+    const offset: number = (page - 1) * limit;
+    const materials: Material[] = await this.materialModel
+      .find({ category: categoryId })
+      .sort([['_id', -1]])
+      .skip(offset)
+      .limit(limit)
+      .exec();
+    const materialsCount: number = await this.materialModel.count({
+      categoryId,
+    });
+    const pagesCount: number = Math.ceil(materialsCount / limit);
 
-      return { materials, pagesCount };
-    } catch (error) {
-      throw error;
-    }
+    return { materials, pagesCount };
   }
 
   async findOneById(id: string): Promise<Material> {
-    try {
-      return await this.materialModel.findOne({ id }).exec();
-    } catch (err) {
-      throw err;
-    }
+    return await this.materialModel.findOne({ id }).exec();
   }
 
   async findByCategoryId(categoryId: string): Promise<Material[]> {
-    try {
-      const found = await this.materialModel
-        .find({ category: categoryId })
-        .exec();
-      return found;
-    } catch (err) {
-      throw err;
-    }
+    const found = await this.materialModel
+      .find({ category: categoryId })
+      .exec();
+    return found;
   }
 
   async findAll(): Promise<Material[]> {
-    try {
-      return await this.materialModel.find().exec();
-    } catch (err) {
-      throw err;
-    }
+    return await this.materialModel.find().exec();
   }
 
   /**
@@ -76,15 +60,8 @@ export class MaterialsService {
    * @returns {boolean} `true` if title already exists.
    */
   async checkTitleExists(title: string): Promise<boolean> {
-    try {
-      const existingMaterial = await this.materialModel
-        .findOne({ title })
-        .exec();
-
-      return Boolean(existingMaterial);
-    } catch (err) {
-      throw err;
-    }
+    const existingMaterial = await this.materialModel.findOne({ title }).exec();
+    return Boolean(existingMaterial);
   }
 
   //
@@ -95,36 +72,32 @@ export class MaterialsService {
     materialArray: string[],
     category: string[]
   ): Promise<CreateMaterialResponse> {
-    try {
-      if (!materialArray.length) return { message: 'Error: Empty list.' };
-      const createdMaterials = await Promise.all(
-        materialArray.map(async (strMaterial) => {
-          // parse the material body
-          const material = JSON.parse(strMaterial);
-          const { type, title, status, data } = material;
+    if (!materialArray.length) return { message: 'Error: Empty list.' };
+    const createdMaterials = await Promise.all(
+      materialArray.map(async (strMaterial) => {
+        // parse the material body
+        const material = JSON.parse(strMaterial);
+        const { type, title, status, data } = material;
 
-          // if name already exists return error
-          const existingTitle = await this.materialModel
-            .findOne({ title })
-            .exec();
-          if (existingTitle) return { message: 'Name already exists.' };
+        // if name already exists return error
+        const existingTitle = await this.materialModel
+          .findOne({ title })
+          .exec();
+        if (existingTitle) return { message: 'Name already exists.' };
 
-          const createdMaterial = new this.materialModel({
-            type,
-            title,
-            status,
-            category,
-            formData: data,
-          });
+        const createdMaterial = new this.materialModel({
+          type,
+          title,
+          status,
+          category,
+          formData: data,
+        });
 
-          return await createdMaterial.save();
-        })
-      );
+        return await createdMaterial.save();
+      })
+    );
 
-      return { message: createdMaterials.toString() };
-    } catch (err) {
-      throw err;
-    }
+    return { message: createdMaterials.toString() };
   }
 
   async updateOne(
@@ -134,24 +107,20 @@ export class MaterialsService {
     type: string,
     formData: string
   ): Promise<UpdateMaterialResponse> {
-    try {
-      const updatedMaterial = await this.materialModel.updateOne(
-        {
-          _id: materialId,
+    const updatedMaterial = await this.materialModel.updateOne(
+      {
+        _id: materialId,
+      },
+      {
+        $set: {
+          category,
+          title,
+          type,
+          formData,
         },
-        {
-          $set: {
-            category,
-            title,
-            type,
-            formData,
-          },
-        }
-      );
+      }
+    );
 
-      return { message: JSON.stringify(updatedMaterial) };
-    } catch (err) {
-      throw err;
-    }
+    return { message: JSON.stringify(updatedMaterial) };
   }
 }
