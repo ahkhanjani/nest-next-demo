@@ -1,11 +1,44 @@
 import { Module } from '@nestjs/common';
-
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+// controllers, providers
 import { AppController } from './app.controller';
+import { AppResolver } from './app.resolver';
 import { AppService } from './app.service';
+// modules
+import { GraphQLModule } from '@nestjs/graphql';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
+import { MaterialsModule } from '../modules/material/materials.module';
+import { UsersModule } from '../modules/user/users.module';
+import { AuthModule } from '../modules/auth/auth.module';
+import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.module';
 
 @Module({
-  imports: [],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+
+    // used code first approach: https://docs.nestjs.com/graphql/quick-start#code-first
+    // will auto-generate schema file
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      installSubscriptionHandlers: true,
+      autoSchemaFile: true,
+      sortSchema: true,
+    }),
+
+    // link server to database
+    MongooseModule.forRoot(process.env.DATABASE_URI, {
+      useNewUrlParser: true,
+      // authSource: 'admin',
+    }),
+
+    // ____ custom ____
+    MaterialsModule,
+    UsersModule,
+    AuthModule,
+    PreRegEmailsModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppResolver],
 })
 export class AppModule {}
