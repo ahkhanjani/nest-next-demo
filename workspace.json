@@ -4,8 +4,6 @@
   "projects": {
     "api": "apps/api",
     "main-web": "apps/main-web",
-    "main-web-e2e": "apps/main-web-e2e",
-    "material-web": "apps/material-web",
-    "material-web-e2e": "apps/material-web-e2e"
+    "main-web-e2e": "apps/main-web-e2e"
   }
 }

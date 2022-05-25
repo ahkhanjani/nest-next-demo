@@ -1,6 +1,0 @@
-query GetCategoriesByParentId($parentId: ID!) {
-  categoriesByParentId(input: { parentId: $parentId }) {
-    id
-    title
-  }
-}
