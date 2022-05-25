@@ -1,0 +1,7 @@
+mutation createMaterials($materialArray: [String!]!, $category: [String!]!) {
+  createMaterials(
+    input: { materialArray: $materialArray, category: $category }
+  ) {
+    message
+  }
+}
