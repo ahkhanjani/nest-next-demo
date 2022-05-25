@@ -1,0 +1,8 @@
+query GetMaterialById($id: String!) {
+  materialById(id: $id) {
+    type
+    title
+    category
+    formData
+  }
+}

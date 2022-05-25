@@ -1,0 +1,11 @@
+query GetMaterialsPaginate($categoryId: ID!, $page: Int!, $limit: Int!) {
+  materialsPaginate(
+    input: { categoryId: $categoryId, page: $page, limit: $limit }
+  ) {
+    materials {
+      id
+      title
+    }
+    pagesCount
+  }
+}

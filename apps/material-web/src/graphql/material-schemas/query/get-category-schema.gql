@@ -1,0 +1,6 @@
+query GetCategorySchema {
+  categorySchema {
+    schema
+    error
+  }
+}

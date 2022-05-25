@@ -1,0 +1,9 @@
+query GetAllMaterials {
+  allMaterials {
+    id
+    status
+    type
+    category
+    formData
+  }
+}

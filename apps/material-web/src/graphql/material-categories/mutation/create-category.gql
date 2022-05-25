@@ -1,0 +1,10 @@
+mutation CreateCategory($title: String!, $parentId: ID) {
+  createCategory(input: { title: $title, parentId: $parentId }) {
+    category {
+      id
+      title
+      parentId
+    }
+    message
+  }
+}

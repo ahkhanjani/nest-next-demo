@@ -1,0 +1,3 @@
+query CheckMaterialTitleExists($title: String!) {
+  materialTitleExists(title: $title)
+}

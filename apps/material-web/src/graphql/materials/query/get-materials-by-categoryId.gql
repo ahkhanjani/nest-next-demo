@@ -1,0 +1,6 @@
+query GetMaterialsByCategoryId($categoryId: ID!) {
+  materialsByCategoryId(input: { categoryId: $categoryId }) {
+    id
+    title
+  }
+}
