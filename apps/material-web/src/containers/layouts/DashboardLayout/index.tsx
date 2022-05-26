@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from './components/AppBar';
 import Drawer from './components/Drawer';
 import DrawerList from './components/DrawerList';
+import ColorModeToggleButton from './components/ColorModeToggleButton';
 // auth
 import { AuthContext } from 'auth/AuthProvider';
 // routes
@@ -97,6 +98,10 @@ const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
           >
             Fullmoon Material Dashboard (Beta)
           </Typography>
+          {/* divider */}
+          <Box sx={{ flexGrow: 1 }} />
+          {/* divider */}
+          <ColorModeToggleButton />
         </Toolbar>
       </AppBar>
       {context.user !== undefined && (

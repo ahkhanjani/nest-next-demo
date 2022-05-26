@@ -1,18 +1,15 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-// mui
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 // providers
 import ApolloProvider from 'apollo/ApolloProvider';
 import AuthProvider from 'auth/AuthProvider';
+import ThemeProvider from 'providers/ThemeProvider';
+import ColorModeProvider from 'providers/ColorModeProvider';
 // store
-import store from 'store/index';
+import store from 'store';
 import { Provider } from 'react-redux';
 
-const mdTheme = createTheme();
-
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
@@ -22,15 +19,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Provider store={store}>
           <ApolloProvider>
             <AuthProvider>
-              <ThemeProvider theme={mdTheme}>
-                <CssBaseline />
-                <Component {...pageProps} />
-              </ThemeProvider>
+              <ColorModeProvider>
+                <ThemeProvider>
+                  <Component {...pageProps} />
+                </ThemeProvider>
+              </ColorModeProvider>
             </AuthProvider>
           </ApolloProvider>
         </Provider>
       </main>
     </>
   );
-}
+};
 export default MyApp;
