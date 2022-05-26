@@ -1,21 +1,23 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { List, ListItemButton, ListItemText } from '@mui/material';
+import Link from 'next/link';
+// mui
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 // gql
 import { useGetMaterialsPaginateQuery } from 'graphql/generated';
-// types
-import { Pathnames } from 'types';
+// cmp
 import CreateMaterialButton from './CreateMaterialButton';
+import ListContainer from '../ListContainer';
 // store
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { setEditingMaterialId } from 'store/editing-material';
-import ListContainer from '../ListContainer';
+// routes
+import ROUTES from 'routes';
 
 const limit: number = 7;
 
 const MaterialList: React.FC = () => {
-  const router = useRouter();
-
   //
   // ─── STORE ──────────────────────────────────────────────────────────────────────
   //
@@ -59,7 +61,6 @@ const MaterialList: React.FC = () => {
 
   function handleMaterialClick(id: string) {
     dispatch(setEditingMaterialId(id));
-    router.push(Pathnames.CREATE_MATERIALS);
   }
 
   // ────────────────────────────────────────────────────────────────────────────────
@@ -80,9 +81,11 @@ const MaterialList: React.FC = () => {
         <CreateMaterialButton />
         {materialsPaginate?.materialsPaginate.materials.map(({ id, title }) => {
           return (
-            <ListItemButton key={title} onClick={() => handleMaterialClick(id)}>
-              <ListItemText primary={title} />
-            </ListItemButton>
+            <Link key={id} href={ROUTES.CREATE_MATERIALS}>
+              <ListItemButton onClick={() => handleMaterialClick(id)}>
+                <ListItemText primary={title} />
+              </ListItemButton>
+            </Link>
           );
         })}
       </List>

@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 // mui
 import CategoryIcon from '@mui/icons-material/Category';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -7,38 +8,24 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 // - icons
 import ListItemText from '@mui/material/ListItemText';
-// types
-import { Pathnames } from 'types';
+// routes
+import ROUTES from 'routes';
 
 export const MainListItems: React.FC = () => {
-  const router = useRouter();
+  const { route } = useRouter();
 
   // ────────────────────────────────────────────────────────────────────────────────
 
   return (
     <>
-      <ListItemButton
-        selected={router.route === Pathnames.VIEW_MATERIALS}
-        onClick={() => router.push(Pathnames.VIEW_MATERIALS)}
-      >
-        <ListItemIcon>
-          <CategoryIcon />
-        </ListItemIcon>
-        <ListItemText primary="View Materials" />
-      </ListItemButton>
-      {/* <Link
-          underline='none'
-          color='inherit'
-          variant='inherit'
-          href='***PUT LINK HERE***'
-        >
-          <ListItemButton>
-            <ListItemIcon>
-              <FileUploadIcon />
-            </ListItemIcon>
-            <ListItemText primary='Upload...' />
-          </ListItemButton>
-        </Link> */}
+      <Link href={ROUTES.VIEW_MATERIALS}>
+        <ListItemButton selected={route === ROUTES.VIEW_MATERIALS}>
+          <ListItemIcon>
+            <CategoryIcon />
+          </ListItemIcon>
+          <ListItemText primary="View Materials" />
+        </ListItemButton>
+      </Link>
     </>
   );
 };

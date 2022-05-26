@@ -1,8 +1,5 @@
-import {
-  styled,
-  AppBar as MuiAppBar,
-  AppBarProps as MuiAppBarProps,
-} from '@mui/material';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { styled } from '@mui/material/styles';
 
 export const drawerWidth: number = 240;
 

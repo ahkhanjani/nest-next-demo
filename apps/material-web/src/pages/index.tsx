@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-// types
-import { Pathnames } from 'types';
+// routes
+import ROUTES from 'routes';
 
 const Index: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(Pathnames.DASHBOARD);
+    router.push(ROUTES.VIEW_MATERIALS);
   }, []);
 
   return <></>;

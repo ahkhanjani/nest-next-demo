@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useLayoutEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 // mui
@@ -16,8 +16,8 @@ import { useLoginMutation } from 'graphql/generated';
 import { toErrorMap } from '~utils/toErrorMap';
 // auth
 import { AuthContext } from 'auth/AuthProvider';
-// types
-import { Pathnames } from 'types';
+// routes
+import ROUTES from 'routes';
 
 const LoginContainer: React.FC = () => {
   const router = useRouter();
@@ -37,8 +37,8 @@ const LoginContainer: React.FC = () => {
   });
 
   // if user already exists redirect to dashboard
-  useEffect(() => {
-    if (context.user) router.push(Pathnames.DASHBOARD);
+  useLayoutEffect(() => {
+    if (context.user) router.push(ROUTES.VIEW_MATERIALS);
   }, [context.user, router]);
 
   async function handleSubmit() {

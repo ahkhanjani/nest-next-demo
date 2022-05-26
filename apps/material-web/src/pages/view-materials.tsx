@@ -1,7 +1,13 @@
 import { NextPage } from 'next';
-import MaterialViewerContainer from 'containers/MaterialViewerContainer';
+// containers
+import DashboardLayout from 'containers/layouts/DashboardLayout';
+import MaterialViewerContainer from 'containers/pages/MaterialViewerContainer';
 
-const DashboardPage: NextPage = () => {
-  return <MaterialViewerContainer />;
+const ViewMaterialsPage: NextPage = () => {
+  return (
+    <DashboardLayout>
+      <MaterialViewerContainer />
+    </DashboardLayout>
+  );
 };
-export default DashboardPage;
+export default ViewMaterialsPage;

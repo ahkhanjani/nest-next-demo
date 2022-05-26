@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, PropsWithChildren } from 'react';
 import { useRouter } from 'next/router';
 // mui
 import Box from '@mui/material/Box';
@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import Container from '@mui/material/Container';
 // - icons
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -15,10 +16,12 @@ import Drawer from './components/Drawer';
 import DrawerList from './components/DrawerList';
 // auth
 import { AuthContext } from 'auth/AuthProvider';
-// types
-import { Pathnames } from 'types';
+// routes
+import ROUTES from 'routes';
 
-const DashboardContainer: React.FC = () => {
+const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
+  children,
+}) => {
   const router = useRouter();
 
   //
@@ -42,7 +45,7 @@ const DashboardContainer: React.FC = () => {
     function checkLogin() {
       // if not logged in, go to login page
       if (context.user === undefined) {
-        router.push(Pathnames.LOGIN);
+        router.push(ROUTES.LOGIN);
         return;
       }
 
@@ -128,6 +131,8 @@ const DashboardContainer: React.FC = () => {
         }}
       >
         <Toolbar />
+
+        <Container sx={{ mt: 4 }}>{children}</Container>
       </Box>
     </Box>
   );

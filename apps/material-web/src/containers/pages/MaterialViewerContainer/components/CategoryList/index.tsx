@@ -8,7 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 // - icons
 import EditIcon from '@mui/icons-material/Edit';
 // types
-import { PathCategory } from 'containers/MaterialViewerContainer/types';
+import { PathCategory } from '../../types';
 // gql
 import { useGetCategoriesPaginateQuery } from 'graphql/generated';
 // cmp
