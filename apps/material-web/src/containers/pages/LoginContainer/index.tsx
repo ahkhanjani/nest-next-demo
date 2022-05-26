@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // gql
 import { useLoginMutation } from 'graphql/generated';
 // utils
-import { toErrorMap } from '~utils/toErrorMap';
+import { utilToErrorMap } from '../../../../../../libs/util/to-error-map/src';
 // auth
 import { AuthContext } from 'auth/AuthProvider';
 // routes
@@ -46,7 +46,7 @@ const LoginContainer: React.FC = () => {
     const { data, errors } = await login({ variables: formik.values });
     // pass errors to formik
     if (data?.login.errors) {
-      formik.setErrors(toErrorMap(data.login.errors));
+      formik.setErrors(utilToErrorMap(data.login.errors));
       return;
     }
 

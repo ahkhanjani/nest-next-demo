@@ -1,0 +1,11 @@
+mutation CreatePreReg($email: String!) {
+  createPreReg(input: { email: $email }) {
+    email {
+      id
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
