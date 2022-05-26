@@ -17,12 +17,6 @@ export type Scalars = {
   DateTime: any;
 };
 
-export type CategorySchemaResponse = {
-  __typename?: 'CategorySchemaResponse';
-  error?: Maybe<Scalars['String']>;
-  schema?: Maybe<Scalars['String']>;
-};
-
 export type CreateCategoryInput = {
   parentId?: InputMaybe<Scalars['ID']>;
   title: Scalars['String'];
@@ -179,7 +173,6 @@ export type Query = {
   allMaterials: Array<Material>;
   categoriesByParentId: Array<MaterialCategory>;
   categoriesPaginate: PaginateResponse;
-  categorySchema: CategorySchemaResponse;
   getHello: Scalars['String'];
   materialById: Material;
   materialSchemaArray: Scalars['String'];
@@ -321,11 +314,6 @@ export type GetCategoriesByParentIdQueryVariables = Exact<{
 
 export type GetCategoriesByParentIdQuery = { __typename?: 'Query', categoriesByParentId: Array<{ __typename?: 'MaterialCategory', id: string, title: string }> };
 
-export type GetCategorySchemaQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCategorySchemaQuery = { __typename?: 'Query', categorySchema: { __typename?: 'CategorySchemaResponse', schema?: string | null, error?: string | null } };
-
 export type GetMaterialSchemaArrayQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -384,6 +372,21 @@ export type GetMaterialsPaginateQueryVariables = Exact<{
 
 
 export type GetMaterialsPaginateQuery = { __typename?: 'Query', materialsPaginate: { __typename?: 'MaterialPaginateResponse', pagesCount: number, materials: Array<{ __typename?: 'Material', id: string, title: string }> } };
+
+export type CreatePreRegMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type CreatePreRegMutation = { __typename?: 'Mutation', createPreReg: { __typename?: 'PreRegResponse', email?: { __typename?: 'PreRegEmail', id: string } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+
+export type CreateUserMutationVariables = Exact<{
+  username: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'UserResponse', user?: { __typename?: 'User', id: string } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
 
 export const LoginDocument = gql`
@@ -611,41 +614,6 @@ export function useGetCategoriesByParentIdLazyQuery(baseOptions?: Apollo.LazyQue
 export type GetCategoriesByParentIdQueryHookResult = ReturnType<typeof useGetCategoriesByParentIdQuery>;
 export type GetCategoriesByParentIdLazyQueryHookResult = ReturnType<typeof useGetCategoriesByParentIdLazyQuery>;
 export type GetCategoriesByParentIdQueryResult = Apollo.QueryResult<GetCategoriesByParentIdQuery, GetCategoriesByParentIdQueryVariables>;
-export const GetCategorySchemaDocument = gql`
-    query GetCategorySchema {
-  categorySchema {
-    schema
-    error
-  }
-}
-    `;
-
-/**
- * __useGetCategorySchemaQuery__
- *
- * To run a query within a React component, call `useGetCategorySchemaQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCategorySchemaQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCategorySchemaQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetCategorySchemaQuery(baseOptions?: Apollo.QueryHookOptions<GetCategorySchemaQuery, GetCategorySchemaQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCategorySchemaQuery, GetCategorySchemaQueryVariables>(GetCategorySchemaDocument, options);
-      }
-export function useGetCategorySchemaLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategorySchemaQuery, GetCategorySchemaQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCategorySchemaQuery, GetCategorySchemaQueryVariables>(GetCategorySchemaDocument, options);
-        }
-export type GetCategorySchemaQueryHookResult = ReturnType<typeof useGetCategorySchemaQuery>;
-export type GetCategorySchemaLazyQueryHookResult = ReturnType<typeof useGetCategorySchemaLazyQuery>;
-export type GetCategorySchemaQueryResult = Apollo.QueryResult<GetCategorySchemaQuery, GetCategorySchemaQueryVariables>;
 export const GetMaterialSchemaArrayDocument = gql`
     query GetMaterialSchemaArray {
   materialSchemaArray
@@ -937,3 +905,82 @@ export function useGetMaterialsPaginateLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type GetMaterialsPaginateQueryHookResult = ReturnType<typeof useGetMaterialsPaginateQuery>;
 export type GetMaterialsPaginateLazyQueryHookResult = ReturnType<typeof useGetMaterialsPaginateLazyQuery>;
 export type GetMaterialsPaginateQueryResult = Apollo.QueryResult<GetMaterialsPaginateQuery, GetMaterialsPaginateQueryVariables>;
+export const CreatePreRegDocument = gql`
+    mutation CreatePreReg($email: String!) {
+  createPreReg(input: {email: $email}) {
+    email {
+      id
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+export type CreatePreRegMutationFn = Apollo.MutationFunction<CreatePreRegMutation, CreatePreRegMutationVariables>;
+
+/**
+ * __useCreatePreRegMutation__
+ *
+ * To run a mutation, you first call `useCreatePreRegMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreatePreRegMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createPreRegMutation, { data, loading, error }] = useCreatePreRegMutation({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useCreatePreRegMutation(baseOptions?: Apollo.MutationHookOptions<CreatePreRegMutation, CreatePreRegMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreatePreRegMutation, CreatePreRegMutationVariables>(CreatePreRegDocument, options);
+      }
+export type CreatePreRegMutationHookResult = ReturnType<typeof useCreatePreRegMutation>;
+export type CreatePreRegMutationResult = Apollo.MutationResult<CreatePreRegMutation>;
+export type CreatePreRegMutationOptions = Apollo.BaseMutationOptions<CreatePreRegMutation, CreatePreRegMutationVariables>;
+export const CreateUserDocument = gql`
+    mutation CreateUser($username: String!, $password: String!) {
+  createUser(input: {username: $username, password: $password}) {
+    user {
+      id
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+export type CreateUserMutationFn = Apollo.MutationFunction<CreateUserMutation, CreateUserMutationVariables>;
+
+/**
+ * __useCreateUserMutation__
+ *
+ * To run a mutation, you first call `useCreateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserMutation, { data, loading, error }] = useCreateUserMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *      password: // value for 'password'
+ *   },
+ * });
+ */
+export function useCreateUserMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserMutation, CreateUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, options);
+      }
+export type CreateUserMutationHookResult = ReturnType<typeof useCreateUserMutation>;
+export type CreateUserMutationResult = Apollo.MutationResult<CreateUserMutation>;
+export type CreateUserMutationOptions = Apollo.BaseMutationOptions<CreateUserMutation, CreateUserMutationVariables>;
