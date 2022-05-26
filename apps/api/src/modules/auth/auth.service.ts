@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
 import { UsersService } from '../user/users.service';
 import { verify } from 'argon2';
-import { FieldError } from '../../app/interfaces/field-error.interface';
+import FieldError from '../../../../../libs/nest/interface/general/field-error.interface';
 import { User } from '../user/interfaces/user.interface';
 import { UserResponse } from '../user/dto/user-response.dto';
 
@@ -11,16 +11,16 @@ import { UserResponse } from '../user/dto/user-response.dto';
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
-    private readonly jwtService: JwtService,
+    private readonly jwtService: JwtService
   ) {}
 
   async validateLogin(
     username: string,
-    password: string,
+    password: string
   ): Promise<UserResponse> {
     const errors: FieldError[] = [];
     const { user }: UserResponse = await this.usersService.findOneByUsername(
-      username,
+      username
     );
 
     if (user) {
