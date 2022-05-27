@@ -33,19 +33,19 @@ fullmoon/
 
 # Dev
 
-- API:
+- Watch API:
 
 ```bash
 pnpm exec nx serve api
 ```
 
-- Main Web:
+- Watch Main Web:
 
 ```bash
 pnpm exec nx serve main-web
 ```
 
-- Material Web:
+- Watch Material Web:
 
 ```bash
 pnpm exec nx serve material-web
