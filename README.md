@@ -1,4 +1,4 @@
-__VSCode Extension for Nx:__ nrwl.angular-console
+__VSCode Extension for Nx:__ `nrwl.angular-console`
 
 # Bootstrap
 
