@@ -33,6 +33,8 @@ fullmoon/
 
 # Dev
 
+## Start in watch mode
+
 - Watch API:
 
 ```bash
