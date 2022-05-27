@@ -7,13 +7,13 @@ class Material {
   readonly createdAt: Date;
 
   @Prop()
-  readonly type: MaterialTypePolicy;
+  readonly type: string;
 
   @Prop()
   readonly title: string;
 
   @Prop()
-  readonly status: MaterialStatusPolicy;
+  readonly status: string;
 
   @Prop()
   readonly category: string[];

@@ -84,6 +84,7 @@ specifiers:
   nx: 14.1.7
   passport: ^0.5.2
   passport-facebook: ^3.0.0
+  passport-google-oauth20: ^2.0.0
   passport-jwt: ^4.0.0
   passport-local: ^1.0.0
   prettier: ^2.5.1
@@ -141,6 +142,7 @@ dependencies:
   mongoose-unique-validator: 3.0.0_mongoose@6.3.4
   passport: 0.5.3
   passport-facebook: 3.0.0
+  passport-google-oauth20: 2.0.0
   passport-jwt: 4.0.0
   passport-local: 1.0.0
   react: 18.1.0
@@ -11647,6 +11649,13 @@ packages:
 
   /passport-facebook/3.0.0:
     resolution: {integrity: sha512-K/qNzuFsFISYAyC1Nma4qgY/12V3RSLFdFVsPKXiKZt434wOvthFW1p7zKa1iQihQMRhaWorVE1o3Vi1o+ZgeQ==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      passport-oauth2: 1.6.1
+    dev: false
+
+  /passport-google-oauth20/2.0.0:
+    resolution: {integrity: sha512-KSk6IJ15RoxuGq7D1UKK/8qKhNfzbLeLrG3gkLZ7p4A6DBCcv7xpyQwuXtWdpyR0+E0mwkpjY1VfPOhxQrKzdQ==}
     engines: {node: '>= 0.4.0'}
     dependencies:
       passport-oauth2: 1.6.1

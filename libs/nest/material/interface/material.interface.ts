@@ -11,13 +11,13 @@ export class Material {
   readonly createdAt: Date;
 
   @Field()
-  readonly type: MaterialTypePolicy;
+  readonly type: string;
 
   @Field()
   readonly title: string;
 
   @Field()
-  readonly status: MaterialStatusPolicy;
+  readonly status: string;
 
   @Field(() => [ID])
   readonly category: string[];
