@@ -3,9 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { argon2id, hash } from 'argon2';
 // types
-import { User, UserModel } from './interfaces/user.interface';
-import { UserResponse } from './dto/user-response.dto';
-import { CreateUserInput } from './dto/create-user-input.dto';
+import { User, UserModel } from '@fm/nest/user/interface';
+import { UserResponse, CreateUserInput } from '@fm/nest/user/dto';
 
 @Injectable()
 export class UsersService {

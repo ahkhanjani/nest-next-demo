@@ -1,9 +1,8 @@
 import { Args, Resolver, Mutation, Subscription } from '@nestjs/graphql';
-import { PreRegEmailsService } from './pre-reg-email.service';
 import { PubSub } from 'graphql-subscriptions';
-import { CreatePreRegInput } from './dto/create-pre-reg-input.dto';
-import { PreRegEmail } from './interfaces/pre-reg-email.interface';
-import { PreRegResponse } from './dto/pre-reg-response.dto';
+import { PreRegEmailsService } from './pre-reg-email.service';
+import { PreRegEmail } from '@fm/nest/pre-reg-email/interface';
+import { PreRegResponse, CreatePreRegInput } from '@fm/nest/pre-reg-email/dto';
 
 const pubSub = new PubSub();
 
@@ -21,7 +20,7 @@ export class PreRegEmailsResolver {
 
   @Mutation(() => PreRegResponse)
   async createPreReg(
-    @Args('input') input: CreatePreRegInput,
+    @Args('input') input: CreatePreRegInput
   ): Promise<PreRegResponse> {
     const res = await this.preRegEmailsService.create(input);
 

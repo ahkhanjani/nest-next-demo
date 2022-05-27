@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-// dto
-import { CreateCategoryInput } from './dto/create-category-input.dto';
-import { UpdateCategoryInput } from './dto/update-category-input.dto';
-import { MaterialCategoryResponse } from './dto/material-category-response.dto';
-import { UpdateMaterialCategoryResponse } from './dto/update-response.dto';
-// interfaces
+import {
+  UpdateMaterialCategoryResponse,
+  MaterialCategoryResponse,
+  UpdateCategoryInput,
+  CreateCategoryInput,
+  PaginateInput,
+  PaginateResponse,
+} from '@fm/nest/material-categoy/dto';
 import {
   MaterialCategory,
   MaterialCategoryModel,
-} from './interfaces/material-category.interface';
-import { PaginateInput } from './dto/paginate-input.dto';
-import { PaginateResponse } from './dto/paginate-response.dto';
+} from '@fm/nest/material-categoy/interface';
 
 @Injectable()
 export class MaterialCategoriesService {

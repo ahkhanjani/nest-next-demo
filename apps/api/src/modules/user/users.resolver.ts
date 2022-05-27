@@ -1,9 +1,8 @@
 import { Args, Resolver, Query, Mutation, Subscription } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { PubSub } from 'graphql-subscriptions';
-import { CreateUserInput } from './dto/create-user-input.dto';
-import { User } from './interfaces/user.interface';
-import { UserResponse } from './dto/user-response.dto';
+import { User } from '@fm/nest/user/interface';
+import { CreateUserInput, UserResponse } from '@fm/nest/user/dto';
 
 const pubSub = new PubSub();
 
@@ -36,7 +35,7 @@ export class UsersResolver {
 
   @Mutation(() => UserResponse)
   async createUser(
-    @Args('input') input: CreateUserInput,
+    @Args('input') input: CreateUserInput
   ): Promise<UserResponse> {
     const res = await this.usersService.create(input);
 

@@ -1,10 +1,8 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-// types
-import { PreRegEmailModel } from './interfaces/pre-reg-email.interface';
-import { PreRegResponse } from './dto/pre-reg-response.dto';
-import { CreatePreRegInput } from './dto/create-pre-reg-input.dto';
+import { PreRegEmailModel } from '@fm/nest/pre-reg-email/interface';
+import { CreatePreRegInput, PreRegResponse } from '@fm/nest/pre-reg-email/dto';
 
 @Injectable()
 export class PreRegEmailsService {

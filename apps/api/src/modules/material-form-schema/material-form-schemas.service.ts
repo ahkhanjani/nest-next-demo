@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { materialFormSchemaArray } from './schemas';
+import { materialFormSchemaArray } from '@fm/nest/material-form-schema/assets/schemas';
 
 @Injectable()
 export class MaterialFormSchemasService {

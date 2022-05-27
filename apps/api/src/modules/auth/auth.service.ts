@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
-import { UsersService } from '../user/users.service';
 import { verify } from 'argon2';
-import FieldError from '../../../../../libs/nest/interface/general/field-error.interface';
-import { User } from '../user/interfaces/user.interface';
-import { UserResponse } from '../user/dto/user-response.dto';
+import { UsersService } from '../user/users.service';
+import { FieldError } from '@fm/field-error';
+import { User } from '@fm/nest/user/interface';
+import { UserResponse } from '@fm/nest/user/dto';
 
 @Injectable()
 export class AuthService {

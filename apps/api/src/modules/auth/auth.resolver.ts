@@ -1,25 +1,25 @@
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
-// inputs
-import { LoginInput } from 'src/modules/auth/inputs/login.input';
+// dto
+import { LoginInput, TokenResponse } from '@fm/nest/auth/dto';
+// module
 import { AuthService } from './auth.service';
-import { TokenResponse } from './interfaces/token-response.interface';
 
 @Resolver()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
-  //! ________________ query ________________
-
-  //! ________________ mutation ________________
+  //
+  // ─── MUTATION ───────────────────────────────────────────────────────────────────
+  //
 
   @Mutation(() => TokenResponse)
   async login(
-    @Args('input') { username, password }: LoginInput,
+    @Args('input') { username, password }: LoginInput
   ): Promise<TokenResponse> {
     try {
       const { user, errors } = await this.authService.validateLogin(
         username,
-        password,
+        password
       );
 
       if (errors) return { errors };

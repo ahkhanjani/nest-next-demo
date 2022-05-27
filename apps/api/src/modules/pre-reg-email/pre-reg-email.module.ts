@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PreRegEmailSchema } from './models/pre-reg-email.schema';
 import { PreRegEmailsResolver } from './pre-reg-email.resolver';
 import { PreRegEmailsService } from './pre-reg-email.service';
-import { IsEmailAlreadyExistingConstraint } from './validators';
+import { PreRegEmailSchema } from '@fm/nest/pre-reg-email/model';
+import { IsEmailAlreadyExistingConstraint } from '@fm/nest/pre-reg-email/validator';
 
 @Module({
   imports: [

@@ -1,0 +1,15 @@
+export type MaterialTypePolicy =
+  | 'Simple Text'
+  | 'Multiple Choices'
+  | 'Information Box'
+  | 'Information Card'
+  | 'Match Sentence w/ Sentence'
+  | 'Match Sentence w/ Image'
+  | 'Stressed Syllable'
+  | 'Intonation'
+  | 'Correct the Mistake in Sentence'
+  | 'Order Words'
+  | 'Word in Correct Sentence'
+  | 'Order Sentences'
+  | 'Correct the Word'
+  | 'Sentence in Correct Category';

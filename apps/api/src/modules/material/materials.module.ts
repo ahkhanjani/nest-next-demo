@@ -3,8 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 // module
 import { MaterialsResolver } from './materials.resolver';
 import { MaterialsService } from './materials.service';
-import { MaterialSchema } from './models/material.schema';
-// imports
+import { MaterialSchema } from '@fm/nest/material/model';
 import { MaterialFormSchemasModule } from '../material-form-schema/material-form-schemas.module';
 import { MaterialCategoriesModule } from '../material-category/material-categories.module';
 

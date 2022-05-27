@@ -3,14 +3,16 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 // modules
 import { MaterialsService } from './materials.service';
 // type
-import { Material } from './interfaces/material.interface';
-import { CreateMaterialsInput } from './dto/create-material-input.dto';
-import { UpdateMaterialInput } from './dto/update-material-input.dto';
-import { CreateMaterialResponse as CreateMaterialsResponse } from './dto/create-material-response.dto';
-import { UpdateMaterialResponse } from './dto/update-material-response.dto';
-import { GetMaterialsByCategoryIdInput } from './dto/get-materials-by-categoryId-input.dto';
-import { MaterialPaginateResponse } from './dto/paginate-response.dto';
-import { MaterialPaginateInput } from './dto/paginate-input.dto';
+import { Material } from '@fm/nest/material/interface';
+import {
+  CreateMaterialsInput,
+  GetMaterialsByCategoryIdInput,
+  MaterialPaginateInput,
+  MaterialPaginateResponse,
+  UpdateMaterialInput,
+  UpdateMaterialResponse,
+  CreateMaterialsResponse,
+} from '@fm/nest/material/dto';
 
 @Resolver()
 export class MaterialsResolver {
@@ -23,7 +25,7 @@ export class MaterialsResolver {
   @Query(() => MaterialPaginateResponse, { name: 'materialsPaginate' })
   async getMaterials_paginate(
     @Args('input', { type: () => MaterialPaginateInput })
-    { limit, page, categoryId }: MaterialPaginateInput,
+    { limit, page, categoryId }: MaterialPaginateInput
   ): Promise<MaterialPaginateResponse> {
     const res = await this.materialsService.paginate({
       categoryId,
@@ -51,7 +53,7 @@ export class MaterialsResolver {
    */
   @Query(() => [Material], { name: 'materialsByCategoryId' })
   async getMaterialsByCategoryId(
-    @Args('input') { categoryId }: GetMaterialsByCategoryIdInput,
+    @Args('input') { categoryId }: GetMaterialsByCategoryIdInput
   ): Promise<Material[]> {
     const materials = await this.materialsService.findByCategoryId(categoryId);
     return materials;
@@ -59,7 +61,7 @@ export class MaterialsResolver {
 
   @Query(() => Boolean, { name: 'materialTitleExists' })
   async checkMaterialTitleExists(
-    @Args('title') title: string,
+    @Args('title') title: string
   ): Promise<boolean> {
     return await this.materialsService.checkTitleExists(title);
   }
@@ -70,7 +72,7 @@ export class MaterialsResolver {
 
   @Mutation(() => CreateMaterialsResponse)
   async createMaterials(
-    @Args('input') { materialArray, category }: CreateMaterialsInput,
+    @Args('input') { materialArray, category }: CreateMaterialsInput
   ): Promise<CreateMaterialsResponse> {
     const res = await this.materialsService.createMany(materialArray, category);
     return res;
@@ -79,14 +81,14 @@ export class MaterialsResolver {
   @Mutation(() => UpdateMaterialResponse)
   async updateMaterial(
     @Args('input')
-    { materialId, category, title, type, formData }: UpdateMaterialInput,
+    { materialId, category, title, type, formData }: UpdateMaterialInput
   ): Promise<UpdateMaterialResponse> {
     return await this.materialsService.updateOne(
       materialId,
       category,
       title,
       type,
-      formData,
+      formData
     );
   }
 }

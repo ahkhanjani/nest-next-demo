@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from './models/user.schema';
 import { UsersResolver } from './users.resolver';
 import { UsersService } from './users.service';
-import { IsUserAlreadyExistingConstraint } from './validators';
+import { UserSchema } from '@fm/nest/user/model';
+import { IsUserAlreadyExistingConstraint } from '@fm/nest/user/validator';
 
 @Module({
   imports: [

@@ -2,11 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 // types
-import { Material, MaterialModel } from './interfaces/material.interface';
-import { CreateMaterialResponse } from './dto/create-material-response.dto';
-import { UpdateMaterialResponse } from './dto/update-material-response.dto';
-import { MaterialPaginateResponse } from './dto/paginate-response.dto';
-import { MaterialPaginateInput } from './dto/paginate-input.dto';
+import { Material, MaterialModel } from '@fm/nest/material/interface';
+import {
+  CreateMaterialsResponse,
+  MaterialPaginateInput,
+  MaterialPaginateResponse,
+  UpdateMaterialResponse,
+} from '@fm/nest/material/dto';
 
 @Injectable()
 export class MaterialsService {
@@ -71,7 +73,7 @@ export class MaterialsService {
   async createMany(
     materialArray: string[],
     category: string[]
-  ): Promise<CreateMaterialResponse> {
+  ): Promise<CreateMaterialsResponse> {
     if (!materialArray.length) return { message: 'Error: Empty list.' };
     const createdMaterials = await Promise.all(
       materialArray.map(async (strMaterial) => {
