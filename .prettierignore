@@ -2,3 +2,5 @@
 
 /dist
 /coverage
+graphql.schema.json
+pnpm-lock*.yaml

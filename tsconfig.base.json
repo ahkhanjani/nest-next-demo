@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@fm/field-error": ["libs/nest/_general/field-error/index.ts"],
+      "@fm/to-error-map": ["libs/util/to-error-map/src/index.ts"],
+      "@fm/nest/*": ["libs/nest/*"],
+      "@api/*": ["apps/api/src/modules/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
