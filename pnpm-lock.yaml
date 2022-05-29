@@ -40,7 +40,6 @@ specifiers:
   '@rjsf/material-ui': ^4.1.1
   '@testing-library/react': 13.1.1
   '@types/express': ^4.17.13
-  '@types/jest': 27.4.1
   '@types/json-schema': ^7.0.11
   '@types/multer': ^1.4.7
   '@types/node': 16.11.7
@@ -79,7 +78,7 @@ specifiers:
   graphql-tools: ^8.2.8
   jest: 27.5.1
   jwt-decode: ^3.1.2
-  mongoose: ^6.3.2
+  mongoose: ^6.3.4
   mongoose-unique-validator: ^3.0.0
   nx: 14.1.7
   passport: ^0.5.2
@@ -178,7 +177,6 @@ devDependencies:
   '@nrwl/workspace': 14.1.7_rqewt5og66hvojoiyg3twdwkay
   '@testing-library/react': 13.1.1_ef5jwxihqo6n7gxfmzogljlgcm
   '@types/express': 4.17.13
-  '@types/jest': 27.4.1
   '@types/json-schema': 7.0.11
   '@types/multer': 1.4.7
   '@types/node': 16.11.7
@@ -209,7 +207,7 @@ devDependencies:
   react-test-renderer: 18.1.0_react@18.1.0
   sass: 1.43.2
   supertest: 6.2.3
-  ts-jest: 27.1.4_xy7plhubtw7x4azzbfoj5rveca
+  ts-jest: 27.1.4_uolg4ps4lyqnjobmje4jcvrn6u
   ts-node: 9.1.1_typescript@4.6.4
   tsconfig-paths: 3.14.1
   typescript: 4.6.4
@@ -5049,13 +5047,6 @@ packages:
     resolution: {integrity: sha512-c3mAZEuK0lvBp8tmuL74XRKn1+y2dcwOUpH7x4WrF6gk1GIgiluDRgMYQtw2OFcBvAJWlt6ASU3tSqxp0Uu0Aw==}
     dependencies:
       '@types/istanbul-lib-report': 3.0.0
-
-  /@types/jest/27.4.1:
-    resolution: {integrity: sha512-23iPJADSmicDVrWk+HT58LMJtzLAnB2AgIzplQuq/bSrGaxCrlvRFjGbXmamnnk/mAmCdLStiGqggu28ocUyiw==}
-    dependencies:
-      jest-matcher-utils: 27.5.1
-      pretty-format: 27.5.1
-    dev: true
 
   /@types/js-yaml/4.0.5:
     resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
@@ -13767,7 +13758,7 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /ts-jest/27.1.4_xy7plhubtw7x4azzbfoj5rveca:
+  /ts-jest/27.1.4_uolg4ps4lyqnjobmje4jcvrn6u:
     resolution: {integrity: sha512-qjkZlVPWVctAezwsOD1OPzbZ+k7zA5z3oxII4dGdZo5ggX/PL7kvwTM0pXTr10fAtbiVpJaL3bWd502zAhpgSQ==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     hasBin: true
@@ -13788,7 +13779,6 @@ packages:
       esbuild:
         optional: true
     dependencies:
-      '@types/jest': 27.4.1
       babel-jest: 27.5.1
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
