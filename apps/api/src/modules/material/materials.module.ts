@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MaterialsResolver } from './materials.resolver';
 import { MaterialsService } from './materials.service';
 import { MaterialSchema } from '@fm/nest/material/model';
+import { Material } from '@fm/nest/material/interface';
 import { MaterialFormSchemasModule } from '../material-form-schema/material-form-schemas.module';
 import { MaterialCategoriesModule } from '../material-category/material-categories.module';
 
@@ -13,7 +14,7 @@ import { MaterialCategoriesModule } from '../material-category/material-categori
     MaterialCategoriesModule,
     MongooseModule.forFeatureAsync([
       {
-        name: 'materials',
+        name: Material.name,
         useFactory: () => {
           const schema = MaterialSchema;
           return schema;
