@@ -36,7 +36,7 @@ export class UsersService {
 
   async findOneByUsername(username: string): Promise<UserResponse> {
     const user = await this.userModel
-      .findOne({ username })
+      .findById({ username })
       .select('+password')
       .exec();
 

@@ -12,7 +12,7 @@ export class PreRegEmailsService {
   ) {}
 
   async checkExisting(email: string): Promise<boolean> {
-    const preReg = await this.preRegModel.findOne({ email }).exec();
+    const preReg = await this.preRegModel.findById({ email }).exec();
     if (preReg) return true;
     return false;
   }
