@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-// types
-import { Material, MaterialModel } from '@fm/nest/material/interface';
+import {
+  CreatedMaterial,
+  Material,
+  MaterialModel,
+  MaterialDataObject,
+} from '@fm/nest/material/interface';
 import {
   CreateMaterialsResponse,
   MaterialPaginateInput,
@@ -13,7 +17,7 @@ import {
 @Injectable()
 export class MaterialsService {
   constructor(
-    @InjectModel('materials')
+    @InjectModel(Material.name)
     private readonly materialModel: Model<MaterialModel>
   ) {}
 
@@ -31,8 +35,7 @@ export class MaterialsService {
       .find({ category: categoryId })
       .sort([['_id', -1]])
       .skip(offset)
-      .limit(limit)
-      .exec();
+      .limit(limit);
     const materialsCount: number = await this.materialModel.count({
       categoryId,
     });
@@ -41,19 +44,20 @@ export class MaterialsService {
     return { materials, pagesCount };
   }
 
-  async findOneById(id: string): Promise<Material> {
-    return await this.materialModel.findOne({ id }).exec();
+  async findOne(id: string): Promise<Material> {
+    const material = await this.materialModel.findById(id);
+    return material;
   }
 
   async findByCategoryId(categoryId: string): Promise<Material[]> {
-    const found = await this.materialModel
-      .find({ category: categoryId })
-      .exec();
+    const found: Material[] = await this.materialModel.find({
+      category: categoryId,
+    });
     return found;
   }
 
   async findAll(): Promise<Material[]> {
-    return await this.materialModel.find().exec();
+    return await this.materialModel.find();
   }
 
   /**
@@ -62,8 +66,9 @@ export class MaterialsService {
    * @returns {boolean} `true` if title already exists.
    */
   async checkTitleExists(title: string): Promise<boolean> {
-    const existingMaterial = await this.materialModel.findOne({ title }).exec();
-    return Boolean(existingMaterial);
+    const material = await this.materialModel.exists({ title });
+    const exists = Boolean(material);
+    return exists;
   }
 
   //
@@ -71,35 +76,35 @@ export class MaterialsService {
   //
 
   async createMany(
-    materialArray: string[],
-    category: string[]
+    category: string[],
+    materialDataArray: MaterialDataObject[]
   ): Promise<CreateMaterialsResponse> {
-    if (!materialArray.length) return { message: 'Error: Empty list.' };
-    const createdMaterials = await Promise.all(
-      materialArray.map(async (strMaterial) => {
-        // parse the material body
-        const material = JSON.parse(strMaterial);
-        const { type, title, status, data } = material;
+    if (!materialDataArray.length) return { message: 'Error: Empty list.' };
 
-        // if name already exists return error
-        const existingTitle = await this.materialModel
-          .findOne({ title })
-          .exec();
-        if (existingTitle) return { message: 'Name already exists.' };
+    const createdMaterials: CreatedMaterial[] = await Promise.all(
+      materialDataArray.map(async (materialData) => {
+        const { title, ...rest } = materialData;
 
-        const createdMaterial = new this.materialModel({
-          type,
-          title,
-          status,
+        // if name already exists, return error.
+        const titleExists: boolean = await this.checkTitleExists(title);
+        if (titleExists)
+          return {
+            message: 'Name already exists.',
+            materialTitle: title,
+          };
+
+        const createdMaterial = await this.materialModel.create({
           category,
-          formData: data,
+          title,
+          ...rest,
         });
-
-        return await createdMaterial.save();
+        return { createdMaterial };
       })
     );
 
-    return { message: createdMaterials.toString() };
+    return {
+      createdMaterials,
+    };
   }
 
   async updateOne(

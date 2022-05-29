@@ -1,5 +1,5 @@
 // nest
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation, ID } from '@nestjs/graphql';
 // modules
 import { MaterialsService } from './materials.service';
 // type
@@ -22,27 +22,16 @@ export class MaterialsResolver {
   // ─── QUERY ──────────────────────────────────────────────────────────────────────
   //
 
-  @Query(() => MaterialPaginateResponse, { name: 'materialsPaginate' })
-  async getMaterials_paginate(
-    @Args('input', { type: () => MaterialPaginateInput })
-    { limit, page, categoryId }: MaterialPaginateInput
-  ): Promise<MaterialPaginateResponse> {
-    const res = await this.materialsService.paginate({
-      categoryId,
-      page,
-      limit,
-    });
-    return res;
+  @Query(() => Material, { name: 'material' })
+  async getMaterial(
+    @Args('id', { type: () => ID }) id: string
+  ): Promise<Material> {
+    return await this.materialsService.findOne(id);
   }
 
-  @Query(() => [Material], { name: 'allMaterials' })
-  async getAllMaterials(): Promise<Material[]> {
+  @Query(() => [Material], { name: 'materials' })
+  async getMaterials(): Promise<Material[]> {
     return await this.materialsService.findAll();
-  }
-
-  @Query(() => Material, { name: 'materialById' })
-  async getMaterialById(@Args('id') id: string): Promise<Material> {
-    return await this.materialsService.findOneById(id);
   }
 
   /**
@@ -66,15 +55,29 @@ export class MaterialsResolver {
     return await this.materialsService.checkTitleExists(title);
   }
 
+  @Query(() => MaterialPaginateResponse, { name: 'materialsPaginate' })
+  async getMaterials_paginate(
+    @Args('input', { type: () => MaterialPaginateInput })
+    { limit, page, categoryId }: MaterialPaginateInput
+  ): Promise<MaterialPaginateResponse> {
+    const res = await this.materialsService.paginate({
+      categoryId,
+      page,
+      limit,
+    });
+    return res;
+  }
+
   //
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //
 
   @Mutation(() => CreateMaterialsResponse)
   async createMaterials(
-    @Args('input') { materialArray, category }: CreateMaterialsInput
+    @Args('input')
+    { materialDataArray: materialArray, category }: CreateMaterialsInput
   ): Promise<CreateMaterialsResponse> {
-    const res = await this.materialsService.createMany(materialArray, category);
+    const res = await this.materialsService.createMany(category, materialArray);
     return res;
   }
 
