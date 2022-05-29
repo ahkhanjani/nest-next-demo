@@ -62,7 +62,7 @@ export class MaterialCategoriesService {
     input: CreateCategoryInput
   ): Promise<MaterialCategory> {
     const category = await this.materialCategoryModel
-      .findOne({ ...input })
+      .findById({ ...input })
       .exec();
 
     return category;
