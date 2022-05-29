@@ -6,9 +6,8 @@ import { MaterialsService } from './materials.service';
 import { Material } from '@fm/nest/material/interface';
 import {
   CreateMaterialsInput,
-  GetMaterialsByCategoryIdInput,
-  MaterialPaginateInput,
-  MaterialPaginateResponse,
+  MaterialsPaginateInput,
+  MaterialsPaginateResponse,
   UpdateMaterialInput,
   UpdateMaterialResponse,
   CreateMaterialsResponse,
@@ -23,28 +22,24 @@ export class MaterialsResolver {
   //
 
   @Query(() => Material, { name: 'material' })
-  async getMaterial(
-    @Args('id', { type: () => ID }) id: string
-  ): Promise<Material> {
-    return await this.materialsService.findOne(id);
+  async getMaterial(@Args({ type: () => ID }) id: string): Promise<Material> {
+    const material: Material = await this.materialsService.findOne(id);
+    return material;
   }
 
   @Query(() => [Material], { name: 'materials' })
   async getMaterials(): Promise<Material[]> {
-    return await this.materialsService.findAll();
+    const materials: Material[] = await this.materialsService.findAll();
+    return materials;
   }
 
-  /**
-   * Searchs for any material with the given category id.
-   * @param {{ categoryId: string }} input an object containing
-   * `categoryId` of GraphQL type `ID`
-   * @returns {Promise<Material[]>} An array of materials.
-   */
   @Query(() => [Material], { name: 'materialsByCategoryId' })
   async getMaterialsByCategoryId(
-    @Args('input') { categoryId }: GetMaterialsByCategoryIdInput
+    @Args({ type: () => ID }) categoryId: string
   ): Promise<Material[]> {
-    const materials = await this.materialsService.findByCategoryId(categoryId);
+    const materials: Material[] = await this.materialsService.findByCategoryId(
+      categoryId
+    );
     return materials;
   }
 
@@ -55,11 +50,11 @@ export class MaterialsResolver {
     return await this.materialsService.checkTitleExists(title);
   }
 
-  @Query(() => MaterialPaginateResponse, { name: 'materialsPaginate' })
-  async getMaterials_paginate(
-    @Args('input', { type: () => MaterialPaginateInput })
-    { limit, page, categoryId }: MaterialPaginateInput
-  ): Promise<MaterialPaginateResponse> {
+  @Query(() => MaterialsPaginateResponse)
+  async materialsPaginate(
+    @Args('input', { type: () => MaterialsPaginateInput })
+    { limit, page, categoryId }: MaterialsPaginateInput
+  ): Promise<MaterialsPaginateResponse> {
     const res = await this.materialsService.paginate({
       categoryId,
       page,

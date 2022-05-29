@@ -9,8 +9,8 @@ import {
 } from '@fm/nest/material/interface';
 import {
   CreateMaterialsResponse,
-  MaterialPaginateInput,
-  MaterialPaginateResponse,
+  MaterialsPaginateInput,
+  MaterialsPaginateResponse,
   UpdateMaterialResponse,
 } from '@fm/nest/material/dto';
 
@@ -29,7 +29,7 @@ export class MaterialsService {
     limit,
     page,
     categoryId,
-  }: MaterialPaginateInput): Promise<MaterialPaginateResponse> {
+  }: MaterialsPaginateInput): Promise<MaterialsPaginateResponse> {
     const offset: number = (page - 1) * limit;
     const materials: Material[] = await this.materialModel
       .find({ category: categoryId })

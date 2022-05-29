@@ -6,6 +6,8 @@ import { materialStub } from './stubs';
 import {
   CreateMaterialsInput,
   CreateMaterialsResponse,
+  MaterialsPaginateInput,
+  MaterialsPaginateResponse,
 } from '@fm/nest/material/dto';
 
 jest.mock('../materials.service.ts');
@@ -34,6 +36,10 @@ describe('MaterialsResolver', () => {
       expect(service).toBeDefined();
     });
   });
+
+  //
+  // ─── QUERY ──────────────────────────────────────────────────────────────────────
+  //
 
   describe('getMaterial', () => {
     describe('when getMaterial is called', () => {
@@ -70,6 +76,145 @@ describe('MaterialsResolver', () => {
       });
     });
   });
+
+  describe('getMaterialByCategoryId', () => {
+    describe('when getMaterialByCategoryId is called', () => {
+      let materials: Material[];
+
+      beforeEach(async () => {
+        materials = await resolver.getMaterialsByCategoryId(
+          materialStub().category[0]
+        );
+      });
+
+      it('then it should call materialsService', () => {
+        expect(service.findByCategoryId).toHaveBeenCalledWith(
+          materialStub().category[0]
+        );
+      });
+
+      it('then it should return materials', () => {
+        expect(materials).toEqual<Material[]>([materialStub()]);
+      });
+    });
+  });
+
+  describe('checkMaterialTitleExists', () => {
+    describe('when checkMaterialTitleExists is called', () => {
+      describe('when title exists', () => {
+        let exists: boolean;
+
+        beforeEach(async () => {
+          exists = await resolver.checkMaterialTitleExists(
+            materialStub().title
+          );
+        });
+
+        it('then it should call materialsService', () => {
+          expect(service.checkTitleExists).toHaveBeenCalledWith(
+            materialStub().title
+          );
+        });
+
+        it('then it should return true', () => {
+          expect(exists).toEqual<boolean>(true);
+        });
+      });
+
+      describe('when title does not exist', () => {
+        let exists: boolean;
+        const notTitle = `not-${materialStub().title}`;
+
+        beforeEach(async () => {
+          exists = await resolver.checkMaterialTitleExists(notTitle);
+        });
+
+        it('then it should call materialsService', () => {
+          expect(service.checkTitleExists).toHaveBeenCalledWith(notTitle);
+        });
+
+        it('then it should return false', () => {
+          expect(exists).toEqual<boolean>(false);
+        });
+      });
+    });
+  });
+
+  describe('materialsPaginate', () => {
+    describe('when materialsPaginate is called', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { id: _, ...restData } = materialStub();
+
+      describe('should get the first page', () => {
+        let response: MaterialsPaginateResponse;
+        const materialsPaginateDto: MaterialsPaginateInput = {
+          categoryId: materialStub().category[0],
+          limit: 2,
+          page: 1,
+        };
+
+        beforeEach(async () => {
+          response = await resolver.materialsPaginate(materialsPaginateDto);
+          console.log(response);
+        });
+
+        it('should call materialsService', () => {
+          expect(service.paginate).toHaveBeenCalledWith(materialsPaginateDto);
+          expect(service.paginate).toHaveBeenCalledTimes(1);
+        });
+
+        it('should return materials', () => {
+          expect(response).toEqual<MaterialsPaginateResponse>({
+            materials: [
+              {
+                id: 'someId3',
+                ...restData,
+              },
+              {
+                id: 'someId2',
+                ...restData,
+              },
+            ],
+            pagesCount: 2,
+          });
+        });
+      });
+
+      describe('should get the second page', () => {
+        let response: MaterialsPaginateResponse;
+        const materialsPaginateDto: MaterialsPaginateInput = {
+          categoryId: materialStub().category[0],
+          limit: 2,
+          page: 2,
+        };
+
+        beforeEach(async () => {
+          response = await resolver.materialsPaginate(materialsPaginateDto);
+        });
+
+        it('should call materialsService', () => {
+          expect(service.paginate).toHaveBeenCalledWith(materialsPaginateDto);
+          expect(service.paginate).toHaveBeenCalledTimes(1);
+        });
+
+        it('should return materials', () => {
+          expect(response).toEqual<MaterialsPaginateResponse>({
+            materials: [
+              {
+                id: 'someId1',
+                ...restData,
+              },
+            ],
+            pagesCount: 2,
+          });
+        });
+      });
+    });
+  });
+
+  //
+  // ─── MUTATION ───────────────────────────────────────────────────────────────────
+  //
 
   describe('createMaterials', () => {
     describe('when createMaterials is called', () => {
