@@ -1,6 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Document } from 'mongoose';
-import { MaterialStatusPolicy, MaterialTypePolicy } from '.';
 
 @ObjectType()
 export class Material {
