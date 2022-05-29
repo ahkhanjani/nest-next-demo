@@ -1,10 +1,11 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, ID, InputType } from '@nestjs/graphql';
+import { MaterialDataObject } from '../interface/material-data-object.interface';
 
 @InputType()
 export class CreateMaterialsInput {
-  @Field(() => [String])
-  readonly materialArray: string[];
+  @Field(() => [MaterialDataObject])
+  readonly materialDataArray: MaterialDataObject[];
 
-  @Field(() => [String])
+  @Field(() => [ID])
   readonly category: string[];
 }
