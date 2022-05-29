@@ -78,15 +78,9 @@ export class MaterialsResolver {
 
   @Mutation(() => UpdateMaterialResponse)
   async updateMaterial(
-    @Args('input')
-    { materialId, category, title, type, formData }: UpdateMaterialInput
+    @Args('dto')
+    dto: UpdateMaterialInput
   ): Promise<UpdateMaterialResponse> {
-    return await this.materialsService.updateOne(
-      materialId,
-      category,
-      title,
-      type,
-      formData
-    );
+    return await this.materialsService.updateOne(dto);
   }
 }

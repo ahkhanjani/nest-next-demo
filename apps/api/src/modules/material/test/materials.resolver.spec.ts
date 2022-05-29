@@ -1,13 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MaterialsService } from '../materials.service';
 import { MaterialsResolver } from '../materials.resolver';
-import { Material } from '@fm/nest/material/interface';
 import { materialStub } from './stubs';
+import { Material } from '@fm/nest/material/interface';
 import {
   CreateMaterialsInput,
   CreateMaterialsResponse,
   MaterialsPaginateInput,
   MaterialsPaginateResponse,
+  UpdateMaterialInput,
+  UpdateMaterialResponse,
 } from '@fm/nest/material/dto';
 
 jest.mock('../materials.service.ts');
@@ -23,6 +25,7 @@ describe('MaterialsResolver', () => {
 
     resolver = module.get<MaterialsResolver>(MaterialsResolver);
     service = module.get<MaterialsService>(MaterialsService);
+    jest.clearAllMocks();
   });
 
   describe('materialsResolver', () => {
@@ -49,11 +52,12 @@ describe('MaterialsResolver', () => {
         material = await resolver.getMaterial(materialStub().id);
       });
 
-      it('then it should call materialsService', () => {
+      it('should call materialsService', () => {
         expect(service.findOne).toHaveBeenCalledWith(materialStub().id);
+        expect(service.findOne).toHaveBeenCalledTimes(1);
       });
 
-      it('then it should return a material', () => {
+      it('should return a material', () => {
         expect(material).toEqual<Material>(materialStub());
       });
     });
@@ -67,11 +71,12 @@ describe('MaterialsResolver', () => {
         materials = await resolver.getMaterials();
       });
 
-      it('then it should call materialsService', () => {
+      it('should call materialsService', () => {
         expect(service.findAll).toHaveBeenCalled();
+        expect(service.findAll).toHaveBeenCalledTimes(1);
       });
 
-      it('then it should return materials', () => {
+      it('should return materials', () => {
         expect(materials).toEqual<Material[]>([materialStub()]);
       });
     });
@@ -87,13 +92,14 @@ describe('MaterialsResolver', () => {
         );
       });
 
-      it('then it should call materialsService', () => {
+      it('should call materialsService', () => {
         expect(service.findByCategoryId).toHaveBeenCalledWith(
           materialStub().category[0]
         );
+        expect(service.findByCategoryId).toHaveBeenCalledTimes(1);
       });
 
-      it('then it should return materials', () => {
+      it('should return materials', () => {
         expect(materials).toEqual<Material[]>([materialStub()]);
       });
     });
@@ -101,7 +107,7 @@ describe('MaterialsResolver', () => {
 
   describe('checkMaterialTitleExists', () => {
     describe('when checkMaterialTitleExists is called', () => {
-      describe('when title exists', () => {
+      describe('if title exists', () => {
         let exists: boolean;
 
         beforeEach(async () => {
@@ -110,18 +116,19 @@ describe('MaterialsResolver', () => {
           );
         });
 
-        it('then it should call materialsService', () => {
+        it('should call materialsService', () => {
           expect(service.checkTitleExists).toHaveBeenCalledWith(
             materialStub().title
           );
+          expect(service.checkTitleExists).toHaveBeenCalledTimes(1);
         });
 
-        it('then it should return true', () => {
+        it('should return true', () => {
           expect(exists).toEqual<boolean>(true);
         });
       });
 
-      describe('when title does not exist', () => {
+      describe('if title does not exist', () => {
         let exists: boolean;
         const notTitle = `not-${materialStub().title}`;
 
@@ -129,11 +136,12 @@ describe('MaterialsResolver', () => {
           exists = await resolver.checkMaterialTitleExists(notTitle);
         });
 
-        it('then it should call materialsService', () => {
+        it('should call materialsService', () => {
           expect(service.checkTitleExists).toHaveBeenCalledWith(notTitle);
+          expect(service.checkTitleExists).toHaveBeenCalledTimes(1);
         });
 
-        it('then it should return false', () => {
+        it('should return false', () => {
           expect(exists).toEqual<boolean>(false);
         });
       });
@@ -218,36 +226,64 @@ describe('MaterialsResolver', () => {
 
   describe('createMaterials', () => {
     describe('when createMaterials is called', () => {
-      let materialsResponse: CreateMaterialsResponse;
+      let response: CreateMaterialsResponse;
       let createMaterialsDto: CreateMaterialsInput;
 
       beforeEach(async () => {
-        const { category, formData, status, title, type } = materialStub();
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { id: _, createdAt: __, category, ...rest } = materialStub();
 
         createMaterialsDto = {
           category,
-          materialDataArray: [{ formData, status, title, type }],
+          materialDataArray: [rest, rest],
         };
 
-        materialsResponse = await resolver.createMaterials(createMaterialsDto);
-        console.log(JSON.stringify(materialsResponse));
+        response = await resolver.createMaterials(createMaterialsDto);
       });
 
-      it('then it should call materialsService', () => {
+      it('should call materialsService', () => {
         const { category, materialDataArray } = createMaterialsDto;
         expect(service.createMany).toHaveBeenCalledWith(
           category,
           materialDataArray
         );
+        expect(service.createMany).toHaveBeenCalledTimes(1);
       });
 
-      it('then it should return response', () => {
-        expect(materialsResponse).toEqual<CreateMaterialsResponse>({
+      it('should return response', () => {
+        expect(response).toEqual<CreateMaterialsResponse>({
           createdMaterials: [
             {
               createdMaterial: materialStub(),
             },
+            {
+              createdMaterial: materialStub(),
+            },
           ],
+        });
+      });
+    });
+  });
+
+  describe('updateMaterial', () => {
+    describe('when updateMaterial is called', () => {
+      let response: UpdateMaterialResponse;
+      let updateMaterialDto: UpdateMaterialInput;
+
+      beforeEach(async () => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { createdAt: _, id, ...rest } = materialStub();
+        updateMaterialDto = { materialId: id, ...rest };
+        response = await resolver.updateMaterial(updateMaterialDto);
+      });
+
+      it('should call materialsService', () => {
+        expect(service.updateOne).toHaveBeenCalledWith(updateMaterialDto);
+      });
+
+      it('should return response', () => {
+        expect(response).toEqual<UpdateMaterialResponse>({
+          message: JSON.stringify(materialStub()),
         });
       });
     });

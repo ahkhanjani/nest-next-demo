@@ -11,6 +11,7 @@ import {
   CreateMaterialsResponse,
   MaterialsPaginateInput,
   MaterialsPaginateResponse,
+  UpdateMaterialInput,
   UpdateMaterialResponse,
 } from '@fm/nest/material/dto';
 
@@ -107,23 +108,17 @@ export class MaterialsService {
     };
   }
 
-  async updateOne(
-    materialId: string,
-    category: string[],
-    title: string,
-    type: string,
-    formData: string
-  ): Promise<UpdateMaterialResponse> {
+  async updateOne({
+    materialId,
+    ...rest
+  }: UpdateMaterialInput): Promise<UpdateMaterialResponse> {
     const updatedMaterial = await this.materialModel.updateOne(
       {
         _id: materialId,
       },
       {
         $set: {
-          category,
-          title,
-          type,
-          formData,
+          ...rest,
         },
       }
     );

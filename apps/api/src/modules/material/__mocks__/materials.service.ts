@@ -1,4 +1,8 @@
-import { MaterialsPaginateResponse } from '@fm/nest/material/dto';
+import {
+  CreateMaterialsResponse,
+  MaterialsPaginateResponse,
+  UpdateMaterialResponse,
+} from '@fm/nest/material/dto';
 import { Material } from '@fm/nest/material/interface';
 import { MockType } from '@fm/types';
 import { MaterialsService as ServiceType } from '../materials.service';
@@ -6,12 +10,23 @@ import { materialStub } from '../test/stubs/material.stub';
 
 export const MaterialsService = jest.fn(
   (): MockType<ServiceType> => ({
-    findOne: jest.fn().mockReturnValue(materialStub()),
-    findAll: jest.fn().mockReturnValue([materialStub()]),
-    createMany: jest.fn().mockReturnValue({
-      createdMaterials: [{ createdMaterial: materialStub() }],
-    }),
-    findByCategoryId: jest.fn().mockReturnValue([materialStub()]),
+    findOne: jest.fn((): Material => materialStub()),
+    findAll: jest.fn((): Material[] => [materialStub()]),
+    createMany: jest.fn(
+      (): CreateMaterialsResponse => ({
+        createdMaterials: [
+          { createdMaterial: materialStub() },
+          { createdMaterial: materialStub() },
+        ],
+      })
+    ),
+    updateOne: jest.fn(
+      (): UpdateMaterialResponse => ({
+        message: JSON.stringify(materialStub()),
+      })
+    ),
+
+    findByCategoryId: jest.fn((): Material[] => [materialStub()]),
     checkTitleExists: jest.fn(
       (title: string): boolean => title === materialStub().title
     ),

@@ -18,7 +18,7 @@
       "@fm/field-error": ["libs/nest/_general/field-error/index.ts"],
       "@fm/to-error-map": ["libs/util/to-error-map/src/index.ts"],
       "@fm/nest/*": ["libs/nest/*"],
-      "@fm/types": ["libs/types/index.ts"],
+      "@fm/types": ["libs/types/src/index.ts"],
       "@api/*": ["apps/api/src/modules/*"]
     }
   },
