@@ -14,9 +14,8 @@ export class IsUserAlreadyExistingConstraint
 {
   constructor(private readonly usersService: UsersService) {}
   async validate(userName: any) {
-    const res = await this.usersService.findOneByUsername(userName);
-
-    if (res.user) return false;
+    const user = await this.usersService.findOneByUsername(userName);
+    if (user) return false;
     return true;
   }
   defaultMessage() {
