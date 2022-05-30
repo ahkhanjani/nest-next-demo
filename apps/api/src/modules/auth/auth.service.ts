@@ -19,9 +19,7 @@ export class AuthService {
     password: string
   ): Promise<UserResponse> {
     const errors: FieldError[] = [];
-    const { user }: UserResponse = await this.usersService.findOneByUsername(
-      username
-    );
+    const user: User = await this.usersService.findOneByUsername(username);
 
     if (user) {
       const passwordsMatch = await verify(user.password, password);
