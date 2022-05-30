@@ -9,49 +9,38 @@ import { UserResponse, CreateUserInput } from '@fm/nest/user/dto';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel('users')
+    @InjectModel(User.name)
     private readonly userModel: Model<UserModel>
   ) {}
 
-  async userCount(): Promise<number> {
-    return await this.userModel.count({});
+  //
+  // ─── QUERY ──────────────────────────────────────────────────────────────────────
+  //
+
+  async count(): Promise<number> {
+    return await this.userModel.count();
   }
 
-  async findById(id: string): Promise<UserResponse> {
-    try {
-      const user: User = await this.userModel.findById(id).exec();
-
-      if (user) return { user };
-
-      return { errors: [{ field: 'app', message: 'User (Id) not found.' }] };
-    } catch (err) {
-      if (err.kind === 'ObjectId')
-        return {
-          errors: [{ field: 'app', message: 'Id must be of type ObjectId.' }],
-        };
-
-      throw err;
-    }
-  }
-
-  async findOneByUsername(username: string): Promise<UserResponse> {
-    const user = await this.userModel
-      .findById({ username })
-      .select('+password')
-      .exec();
-
-    if (user) return { user };
-
-    return {
-      errors: [{ field: 'app', message: 'User (Username) not found.' }],
-    };
+  async findOne(id: string): Promise<User> {
+    return await this.userModel.findById(id);
   }
 
   async findAll(): Promise<User[]> {
-    return await this.userModel.find().exec();
+    return await this.userModel.find();
   }
 
-  async create({ username, password }: CreateUserInput): Promise<UserResponse> {
+  async findOneByUsername(username: string): Promise<User> {
+    return await this.userModel.findOne({ username });
+  }
+
+  //
+  // ─── MUTATION ───────────────────────────────────────────────────────────────────
+  //
+
+  async createOne({
+    username,
+    password,
+  }: CreateUserInput): Promise<UserResponse> {
     const hashedPassword = await hash(password, { type: argon2id });
 
     const createdUser = new this.userModel({
