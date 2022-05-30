@@ -27,7 +27,7 @@ export class UsersResolver {
   }
 
   @Query(() => User, { name: 'user' })
-  async getUser(@Args({ type: () => ID }) id: string): Promise<User> {
+  async getUser(@Args('id', { type: () => ID }) id: string): Promise<User> {
     return await this.usersService.findOne(id);
   }
 
@@ -42,7 +42,7 @@ export class UsersResolver {
 
   @Mutation(() => UserResponse)
   async createUser(
-    @Args({ type: () => CreateUserInput }) dto: CreateUserInput
+    @Args('dto', { type: () => CreateUserInput }) dto: CreateUserInput
   ): Promise<UserResponse> {
     const res = await this.usersService.createOne(dto);
 

@@ -22,7 +22,9 @@ export class MaterialsResolver {
   //
 
   @Query(() => Material, { name: 'material' })
-  async getMaterial(@Args({ type: () => ID }) id: string): Promise<Material> {
+  async getMaterial(
+    @Args('id', { type: () => ID }) id: string
+  ): Promise<Material> {
     const material: Material = await this.materialsService.findOne(id);
     return material;
   }
@@ -35,7 +37,7 @@ export class MaterialsResolver {
 
   @Query(() => [Material], { name: 'materialsByCategoryId' })
   async getMaterialsByCategoryId(
-    @Args({ type: () => ID }) categoryId: string
+    @Args('categoryId', { type: () => ID }) categoryId: string
   ): Promise<Material[]> {
     const materials: Material[] = await this.materialsService.findByCategoryId(
       categoryId
@@ -44,13 +46,15 @@ export class MaterialsResolver {
   }
 
   @Query(() => Boolean, { name: 'materialTitleExists' })
-  async checkMaterialTitleExists(@Args() title: string): Promise<boolean> {
+  async checkMaterialTitleExists(
+    @Args('title') title: string
+  ): Promise<boolean> {
     return await this.materialsService.checkTitleExists(title);
   }
 
   @Query(() => MaterialsPaginateResponse)
   async materialsPaginate(
-    @Args({ type: () => MaterialsPaginateInput })
+    @Args('dto', { type: () => MaterialsPaginateInput })
     dto: MaterialsPaginateInput
   ): Promise<MaterialsPaginateResponse> {
     const res = await this.materialsService.paginate(dto);
@@ -63,7 +67,7 @@ export class MaterialsResolver {
 
   @Mutation(() => CreateMaterialsResponse)
   async createMaterials(
-    @Args({ type: () => CreateMaterialsInput })
+    @Args('dto', { type: () => CreateMaterialsInput })
     dto: CreateMaterialsInput
   ): Promise<CreateMaterialsResponse> {
     return await this.materialsService.createMany(dto);
@@ -71,7 +75,7 @@ export class MaterialsResolver {
 
   @Mutation(() => UpdateMaterialResponse)
   async updateMaterial(
-    @Args({ type: () => UpdateMaterialInput })
+    @Args('dto', { type: () => UpdateMaterialInput })
     dto: UpdateMaterialInput
   ): Promise<UpdateMaterialResponse> {
     return await this.materialsService.updateOne(dto);
