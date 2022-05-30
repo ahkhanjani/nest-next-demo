@@ -1,5 +1,6 @@
-/* eslint-disable */
-export default {
+import { InitialOptionsTsJest } from 'ts-jest';
+
+const config: InitialOptionsTsJest = {
   displayName: 'api',
   preset: '../../jest.preset.js',
   globals: {
@@ -14,3 +15,5 @@ export default {
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/api',
 };
+
+export default config;
