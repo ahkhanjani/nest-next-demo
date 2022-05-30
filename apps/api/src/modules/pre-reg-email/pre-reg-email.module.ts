@@ -10,14 +10,7 @@ import { IsEmailAlreadyExistingConstraint } from '@fm/nest/pre-reg-email/validat
     MongooseModule.forFeatureAsync([
       {
         name: 'pre-reg-emails',
-        useFactory: () => {
-          const schema = PreRegEmailSchema;
-          // eslint-disable-next-line @typescript-eslint/no-var-requires
-          schema.plugin(require('mongoose-unique-validator'), {
-            message: 'already taken.',
-          });
-          return schema;
-        },
+        useFactory: () => PreRegEmailSchema,
       },
     ]),
   ],
