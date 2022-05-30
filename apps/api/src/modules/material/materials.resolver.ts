@@ -44,22 +44,16 @@ export class MaterialsResolver {
   }
 
   @Query(() => Boolean, { name: 'materialTitleExists' })
-  async checkMaterialTitleExists(
-    @Args('title') title: string
-  ): Promise<boolean> {
+  async checkMaterialTitleExists(@Args() title: string): Promise<boolean> {
     return await this.materialsService.checkTitleExists(title);
   }
 
   @Query(() => MaterialsPaginateResponse)
   async materialsPaginate(
-    @Args('input', { type: () => MaterialsPaginateInput })
-    { limit, page, categoryId }: MaterialsPaginateInput
+    @Args({ type: () => MaterialsPaginateInput })
+    dto: MaterialsPaginateInput
   ): Promise<MaterialsPaginateResponse> {
-    const res = await this.materialsService.paginate({
-      categoryId,
-      page,
-      limit,
-    });
+    const res = await this.materialsService.paginate(dto);
     return res;
   }
 
@@ -69,16 +63,15 @@ export class MaterialsResolver {
 
   @Mutation(() => CreateMaterialsResponse)
   async createMaterials(
-    @Args('input')
-    { materialDataArray: materialArray, category }: CreateMaterialsInput
+    @Args({ type: () => CreateMaterialsInput })
+    dto: CreateMaterialsInput
   ): Promise<CreateMaterialsResponse> {
-    const res = await this.materialsService.createMany(category, materialArray);
-    return res;
+    return await this.materialsService.createMany(dto);
   }
 
   @Mutation(() => UpdateMaterialResponse)
   async updateMaterial(
-    @Args('dto')
+    @Args({ type: () => UpdateMaterialInput })
     dto: UpdateMaterialInput
   ): Promise<UpdateMaterialResponse> {
     return await this.materialsService.updateOne(dto);
