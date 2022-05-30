@@ -6,7 +6,7 @@ import { UserResponse } from '@fm/nest/user/dto';
 
 export const UsersService = jest.fn(
   (): MockType<ServiceType> => ({
-    count: jest.fn((users: User[]): number => users.length),
+    count: jest.fn((): number => 2),
     findOne: jest.fn(
       (id: string): User => (id === userStub().id ? userStub() : undefined)
     ),

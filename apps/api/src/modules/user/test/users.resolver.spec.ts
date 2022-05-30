@@ -3,6 +3,7 @@ import { UsersService } from '../users.service';
 import { UsersResolver } from '../users.resolver';
 import { userStub } from './stubs/user.stub';
 import { User } from '@fm/nest/user/interface';
+import { CreateUserInput, UserResponse } from '@fm/nest/user/dto';
 
 jest.mock('../users.service.ts');
 
@@ -93,7 +94,49 @@ describe('UsersResolver', () => {
     });
   });
 
+  describe('getUserCount', () => {
+    describe('when getUserCount is called', () => {
+      let userCount: number;
+
+      beforeEach(async () => {
+        userCount = await resolver.getUserCount();
+      });
+
+      it('should call usersService', () => {
+        expect(service.count).toHaveBeenCalled();
+        expect(service.count).toHaveBeenCalledTimes(1);
+      });
+
+      it('should return user count', () => {
+        expect(userCount).toEqual<number>(2);
+      });
+    });
+  });
+
   //
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //
+
+  describe('createUser', () => {
+    describe('when createUser is called', () => {
+      let response: UserResponse;
+      let createUserDto: CreateUserInput;
+
+      beforeEach(async () => {
+        const { username, password } = userStub();
+        createUserDto = { username, password };
+
+        response = await resolver.createUser(createUserDto);
+      });
+
+      it('should call usersService', () => {
+        expect(service.createOne).toHaveBeenCalledWith(createUserDto);
+        expect(service.createOne).toHaveBeenCalledTimes(1);
+      });
+
+      it('should return response', () => {
+        expect(response).toEqual<UserResponse>({ user: userStub() });
+      });
+    });
+  });
 });
