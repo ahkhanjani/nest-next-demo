@@ -96,41 +96,4 @@ describe('UsersResolver', () => {
   //
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //
-
-  //   describe('createUsers', () => {
-  //     describe('when createUsers is called', () => {
-  //       let response: CreateUsersResponse;
-  //       let createUsersDto: CreateUsersInput;
-  //
-  //       beforeEach(async () => {
-  //         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //         const { id: _, createdAt: __, category, ...rest } = userStub();
-  //
-  //         createUsersDto = {
-  //           category,
-  //           userDataArray: [rest, rest],
-  //         };
-  //
-  //         response = await resolver.createUsers(createUsersDto);
-  //       });
-  //
-  //       it('should call usersService', () => {
-  //         expect(service.createMany).toHaveBeenCalledWith(createUsersDto);
-  //         expect(service.createMany).toHaveBeenCalledTimes(1);
-  //       });
-  //
-  //       it('should return response', () => {
-  //         expect(response).toEqual<CreateUsersResponse>({
-  //           createdUsers: [
-  //             {
-  //               createdUser: userStub(),
-  //             },
-  //             {
-  //               createdUser: userStub(),
-  //             },
-  //           ],
-  //         });
-  //       });
-  //     });
-  //   });
 });
