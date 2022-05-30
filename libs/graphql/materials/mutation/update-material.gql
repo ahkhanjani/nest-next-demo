@@ -6,7 +6,7 @@ mutation UpdateMaterial(
   $formData: String!
 ) {
   updateMaterial(
-    input: {
+    dto: {
       materialId: $materialId
       category: $category
       title: $title

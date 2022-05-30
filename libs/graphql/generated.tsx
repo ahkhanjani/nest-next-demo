@@ -22,14 +22,15 @@ export type CreateCategoryInput = {
   title: Scalars['String'];
 };
 
-export type CreateMaterialResponse = {
-  __typename?: 'CreateMaterialResponse';
-  message: Scalars['String'];
+export type CreateMaterialsInput = {
+  category: Array<Scalars['ID']>;
+  materialDataArray: Array<MaterialDataObject>;
 };
 
-export type CreateMaterialsInput = {
-  category: Array<Scalars['String']>;
-  materialArray: Array<Scalars['String']>;
+export type CreateMaterialsResponse = {
+  __typename?: 'CreateMaterialsResponse';
+  createdMaterials: Array<CreatedMaterial>;
+  message: Scalars['String'];
 };
 
 export type CreatePreRegInput = {
@@ -41,6 +42,13 @@ export type CreateUserInput = {
   username: Scalars['String'];
 };
 
+export type CreatedMaterial = {
+  __typename?: 'CreatedMaterial';
+  createdMaterial: Material;
+  materialTitle?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
+};
+
 export type FieldError = {
   __typename?: 'FieldError';
   field: Scalars['String'];
@@ -49,10 +57,6 @@ export type FieldError = {
 
 export type GetCategoriesByParentIdInput = {
   parentId?: InputMaybe<Scalars['ID']>;
-};
-
-export type GetMaterialsByCategoryIdInput = {
-  categoryId: Scalars['ID'];
 };
 
 export type LoginInput = {
@@ -85,14 +89,21 @@ export type MaterialCategoryResponse = {
   message?: Maybe<Scalars['String']>;
 };
 
-export type MaterialPaginateInput = {
+export type MaterialDataObject = {
+  formData: Scalars['String'];
+  status: Scalars['String'];
+  title: Scalars['String'];
+  type: Scalars['String'];
+};
+
+export type MaterialsPaginateInput = {
   categoryId: Scalars['ID'];
   limit: Scalars['Int'];
   page: Scalars['Int'];
 };
 
-export type MaterialPaginateResponse = {
-  __typename?: 'MaterialPaginateResponse';
+export type MaterialsPaginateResponse = {
+  __typename?: 'MaterialsPaginateResponse';
   materials: Array<Material>;
   pagesCount: Scalars['Int'];
 };
@@ -100,7 +111,7 @@ export type MaterialPaginateResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   createCategory: MaterialCategoryResponse;
-  createMaterials: CreateMaterialResponse;
+  createMaterials: CreateMaterialsResponse;
   createPreReg: PreRegResponse;
   createUser: UserResponse;
   login: TokenResponse;
@@ -115,7 +126,7 @@ export type MutationCreateCategoryArgs = {
 
 
 export type MutationCreateMaterialsArgs = {
-  input: CreateMaterialsInput;
+  dto: CreateMaterialsInput;
 };
 
 
@@ -125,7 +136,7 @@ export type MutationCreatePreRegArgs = {
 
 
 export type MutationCreateUserArgs = {
-  input: CreateUserInput;
+  dto: CreateUserInput;
 };
 
 
@@ -140,7 +151,7 @@ export type MutationUpdateCategoryArgs = {
 
 
 export type MutationUpdateMaterialArgs = {
-  input: UpdateMaterialInput;
+  dto: UpdateMaterialInput;
 };
 
 export type PaginateInput = {
@@ -170,16 +181,16 @@ export type PreRegResponse = {
 export type Query = {
   __typename?: 'Query';
   allCategories: Array<MaterialCategory>;
-  allMaterials: Array<Material>;
   categoriesByParentId: Array<MaterialCategory>;
   categoriesPaginate: PaginateResponse;
   getHello: Scalars['String'];
-  materialById: Material;
+  material: Material;
   materialSchemaArray: Scalars['String'];
   materialTitleExists: Scalars['Boolean'];
+  materials: Array<Material>;
   materialsByCategoryId: Array<Material>;
-  materialsPaginate: MaterialPaginateResponse;
-  user: UserResponse;
+  materialsPaginate: MaterialsPaginateResponse;
+  user: User;
   userCount: Scalars['Float'];
   users: Array<User>;
 };
@@ -195,8 +206,8 @@ export type QueryCategoriesPaginateArgs = {
 };
 
 
-export type QueryMaterialByIdArgs = {
-  id: Scalars['String'];
+export type QueryMaterialArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -206,17 +217,17 @@ export type QueryMaterialTitleExistsArgs = {
 
 
 export type QueryMaterialsByCategoryIdArgs = {
-  input: GetMaterialsByCategoryIdInput;
+  categoryId: Scalars['ID'];
 };
 
 
 export type QueryMaterialsPaginateArgs = {
-  input: MaterialPaginateInput;
+  dto: MaterialsPaginateInput;
 };
 
 
 export type QueryUserArgs = {
-  id: Scalars['String'];
+  id: Scalars['ID'];
 };
 
 export type Subscription = {
@@ -320,12 +331,12 @@ export type GetMaterialSchemaArrayQueryVariables = Exact<{ [key: string]: never;
 export type GetMaterialSchemaArrayQuery = { __typename?: 'Query', materialSchemaArray: string };
 
 export type CreateMaterialsMutationVariables = Exact<{
-  materialArray: Array<Scalars['String']> | Scalars['String'];
-  category: Array<Scalars['String']> | Scalars['String'];
+  materialDataArray: Array<MaterialDataObject> | MaterialDataObject;
+  category: Array<Scalars['ID']> | Scalars['ID'];
 }>;
 
 
-export type CreateMaterialsMutation = { __typename?: 'Mutation', createMaterials: { __typename?: 'CreateMaterialResponse', message: string } };
+export type CreateMaterialsMutation = { __typename?: 'Mutation', createMaterials: { __typename?: 'CreateMaterialsResponse', createdMaterials: Array<{ __typename?: 'CreatedMaterial', message?: string | null, createdMaterial: { __typename?: 'Material', id: string, title: string } }> } };
 
 export type UpdateMaterialMutationVariables = Exact<{
   materialId: Scalars['ID'];
@@ -345,17 +356,17 @@ export type CheckMaterialTitleExistsQueryVariables = Exact<{
 
 export type CheckMaterialTitleExistsQuery = { __typename?: 'Query', materialTitleExists: boolean };
 
-export type GetAllMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllMaterialsQuery = { __typename?: 'Query', allMaterials: Array<{ __typename?: 'Material', id: string, status: string, type: string, category: Array<string>, formData: string }> };
+export type GetMaterialsQuery = { __typename?: 'Query', materials: Array<{ __typename?: 'Material', id: string, status: string, type: string, category: Array<string>, formData: string }> };
 
-export type GetMaterialByIdQueryVariables = Exact<{
-  id: Scalars['String'];
+export type GetMaterialQueryVariables = Exact<{
+  id: Scalars['ID'];
 }>;
 
 
-export type GetMaterialByIdQuery = { __typename?: 'Query', materialById: { __typename?: 'Material', type: string, title: string, category: Array<string>, formData: string } };
+export type GetMaterialQuery = { __typename?: 'Query', material: { __typename?: 'Material', type: string, title: string, category: Array<string>, formData: string } };
 
 export type GetMaterialsByCategoryIdQueryVariables = Exact<{
   categoryId: Scalars['ID'];
@@ -371,7 +382,7 @@ export type GetMaterialsPaginateQueryVariables = Exact<{
 }>;
 
 
-export type GetMaterialsPaginateQuery = { __typename?: 'Query', materialsPaginate: { __typename?: 'MaterialPaginateResponse', pagesCount: number, materials: Array<{ __typename?: 'Material', id: string, title: string }> } };
+export type GetMaterialsPaginateQuery = { __typename?: 'Query', materialsPaginate: { __typename?: 'MaterialsPaginateResponse', pagesCount: number, materials: Array<{ __typename?: 'Material', id: string, title: string }> } };
 
 export type CreatePreRegMutationVariables = Exact<{
   email: Scalars['String'];
@@ -647,9 +658,17 @@ export type GetMaterialSchemaArrayQueryHookResult = ReturnType<typeof useGetMate
 export type GetMaterialSchemaArrayLazyQueryHookResult = ReturnType<typeof useGetMaterialSchemaArrayLazyQuery>;
 export type GetMaterialSchemaArrayQueryResult = Apollo.QueryResult<GetMaterialSchemaArrayQuery, GetMaterialSchemaArrayQueryVariables>;
 export const CreateMaterialsDocument = gql`
-    mutation createMaterials($materialArray: [String!]!, $category: [String!]!) {
-  createMaterials(input: {materialArray: $materialArray, category: $category}) {
-    message
+    mutation createMaterials($materialDataArray: [MaterialDataObject!]!, $category: [ID!]!) {
+  createMaterials(
+    dto: {materialDataArray: $materialDataArray, category: $category}
+  ) {
+    createdMaterials {
+      createdMaterial {
+        id
+        title
+      }
+      message
+    }
   }
 }
     `;
@@ -668,7 +687,7 @@ export type CreateMaterialsMutationFn = Apollo.MutationFunction<CreateMaterialsM
  * @example
  * const [createMaterialsMutation, { data, loading, error }] = useCreateMaterialsMutation({
  *   variables: {
- *      materialArray: // value for 'materialArray'
+ *      materialDataArray: // value for 'materialDataArray'
  *      category: // value for 'category'
  *   },
  * });
@@ -683,7 +702,7 @@ export type CreateMaterialsMutationOptions = Apollo.BaseMutationOptions<CreateMa
 export const UpdateMaterialDocument = gql`
     mutation UpdateMaterial($materialId: ID!, $category: [ID!]!, $title: String!, $type: String!, $formData: String!) {
   updateMaterial(
-    input: {materialId: $materialId, category: $category, title: $title, type: $type, formData: $formData}
+    dto: {materialId: $materialId, category: $category, title: $title, type: $type, formData: $formData}
   ) {
     message
   }
@@ -752,9 +771,9 @@ export function useCheckMaterialTitleExistsLazyQuery(baseOptions?: Apollo.LazyQu
 export type CheckMaterialTitleExistsQueryHookResult = ReturnType<typeof useCheckMaterialTitleExistsQuery>;
 export type CheckMaterialTitleExistsLazyQueryHookResult = ReturnType<typeof useCheckMaterialTitleExistsLazyQuery>;
 export type CheckMaterialTitleExistsQueryResult = Apollo.QueryResult<CheckMaterialTitleExistsQuery, CheckMaterialTitleExistsQueryVariables>;
-export const GetAllMaterialsDocument = gql`
-    query GetAllMaterials {
-  allMaterials {
+export const GetMaterialsDocument = gql`
+    query GetMaterials {
+  materials {
     id
     status
     type
@@ -765,34 +784,34 @@ export const GetAllMaterialsDocument = gql`
     `;
 
 /**
- * __useGetAllMaterialsQuery__
+ * __useGetMaterialsQuery__
  *
- * To run a query within a React component, call `useGetAllMaterialsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllMaterialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMaterialsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAllMaterialsQuery({
+ * const { data, loading, error } = useGetMaterialsQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetAllMaterialsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllMaterialsQuery, GetAllMaterialsQueryVariables>) {
+export function useGetMaterialsQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllMaterialsQuery, GetAllMaterialsQueryVariables>(GetAllMaterialsDocument, options);
+        return Apollo.useQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
       }
-export function useGetAllMaterialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllMaterialsQuery, GetAllMaterialsQueryVariables>) {
+export function useGetMaterialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllMaterialsQuery, GetAllMaterialsQueryVariables>(GetAllMaterialsDocument, options);
+          return Apollo.useLazyQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
         }
-export type GetAllMaterialsQueryHookResult = ReturnType<typeof useGetAllMaterialsQuery>;
-export type GetAllMaterialsLazyQueryHookResult = ReturnType<typeof useGetAllMaterialsLazyQuery>;
-export type GetAllMaterialsQueryResult = Apollo.QueryResult<GetAllMaterialsQuery, GetAllMaterialsQueryVariables>;
-export const GetMaterialByIdDocument = gql`
-    query GetMaterialById($id: String!) {
-  materialById(id: $id) {
+export type GetMaterialsQueryHookResult = ReturnType<typeof useGetMaterialsQuery>;
+export type GetMaterialsLazyQueryHookResult = ReturnType<typeof useGetMaterialsLazyQuery>;
+export type GetMaterialsQueryResult = Apollo.QueryResult<GetMaterialsQuery, GetMaterialsQueryVariables>;
+export const GetMaterialDocument = gql`
+    query GetMaterial($id: ID!) {
+  material(id: $id) {
     type
     title
     category
@@ -802,35 +821,35 @@ export const GetMaterialByIdDocument = gql`
     `;
 
 /**
- * __useGetMaterialByIdQuery__
+ * __useGetMaterialQuery__
  *
- * To run a query within a React component, call `useGetMaterialByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMaterialByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMaterialQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetMaterialByIdQuery({
+ * const { data, loading, error } = useGetMaterialQuery({
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-export function useGetMaterialByIdQuery(baseOptions: Apollo.QueryHookOptions<GetMaterialByIdQuery, GetMaterialByIdQueryVariables>) {
+export function useGetMaterialQuery(baseOptions: Apollo.QueryHookOptions<GetMaterialQuery, GetMaterialQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMaterialByIdQuery, GetMaterialByIdQueryVariables>(GetMaterialByIdDocument, options);
+        return Apollo.useQuery<GetMaterialQuery, GetMaterialQueryVariables>(GetMaterialDocument, options);
       }
-export function useGetMaterialByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialByIdQuery, GetMaterialByIdQueryVariables>) {
+export function useGetMaterialLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialQuery, GetMaterialQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMaterialByIdQuery, GetMaterialByIdQueryVariables>(GetMaterialByIdDocument, options);
+          return Apollo.useLazyQuery<GetMaterialQuery, GetMaterialQueryVariables>(GetMaterialDocument, options);
         }
-export type GetMaterialByIdQueryHookResult = ReturnType<typeof useGetMaterialByIdQuery>;
-export type GetMaterialByIdLazyQueryHookResult = ReturnType<typeof useGetMaterialByIdLazyQuery>;
-export type GetMaterialByIdQueryResult = Apollo.QueryResult<GetMaterialByIdQuery, GetMaterialByIdQueryVariables>;
+export type GetMaterialQueryHookResult = ReturnType<typeof useGetMaterialQuery>;
+export type GetMaterialLazyQueryHookResult = ReturnType<typeof useGetMaterialLazyQuery>;
+export type GetMaterialQueryResult = Apollo.QueryResult<GetMaterialQuery, GetMaterialQueryVariables>;
 export const GetMaterialsByCategoryIdDocument = gql`
     query GetMaterialsByCategoryId($categoryId: ID!) {
-  materialsByCategoryId(input: {categoryId: $categoryId}) {
+  materialsByCategoryId(categoryId: $categoryId) {
     id
     title
   }
@@ -866,7 +885,7 @@ export type GetMaterialsByCategoryIdLazyQueryHookResult = ReturnType<typeof useG
 export type GetMaterialsByCategoryIdQueryResult = Apollo.QueryResult<GetMaterialsByCategoryIdQuery, GetMaterialsByCategoryIdQueryVariables>;
 export const GetMaterialsPaginateDocument = gql`
     query GetMaterialsPaginate($categoryId: ID!, $page: Int!, $limit: Int!) {
-  materialsPaginate(input: {categoryId: $categoryId, page: $page, limit: $limit}) {
+  materialsPaginate(dto: {categoryId: $categoryId, page: $page, limit: $limit}) {
     materials {
       id
       title
@@ -946,7 +965,7 @@ export type CreatePreRegMutationResult = Apollo.MutationResult<CreatePreRegMutat
 export type CreatePreRegMutationOptions = Apollo.BaseMutationOptions<CreatePreRegMutation, CreatePreRegMutationVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($username: String!, $password: String!) {
-  createUser(input: {username: $username, password: $password}) {
+  createUser(dto: {username: $username, password: $password}) {
     user {
       id
     }

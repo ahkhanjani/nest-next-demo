@@ -1,0 +1,8 @@
+query GetMaterial($id: ID!) {
+  material(id: $id) {
+    type
+    title
+    category
+    formData
+  }
+}

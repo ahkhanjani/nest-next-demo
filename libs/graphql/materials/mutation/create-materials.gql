@@ -1,7 +1,16 @@
-mutation createMaterials($materialArray: [String!]!, $category: [String!]!) {
+mutation createMaterials(
+  $materialDataArray: [MaterialDataObject!]!
+  $category: [ID!]!
+) {
   createMaterials(
-    input: { materialArray: $materialArray, category: $category }
+    dto: { materialDataArray: $materialDataArray, category: $category }
   ) {
-    message
+    createdMaterials {
+      createdMaterial {
+        id
+        title
+      }
+      message
+    }
   }
 }

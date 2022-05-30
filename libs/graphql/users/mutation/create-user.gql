@@ -1,5 +1,5 @@
 mutation CreateUser($username: String!, $password: String!) {
-  createUser(input: { username: $username, password: $password }) {
+  createUser(dto: { username: $username, password: $password }) {
     user {
       id
     }

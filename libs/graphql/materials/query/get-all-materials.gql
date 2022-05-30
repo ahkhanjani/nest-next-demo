@@ -1,5 +1,5 @@
-query GetAllMaterials {
-  allMaterials {
+query GetMaterials {
+  materials {
     id
     status
     type

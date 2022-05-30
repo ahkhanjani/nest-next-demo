@@ -60,33 +60,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "OBJECT",
-        "name": "CreateMaterialResponse",
-        "description": null,
-        "fields": [
-          {
-            "name": "message",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "INPUT_OBJECT",
         "name": "CreateMaterialsInput",
         "description": null,
@@ -106,7 +79,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "String",
+                    "name": "ID",
                     "ofType": null
                   }
                 }
@@ -117,7 +90,7 @@
             "deprecationReason": null
           },
           {
-            "name": "materialArray",
+            "name": "materialDataArray",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -129,8 +102,8 @@
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
+                    "kind": "INPUT_OBJECT",
+                    "name": "MaterialDataObject",
                     "ofType": null
                   }
                 }
@@ -142,6 +115,57 @@
           }
         ],
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CreateMaterialsResponse",
+        "description": null,
+        "fields": [
+          {
+            "name": "createdMaterials",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "CreatedMaterial",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "message",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -212,6 +236,57 @@
           }
         ],
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CreatedMaterial",
+        "description": null,
+        "fields": [
+          {
+            "name": "createdMaterial",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Material",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "materialTitle",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "message",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -291,33 +366,6 @@
               "kind": "SCALAR",
               "name": "ID",
               "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "GetMaterialsByCategoryIdInput",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "categoryId",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -630,7 +678,82 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "MaterialPaginateInput",
+        "name": "MaterialDataObject",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "formData",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "status",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "title",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MaterialsPaginateInput",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -689,7 +812,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "MaterialPaginateResponse",
+        "name": "MaterialsPaginateResponse",
         "description": null,
         "fields": [
           {
@@ -781,7 +904,7 @@
             "description": null,
             "args": [
               {
-                "name": "input",
+                "name": "dto",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -802,7 +925,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "CreateMaterialResponse",
+                "name": "CreateMaterialsResponse",
                 "ofType": null
               }
             },
@@ -847,7 +970,7 @@
             "description": null,
             "args": [
               {
-                "name": "input",
+                "name": "dto",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -946,7 +1069,7 @@
             "description": null,
             "args": [
               {
-                "name": "input",
+                "name": "dto",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -1202,30 +1325,6 @@
             "deprecationReason": null
           },
           {
-            "name": "allMaterials",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Material",
-                    "ofType": null
-                  }
-                }
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "categoriesByParentId",
             "description": null,
             "args": [
@@ -1316,7 +1415,7 @@
             "deprecationReason": null
           },
           {
-            "name": "materialById",
+            "name": "material",
             "description": null,
             "args": [
               {
@@ -1327,7 +1426,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "String",
+                    "name": "ID",
                     "ofType": null
                   }
                 },
@@ -1398,18 +1497,42 @@
             "deprecationReason": null
           },
           {
+            "name": "materials",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Material",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "materialsByCategoryId",
             "description": null,
             "args": [
               {
-                "name": "input",
+                "name": "categoryId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "GetMaterialsByCategoryIdInput",
+                    "kind": "SCALAR",
+                    "name": "ID",
                     "ofType": null
                   }
                 },
@@ -1443,14 +1566,14 @@
             "description": null,
             "args": [
               {
-                "name": "input",
+                "name": "dto",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "MaterialPaginateInput",
+                    "name": "MaterialsPaginateInput",
                     "ofType": null
                   }
                 },
@@ -1464,7 +1587,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "MaterialPaginateResponse",
+                "name": "MaterialsPaginateResponse",
                 "ofType": null
               }
             },
@@ -1483,7 +1606,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "SCALAR",
-                    "name": "String",
+                    "name": "ID",
                     "ofType": null
                   }
                 },
@@ -1497,7 +1620,7 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "UserResponse",
+                "name": "User",
                 "ofType": null
               }
             },
