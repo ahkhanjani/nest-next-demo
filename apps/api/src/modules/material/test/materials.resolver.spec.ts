@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MaterialsService } from '../materials.service';
 import { MaterialsResolver } from '../materials.resolver';
-import { materialStub } from './stubs';
+import { materialStub } from './stubs/material.stub';
 import { Material } from '@fm/nest/material/interface';
 import {
   CreateMaterialsInput,
@@ -242,11 +242,7 @@ describe('MaterialsResolver', () => {
       });
 
       it('should call materialsService', () => {
-        const { category, materialDataArray } = createMaterialsDto;
-        expect(service.createMany).toHaveBeenCalledWith(
-          category,
-          materialDataArray
-        );
+        expect(service.createMany).toHaveBeenCalledWith(createMaterialsDto);
         expect(service.createMany).toHaveBeenCalledTimes(1);
       });
 
