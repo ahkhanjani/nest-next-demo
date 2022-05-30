@@ -5,7 +5,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { UsersService } from '@api/user/users.service';
+import { UsersService } from '@fm/api/user/users.service';
 
 @Injectable()
 @ValidatorConstraint({ async: true })
