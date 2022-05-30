@@ -5,7 +5,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { PreRegEmailsService } from '@api/pre-reg-email/pre-reg-email.service';
+import { PreRegEmailsService } from '@fm/api/pre-reg-email/pre-reg-email.service';
 
 @Injectable()
 @ValidatorConstraint({ async: true })

@@ -6,7 +6,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { MaterialCategoriesService } from '@api/material-category/material-categories.service';
+import { MaterialCategoriesService } from '@fm/api/material-category/material-categories.service';
 
 @Injectable()
 @ValidatorConstraint({ async: true })
