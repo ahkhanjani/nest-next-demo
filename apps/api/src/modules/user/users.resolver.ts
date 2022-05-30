@@ -1,4 +1,11 @@
-import { Args, Resolver, Query, Mutation, Subscription } from '@nestjs/graphql';
+import {
+  Args,
+  Resolver,
+  Query,
+  Mutation,
+  Subscription,
+  ID,
+} from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { PubSub } from 'graphql-subscriptions';
 import { User } from '@fm/nest/user/interface';
@@ -16,16 +23,16 @@ export class UsersResolver {
 
   @Query(() => Number, { name: 'userCount' })
   async getUserCount(): Promise<number> {
-    return await this.usersService.userCount();
+    return await this.usersService.count();
   }
 
-  @Query(() => UserResponse, { name: 'user' })
-  async getUser(@Args('id') id: string): Promise<UserResponse> {
-    return await this.usersService.findById(id);
+  @Query(() => User, { name: 'user' })
+  async getUser(@Args({ type: () => ID }) id: string): Promise<User> {
+    return await this.usersService.findOne(id);
   }
 
   @Query(() => [User], { name: 'users' })
-  async getAllUsers(): Promise<User[]> {
+  async getUsers(): Promise<User[]> {
     return await this.usersService.findAll();
   }
 
@@ -35,9 +42,9 @@ export class UsersResolver {
 
   @Mutation(() => UserResponse)
   async createUser(
-    @Args('input') input: CreateUserInput
+    @Args({ type: () => CreateUserInput }) dto: CreateUserInput
   ): Promise<UserResponse> {
-    const res = await this.usersService.create(input);
+    const res = await this.usersService.createOne(dto);
 
     // subscribe
     res.user && pubSub.publish('userCreated', { userCreated: res.user });
