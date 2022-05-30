@@ -5,9 +5,9 @@ import {
   CreatedMaterial,
   Material,
   MaterialModel,
-  MaterialDataObject,
 } from '@fm/nest/material/interface';
 import {
+  CreateMaterialsInput,
   CreateMaterialsResponse,
   MaterialsPaginateInput,
   MaterialsPaginateResponse,
@@ -51,7 +51,7 @@ export class MaterialsService {
   }
 
   async findByCategoryId(categoryId: string): Promise<Material[]> {
-    const found: Material[] = await this.materialModel.find({
+    const found: Material[] = await this.materialModel.findById({
       category: categoryId,
     });
     return found;
@@ -77,9 +77,10 @@ export class MaterialsService {
   //
 
   async createMany(
-    category: string[],
-    materialDataArray: MaterialDataObject[]
+    dto: CreateMaterialsInput
   ): Promise<CreateMaterialsResponse> {
+    const { category, materialDataArray } = dto;
+
     if (!materialDataArray.length) return { message: 'Error: Empty list.' };
 
     const createdMaterials: CreatedMaterial[] = await Promise.all(
