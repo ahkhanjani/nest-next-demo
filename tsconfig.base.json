@@ -19,7 +19,8 @@
       "@fm/to-error-map": ["libs/util/to-error-map/src/index.ts"],
       "@fm/nest/*": ["libs/nest/*"],
       "@fm/types": ["libs/types/src/index.ts"],
-      "@api/*": ["apps/api/src/modules/*"]
+      "@fm/api/*": ["apps/api/src/modules/*"],
+      "@fm/gql": ["libs/graphql/generated.tsx"]
     }
   },
   "exclude": ["node_modules", "tmp"]
