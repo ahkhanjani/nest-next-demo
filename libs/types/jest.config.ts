@@ -1,5 +1,6 @@
-/* eslint-disable */
-export default {
+import { InitialOptionsTsJest } from 'ts-jest';
+
+const config: InitialOptionsTsJest = {
   displayName: 'libs/types',
   preset: '../../jest.preset.js',
   globals: {
@@ -14,3 +15,4 @@ export default {
   moduleFileExtensions: ['ts'],
   coverageDirectory: '../../coverage/libs/types',
 };
+export default config;
