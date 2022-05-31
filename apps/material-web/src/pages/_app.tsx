@@ -1,12 +1,12 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 // providers
-import ApolloProvider from 'apollo/ApolloProvider';
-import AuthProvider from 'auth/AuthProvider';
-import ThemeProvider from 'providers/ThemeProvider';
-import ColorModeProvider from 'providers/ColorModeProvider';
+import ApolloProvider from '../apollo/ApolloProvider';
+import AuthProvider from '../auth/AuthProvider';
+import ThemeProvider from '../providers/ThemeProvider';
+import ColorModeProvider from '../providers/ColorModeProvider';
 // store
-import store from 'store';
+import store from '../store';
 import { Provider } from 'react-redux';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

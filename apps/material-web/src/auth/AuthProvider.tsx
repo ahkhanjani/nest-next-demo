@@ -1,24 +1,9 @@
 import { useReducer, createContext, PropsWithChildren, useMemo } from 'react';
-import { useLoginCheck } from '~hooks/.';
+import { useLoginCheck } from '../hooks';
 
 const initialState: InitialStateType = {
-  user: undefined,
+  user: null,
 };
-
-// // get access token
-// const token = localStorage.getItem('jwtToken');
-// if (token) {
-//   // decode the token
-//   const decodedToken = jwtDecode<JwtPayload>(token);
-//   if (decodedToken.exp) {
-//     // check if token is expired
-//     if (decodedToken.exp * 1000 < Date.now())
-//       // if it's expired then remove token
-//       localStorage.removeItem('jwtToken');
-//     // else set the user
-//     else initialState.user = decodedToken;
-//   }
-// }
 
 export const AuthContext = createContext<AuthContextType>(
   {} as AuthContextType

@@ -10,16 +10,16 @@ import EditIcon from '@mui/icons-material/Edit';
 // types
 import { PathCategory } from '../../types';
 // gql
-import { useGetCategoriesPaginateQuery } from 'graphql/generated';
+import { useGetCategoriesPaginateQuery } from '@fm/gql';
 // cmp
 import ListContainer from '../ListContainer';
 import CreateButton from './CreateButton';
 import InputDialog from './InputDialog';
 // store
-import { useAppSelector, useAppDispatch } from 'hooks';
-import { addPathCategory } from 'store/category-path';
+import { useAppSelector, useAppDispatch } from '@fm/material-web/hooks';
+import { addPathCategory } from '@fm/material-web/store/category-path';
 
-const limit: number = 7;
+const limit = 7;
 
 const CategoryList: React.FC = () => {
   //
@@ -61,11 +61,11 @@ const CategoryList: React.FC = () => {
   useEffect(() => {
     resetPage();
     refetch({ parentId });
-  }, [parentId]);
+  }, [parentId, refetch]);
 
   useEffect(() => {
     refetch({ page });
-  }, [page]);
+  }, [page, refetch]);
 
   useEffect(() => {
     if (!isInputDialogOpen) setEditingCategory(undefined);

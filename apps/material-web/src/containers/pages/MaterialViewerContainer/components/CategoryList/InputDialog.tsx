@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import { ApolloQueryResult } from '@apollo/client';
 // mui
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -10,13 +11,15 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 // gql
 import {
+  Exact,
+  GetCategoriesPaginateQuery,
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
-} from 'graphql/generated';
+} from '@fm/gql';
 // types
 import { PathCategory } from '../../types';
 // store
-import { useAppSelector } from 'hooks';
+import { useAppSelector } from '@fm/material-web/hooks';
 
 const initialValues: Values = { title: '' };
 
@@ -67,10 +70,11 @@ const InputDialog: React.FC<InputDialogProps> = ({
         },
       });
 
-      if (res.errors?.length) {
+      if (res.errors) {
         console.error(res.errors);
         return;
       }
+
       handleClose();
       await refetch();
     } catch (err) {
@@ -79,11 +83,6 @@ const InputDialog: React.FC<InputDialogProps> = ({
   }
 
   async function handleUpdate() {
-    if (!editingCategory) {
-      console.error('Category is undefined.');
-      return;
-    }
-
     try {
       const res = await updateCategory({
         variables: {
@@ -92,13 +91,13 @@ const InputDialog: React.FC<InputDialogProps> = ({
         },
       });
 
-      if (res.errors?.length) {
+      if (res.errors) {
         console.error(res.errors);
         return;
       }
 
-      await refetch();
       handleClose();
+      await refetch();
     } catch (err) {
       console.error(err);
     }
@@ -110,8 +109,13 @@ const InputDialog: React.FC<InputDialogProps> = ({
   }
 
   function handleSubmit() {
-    if (editingCategory) handleUpdate();
-    else handleCreate();
+    console.log(editingCategory);
+    if (editingCategory.id) {
+      handleUpdate();
+      return;
+    }
+
+    handleCreate();
   }
 
   // ────────────────────────────────────────────────────────────────────────────────
@@ -166,7 +170,11 @@ interface InputDialogProps {
   editingCategory: PathCategory | undefined;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  refetch: any;
+  refetch: (
+    variables?: Partial<
+      Exact<{ parentId: string; page: number; limit: number }>
+    >
+  ) => Promise<ApolloQueryResult<GetCategoriesPaginateQuery>>;
 }
 
 interface Values {

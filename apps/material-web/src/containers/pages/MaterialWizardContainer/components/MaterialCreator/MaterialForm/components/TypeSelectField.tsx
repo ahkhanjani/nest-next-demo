@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
 // gql
-import { useGetMaterialSchemaArrayQuery } from 'graphql/generated';
+import { useGetMaterialSchemaArrayQuery } from '@fm/gql';
 // cmp
-import SelectField from '~components/form/SelectField';
+import SelectField from '@fm/material-web/components/form/SelectField';
 // types
 import { JSONSchema7 } from 'json-schema';
 import type { FormikValues, MaterialSchemaObjectArray } from '../types';
@@ -67,14 +67,14 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({ setRjsfSchema }) => {
 
     //set the schema of the dynamic form
     if (materialSchema) setRjsfSchema(materialSchema);
-  }, [type, schemaTypeNames, schemas]);
+  }, [type, schemaTypeNames, schemas, setRjsfSchema]);
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  if (schemaArrayLoading) return <Skeleton variant='rectangular' />;
+  if (schemaArrayLoading) return <Skeleton variant="rectangular" />;
 
   return (
-    <SelectField name='type' label='Material Type' data={schemaTypeNames} />
+    <SelectField name="type" label="Material Type" data={schemaTypeNames} />
   );
 };
 export default TypeSelectField;

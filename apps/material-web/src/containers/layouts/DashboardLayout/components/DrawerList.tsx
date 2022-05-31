@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 // - icons
 import ListItemText from '@mui/material/ListItemText';
 // routes
-import ROUTES from 'routes';
+import ROUTES from '@fm/material-web/routes';
 
 export const MainListItems: React.FC = () => {
   const { route } = useRouter();

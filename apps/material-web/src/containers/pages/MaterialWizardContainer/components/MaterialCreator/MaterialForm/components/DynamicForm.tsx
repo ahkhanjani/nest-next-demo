@@ -1,4 +1,3 @@
-import { useFormikContext } from 'formik';
 import { MuiForm5 as Form } from '@rjsf/material-ui';
 // mui
 import Box from '@mui/material/Box';
@@ -30,6 +29,6 @@ export default DynamicForm;
 
 interface DynamicFormProps {
   schema: JSONSchema7;
-  formData: any;
-  setFormData: React.Dispatch<React.SetStateAction<any>>;
+  formData: unknown;
+  setFormData: React.Dispatch<React.SetStateAction<unknown>>;
 }

@@ -4,9 +4,9 @@ import * as yup from 'yup';
 // mui
 import Paper from '@mui/material/Paper';
 // cmp
-import SnackbarAlert from '~components/SnackbarAlert';
-import CheckboxField from '~components/form/CheckboxField';
-import SubmitButton from '~components/form/SubmitButton';
+import SnackbarAlert from '@fm/material-web/components/SnackbarAlert';
+import CheckboxField from '@fm/material-web/components/form/CheckboxField';
+import SubmitButton from '@fm/material-web/components/form/SubmitButton';
 import TitleInputField from './components/TitleInputField';
 import TypeSelectField from './components/TypeSelectField';
 import DynamicForm from './components/DynamicForm';
@@ -44,7 +44,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({
   const [rjsfSchema, setRjsfSchema] = useState<JSONSchema7>({});
   // data from rjsf form
   // form data will be snapshot right before submitting the form
-  const [rjsfFormData, setRjsfFormData] = useState<any>(undefined);
+  const [rjsfFormData, setRjsfFormData] = useState<unknown>(undefined);
   // alert
   const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>('');
@@ -64,7 +64,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({
     }
 
     handleSetInitialData();
-  }, []);
+  }, [editMode, materialDataArray]);
 
   // triggered when selected material changes in material-stacker
   useEffect(() => {
@@ -87,7 +87,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({
     }
 
     handleSelectedMaterialChange();
-  }, [selectedMaterialIndex]);
+  }, [editMode, materialDataArray, selectedMaterialIndex]);
 
   useEffect(() => {
     if (successMessage !== '') setIsAlertOpen(true);
@@ -184,7 +184,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({
   return (
     <>
       <SnackbarAlert
-        severity='success'
+        severity="success"
         message={successMessage}
         isOpen={isAlertOpen}
         setIsOpen={setIsAlertOpen}
@@ -216,7 +216,7 @@ const MaterialForm: React.FC<MaterialFormProps> = ({
                 formData={rjsfFormData}
                 setFormData={setRjsfFormData}
               />
-              <CheckboxField name='publish' label='Publish' />
+              <CheckboxField name="publish" label="Publish" />
               <SubmitButton onClick={() => handleSubmit()}>Submit</SubmitButton>
             </Form>
           )}

@@ -5,17 +5,17 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 // gql
-import { useGetMaterialsPaginateQuery } from 'graphql/generated';
+import { useGetMaterialsPaginateQuery } from '@fm/gql';
 // cmp
 import CreateMaterialButton from './CreateMaterialButton';
 import ListContainer from '../ListContainer';
 // store
-import { useAppDispatch, useAppSelector } from 'hooks';
-import { setEditingMaterialId } from 'store/editing-material';
+import { useAppDispatch, useAppSelector } from '@fm/material-web/hooks';
+import { setEditingMaterialId } from '@fm/material-web/store/editing-material';
 // routes
-import ROUTES from 'routes';
+import ROUTES from '@fm/material-web/routes';
 
-const limit: number = 7;
+const limit = 7;
 
 const MaterialList: React.FC = () => {
   //
@@ -53,7 +53,7 @@ const MaterialList: React.FC = () => {
   // triggered when selected category changes
   useEffect(() => {
     materialsRefetch({ categoryId });
-  }, [categoryId]);
+  }, [categoryId, materialsRefetch]);
 
   //
   // ─── HANDLERS ───────────────────────────────────────────────────────────────────
@@ -81,6 +81,7 @@ const MaterialList: React.FC = () => {
         <CreateMaterialButton />
         {materialsPaginate?.materialsPaginate.materials.map(({ id, title }) => {
           return (
+            // eslint-disable-next-line @next/next/link-passhref
             <Link key={id} href={ROUTES.CREATE_MATERIALS}>
               <ListItemButton onClick={() => handleMaterialClick(id)}>
                 <ListItemText primary={title} />

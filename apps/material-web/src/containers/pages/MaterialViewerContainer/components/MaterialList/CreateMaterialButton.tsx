@@ -7,13 +7,14 @@ import ListItemText from '@mui/material/ListItemText';
 // - icons
 import AddIcon from '@mui/icons-material/Add';
 // routes
-import ROUTES from 'routes';
+import ROUTES from '@fm/material-web/routes';
 
 const CreateMaterialButton: React.FC = () => {
   // ────────────────────────────────────────────────────────────────────────────────
 
   return (
     <ListItem disablePadding>
+      {/* eslint-disable-next-line @next/next/link-passhref */}
       <Link href={ROUTES.CREATE_MATERIALS} shallow>
         <ListItemButton>
           <ListItemIcon>

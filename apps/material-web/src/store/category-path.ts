@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // types
-import { PathCategory } from 'containers/MaterialViewerContainer/types';
+import { PathCategory } from '../containers/pages/MaterialViewerContainer/types';
 
 const initialState: State = { path: [], endId: '' };
 

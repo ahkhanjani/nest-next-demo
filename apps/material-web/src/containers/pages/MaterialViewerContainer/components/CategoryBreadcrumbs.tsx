@@ -7,8 +7,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // styles
 import classes from './CategoryBreadcrumbs.module.scss';
 // store
-import { useAppSelector, useAppDispatch } from 'hooks';
-import { removePathCategories } from 'store/category-path';
+import { useAppSelector, useAppDispatch } from '@fm/material-web/hooks';
+import { removePathCategories } from '@fm/material-web/store/category-path';
 
 const CategoryBreadcrumbs: React.FC = () => {
   //

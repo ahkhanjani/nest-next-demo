@@ -11,13 +11,13 @@ import Typography from '@mui/material/Typography';
 // - icons
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // gql
-import { useLoginMutation } from 'graphql/generated';
+import { useLoginMutation } from '@fm/gql';
 // utils
-import { utilToErrorMap } from '../../../../../../libs/util/to-error-map/src';
+import { utilToErrorMap } from '@fm/to-error-map';
 // auth
-import { AuthContext } from 'auth/AuthProvider';
+import { AuthContext } from '@fm/material-web/auth/AuthProvider';
 // routes
-import ROUTES from 'routes';
+import ROUTES from '@fm/material-web/routes';
 
 const LoginContainer: React.FC = () => {
   const router = useRouter();

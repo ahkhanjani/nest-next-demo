@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import LoginContainer from 'containers/pages/LoginContainer';
+import LoginContainer from '../containers/pages/LoginContainer';
 
 const DashboardPage: NextPage = () => {
   return <LoginContainer />;

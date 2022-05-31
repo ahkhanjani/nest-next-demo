@@ -11,16 +11,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "types": ["jest", "node"],
-    "baseUrl": "src",
-    "paths": {
-      "~app/*": ["app/*"],
-      "~apollo/*": ["apollo/*"],
-      "~components/*": ["components/*"],
-      "~pages/*": ["pages/*"],
-      "~utils/*": ["utils/*"],
-      "~hooks/*": ["hooks/*"]
-    }
+    "types": ["jest", "node"]
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
   "exclude": ["node_modules", "jest.config.ts"]

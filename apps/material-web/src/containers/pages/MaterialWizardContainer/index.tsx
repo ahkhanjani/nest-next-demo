@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {
-  CssBaseline,
   Box,
   Container,
   Stepper,
@@ -9,28 +8,26 @@ import {
   StepLabel,
   Button,
   Typography,
-  createTheme,
-  ThemeProvider,
 } from '@mui/material';
 // gql
 import {
-  useGetMaterialByIdLazyQuery,
+  useGetMaterialLazyQuery,
   useCreateMaterialsMutation,
   useUpdateMaterialMutation,
-} from 'graphql/generated';
+  MaterialDataObject,
+} from '@fm/gql';
 // cmp
 import MaterialCreator from './components/MaterialCreator';
-import SnackbarAlert from '~components/SnackbarAlert';
+import SnackbarAlert from '@fm/material-web/components/SnackbarAlert';
 // types
 import { CategoryData, MaterialData } from './types';
 // store
-import { useAppDispatch, useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector } from '@fm/material-web/hooks';
 import { GraphQLErrors } from '@apollo/client/errors';
-import { setEditingMaterialId } from 'store/editing-material';
+import { setEditingMaterialId } from '@fm/material-web/store/editing-material';
 import CategorySelectForm from './components/CategorySelectForm';
 
 const steps = ['Category', 'Create', 'Review and Publish'];
-const theme = createTheme();
 
 const MaterialWizardContainer: React.FC = () => {
   //
@@ -48,8 +45,7 @@ const MaterialWizardContainer: React.FC = () => {
   //
 
   // get material in edit mode
-  const [getMaterial, { error: getMaterialErr }] =
-    useGetMaterialByIdLazyQuery();
+  const [getMaterial, { error: getMaterialErr }] = useGetMaterialLazyQuery();
 
   const [createMaterials] = useCreateMaterialsMutation();
 
@@ -63,7 +59,6 @@ const MaterialWizardContainer: React.FC = () => {
   const [materialDataArray, setMaterialDataArray] = useState<MaterialData[]>(
     []
   );
-  const [categorySchema, setCategorySchema] = useState<any>({});
   const [editMode, setEditMode] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -75,7 +70,7 @@ const MaterialWizardContainer: React.FC = () => {
     return () => {
       dispatch(setEditingMaterialId(undefined));
     };
-  }, []);
+  }, [dispatch]);
 
   // in editing mode, fetch material data
   useEffect(() => {
@@ -91,9 +86,9 @@ const MaterialWizardContainer: React.FC = () => {
         return;
       }
 
-      if (res.data && res.data.materialById !== undefined) {
-        const { title, type, formData, category } = res.data.materialById;
-        const data: any = JSON.parse(formData);
+      if (res.data && res.data.material !== undefined) {
+        const { title, type, formData, category } = res.data.material;
+        const data: unknown = JSON.parse(formData);
         setMaterialDataArray([{ title, type, publish: false, data }]);
 
         const ctg: CategoryData = {};
@@ -105,7 +100,7 @@ const MaterialWizardContainer: React.FC = () => {
     };
 
     fetchMaterial();
-  }, []);
+  }, [editId, getMaterial, getMaterialErr]);
 
   // // handles query errors
   // useEffect(() => {
@@ -138,28 +133,31 @@ const MaterialWizardContainer: React.FC = () => {
    */
   async function handleCreateMany(): Promise<SubmitResponse> {
     // stringify each material object
-    const strMaterialArray: string[] = materialDataArray.map((mtrData) => {
-      // stringify form data object
-      const strFormData: string = JSON.stringify(mtrData.data);
-      // stringify the whole material with stringified form data
-      const strMtrData: string = JSON.stringify({
-        ...mtrData,
-        data: strFormData,
-      });
-      return strMtrData;
-    });
+    const dataArray: MaterialDataObject[] = materialDataArray.map(
+      ({ data, publish, ...rest }) => {
+        // stringify form data object
+        const formData: string = JSON.stringify(data);
+        const status: 'published' | 'unpublished' =
+          publish === true ? 'published' : 'unpublished';
+        return { formData, status, ...rest };
+      }
+    );
+
+    // create category id array
     const categoryIdArray = createCategoryIdArray();
 
     const res = await createMaterials({
       variables: {
-        materialArray: strMaterialArray,
+        materialDataArray: dataArray,
         category: categoryIdArray,
       },
     });
 
     if (res.errors) return { errors: res.errors };
     if (res.data)
-      return { message: 'Create success: ' + res.data.createMaterials.message };
+      return {
+        message: res.data.createMaterials.createdMaterials.toString(),
+      };
     return { errors: 'Unknown response.' };
   }
 
@@ -173,7 +171,7 @@ const MaterialWizardContainer: React.FC = () => {
     // updating existing material
     const res = await updateMaterial({
       variables: {
-        materialId: editId!,
+        materialId: editId,
         category: categoryIdArray,
         title,
         type,
@@ -246,7 +244,7 @@ const MaterialWizardContainer: React.FC = () => {
   function getStepContent(step: number) {
     switch (step) {
       case 0:
-        return <CategorySelectForm {...{ categoryData, setCategoryData }} />;
+        return <CategorySelectForm />;
       case 1:
         return (
           <MaterialCreator
@@ -260,14 +258,9 @@ const MaterialWizardContainer: React.FC = () => {
         );
       case 2:
         return (
-          <>
-            <Typography variant="h5" gutterBottom>
-              Materials Created.
-            </Typography>
-            <Typography variant="subtitle1">
-              You can edit them from "Created Materials" menu.
-            </Typography>
-          </>
+          <Typography variant="h5" gutterBottom>
+            Materials Created.
+          </Typography>
         );
       default:
         throw new Error('Unknown step');
@@ -275,8 +268,7 @@ const MaterialWizardContainer: React.FC = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <>
       <SnackbarAlert
         severity="error"
         message={errorSnackbarMsg}
@@ -320,7 +312,7 @@ const MaterialWizardContainer: React.FC = () => {
           </Box>
         </Paper>
       </Container>
-    </ThemeProvider>
+    </>
   );
 };
 export default MaterialWizardContainer;

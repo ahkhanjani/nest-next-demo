@@ -4,7 +4,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Skeleton from '@mui/material/Skeleton';
 import MenuItem from '@mui/material/MenuItem';
 // gql
-import { useGetCategoriesByParentIdQuery } from 'graphql/generated';
+import { useGetCategoriesByParentIdQuery } from '@fm/gql';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
@@ -54,11 +54,11 @@ const CategorySelectField: React.FC<CategorySelectFieldProps> = ({
   // ────────────────────────────────────────────────────────────────────────────────
 
   if (categoriesLoading || !categories)
-    return <Skeleton variant='rectangular' />;
+    return <Skeleton variant="rectangular" />;
 
   if (categories.length === 0) return <></>;
 
-  const labelText: string = `Category ${fieldIndex + 1}`;
+  const labelText = `Category ${fieldIndex + 1}`;
 
   return (
     <FormControl>

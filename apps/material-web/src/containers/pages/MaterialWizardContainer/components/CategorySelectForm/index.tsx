@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 // cmp
 import CategorySelectField from './CategorySelectField';
 
-const CategorySelectForm: React.FC<CategorySelectFormProps> = () => {
+const CategorySelectForm: React.FC = () => {
   //
   // ─── STATE ──────────────────────────────────────────────────────────────────────
   //
@@ -58,5 +58,3 @@ const CategorySelectForm: React.FC<CategorySelectFormProps> = () => {
   );
 };
 export default CategorySelectForm;
-
-interface CategorySelectFormProps {}

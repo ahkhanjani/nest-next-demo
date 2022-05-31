@@ -16,9 +16,9 @@ import Drawer from './components/Drawer';
 import DrawerList from './components/DrawerList';
 import ColorModeToggleButton from './components/ColorModeToggleButton';
 // auth
-import { AuthContext } from 'auth/AuthProvider';
+import { AuthContext } from '@fm/material-web/auth/AuthProvider';
 // routes
-import ROUTES from 'routes';
+import ROUTES from '@fm/material-web/routes';
 
 const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
   children,

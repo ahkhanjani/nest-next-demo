@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useFormikContext } from 'formik';
 // gql
-import { useCheckMaterialTitleExistsLazyQuery } from 'graphql/generated';
+import { useCheckMaterialTitleExistsLazyQuery } from '@fm/gql';
 // cmp
-import InputField from '~components/form/InputField';
+import InputField from '@fm/material-web/components/form/InputField';
 // types
-import { MaterialData } from '~pages/MaterialWizardPage/types';
+import { MaterialData } from '@fm/material-web/containers/pages/MaterialWizardContainer/types';
 import type { FormikValues } from '../types';
 
 const TitleInputField: React.FC<TitleInputFieldProps> = ({
@@ -26,15 +26,32 @@ const TitleInputField: React.FC<TitleInputFieldProps> = ({
   // ─── EFFECT ─────────────────────────────────────────────────────────────────────
   //
 
-  useEffect(() => {
-    if (isSubmitting) validate();
-  }, [isSubmitting]);
+  /**
+   * Checks the local list and the server database for a duplicate title.
+   * @returns true if title already exists.
+   */
+  const checkTitleExists = useCallback(async (): Promise<boolean> => {
+    //* 1. check if exists in current local list
+    // search in local list
+    const titleExistsInCurrentList = materialDataArray.find(
+      ({ title }) => values.title === title
+    );
+    // if title already exists set titleExists to true
+    if (titleExistsInCurrentList) return true;
+    else {
+      //* 2. check if exists in database
+      // query the database
+      const titleExistsInDatabase = await checkMaterialTitleExists({
+        variables: { title: values.title },
+      });
+      // if title already exists set titleExists to true
+      if (titleExistsInDatabase.data?.materialTitleExists) return true;
+    }
 
-  //
-  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
-  //
+    return false;
+  }, [checkMaterialTitleExists, materialDataArray, values.title]);
 
-  async function validate(): Promise<void> {
+  const validate = useCallback(async (): Promise<void> => {
     if (editMode) return;
 
     setSubmitting(false);
@@ -55,36 +72,23 @@ const TitleInputField: React.FC<TitleInputFieldProps> = ({
     }
 
     setSubmitting(true);
-  }
+  }, [
+    checkTitleExists,
+    editMode,
+    materialDataArray,
+    selectedMaterialIndex,
+    setFieldError,
+    setSubmitting,
+    values.title,
+  ]);
 
-  /**
-   * Checks the local list and the server database for a duplicate title.
-   * @returns true if title already exists.
-   */
-  async function checkTitleExists(): Promise<boolean> {
-    //* 1. check if exists in current local list
-    // search in local list
-    const titleExistsInCurrentList = materialDataArray.find(
-      ({ title }) => values.title === title
-    );
-    // if title already exists set titleExists to true
-    if (titleExistsInCurrentList) return true;
-    else {
-      //* 2. check if exists in database
-      // query the database
-      const titleExistsInDatabase = await checkMaterialTitleExists({
-        variables: { title: values.title },
-      });
-      // if title already exists set titleExists to true
-      if (titleExistsInDatabase.data?.materialTitleExists) return true;
-    }
-
-    return false;
-  }
+  useEffect(() => {
+    if (isSubmitting) validate();
+  }, [isSubmitting, validate]);
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  return <InputField name='title' label='Material Title' type='text' />;
+  return <InputField name="title" label="Material Title" type="text" />;
 };
 export default TitleInputField;
 
