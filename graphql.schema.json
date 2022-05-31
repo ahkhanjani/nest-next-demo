@@ -871,7 +871,7 @@
             "description": null,
             "args": [
               {
-                "name": "input",
+                "name": "dto",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
@@ -1036,7 +1036,7 @@
             "description": null,
             "args": [
               {
-                "name": "input",
+                "name": "dto",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",

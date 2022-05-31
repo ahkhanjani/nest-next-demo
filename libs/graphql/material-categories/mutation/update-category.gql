@@ -1,5 +1,5 @@
 mutation UpdateCategory($id: ID!, $title: String!) {
-  updateCategory(input: { id: $id, title: $title }) {
+  updateCategory(dto: { id: $id, title: $title }) {
     success
     error
   }
