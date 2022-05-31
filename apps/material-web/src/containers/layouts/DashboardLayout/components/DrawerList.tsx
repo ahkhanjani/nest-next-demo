@@ -18,6 +18,7 @@ export const MainListItems: React.FC = () => {
 
   return (
     <>
+      {/* eslint-disable-next-line @next/next/link-passhref */}
       <Link href={ROUTES.VIEW_MATERIALS}>
         <ListItemButton selected={route === ROUTES.VIEW_MATERIALS}>
           <ListItemIcon>
