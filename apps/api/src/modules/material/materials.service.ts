@@ -34,7 +34,7 @@ export class MaterialsService {
     const offset: number = (page - 1) * limit;
     const materials: Material[] = await this.materialModel
       .find({ category: categoryId })
-      .sort([['_id', -1]])
+      .sort({ _id: -1 })
       .skip(offset)
       .limit(limit);
     const materialsCount: number = await this.materialModel.count({
