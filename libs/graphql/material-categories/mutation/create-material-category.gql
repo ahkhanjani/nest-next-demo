@@ -1,0 +1,10 @@
+mutation CreateMaterialCategory($title: String!, $parentId: ID!) {
+  createMaterialCategory(dto: { title: $title, parentId: $parentId }) {
+    materialCategory {
+      id
+      title
+      parentId
+    }
+    message
+  }
+}

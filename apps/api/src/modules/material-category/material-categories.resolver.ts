@@ -55,7 +55,7 @@ export class MaterialCategoriesResolver {
   //
 
   @Mutation(() => CreateMaterialCategoryResponse)
-  async createOne(
+  async createMaterialCategory(
     @Args('dto', { type: () => CreateMaterialCategoryInput })
     dto: CreateMaterialCategoryInput
   ): Promise<CreateMaterialCategoryResponse> {
@@ -63,7 +63,7 @@ export class MaterialCategoriesResolver {
   }
 
   @Mutation(() => UpdateMaterialCategoryResponse)
-  async updateCategory(
+  async updateMaterialCategory(
     @Args('dto', { type: () => UpdateMaterialCategoryInput })
     dto: UpdateMaterialCategoryInput
   ): Promise<UpdateMaterialCategoryResponse> {

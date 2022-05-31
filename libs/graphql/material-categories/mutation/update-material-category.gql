@@ -1,0 +1,6 @@
+mutation UpdateMaterialCategory($id: ID!, $title: String!) {
+  updateMaterialCategory(dto: { id: $id, title: $title }) {
+    success
+    error
+  }
+}

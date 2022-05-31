@@ -1,0 +1,7 @@
+query GetMaterialCategories {
+  materialCategories {
+    id
+    title
+    parentId
+  }
+}

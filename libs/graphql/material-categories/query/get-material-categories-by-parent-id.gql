@@ -1,0 +1,6 @@
+query GetMaterialCategoriesByParentId($parentId: ID!) {
+  materialCategoriesByParentId(parentId: $parentId) {
+    id
+    title
+  }
+}

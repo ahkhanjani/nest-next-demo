@@ -1,6 +1,0 @@
-mutation UpdateCategory($id: ID!, $title: String!) {
-  updateCategory(dto: { id: $id, title: $title }) {
-    success
-    error
-  }
-}

@@ -17,9 +17,15 @@ export type Scalars = {
   DateTime: any;
 };
 
-export type CreateCategoryInput = {
+export type CreateMaterialCategoryInput = {
   parentId?: InputMaybe<Scalars['ID']>;
   title: Scalars['String'];
+};
+
+export type CreateMaterialCategoryResponse = {
+  __typename?: 'CreateMaterialCategoryResponse';
+  materialCategory?: Maybe<MaterialCategory>;
+  message?: Maybe<Scalars['String']>;
 };
 
 export type CreateMaterialsInput = {
@@ -55,10 +61,6 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
-export type GetCategoriesByParentIdInput = {
-  parentId?: InputMaybe<Scalars['ID']>;
-};
-
 export type LoginInput = {
   password: Scalars['String'];
   username: Scalars['String'];
@@ -75,18 +77,24 @@ export type Material = {
   type: Scalars['String'];
 };
 
+export type MaterialCategoriesPaginateInput = {
+  limit: Scalars['Int'];
+  page: Scalars['Int'];
+  parentId?: InputMaybe<Scalars['ID']>;
+};
+
+export type MaterialCategoriesPaginateResponse = {
+  __typename?: 'MaterialCategoriesPaginateResponse';
+  materialCategories: Array<MaterialCategory>;
+  pagesCount: Scalars['Int'];
+};
+
 export type MaterialCategory = {
   __typename?: 'MaterialCategory';
   createdAt: Scalars['DateTime'];
   id: Scalars['ID'];
   parentId?: Maybe<Scalars['ID']>;
   title: Scalars['String'];
-};
-
-export type MaterialCategoryResponse = {
-  __typename?: 'MaterialCategoryResponse';
-  category?: Maybe<MaterialCategory>;
-  message?: Maybe<Scalars['String']>;
 };
 
 export type MaterialDataObject = {
@@ -110,18 +118,18 @@ export type MaterialsPaginateResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createCategory: MaterialCategoryResponse;
+  createMaterialCategory: CreateMaterialCategoryResponse;
   createMaterials: CreateMaterialsResponse;
   createPreReg: PreRegResponse;
   createUser: UserResponse;
   login: TokenResponse;
-  updateCategory: UpdateMaterialCategoryResponse;
   updateMaterial: UpdateMaterialResponse;
+  updateMaterialCategory: UpdateMaterialCategoryResponse;
 };
 
 
-export type MutationCreateCategoryArgs = {
-  dto: CreateCategoryInput;
+export type MutationCreateMaterialCategoryArgs = {
+  dto: CreateMaterialCategoryInput;
 };
 
 
@@ -145,25 +153,13 @@ export type MutationLoginArgs = {
 };
 
 
-export type MutationUpdateCategoryArgs = {
-  dto: UpdateCategoryInput;
-};
-
-
 export type MutationUpdateMaterialArgs = {
   dto: UpdateMaterialInput;
 };
 
-export type PaginateInput = {
-  limit: Scalars['Int'];
-  page: Scalars['Int'];
-  parentId?: InputMaybe<Scalars['ID']>;
-};
 
-export type PaginateResponse = {
-  __typename?: 'PaginateResponse';
-  categories: Array<MaterialCategory>;
-  pagesCount: Scalars['Int'];
+export type MutationUpdateMaterialCategoryArgs = {
+  dto: UpdateMaterialCategoryInput;
 };
 
 export type PreRegEmail = {
@@ -180,11 +176,12 @@ export type PreRegResponse = {
 
 export type Query = {
   __typename?: 'Query';
-  allCategories: Array<MaterialCategory>;
-  categoriesByParentId: Array<MaterialCategory>;
-  categoriesPaginate: PaginateResponse;
   getHello: Scalars['String'];
   material: Material;
+  materialCategories: Array<MaterialCategory>;
+  materialCategoriesByParentId: Array<MaterialCategory>;
+  materialCategoriesPaginate: MaterialCategoriesPaginateResponse;
+  materialCategory: MaterialCategory;
   materialSchemaArray: Scalars['String'];
   materialTitleExists: Scalars['Boolean'];
   materials: Array<Material>;
@@ -196,17 +193,22 @@ export type Query = {
 };
 
 
-export type QueryCategoriesByParentIdArgs = {
-  input: GetCategoriesByParentIdInput;
-};
-
-
-export type QueryCategoriesPaginateArgs = {
-  input: PaginateInput;
-};
-
-
 export type QueryMaterialArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryMaterialCategoriesByParentIdArgs = {
+  parentId?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type QueryMaterialCategoriesPaginateArgs = {
+  dto: MaterialCategoriesPaginateInput;
+};
+
+
+export type QueryMaterialCategoryArgs = {
   id: Scalars['ID'];
 };
 
@@ -242,7 +244,7 @@ export type TokenResponse = {
   token?: Maybe<Scalars['String']>;
 };
 
-export type UpdateCategoryInput = {
+export type UpdateMaterialCategoryInput = {
   id: Scalars['ID'];
   title: Scalars['String'];
 };
@@ -288,42 +290,49 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'TokenResponse', token?: string | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
-export type CreateCategoryMutationVariables = Exact<{
+export type CreateMaterialCategoryMutationVariables = Exact<{
   title: Scalars['String'];
   parentId: Scalars['ID'];
 }>;
 
 
-export type CreateCategoryMutation = { __typename?: 'Mutation', createCategory: { __typename?: 'MaterialCategoryResponse', message?: string | null, category?: { __typename?: 'MaterialCategory', id: string, title: string, parentId?: string | null } | null } };
+export type CreateMaterialCategoryMutation = { __typename?: 'Mutation', createMaterialCategory: { __typename?: 'CreateMaterialCategoryResponse', message?: string | null, materialCategory?: { __typename?: 'MaterialCategory', id: string, title: string, parentId?: string | null } | null } };
 
-export type UpdateCategoryMutationVariables = Exact<{
+export type UpdateMaterialCategoryMutationVariables = Exact<{
   id: Scalars['ID'];
   title: Scalars['String'];
 }>;
 
 
-export type UpdateCategoryMutation = { __typename?: 'Mutation', updateCategory: { __typename?: 'UpdateMaterialCategoryResponse', success: boolean, error?: string | null } };
+export type UpdateMaterialCategoryMutation = { __typename?: 'Mutation', updateMaterialCategory: { __typename?: 'UpdateMaterialCategoryResponse', success: boolean, error?: string | null } };
 
-export type GetCategoriesPaginateQueryVariables = Exact<{
+export type GetMaterialCategoriesByParentIdQueryVariables = Exact<{
+  parentId: Scalars['ID'];
+}>;
+
+
+export type GetMaterialCategoriesByParentIdQuery = { __typename?: 'Query', materialCategoriesByParentId: Array<{ __typename?: 'MaterialCategory', id: string, title: string }> };
+
+export type GetMaterialCategoriesPaginateQueryVariables = Exact<{
   parentId: Scalars['ID'];
   page: Scalars['Int'];
   limit: Scalars['Int'];
 }>;
 
 
-export type GetCategoriesPaginateQuery = { __typename?: 'Query', categoriesPaginate: { __typename?: 'PaginateResponse', pagesCount: number, categories: Array<{ __typename?: 'MaterialCategory', id: string, title: string }> } };
+export type GetMaterialCategoriesPaginateQuery = { __typename?: 'Query', materialCategoriesPaginate: { __typename?: 'MaterialCategoriesPaginateResponse', pagesCount: number, materialCategories: Array<{ __typename?: 'MaterialCategory', id: string, title: string }> } };
 
-export type GetAllCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetMaterialCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCategoriesQuery = { __typename?: 'Query', allCategories: Array<{ __typename?: 'MaterialCategory', id: string, title: string, parentId?: string | null }> };
+export type GetMaterialCategoriesQuery = { __typename?: 'Query', materialCategories: Array<{ __typename?: 'MaterialCategory', id: string, title: string, parentId?: string | null }> };
 
-export type GetCategoriesByParentIdQueryVariables = Exact<{
-  parentId: Scalars['ID'];
+export type GetMaterialCategoryQueryVariables = Exact<{
+  id: Scalars['ID'];
 }>;
 
 
-export type GetCategoriesByParentIdQuery = { __typename?: 'Query', categoriesByParentId: Array<{ __typename?: 'MaterialCategory', id: string, title: string }> };
+export type GetMaterialCategoryQuery = { __typename?: 'Query', materialCategory: { __typename?: 'MaterialCategory', title: string, parentId?: string | null } };
 
 export type GetMaterialSchemaArrayQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -438,10 +447,10 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
-export const CreateCategoryDocument = gql`
-    mutation CreateCategory($title: String!, $parentId: ID!) {
-  createCategory(dto: {title: $title, parentId: $parentId}) {
-    category {
+export const CreateMaterialCategoryDocument = gql`
+    mutation CreateMaterialCategory($title: String!, $parentId: ID!) {
+  createMaterialCategory(dto: {title: $title, parentId: $parentId}) {
+    materialCategory {
       id
       title
       parentId
@@ -450,72 +459,110 @@ export const CreateCategoryDocument = gql`
   }
 }
     `;
-export type CreateCategoryMutationFn = Apollo.MutationFunction<CreateCategoryMutation, CreateCategoryMutationVariables>;
+export type CreateMaterialCategoryMutationFn = Apollo.MutationFunction<CreateMaterialCategoryMutation, CreateMaterialCategoryMutationVariables>;
 
 /**
- * __useCreateCategoryMutation__
+ * __useCreateMaterialCategoryMutation__
  *
- * To run a mutation, you first call `useCreateCategoryMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateCategoryMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCreateMaterialCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMaterialCategoryMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createCategoryMutation, { data, loading, error }] = useCreateCategoryMutation({
+ * const [createMaterialCategoryMutation, { data, loading, error }] = useCreateMaterialCategoryMutation({
  *   variables: {
  *      title: // value for 'title'
  *      parentId: // value for 'parentId'
  *   },
  * });
  */
-export function useCreateCategoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateCategoryMutation, CreateCategoryMutationVariables>) {
+export function useCreateMaterialCategoryMutation(baseOptions?: Apollo.MutationHookOptions<CreateMaterialCategoryMutation, CreateMaterialCategoryMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateCategoryMutation, CreateCategoryMutationVariables>(CreateCategoryDocument, options);
+        return Apollo.useMutation<CreateMaterialCategoryMutation, CreateMaterialCategoryMutationVariables>(CreateMaterialCategoryDocument, options);
       }
-export type CreateCategoryMutationHookResult = ReturnType<typeof useCreateCategoryMutation>;
-export type CreateCategoryMutationResult = Apollo.MutationResult<CreateCategoryMutation>;
-export type CreateCategoryMutationOptions = Apollo.BaseMutationOptions<CreateCategoryMutation, CreateCategoryMutationVariables>;
-export const UpdateCategoryDocument = gql`
-    mutation UpdateCategory($id: ID!, $title: String!) {
-  updateCategory(dto: {id: $id, title: $title}) {
+export type CreateMaterialCategoryMutationHookResult = ReturnType<typeof useCreateMaterialCategoryMutation>;
+export type CreateMaterialCategoryMutationResult = Apollo.MutationResult<CreateMaterialCategoryMutation>;
+export type CreateMaterialCategoryMutationOptions = Apollo.BaseMutationOptions<CreateMaterialCategoryMutation, CreateMaterialCategoryMutationVariables>;
+export const UpdateMaterialCategoryDocument = gql`
+    mutation UpdateMaterialCategory($id: ID!, $title: String!) {
+  updateMaterialCategory(dto: {id: $id, title: $title}) {
     success
     error
   }
 }
     `;
-export type UpdateCategoryMutationFn = Apollo.MutationFunction<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
+export type UpdateMaterialCategoryMutationFn = Apollo.MutationFunction<UpdateMaterialCategoryMutation, UpdateMaterialCategoryMutationVariables>;
 
 /**
- * __useUpdateCategoryMutation__
+ * __useUpdateMaterialCategoryMutation__
  *
- * To run a mutation, you first call `useUpdateCategoryMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateCategoryMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpdateMaterialCategoryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMaterialCategoryMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateCategoryMutation, { data, loading, error }] = useUpdateCategoryMutation({
+ * const [updateMaterialCategoryMutation, { data, loading, error }] = useUpdateMaterialCategoryMutation({
  *   variables: {
  *      id: // value for 'id'
  *      title: // value for 'title'
  *   },
  * });
  */
-export function useUpdateCategoryMutation(baseOptions?: Apollo.MutationHookOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>) {
+export function useUpdateMaterialCategoryMutation(baseOptions?: Apollo.MutationHookOptions<UpdateMaterialCategoryMutation, UpdateMaterialCategoryMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateCategoryMutation, UpdateCategoryMutationVariables>(UpdateCategoryDocument, options);
+        return Apollo.useMutation<UpdateMaterialCategoryMutation, UpdateMaterialCategoryMutationVariables>(UpdateMaterialCategoryDocument, options);
       }
-export type UpdateCategoryMutationHookResult = ReturnType<typeof useUpdateCategoryMutation>;
-export type UpdateCategoryMutationResult = Apollo.MutationResult<UpdateCategoryMutation>;
-export type UpdateCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateCategoryMutation, UpdateCategoryMutationVariables>;
-export const GetCategoriesPaginateDocument = gql`
-    query GetCategoriesPaginate($parentId: ID!, $page: Int!, $limit: Int!) {
-  categoriesPaginate(input: {parentId: $parentId, page: $page, limit: $limit}) {
-    categories {
+export type UpdateMaterialCategoryMutationHookResult = ReturnType<typeof useUpdateMaterialCategoryMutation>;
+export type UpdateMaterialCategoryMutationResult = Apollo.MutationResult<UpdateMaterialCategoryMutation>;
+export type UpdateMaterialCategoryMutationOptions = Apollo.BaseMutationOptions<UpdateMaterialCategoryMutation, UpdateMaterialCategoryMutationVariables>;
+export const GetMaterialCategoriesByParentIdDocument = gql`
+    query GetMaterialCategoriesByParentId($parentId: ID!) {
+  materialCategoriesByParentId(parentId: $parentId) {
+    id
+    title
+  }
+}
+    `;
+
+/**
+ * __useGetMaterialCategoriesByParentIdQuery__
+ *
+ * To run a query within a React component, call `useGetMaterialCategoriesByParentIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialCategoriesByParentIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMaterialCategoriesByParentIdQuery({
+ *   variables: {
+ *      parentId: // value for 'parentId'
+ *   },
+ * });
+ */
+export function useGetMaterialCategoriesByParentIdQuery(baseOptions: Apollo.QueryHookOptions<GetMaterialCategoriesByParentIdQuery, GetMaterialCategoriesByParentIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMaterialCategoriesByParentIdQuery, GetMaterialCategoriesByParentIdQueryVariables>(GetMaterialCategoriesByParentIdDocument, options);
+      }
+export function useGetMaterialCategoriesByParentIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialCategoriesByParentIdQuery, GetMaterialCategoriesByParentIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMaterialCategoriesByParentIdQuery, GetMaterialCategoriesByParentIdQueryVariables>(GetMaterialCategoriesByParentIdDocument, options);
+        }
+export type GetMaterialCategoriesByParentIdQueryHookResult = ReturnType<typeof useGetMaterialCategoriesByParentIdQuery>;
+export type GetMaterialCategoriesByParentIdLazyQueryHookResult = ReturnType<typeof useGetMaterialCategoriesByParentIdLazyQuery>;
+export type GetMaterialCategoriesByParentIdQueryResult = Apollo.QueryResult<GetMaterialCategoriesByParentIdQuery, GetMaterialCategoriesByParentIdQueryVariables>;
+export const GetMaterialCategoriesPaginateDocument = gql`
+    query GetMaterialCategoriesPaginate($parentId: ID!, $page: Int!, $limit: Int!) {
+  materialCategoriesPaginate(
+    dto: {parentId: $parentId, page: $page, limit: $limit}
+  ) {
+    materialCategories {
       id
       title
     }
@@ -525,16 +572,16 @@ export const GetCategoriesPaginateDocument = gql`
     `;
 
 /**
- * __useGetCategoriesPaginateQuery__
+ * __useGetMaterialCategoriesPaginateQuery__
  *
- * To run a query within a React component, call `useGetCategoriesPaginateQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCategoriesPaginateQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMaterialCategoriesPaginateQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialCategoriesPaginateQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetCategoriesPaginateQuery({
+ * const { data, loading, error } = useGetMaterialCategoriesPaginateQuery({
  *   variables: {
  *      parentId: // value for 'parentId'
  *      page: // value for 'page'
@@ -542,20 +589,20 @@ export const GetCategoriesPaginateDocument = gql`
  *   },
  * });
  */
-export function useGetCategoriesPaginateQuery(baseOptions: Apollo.QueryHookOptions<GetCategoriesPaginateQuery, GetCategoriesPaginateQueryVariables>) {
+export function useGetMaterialCategoriesPaginateQuery(baseOptions: Apollo.QueryHookOptions<GetMaterialCategoriesPaginateQuery, GetMaterialCategoriesPaginateQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCategoriesPaginateQuery, GetCategoriesPaginateQueryVariables>(GetCategoriesPaginateDocument, options);
+        return Apollo.useQuery<GetMaterialCategoriesPaginateQuery, GetMaterialCategoriesPaginateQueryVariables>(GetMaterialCategoriesPaginateDocument, options);
       }
-export function useGetCategoriesPaginateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoriesPaginateQuery, GetCategoriesPaginateQueryVariables>) {
+export function useGetMaterialCategoriesPaginateLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialCategoriesPaginateQuery, GetMaterialCategoriesPaginateQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCategoriesPaginateQuery, GetCategoriesPaginateQueryVariables>(GetCategoriesPaginateDocument, options);
+          return Apollo.useLazyQuery<GetMaterialCategoriesPaginateQuery, GetMaterialCategoriesPaginateQueryVariables>(GetMaterialCategoriesPaginateDocument, options);
         }
-export type GetCategoriesPaginateQueryHookResult = ReturnType<typeof useGetCategoriesPaginateQuery>;
-export type GetCategoriesPaginateLazyQueryHookResult = ReturnType<typeof useGetCategoriesPaginateLazyQuery>;
-export type GetCategoriesPaginateQueryResult = Apollo.QueryResult<GetCategoriesPaginateQuery, GetCategoriesPaginateQueryVariables>;
-export const GetAllCategoriesDocument = gql`
-    query GetAllCategories {
-  allCategories {
+export type GetMaterialCategoriesPaginateQueryHookResult = ReturnType<typeof useGetMaterialCategoriesPaginateQuery>;
+export type GetMaterialCategoriesPaginateLazyQueryHookResult = ReturnType<typeof useGetMaterialCategoriesPaginateLazyQuery>;
+export type GetMaterialCategoriesPaginateQueryResult = Apollo.QueryResult<GetMaterialCategoriesPaginateQuery, GetMaterialCategoriesPaginateQueryVariables>;
+export const GetMaterialCategoriesDocument = gql`
+    query GetMaterialCategories {
+  materialCategories {
     id
     title
     parentId
@@ -564,67 +611,67 @@ export const GetAllCategoriesDocument = gql`
     `;
 
 /**
- * __useGetAllCategoriesQuery__
+ * __useGetMaterialCategoriesQuery__
  *
- * To run a query within a React component, call `useGetAllCategoriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMaterialCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAllCategoriesQuery({
+ * const { data, loading, error } = useGetMaterialCategoriesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetAllCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>) {
+export function useGetMaterialCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialCategoriesQuery, GetMaterialCategoriesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>(GetAllCategoriesDocument, options);
+        return Apollo.useQuery<GetMaterialCategoriesQuery, GetMaterialCategoriesQueryVariables>(GetMaterialCategoriesDocument, options);
       }
-export function useGetAllCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>) {
+export function useGetMaterialCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialCategoriesQuery, GetMaterialCategoriesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>(GetAllCategoriesDocument, options);
+          return Apollo.useLazyQuery<GetMaterialCategoriesQuery, GetMaterialCategoriesQueryVariables>(GetMaterialCategoriesDocument, options);
         }
-export type GetAllCategoriesQueryHookResult = ReturnType<typeof useGetAllCategoriesQuery>;
-export type GetAllCategoriesLazyQueryHookResult = ReturnType<typeof useGetAllCategoriesLazyQuery>;
-export type GetAllCategoriesQueryResult = Apollo.QueryResult<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>;
-export const GetCategoriesByParentIdDocument = gql`
-    query GetCategoriesByParentId($parentId: ID!) {
-  categoriesByParentId(input: {parentId: $parentId}) {
-    id
+export type GetMaterialCategoriesQueryHookResult = ReturnType<typeof useGetMaterialCategoriesQuery>;
+export type GetMaterialCategoriesLazyQueryHookResult = ReturnType<typeof useGetMaterialCategoriesLazyQuery>;
+export type GetMaterialCategoriesQueryResult = Apollo.QueryResult<GetMaterialCategoriesQuery, GetMaterialCategoriesQueryVariables>;
+export const GetMaterialCategoryDocument = gql`
+    query GetMaterialCategory($id: ID!) {
+  materialCategory(id: $id) {
     title
+    parentId
   }
 }
     `;
 
 /**
- * __useGetCategoriesByParentIdQuery__
+ * __useGetMaterialCategoryQuery__
  *
- * To run a query within a React component, call `useGetCategoriesByParentIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCategoriesByParentIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMaterialCategoryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialCategoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetCategoriesByParentIdQuery({
+ * const { data, loading, error } = useGetMaterialCategoryQuery({
  *   variables: {
- *      parentId: // value for 'parentId'
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useGetCategoriesByParentIdQuery(baseOptions: Apollo.QueryHookOptions<GetCategoriesByParentIdQuery, GetCategoriesByParentIdQueryVariables>) {
+export function useGetMaterialCategoryQuery(baseOptions: Apollo.QueryHookOptions<GetMaterialCategoryQuery, GetMaterialCategoryQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCategoriesByParentIdQuery, GetCategoriesByParentIdQueryVariables>(GetCategoriesByParentIdDocument, options);
+        return Apollo.useQuery<GetMaterialCategoryQuery, GetMaterialCategoryQueryVariables>(GetMaterialCategoryDocument, options);
       }
-export function useGetCategoriesByParentIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCategoriesByParentIdQuery, GetCategoriesByParentIdQueryVariables>) {
+export function useGetMaterialCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialCategoryQuery, GetMaterialCategoryQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCategoriesByParentIdQuery, GetCategoriesByParentIdQueryVariables>(GetCategoriesByParentIdDocument, options);
+          return Apollo.useLazyQuery<GetMaterialCategoryQuery, GetMaterialCategoryQueryVariables>(GetMaterialCategoryDocument, options);
         }
-export type GetCategoriesByParentIdQueryHookResult = ReturnType<typeof useGetCategoriesByParentIdQuery>;
-export type GetCategoriesByParentIdLazyQueryHookResult = ReturnType<typeof useGetCategoriesByParentIdLazyQuery>;
-export type GetCategoriesByParentIdQueryResult = Apollo.QueryResult<GetCategoriesByParentIdQuery, GetCategoriesByParentIdQueryVariables>;
+export type GetMaterialCategoryQueryHookResult = ReturnType<typeof useGetMaterialCategoryQuery>;
+export type GetMaterialCategoryLazyQueryHookResult = ReturnType<typeof useGetMaterialCategoryLazyQuery>;
+export type GetMaterialCategoryQueryResult = Apollo.QueryResult<GetMaterialCategoryQuery, GetMaterialCategoryQueryVariables>;
 export const GetMaterialSchemaArrayDocument = gql`
     query GetMaterialSchemaArray {
   materialSchemaArray
