@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 // modules
 import { MaterialCategoriesResolver } from './material-categories.resolver';
 import { MaterialCategoriesService } from './material-categories.service';
-import { MaterialCategorySchema } from '@fm/nest/material-categoy/model';
+import { MaterialCategorySchema } from './schema/material-category.schema';
 import { IsMaterialCategoryAlreadyExistingConstraint } from '@fm/nest/material-categoy/validator';
 
 @Module({

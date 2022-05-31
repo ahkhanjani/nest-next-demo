@@ -55,17 +55,18 @@ export class MaterialCategoriesResolver {
 
   @Mutation(() => MaterialCategoryResponse)
   async createCategory(
-    @Args('input') input: CreateCategoryInput
+    @Args('dto', { type: () => CreateCategoryInput }) dto: CreateCategoryInput
   ): Promise<MaterialCategoryResponse> {
-    const category = await this.materialCategoriesService.create(input);
+    console.log(dto);
+    const category = await this.materialCategoriesService.create(dto);
     return category;
   }
 
   @Mutation(() => UpdateMaterialCategoryResponse)
   async updateCategory(
-    @Args('input') { id, title }: UpdateCategoryInput
+    @Args('dto', { type: () => UpdateCategoryInput })
+    dto: UpdateCategoryInput
   ): Promise<UpdateMaterialCategoryResponse> {
-    const res = await this.materialCategoriesService.updateOne({ id, title });
-    return res;
+    return await this.materialCategoriesService.updateOne(dto);
   }
 }

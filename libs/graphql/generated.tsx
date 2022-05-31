@@ -121,7 +121,7 @@ export type Mutation = {
 
 
 export type MutationCreateCategoryArgs = {
-  input: CreateCategoryInput;
+  dto: CreateCategoryInput;
 };
 
 
@@ -146,7 +146,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationUpdateCategoryArgs = {
-  input: UpdateCategoryInput;
+  dto: UpdateCategoryInput;
 };
 
 
@@ -290,7 +290,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'To
 
 export type CreateCategoryMutationVariables = Exact<{
   title: Scalars['String'];
-  parentId?: InputMaybe<Scalars['ID']>;
+  parentId: Scalars['ID'];
 }>;
 
 
@@ -439,8 +439,8 @@ export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const CreateCategoryDocument = gql`
-    mutation CreateCategory($title: String!, $parentId: ID) {
-  createCategory(input: {title: $title, parentId: $parentId}) {
+    mutation CreateCategory($title: String!, $parentId: ID!) {
+  createCategory(dto: {title: $title, parentId: $parentId}) {
     category {
       id
       title
@@ -479,7 +479,7 @@ export type CreateCategoryMutationResult = Apollo.MutationResult<CreateCategoryM
 export type CreateCategoryMutationOptions = Apollo.BaseMutationOptions<CreateCategoryMutation, CreateCategoryMutationVariables>;
 export const UpdateCategoryDocument = gql`
     mutation UpdateCategory($id: ID!, $title: String!) {
-  updateCategory(input: {id: $id, title: $title}) {
+  updateCategory(dto: {id: $id, title: $title}) {
     success
     error
   }

@@ -106,9 +106,10 @@ export class MaterialCategoriesService {
     id,
     title,
   }: UpdateCategoryInput): Promise<UpdateMaterialCategoryResponse> {
-    await this.materialCategoryModel
-      .updateOne({ _id: id }, { $set: { title } })
-      .exec();
+    await this.materialCategoryModel.updateOne(
+      { _id: id },
+      { $set: { title } }
+    );
     return { success: true };
   }
 }
