@@ -4,9 +4,9 @@ import * as yup from 'yup';
 // mui
 import Paper from '@mui/material/Paper';
 // cmp
-import SnackbarAlert from '@fm/material-web/components/SnackbarAlert';
-import CheckboxField from '@fm/material-web/components/form/CheckboxField';
-import SubmitButton from '@fm/material-web/components/form/SubmitButton';
+import SnackbarAlert from '../../../../../../components/SnackbarAlert';
+import CheckboxField from '../../../../../../components/form/CheckboxField';
+import SubmitButton from '../../../../../../components/form/SubmitButton';
 import TitleInputField from './components/TitleInputField';
 import TypeSelectField from './components/TypeSelectField';
 import DynamicForm from './components/DynamicForm';

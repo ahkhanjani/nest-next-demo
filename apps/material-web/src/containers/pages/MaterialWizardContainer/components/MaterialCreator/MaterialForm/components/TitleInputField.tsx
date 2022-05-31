@@ -3,9 +3,9 @@ import { useFormikContext } from 'formik';
 // gql
 import { useCheckMaterialTitleExistsLazyQuery } from '@fm/gql';
 // cmp
-import InputField from '@fm/material-web/components/form/InputField';
+import InputField from '../../../../../../../components/form/InputField';
 // types
-import { MaterialData } from '@fm/material-web/containers/pages/MaterialWizardContainer/types';
+import { MaterialData } from '../../../../types';
 import type { FormikValues } from '../types';
 
 const TitleInputField: React.FC<TitleInputFieldProps> = ({

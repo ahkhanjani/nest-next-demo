@@ -5,7 +5,7 @@ import {
 } from '../validator';
 
 @InputType()
-export class UpdateCategoryInput {
+export class UpdateMaterialCategoryInput {
   @Field(() => ID)
   readonly id: string;
 

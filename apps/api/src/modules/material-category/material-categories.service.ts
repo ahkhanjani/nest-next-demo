@@ -3,11 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import {
   UpdateMaterialCategoryResponse,
-  MaterialCategoryResponse,
-  UpdateCategoryInput,
-  CreateCategoryInput,
-  PaginateInput,
-  PaginateResponse,
+  CreateMaterialCategoryResponse,
+  UpdateMaterialCategoryInput,
+  CreateMaterialCategoryInput,
+  MaterialCategoriesPaginateInput,
+  MaterialCategoriesPaginateResponse,
 } from '@fm/nest/material-categoy/dto';
 import {
   MaterialCategory,
@@ -29,7 +29,7 @@ export class MaterialCategoriesService {
     limit,
     page,
     parentId,
-  }: PaginateInput): Promise<PaginateResponse> {
+  }: MaterialCategoriesPaginateInput): Promise<MaterialCategoriesPaginateResponse> {
     const offset: number = (page - 1) * limit;
     const categories: MaterialCategory[] = await this.materialCategoryModel
       .find({ parentId })
@@ -42,41 +42,31 @@ export class MaterialCategoriesService {
     });
     const pagesCount: number = Math.ceil(categoriesCount / limit);
 
-    return { categories, pagesCount };
+    return { materialCategories: categories, pagesCount };
   }
 
   async findAll(): Promise<MaterialCategory[]> {
-    return await this.materialCategoryModel.find().exec();
+    return await this.materialCategoryModel.find();
   }
 
-  async findOneById(id: string): Promise<MaterialCategory> {
-    return await this.materialCategoryModel.findById({ _id: id }).exec();
+  async findOne(id: string): Promise<MaterialCategory> {
+    return await this.materialCategoryModel.findById(id);
   }
 
   /**
    * Searchs for a category with the same title AND parentId as the given category.
-   * @param {{title: string, parentId: string}} input Contains title and parentId.
-   * @returns If an identical category is found, returns the category.
+   * @param {{title: string, parentId: string}} dto Contains title and parentId.
+   * @returns If an identical category is found, returns true.
    */
-  async findOneIdentical(
-    input: CreateCategoryInput
-  ): Promise<MaterialCategory> {
-    const category = await this.materialCategoryModel
-      .findById({ ...input })
-      .exec();
-
-    return category;
+  async checkAlreadyExists(dto: CreateMaterialCategoryInput): Promise<boolean> {
+    const found: MaterialCategory = await this.materialCategoryModel.findOne(
+      dto
+    );
+    return Boolean(found);
   }
 
-  async findAllByParentId(parentId: string): Promise<MaterialCategory[]> {
-    const found = await this.materialCategoryModel.find({ parentId }).exec();
-    return found;
-  }
-
-  async findAllByDependsOnParentId(
-    dependsOnParentId: string
-  ): Promise<MaterialCategory[]> {
-    return await this.materialCategoryModel.find({ dependsOnParentId }).exec();
+  async findByParentId(parentId: string): Promise<MaterialCategory[]> {
+    return await this.materialCategoryModel.find({ parentId });
   }
 
   //
@@ -86,26 +76,26 @@ export class MaterialCategoriesService {
   async createOne({
     title,
     parentId,
-  }: CreateCategoryInput): Promise<MaterialCategoryResponse> {
+  }: CreateMaterialCategoryInput): Promise<CreateMaterialCategoryResponse> {
+    // check if parent exists.
     if (parentId !== '') {
-      const parentIdExists = Boolean(await this.findOneById(parentId));
+      const parentIdExists = Boolean(await this.findOne(parentId));
       if (!parentIdExists)
         return { message: 'The parent category does not exist.' };
     }
 
-    const createdCategory = new this.materialCategoryModel({
+    const createdCategory = await this.materialCategoryModel.create({
       title,
       parentId,
     });
-    const savedCategory = await createdCategory.save();
 
-    return { category: savedCategory };
+    return { materialCategory: createdCategory };
   }
 
   async updateOne({
     id,
     title,
-  }: UpdateCategoryInput): Promise<UpdateMaterialCategoryResponse> {
+  }: UpdateMaterialCategoryInput): Promise<UpdateMaterialCategoryResponse> {
     try {
       await this.materialCategoryModel.updateOne(
         {

@@ -19,7 +19,7 @@ import {
 // types
 import { PathCategory } from '../../types';
 // store
-import { useAppSelector } from '@fm/material-web/hooks';
+import { useAppSelector } from '../../../../../hooks';
 
 const initialValues: Values = { title: '' };
 
@@ -109,8 +109,7 @@ const InputDialog: React.FC<InputDialogProps> = ({
   }
 
   function handleSubmit() {
-    console.log(editingCategory);
-    if (editingCategory.id) {
+    if (editingCategory) {
       handleUpdate();
       return;
     }

@@ -5,7 +5,7 @@ import {
 } from '../validator';
 
 @InputType()
-export class CreateCategoryInput {
+export class CreateMaterialCategoryInput {
   @IsMaterialCategoryAlreadyExisting()
   @IsMaterialCategoryTitle()
   @Field()

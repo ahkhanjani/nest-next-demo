@@ -1,4 +1,4 @@
-import { MuiForm5 as Form } from '@rjsf/material-ui';
+import Form from '@rjsf/material-ui/v5';
 // mui
 import Box from '@mui/material/Box';
 // types

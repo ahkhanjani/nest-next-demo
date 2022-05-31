@@ -3,7 +3,7 @@ import { useFormikContext } from 'formik';
 // gql
 import { useGetMaterialSchemaArrayQuery } from '@fm/gql';
 // cmp
-import SelectField from '@fm/material-web/components/form/SelectField';
+import SelectField from '../../../../../../../components/form/SelectField';
 // types
 import { JSONSchema7 } from 'json-schema';
 import type { FormikValues, MaterialSchemaObjectArray } from '../types';

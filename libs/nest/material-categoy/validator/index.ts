@@ -1,5 +1,2 @@
-export {
-  IsMaterialCategoryAlreadyExisting,
-  IsMaterialCategoryAlreadyExistingConstraint,
-} from './category-exist.validator';
-export { IsMaterialCategoryTitle } from './title.validator';
+export * from './material-category-exist.validator';
+export * from './title.validator';

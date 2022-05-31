@@ -2,10 +2,10 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { MaterialCategory } from '../interface';
 
 @ObjectType()
-export class PaginateResponse {
+export class MaterialCategoriesPaginateResponse {
   @Field(() => Int)
   readonly pagesCount: number;
 
   @Field(() => [MaterialCategory])
-  readonly categories: MaterialCategory[];
+  readonly materialCategories: MaterialCategory[];
 }

@@ -16,8 +16,8 @@ import ListContainer from '../ListContainer';
 import CreateButton from './CreateButton';
 import InputDialog from './InputDialog';
 // store
-import { useAppSelector, useAppDispatch } from '@fm/material-web/hooks';
-import { addPathCategory } from '@fm/material-web/store/category-path';
+import { useAppSelector, useAppDispatch } from '../../../../../hooks';
+import { addPathCategory } from '../../../../../store/category-path';
 
 const limit = 7;
 

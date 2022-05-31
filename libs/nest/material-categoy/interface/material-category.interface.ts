@@ -6,7 +6,7 @@ export class MaterialCategory {
   @Field(() => ID)
   readonly id: string;
 
-  @Field()
+  @Field({ defaultValue: new Date() })
   readonly createdAt: Date;
 
   @Field()

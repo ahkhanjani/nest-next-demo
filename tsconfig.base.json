@@ -21,7 +21,8 @@
       "@fm/types": ["libs/types/src/index.ts"],
       "@fm/api/*": ["apps/api/src/modules/*"],
       "@fm/material-web/*": ["apps/material-web/src/*"],
-      "@fm/gql": ["libs/graphql/generated.tsx"]
+      "@fm/gql": ["libs/graphql/generated.tsx"],
+      "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

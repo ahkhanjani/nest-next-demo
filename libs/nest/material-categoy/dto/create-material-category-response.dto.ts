@@ -3,9 +3,9 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { MaterialCategory } from '../interface';
 
 @ObjectType()
-export class MaterialCategoryResponse {
+export class CreateMaterialCategoryResponse {
   @Field(() => MaterialCategory, { nullable: true })
-  readonly category?: MaterialCategory;
+  readonly materialCategory?: MaterialCategory;
 
   @Field({ nullable: true })
   readonly message?: string;

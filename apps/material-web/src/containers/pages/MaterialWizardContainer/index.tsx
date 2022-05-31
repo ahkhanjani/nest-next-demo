@@ -18,13 +18,13 @@ import {
 } from '@fm/gql';
 // cmp
 import MaterialCreator from './components/MaterialCreator';
-import SnackbarAlert from '@fm/material-web/components/SnackbarAlert';
+import SnackbarAlert from '../../../components/SnackbarAlert';
 // types
 import { CategoryData, MaterialData } from './types';
 // store
-import { useAppDispatch, useAppSelector } from '@fm/material-web/hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { GraphQLErrors } from '@apollo/client/errors';
-import { setEditingMaterialId } from '@fm/material-web/store/editing-material';
+import { setEditingMaterialId } from '../../../store/editing-material';
 import CategorySelectForm from './components/CategorySelectForm';
 
 const steps = ['Category', 'Create', 'Review and Publish'];

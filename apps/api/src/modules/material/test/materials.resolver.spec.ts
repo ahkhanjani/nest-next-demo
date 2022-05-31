@@ -82,8 +82,8 @@ describe('MaterialsResolver', () => {
     });
   });
 
-  describe('getMaterialByCategoryId', () => {
-    describe('when getMaterialByCategoryId is called', () => {
+  describe('getMaterialsByCategoryId', () => {
+    describe('when getMaterialsByCategoryId is called', () => {
       let materials: Material[];
 
       beforeEach(async () => {
@@ -232,12 +232,10 @@ describe('MaterialsResolver', () => {
       beforeEach(async () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id: _, createdAt: __, category, ...rest } = materialStub();
-
         createMaterialsDto = {
           category,
           materialDataArray: [rest, rest],
         };
-
         response = await resolver.createMaterials(createMaterialsDto);
       });
 

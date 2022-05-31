@@ -1,16 +1,13 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
 import {
   UpdateMaterialCategoryResponse,
-  MaterialCategoryResponse,
-  UpdateCategoryInput,
-  CreateCategoryInput,
-  PaginateResponse,
-  PaginateInput,
+  CreateMaterialCategoryResponse,
+  UpdateMaterialCategoryInput,
+  CreateMaterialCategoryInput,
+  MaterialCategoriesPaginateResponse,
+  MaterialCategoriesPaginateInput,
 } from '@fm/nest/material-categoy/dto';
-import {
-  GetCategoriesByParentIdInput,
-  MaterialCategory,
-} from '@fm/nest/material-categoy/interface';
+import { MaterialCategory } from '@fm/nest/material-categoy/interface';
 // module
 import { MaterialCategoriesService } from './material-categories.service';
 
@@ -24,48 +21,51 @@ export class MaterialCategoriesResolver {
   // ─── QUERY ──────────────────────────────────────────────────────────────────────
   //
 
-  @Query(() => PaginateResponse, { name: 'categoriesPaginate' })
-  async getCategories_paginate(
-    @Args('input', { type: () => PaginateInput })
-    { limit, page, parentId }: PaginateInput
-  ): Promise<PaginateResponse> {
-    const res = await this.materialCategoriesService.paginate({
-      parentId,
-      page,
-      limit,
-    });
-    return res;
+  @Query(() => MaterialCategoriesPaginateResponse, {
+    name: 'materialCategoriesPaginate',
+  })
+  async getMaterialCategoriesPaginate(
+    @Args('dto', { type: () => MaterialCategoriesPaginateInput })
+    dto: MaterialCategoriesPaginateInput
+  ): Promise<MaterialCategoriesPaginateResponse> {
+    return await this.materialCategoriesService.paginate(dto);
   }
 
-  @Query(() => [MaterialCategory], { name: 'allCategories' })
-  async getAllCategories(): Promise<MaterialCategory[]> {
+  @Query(() => MaterialCategory, { name: 'materialCategory' })
+  async getMaterialCategory(
+    @Args('id', { type: () => ID }) id: string
+  ): Promise<MaterialCategory> {
+    return await this.materialCategoriesService.findOne(id);
+  }
+
+  @Query(() => [MaterialCategory], { name: 'materialCategories' })
+  async getMaterialCategories(): Promise<MaterialCategory[]> {
     return await this.materialCategoriesService.findAll();
   }
 
-  @Query(() => [MaterialCategory], { name: 'categoriesByParentId' })
-  async getCategoriesByParentId(
-    @Args('input') { parentId }: GetCategoriesByParentIdInput
+  @Query(() => [MaterialCategory], { name: 'materialCategoriesByParentId' })
+  async getMaterialCategoriesByParentId(
+    @Args('parentId', { type: () => ID, nullable: true }) parentId: string
   ): Promise<MaterialCategory[]> {
-    return await this.materialCategoriesService.findAllByParentId(parentId);
+    return await this.materialCategoriesService.findByParentId(parentId);
   }
 
   //
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //
 
-  @Mutation(() => MaterialCategoryResponse)
-  async createCategory(
-    @Args('dto', { type: () => CreateCategoryInput }) dto: CreateCategoryInput
-  ): Promise<MaterialCategoryResponse> {
-    console.log(dto);
-    const category = await this.materialCategoriesService.createOne(dto);
-    return category;
+  @Mutation(() => CreateMaterialCategoryResponse)
+  async createOne(
+    @Args('dto', { type: () => CreateMaterialCategoryInput })
+    dto: CreateMaterialCategoryInput
+  ): Promise<CreateMaterialCategoryResponse> {
+    return await this.materialCategoriesService.createOne(dto);
   }
 
   @Mutation(() => UpdateMaterialCategoryResponse)
   async updateCategory(
-    @Args('dto', { type: () => UpdateCategoryInput })
-    dto: UpdateCategoryInput
+    @Args('dto', { type: () => UpdateMaterialCategoryInput })
+    dto: UpdateMaterialCategoryInput
   ): Promise<UpdateMaterialCategoryResponse> {
     return await this.materialCategoriesService.updateOne(dto);
   }

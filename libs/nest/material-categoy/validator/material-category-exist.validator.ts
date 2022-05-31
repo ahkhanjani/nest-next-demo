@@ -7,6 +7,7 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 import { MaterialCategoriesService } from '@fm/api/material-category/material-categories.service';
+import { MaterialCategory } from '../interface';
 
 @Injectable()
 @ValidatorConstraint({ async: true })
@@ -22,20 +23,19 @@ export class IsMaterialCategoryAlreadyExistingConstraint
 
     let parentId: string;
     if (updating) {
-      const id = (args.object as any)['id'];
-      const selectedCategory = await this.materialCategoriesService.findOneById(
-        id
-      );
+      const id: string = (args.object as any)['id'];
+      const selectedCategory: MaterialCategory =
+        await this.materialCategoriesService.findOne(id);
       parentId = selectedCategory.parentId;
     } else parentId = (args.object as any)['parentId'];
 
-    const identicalCategory =
-      await this.materialCategoriesService.findOneIdentical({
+    const exists: boolean =
+      await this.materialCategoriesService.checkAlreadyExists({
         title,
         parentId,
       });
 
-    if (identicalCategory) return false;
+    if (exists) return false;
     return true;
   }
   defaultMessage() {
