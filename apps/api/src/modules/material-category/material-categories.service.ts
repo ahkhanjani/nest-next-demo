@@ -33,10 +33,10 @@ export class MaterialCategoriesService {
     const offset: number = (page - 1) * limit;
     const categories: MaterialCategory[] = await this.materialCategoryModel
       .find({ parentId })
-      .sort([['_id', -1]])
+      .sort({ _id: -1 })
       .skip(offset)
-      .limit(limit)
-      .exec();
+      .limit(limit);
+
     const categoriesCount: number = await this.materialCategoryModel.count({
       parentId,
     });
@@ -83,7 +83,7 @@ export class MaterialCategoriesService {
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //
 
-  async create({
+  async createOne({
     title,
     parentId,
   }: CreateCategoryInput): Promise<MaterialCategoryResponse> {
@@ -106,10 +106,17 @@ export class MaterialCategoriesService {
     id,
     title,
   }: UpdateCategoryInput): Promise<UpdateMaterialCategoryResponse> {
-    await this.materialCategoryModel.updateOne(
-      { _id: id },
-      { $set: { title } }
-    );
-    return { success: true };
+    try {
+      await this.materialCategoryModel.updateOne(
+        {
+          _id: id,
+        },
+        { $set: { title } }
+      );
+
+      return { success: true };
+    } catch (error) {
+      return { error };
+    }
   }
 }

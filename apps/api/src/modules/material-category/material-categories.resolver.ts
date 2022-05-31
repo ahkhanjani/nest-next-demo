@@ -58,7 +58,7 @@ export class MaterialCategoriesResolver {
     @Args('dto', { type: () => CreateCategoryInput }) dto: CreateCategoryInput
   ): Promise<MaterialCategoryResponse> {
     console.log(dto);
-    const category = await this.materialCategoriesService.create(dto);
+    const category = await this.materialCategoriesService.createOne(dto);
     return category;
   }
 
