@@ -1,8 +1,8 @@
 import Grid from '@mui/material/Grid';
 // cmp
-import CategoryBreadcrumbs from './components/CategoryBreadcrumbs';
-import CategoryList from './components/CategoryList';
-import MaterialList from './components/MaterialList';
+import CategoryBreadcrumbs from './CategoryBreadcrumbs';
+import CategoryList from './CategoryList';
+import MaterialList from './MaterialList';
 
 const MaterialViewerContainer: React.FC = () => {
   return (

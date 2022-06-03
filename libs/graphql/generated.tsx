@@ -182,7 +182,6 @@ export type Query = {
   materialCategoriesByParentId: Array<MaterialCategory>;
   materialCategoriesPaginate: MaterialCategoriesPaginateResponse;
   materialCategory: MaterialCategory;
-  materialSchemaArray: Scalars['String'];
   materialTitleExists: Scalars['Boolean'];
   materials: Array<Material>;
   materialsByCategoryId: Array<Material>;
@@ -333,11 +332,6 @@ export type GetMaterialCategoryQueryVariables = Exact<{
 
 
 export type GetMaterialCategoryQuery = { __typename?: 'Query', materialCategory: { __typename?: 'MaterialCategory', title: string, parentId?: string | null } };
-
-export type GetMaterialSchemaArrayQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetMaterialSchemaArrayQuery = { __typename?: 'Query', materialSchemaArray: string };
 
 export type CreateMaterialsMutationVariables = Exact<{
   materialDataArray: Array<MaterialDataObject> | MaterialDataObject;
@@ -672,38 +666,6 @@ export function useGetMaterialCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetMaterialCategoryQueryHookResult = ReturnType<typeof useGetMaterialCategoryQuery>;
 export type GetMaterialCategoryLazyQueryHookResult = ReturnType<typeof useGetMaterialCategoryLazyQuery>;
 export type GetMaterialCategoryQueryResult = Apollo.QueryResult<GetMaterialCategoryQuery, GetMaterialCategoryQueryVariables>;
-export const GetMaterialSchemaArrayDocument = gql`
-    query GetMaterialSchemaArray {
-  materialSchemaArray
-}
-    `;
-
-/**
- * __useGetMaterialSchemaArrayQuery__
- *
- * To run a query within a React component, call `useGetMaterialSchemaArrayQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMaterialSchemaArrayQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMaterialSchemaArrayQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetMaterialSchemaArrayQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialSchemaArrayQuery, GetMaterialSchemaArrayQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMaterialSchemaArrayQuery, GetMaterialSchemaArrayQueryVariables>(GetMaterialSchemaArrayDocument, options);
-      }
-export function useGetMaterialSchemaArrayLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialSchemaArrayQuery, GetMaterialSchemaArrayQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMaterialSchemaArrayQuery, GetMaterialSchemaArrayQueryVariables>(GetMaterialSchemaArrayDocument, options);
-        }
-export type GetMaterialSchemaArrayQueryHookResult = ReturnType<typeof useGetMaterialSchemaArrayQuery>;
-export type GetMaterialSchemaArrayLazyQueryHookResult = ReturnType<typeof useGetMaterialSchemaArrayLazyQuery>;
-export type GetMaterialSchemaArrayQueryResult = Apollo.QueryResult<GetMaterialSchemaArrayQuery, GetMaterialSchemaArrayQueryVariables>;
 export const CreateMaterialsDocument = gql`
     mutation createMaterials($materialDataArray: [MaterialDataObject!]!, $category: [ID!]!) {
   createMaterials(

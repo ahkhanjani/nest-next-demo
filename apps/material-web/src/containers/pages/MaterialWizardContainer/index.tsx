@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
-import {
-  Box,
-  Container,
-  Stepper,
-  Paper,
-  Step,
-  StepLabel,
-  Button,
-  Typography,
-} from '@mui/material';
+// mui
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 // gql
 import {
   useGetMaterialLazyQuery,
@@ -17,19 +16,25 @@ import {
   MaterialDataObject,
 } from '@fm/gql';
 // cmp
-import MaterialCreator from './components/MaterialCreator';
+import MaterialCreator from './MaterialCreator';
 import SnackbarAlert from '../../../components/SnackbarAlert';
 // types
-import { CategoryData, MaterialData } from './types';
+import {
+  CategoryData,
+  MaterialData,
+  MaterialSchemaObjectArray,
+} from '@fm/types';
 // store
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { GraphQLErrors } from '@apollo/client/errors';
 import { setEditingMaterialId } from '../../../store/editing-material';
-import CategorySelectForm from './components/CategorySelectForm';
+import CategorySelectForm from './CategorySelectForm';
 
 const steps = ['Category', 'Create', 'Review and Publish'];
 
-const MaterialWizardContainer: React.FC = () => {
+const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
+  materialSchemaArray,
+}) => {
   //
   // ─── STATE ──────────────────────────────────────────────────────────────────────
   //
@@ -114,12 +119,18 @@ const MaterialWizardContainer: React.FC = () => {
   useEffect(() => {
     switch (activeStep) {
       case 0:
-        if (categoryData) setIsNextBtnActive(true);
-        else setIsNextBtnActive(false);
+        if (categoryData) {
+          setIsNextBtnActive(true);
+          break;
+        }
+        setIsNextBtnActive(false);
         break;
       case 1:
-        if (materialDataArray.length) setIsNextBtnActive(true);
-        else setIsNextBtnActive(false);
+        if (materialDataArray.length) {
+          setIsNextBtnActive(true);
+          break;
+        }
+        setIsNextBtnActive(false);
         break;
     }
   }, [categoryData, materialDataArray, activeStep]);
@@ -252,6 +263,7 @@ const MaterialWizardContainer: React.FC = () => {
               categoryData,
               materialDataArray,
               setMaterialDataArray,
+              materialSchemaArray,
               editMode,
             }}
           />
@@ -301,7 +313,7 @@ const MaterialWizardContainer: React.FC = () => {
             )}
             <Button
               variant="contained"
-              disabled={!isNextBtnActive}
+              disabled={isNextBtnActive}
               onClick={
                 activeStep === steps.length - 1 ? handleSubmitData : handleNext
               }
@@ -316,6 +328,10 @@ const MaterialWizardContainer: React.FC = () => {
   );
 };
 export default MaterialWizardContainer;
+
+interface MaterialWizardContainerProps {
+  materialSchemaArray: MaterialSchemaObjectArray;
+}
 
 interface SubmitResponseMessage {
   message: string;

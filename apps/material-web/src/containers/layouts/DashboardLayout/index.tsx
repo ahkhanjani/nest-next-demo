@@ -11,14 +11,14 @@ import Container from '@mui/material/Container';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MenuIcon from '@mui/icons-material/Menu';
 // cmp
-import AppBar from './components/AppBar';
-import Drawer from './components/Drawer';
-import DrawerList from './components/DrawerList';
-import ColorModeToggleButton from './components/ColorModeToggleButton';
+import AppBar from './AppBar';
+import Drawer from './Drawer';
+import DrawerList from './DrawerList';
+import ColorModeToggleButton from './ColorModeToggleButton';
 // auth
-import { AuthContext } from '@fm/material-web/auth/AuthProvider';
+import { AuthContext } from '../../../auth/AuthProvider';
 // routes
-import ROUTES from '@fm/material-web/routes';
+import ROUTES from '../../../routes';
 
 const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
   children,

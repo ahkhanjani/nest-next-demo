@@ -1,4 +1,5 @@
 overwrite: true
+watch: true
 schema: 'http://localhost:4000/graphql'
 documents: 'libs/graphql/**/*.gql'
 generates:
@@ -7,6 +8,3 @@ generates:
       - 'typescript'
       - 'typescript-operations'
       - 'typescript-react-apollo'
-  ./graphql.schema.json:
-    plugins:
-      - 'introspection'

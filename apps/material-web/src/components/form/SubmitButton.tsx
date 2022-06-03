@@ -1,5 +1,5 @@
-import { PropsWithChildren } from 'react';
-import Button from '@mui/material/Button';
+import { FormEvent, PropsWithChildren } from 'react';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
   children,
@@ -7,14 +7,14 @@ const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
   onClick,
 }) => {
   return (
-    <Button id='submit' {...{ loading, onClick }}>
+    <LoadingButton id="submit" loading={loading} onClick={() => onClick()}>
       {children}
-    </Button>
+    </LoadingButton>
   );
 };
 export default SubmitButton;
 
 interface SubmitButtonProps {
   loading?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: (e?: FormEvent<HTMLFormElement>) => void;
 }

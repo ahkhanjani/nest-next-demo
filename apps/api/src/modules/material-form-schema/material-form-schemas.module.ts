@@ -1,12 +1,12 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { MaterialCategoriesModule } from '../material-category/material-categories.module';
+import { Module } from '@nestjs/common';
+import { MaterialFormSchemaController } from './material-form-schema.controller';
 // module
-import { MaterialFormSchemasResolver } from './material-form-schemas.resolver';
 import { MaterialFormSchemasService } from './material-form-schemas.service';
 
 @Module({
-  imports: [forwardRef(() => MaterialCategoriesModule)],
-  providers: [MaterialFormSchemasService, MaterialFormSchemasResolver],
+  imports: [],
+  controllers: [MaterialFormSchemaController],
+  providers: [MaterialFormSchemasService],
   exports: [MaterialFormSchemasService],
 })
 export class MaterialFormSchemasModule {}

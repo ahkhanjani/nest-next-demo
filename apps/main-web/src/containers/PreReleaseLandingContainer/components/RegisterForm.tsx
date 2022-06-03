@@ -1,8 +1,8 @@
-import InputField from '~components/InputField';
-import SubmitButton from '~components/SubmitButton';
+import InputField from '../../../components/InputField';
+import SubmitButton from '../../../components/SubmitButton';
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
-import { useCreatePreRegMutation } from '~graphql/generated';
+import { useCreatePreRegMutation } from '@fm/gql';
 
 const initialValues: Values = { email: '' };
 
@@ -42,7 +42,7 @@ const RegisterForm: React.FC = () => {
     >
       {(props: FormikProps<Values>) => (
         <Form>
-          <InputField name='email' type='email' label='Email' />
+          <InputField name="email" type="email" label="Email" />
           <SubmitButton {...{ loading }}>Send</SubmitButton>
         </Form>
       )}
