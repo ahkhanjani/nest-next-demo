@@ -1,10 +1,11 @@
+// mui
 import Grid from '@mui/material/Grid';
 // cmp
 import CategoryBreadcrumbs from './CategoryBreadcrumbs';
 import CategoryList from './CategoryList';
 import MaterialList from './MaterialList';
 
-const MaterialViewerContainer: React.FC = () => {
+const BrowseContainer: React.FC = () => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} display="flex" flexDirection="row" alignItems="center">
@@ -19,4 +20,4 @@ const MaterialViewerContainer: React.FC = () => {
     </Grid>
   );
 };
-export default MaterialViewerContainer;
+export default BrowseContainer;

@@ -4,9 +4,9 @@ import * as yup from 'yup';
 // mui
 import Paper from '@mui/material/Paper';
 // cmp
-import SnackbarAlert from '../../../../../components/SnackbarAlert';
-import CheckboxField from '../../../../../components/form/CheckboxField';
-import SubmitButton from '../../../../../components/form/SubmitButton';
+import SnackbarAlert from '../../../../../../components/SnackbarAlert';
+import CheckboxField from '../../../../../../components/form/CheckboxField';
+import SubmitButton from '../../../../../../components/form/SubmitButton';
 import TitleInputField from './TitleInputField';
 import TypeSelectField from './TypeSelectField';
 import DynamicForm from './DynamicForm';
@@ -14,6 +14,7 @@ import DynamicForm from './DynamicForm';
 import type { MaterialData, MaterialSchemaObjectArray } from '@fm/types';
 import type { FormikValues } from './types/formik';
 import type { JSONSchema7 } from 'json-schema';
+import CategorySelectForm from '../../../components/CategorySelectForm';
 
 /**
  * Validation schema used by Formik to validate fields.
@@ -40,8 +41,6 @@ const MaterialForm: React.FC<MaterialFormProps> = ({
   // ─── STATE ──────────────────────────────────────────────────────────────────────
   //
 
-  const [formikInitialValues, setFormikInitialValues] =
-    useState<FormikValues>(formikEmptyState);
   const [rjsfSchema, setRjsfSchema] = useState<JSONSchema7>({});
   // data from rjsf form
   // form data will be snapshot right before submitting the form
@@ -51,8 +50,13 @@ const MaterialForm: React.FC<MaterialFormProps> = ({
   const [successMessage, setSuccessMessage] = useState<string>('');
 
   //
-  // ─── EFFECT ─────────────────────────────────────────────────────────────────────
+  // ─── DATA ───────────────────────────────────────────────────────────────────────
   //
+
+  const [formikInitialValues, setFormikInitialValues] =
+    useState<FormikValues>(formikEmptyState);
+  // TODO handle tags
+  const [tagIdArray, setTagIdArray] = useState<string[]>(['']);
 
   // in edit mode set intial form data
   useEffect(() => {
@@ -214,6 +218,10 @@ const MaterialForm: React.FC<MaterialFormProps> = ({
                 />
                 <TypeSelectField {...{ setRjsfSchema, materialSchemaArray }} />
               </Form>
+              <CategorySelectForm
+                idArray={tagIdArray}
+                setIdArray={setTagIdArray}
+              />
               <DynamicForm
                 schema={rjsfSchema}
                 formData={rjsfFormData}

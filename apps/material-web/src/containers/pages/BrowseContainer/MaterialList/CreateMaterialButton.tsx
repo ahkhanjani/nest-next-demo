@@ -13,7 +13,7 @@ const CreateMaterialButton: React.FC = () => {
   return (
     <ListItem disablePadding>
       {/* eslint-disable-next-line @next/next/link-passhref */}
-      <Link href={ROUTES.CREATE_MATERIALS} shallow>
+      <Link href={ROUTES.WIZARD} shallow>
         <ListItemButton>
           <ListItemIcon>
             <AddIcon />

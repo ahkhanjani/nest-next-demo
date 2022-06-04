@@ -1,16 +1,11 @@
-import { useState, useCallback } from 'react';
-// mui
-import Paper from '@mui/material/Paper';
+import { useCallback } from 'react';
 // cmp
 import CategorySelectField from './CategorySelectField';
 
-const CategorySelectForm: React.FC = () => {
-  //
-  // ─── STATE ──────────────────────────────────────────────────────────────────────
-  //
-
-  const [categoryIds, setCategoryIds] = useState<string[]>(['']);
-
+const CategorySelectForm: React.FC<CategorySelectFormProps> = ({
+  idArray: categoryIdArray,
+  setIdArray: setCategoryIdArray,
+}) => {
   //
   // ─── HANDLERS ───────────────────────────────────────────────────────────────────
   //
@@ -22,18 +17,18 @@ const CategorySelectForm: React.FC = () => {
    */
   const handleSetCategoryId = useCallback(
     (id: string, index: number) => {
-      const currentIds: string[] = categoryIds.slice(0, index + 1);
+      const currentIds: string[] = categoryIdArray.slice(0, index + 1);
       currentIds[index + 1] = id;
-      setCategoryIds(currentIds);
+      setCategoryIdArray(currentIds);
     },
-    [categoryIds]
+    [categoryIdArray, setCategoryIdArray]
   );
 
   // ────────────────────────────────────────────────────────────────────────────────
 
   const selectFields = (
     <>
-      {categoryIds.map((id, index) => (
+      {categoryIdArray.map((id, index) => (
         <CategorySelectField
           key={id}
           parentId={id}
@@ -44,17 +39,11 @@ const CategorySelectForm: React.FC = () => {
     </>
   );
 
-  return (
-    <Paper
-      sx={{
-        p: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        height: 'auto',
-      }}
-    >
-      {selectFields}
-    </Paper>
-  );
+  return <> {selectFields}</>;
 };
 export default CategorySelectForm;
+
+interface CategorySelectFormProps {
+  idArray: string[];
+  setIdArray: React.Dispatch<React.SetStateAction<string[]>>;
+}

@@ -82,7 +82,7 @@ const MaterialList: React.FC = () => {
         {materialsPaginate?.materialsPaginate.materials.map(({ id, title }) => {
           return (
             // eslint-disable-next-line @next/next/link-passhref
-            <Link key={id} href={ROUTES.CREATE_MATERIALS}>
+            <Link key={id} href={ROUTES.WIZARD}>
               <ListItemButton onClick={() => handleMaterialClick(id)}>
                 <ListItemText primary={title} />
               </ListItemButton>

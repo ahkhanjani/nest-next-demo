@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useFormikContext } from 'formik';
 // cmp
-import SelectField from '../../../../../components/form/SelectField';
+import SelectField from '../../../../../../components/form/SelectField';
 // types
 import type { JSONSchema7 } from 'json-schema';
 import type { FormikValues } from './types/formik';

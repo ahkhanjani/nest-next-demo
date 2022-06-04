@@ -1,14 +1,10 @@
-const ROUTES: Routes = {
+const ROUTES: Record<RouteNamePolicy, RouteFormat> = {
   LOGIN: '/login',
-  VIEW_MATERIALS: '/view-materials',
-  CREATE_MATERIALS: '/create-materials',
+  BROWSE: '/browse',
+  WIZARD: '/wizard',
 };
 export default ROUTES;
 
-interface Routes {
-  LOGIN: RouteFormat;
-  VIEW_MATERIALS: RouteFormat;
-  CREATE_MATERIALS: RouteFormat;
-}
+type RouteNamePolicy = 'LOGIN' | 'BROWSE' | 'WIZARD';
 
 type RouteFormat = `/${string}`;

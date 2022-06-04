@@ -5,15 +5,10 @@ import Grid from '@mui/material/Grid';
 import MaterialStack from './MaterialStack';
 import MaterialForm from './MaterialForm';
 // types
-import type {
-  CategoryData,
-  MaterialData,
-  MaterialSchemaObjectArray,
-} from '@fm/types';
+import type { MaterialData, MaterialSchemaObjectArray } from '@fm/types';
 
 const MaterialCreator: React.FC<MaterialCreatorProps> = ({
   editMode,
-  categoryData,
   materialDataArray,
   setMaterialDataArray,
   materialSchemaArray,
@@ -45,7 +40,6 @@ const MaterialCreator: React.FC<MaterialCreatorProps> = ({
         <MaterialForm
           {...{
             editMode,
-            categoryData,
             materialDataArray,
             setMaterialDataArray,
             selectedMaterialIndex,
@@ -60,7 +54,6 @@ export default MaterialCreator;
 
 interface MaterialCreatorProps {
   editMode: boolean;
-  categoryData: CategoryData;
   materialDataArray: MaterialData[];
   setMaterialDataArray: React.Dispatch<React.SetStateAction<MaterialData[]>>;
   materialSchemaArray: MaterialSchemaObjectArray;

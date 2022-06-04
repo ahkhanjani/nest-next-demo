@@ -8,7 +8,7 @@ const Index: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(ROUTES.VIEW_MATERIALS);
+    router.push(ROUTES.BROWSE);
   }, [router]);
 
   return <></>;

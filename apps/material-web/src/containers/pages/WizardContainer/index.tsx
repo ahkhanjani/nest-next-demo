@@ -16,24 +16,18 @@ import {
   MaterialDataObject,
 } from '@fm/gql';
 // cmp
-import MaterialCreator from './MaterialCreator';
+import MaterialCreator from './steps/MaterialCreateStep';
 import SnackbarAlert from '../../../components/SnackbarAlert';
+import CategorySelectStep from './steps/CategorySelectStep';
 // types
-import {
-  CategoryData,
-  MaterialData,
-  MaterialSchemaObjectArray,
-} from '@fm/types';
-// store
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { GraphQLErrors } from '@apollo/client/errors';
-import { setEditingMaterialId } from '../../../store/editing-material';
-import CategorySelectForm from './CategorySelectForm';
+import type { MaterialData, MaterialSchemaObjectArray } from '@fm/types';
+import type { GraphQLErrors } from '@apollo/client/errors';
 
 const steps = ['Category', 'Create', 'Review and Publish'];
 
-const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
+const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
   materialSchemaArray,
+  editId,
 }) => {
   //
   // ─── STATE ──────────────────────────────────────────────────────────────────────
@@ -50,32 +44,19 @@ const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
   //
 
   // get material in edit mode
-  const [getMaterial, { error: getMaterialErr }] = useGetMaterialLazyQuery();
-
+  const [getMaterial] = useGetMaterialLazyQuery();
   const [createMaterials] = useCreateMaterialsMutation();
-
   const [updateMaterial] = useUpdateMaterialMutation();
 
   //
   // ─── DATA ───────────────────────────────────────────────────────────────────────
   //
 
-  const [categoryData, setCategoryData] = useState<CategoryData>(undefined);
+  const [categoryIdArray, setCategoryIdArray] = useState<string[]>(['']);
   const [materialDataArray, setMaterialDataArray] = useState<MaterialData[]>(
     []
   );
   const [editMode, setEditMode] = useState<boolean>(false);
-
-  const dispatch = useAppDispatch();
-  // get edit data from global store
-  const editId = useAppSelector((state) => state.editingMaterial.id);
-
-  // clear editing material from global store on component unmount
-  useEffect(() => {
-    return () => {
-      dispatch(setEditingMaterialId(undefined));
-    };
-  }, [dispatch]);
 
   // in editing mode, fetch material data
   useEffect(() => {
@@ -84,56 +65,43 @@ const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
 
       setEditMode(true);
 
-      const res = await getMaterial({ variables: { id: editId } });
-
-      if (res.error) {
-        console.error(getMaterialErr);
-        return;
-      }
-
-      if (res.data && res.data.material !== undefined) {
-        const { title, type, formData, category } = res.data.material;
-        const data: unknown = JSON.parse(formData);
-        setMaterialDataArray([{ title, type, publish: false, data }]);
-
-        const ctg: CategoryData = {};
-        for (let i = 0; i < category.length; i++) {
-          ctg[`C${i}`] = category[i];
-        }
-        setCategoryData(ctg);
-      }
+      getMaterial({ variables: { id: editId } })
+        .then(({ data }) => {
+          const {
+            title,
+            type,
+            formData: strFormData,
+            category,
+          } = data.material;
+          const formData: unknown = JSON.parse(strFormData);
+          setMaterialDataArray([
+            { title, type, publish: false, data: formData },
+          ]);
+          setCategoryIdArray(category);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
 
     fetchMaterial();
-  }, [editId, getMaterial, getMaterialErr]);
+  }, [editId, getMaterial]);
 
-  // // handles query errors
-  // useEffect(() => {
-  //   if (categorySchemaErr || materialSchemaArrayErr || getMaterialErr) {
-  //     setIsNextBtnActive(false);
-  //     setIsErrorSnackbarOpen(true);
-  //   }
-  // }, [categorySchemaErr, materialSchemaArrayErr, getMaterialErr]);
-
-  // handles whether next/submit button is enabled
+  // handles next/submit button disabled
   useEffect(() => {
     switch (activeStep) {
       case 0:
-        if (categoryData) {
-          setIsNextBtnActive(true);
-          break;
-        }
-        setIsNextBtnActive(false);
+        if (categoryIdArray.length > 1) setIsNextBtnActive(true);
+        else setIsNextBtnActive(false);
         break;
       case 1:
-        if (materialDataArray.length) {
-          setIsNextBtnActive(true);
-          break;
-        }
-        setIsNextBtnActive(false);
+        if (materialDataArray.length) setIsNextBtnActive(true);
+        else setIsNextBtnActive(false);
         break;
+      default:
+        setIsNextBtnActive(false);
     }
-  }, [categoryData, materialDataArray, activeStep]);
+  }, [categoryIdArray, materialDataArray, activeStep]);
 
   //
   // ──────────────────────────────────────────────────────────── DATA HANDLERS ─────
@@ -153,9 +121,6 @@ const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
         return { formData, status, ...rest };
       }
     );
-
-    // create category id array
-    const categoryIdArray = createCategoryIdArray();
 
     const res = await createMaterials({
       variables: {
@@ -177,7 +142,6 @@ const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
    */
   async function handleUpdateOne(): Promise<SubmitResponse> {
     const { title, type, data } = materialDataArray[0];
-    const categoryIdArray = createCategoryIdArray();
 
     // updating existing material
     const res = await updateMaterial({
@@ -196,15 +160,6 @@ const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
     return { errors: 'Unknown response.' };
   }
 
-  function createCategoryIdArray(): string[] {
-    // convert category object to list of ids
-    const categoryIdArray: string[] = categoryData
-      ? Object.values(categoryData)
-      : [];
-
-    return categoryIdArray;
-  }
-
   //
   // ─── HANDLERS ───────────────────────────────────────────────────────────────────
   //
@@ -214,7 +169,7 @@ const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
    * based on edit mode.
    */
   async function handleSubmitData() {
-    if (!categoryData) {
+    if (!categoryIdArray) {
       showErrorSnackbar('No category selected.');
       return;
     }
@@ -255,12 +210,14 @@ const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
   function getStepContent(step: number) {
     switch (step) {
       case 0:
-        return <CategorySelectForm />;
+        return (
+          <CategorySelectStep {...{ categoryIdArray, setCategoryIdArray }} />
+        );
       case 1:
         return (
           <MaterialCreator
             {...{
-              categoryData,
+              categoryIdArray,
               materialDataArray,
               setMaterialDataArray,
               materialSchemaArray,
@@ -313,7 +270,7 @@ const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
             )}
             <Button
               variant="contained"
-              disabled={isNextBtnActive}
+              disabled={!isNextBtnActive}
               onClick={
                 activeStep === steps.length - 1 ? handleSubmitData : handleNext
               }
@@ -327,10 +284,11 @@ const MaterialWizardContainer: React.FC<MaterialWizardContainerProps> = ({
     </>
   );
 };
-export default MaterialWizardContainer;
+export default WizardContainer;
 
 interface MaterialWizardContainerProps {
   materialSchemaArray: MaterialSchemaObjectArray;
+  editId?: string;
 }
 
 interface SubmitResponseMessage {

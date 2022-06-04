@@ -1,6 +1,11 @@
 import { useReducer, createContext, PropsWithChildren, useMemo } from 'react';
 import { useLoginCheck } from '../hooks';
 
+enum AuthActionType {
+  LOGIN = 'LOGIN',
+  LOGOUT = 'LOGOUT',
+}
+
 const initialState: InitialStateType = {
   user: null,
 };
@@ -59,26 +64,21 @@ const AuthProvider: React.FC<PropsWithChildren<unknown>> = (props) => {
 };
 export default AuthProvider;
 
-enum AuthActionType {
-  LOGIN = 'LOGIN',
-  LOGOUT = 'LOGOUT',
-}
-
 interface AuthAction {
   type: AuthActionType;
-  payload?: any;
+  payload?: unknown;
 }
 
 interface AuthState {
-  user: any;
+  user: unknown;
 }
 
 interface AuthContextType {
-  user?: any;
+  user?: unknown;
   login: (token: string) => void;
   logout: () => void;
 }
 
 interface InitialStateType {
-  user: any;
+  user: unknown;
 }

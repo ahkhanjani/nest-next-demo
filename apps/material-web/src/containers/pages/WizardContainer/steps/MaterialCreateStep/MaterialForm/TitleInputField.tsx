@@ -3,7 +3,7 @@ import { useFormikContext } from 'formik';
 // gql
 import { useCheckMaterialTitleExistsLazyQuery } from '@fm/gql';
 // cmp
-import InputField from '../../../../../components/form/InputField';
+import InputField from '../../../../../../components/form/InputField';
 // types
 import type { MaterialData } from '@fm/types';
 import type { FormikValues } from './types/formik';
