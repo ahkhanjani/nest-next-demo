@@ -1,0 +1,5 @@
+query GetMaterialByTitle($title: String!) {
+  materialByTitle(title: $title) {
+    id
+  }
+}

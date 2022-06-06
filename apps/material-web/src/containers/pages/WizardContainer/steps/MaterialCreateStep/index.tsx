@@ -1,24 +1,21 @@
-import { useState } from 'react';
 // mui
 import Grid from '@mui/material/Grid';
 // cmp
 import MaterialStack from './MaterialStack';
 import MaterialForm from './MaterialForm';
 // types
-import type { MaterialData, MaterialSchemaObjectArray } from '@fm/types';
+import type { MaterialSchemaObjectArray } from '@fm/types';
+// store
+import { useAppSelector } from '../../../../../hooks';
 
 const MaterialCreator: React.FC<MaterialCreatorProps> = ({
-  editMode,
-  materialDataArray,
-  setMaterialDataArray,
   materialSchemaArray,
 }) => {
   //
-  // ─── STATE ──────────────────────────────────────────────────────────────────────
+  // ─── STORE ───────────────────────────────────────────────────────
   //
 
-  const [selectedMaterialIndex, setSelectedMaterialIndex] =
-    useState<number>(-1);
+  const { editMode } = useAppSelector((state) => state.editingMaterial);
 
   // ─────────────────────────────────────────────────────────────────
 
@@ -26,23 +23,12 @@ const MaterialCreator: React.FC<MaterialCreatorProps> = ({
     <Grid container spacing={3}>
       {editMode === false && (
         <Grid item xs={12} md={4}>
-          <MaterialStack
-            {...{
-              materialDataArray,
-              setMaterialDataArray,
-              selectedMaterialIndex,
-              setSelectedMaterialIndex,
-            }}
-          />
+          <MaterialStack />
         </Grid>
       )}
       <Grid item xs={12} md={editMode === false ? 8 : undefined}>
         <MaterialForm
           {...{
-            editMode,
-            materialDataArray,
-            setMaterialDataArray,
-            selectedMaterialIndex,
             materialSchemaArray,
           }}
         />
@@ -53,8 +39,5 @@ const MaterialCreator: React.FC<MaterialCreatorProps> = ({
 export default MaterialCreator;
 
 interface MaterialCreatorProps {
-  editMode: boolean;
-  materialDataArray: MaterialData[];
-  setMaterialDataArray: React.Dispatch<React.SetStateAction<MaterialData[]>>;
   materialSchemaArray: MaterialSchemaObjectArray;
 }

@@ -46,15 +46,19 @@ export class MaterialsService {
   }
 
   async findOne(id: string): Promise<Material> {
-    const material = await this.materialModel.findById(id);
-    return material;
+    return await this.materialModel.findById(id);
   }
 
   async findByCategoryId(categoryId: string): Promise<Material[]> {
-    const found: Material[] = await this.materialModel.findById({
+    return await this.materialModel.find({
       category: categoryId,
     });
-    return found;
+  }
+
+  async findOneByTitle(title: string): Promise<Material> {
+    return await this.materialModel.findOne({
+      title,
+    });
   }
 
   async findAll(): Promise<Material[]> {

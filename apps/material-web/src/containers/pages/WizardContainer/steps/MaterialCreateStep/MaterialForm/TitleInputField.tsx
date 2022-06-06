@@ -1,26 +1,31 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useFormikContext } from 'formik';
 // gql
 import { useCheckMaterialTitleExistsLazyQuery } from '@fm/gql';
 // cmp
 import InputField from '../../../../../../components/form/InputField';
 // types
-import type { MaterialData } from '@fm/types';
 import type { FormikValues } from './types/formik';
+// store
+import { useAppSelector } from '../../../../../../hooks';
 
-const TitleInputField: React.FC<TitleInputFieldProps> = ({
-  materialDataArray,
-  selectedMaterialIndex,
-  editMode,
-}) => {
-  const { values, isSubmitting, setSubmitting, setFieldError } =
+const TitleInputField: React.FC = () => {
+  const { values, isValidating, setFieldError, errors } =
     useFormikContext<FormikValues>();
+
+  //
+  // ─── STORE ───────────────────────────────────────────────────────
+  //
+
+  const { materialDataArray, selectedMaterialIndex } = useAppSelector(
+    (state) => state.creatingMaterials
+  );
 
   //
   // ─── GQL ────────────────────────────────────────────────────────────────────────
   //
 
-  const [checkMaterialTitleExists] = useCheckMaterialTitleExistsLazyQuery();
+  const [getTitleExists] = useCheckMaterialTitleExistsLazyQuery();
 
   //
   // ─── EFFECT ─────────────────────────────────────────────────────────────────────
@@ -38,62 +43,57 @@ const TitleInputField: React.FC<TitleInputFieldProps> = ({
     );
     // if title already exists set titleExists to true
     if (titleExistsInCurrentList) return true;
-    else {
-      //* 2. check if exists in database
-      // query the database
-      const titleExistsInDatabase = await checkMaterialTitleExists({
-        variables: { title: values.title },
+
+    //* 2. check if exists in database
+    // query the database
+    getTitleExists({
+      variables: { title: values.title },
+    })
+      .then(
+        // if title already exists set titleExists to true
+        ({ data: { materialTitleExists } }) => {
+          if (materialTitleExists) return true;
+        }
+      )
+      .catch((error) => {
+        console.error(error);
+        setFieldError('title', "Couldn't connect. Please try again later.");
       });
-      // if title already exists set titleExists to true
-      if (titleExistsInDatabase.data?.materialTitleExists) return true;
-    }
 
     return false;
-  }, [checkMaterialTitleExists, materialDataArray, values.title]);
+  }, [materialDataArray, values.title, getTitleExists, setFieldError]);
 
   const validate = useCallback(async (): Promise<void> => {
-    if (editMode) return;
-
-    setSubmitting(false);
-
     //* check for existing title if:
     const titleExists: boolean =
       //* 1. creating a new material
       selectedMaterialIndex === -1 ||
-      //* 2. editing an existing material and the title has changed
+      //* 2. editing a local material and the title has changed
       (selectedMaterialIndex >= 0 &&
         values.title !== materialDataArray.at(selectedMaterialIndex)?.title)
         ? await checkTitleExists()
         : false;
 
-    if (titleExists) {
+    if (titleExists && !errors.title)
       setFieldError('title', 'Title already exists.');
-      return;
-    }
-
-    setSubmitting(true);
   }, [
     checkTitleExists,
-    editMode,
+    errors.title,
     materialDataArray,
     selectedMaterialIndex,
     setFieldError,
-    setSubmitting,
     values.title,
   ]);
 
   useEffect(() => {
-    if (isSubmitting) validate();
-  }, [isSubmitting, validate]);
+    if (isValidating) validate();
+  }, [isValidating, validate]);
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  return <InputField name="title" label="Material Title" type="text" />;
+  return useMemo(
+    () => <InputField name="title" label="Material Title" type="text" />,
+    []
+  );
 };
 export default TitleInputField;
-
-interface TitleInputFieldProps {
-  materialDataArray: MaterialData[];
-  selectedMaterialIndex: number;
-  editMode: boolean;
-}

@@ -2,15 +2,16 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PreRegEmailsResolver } from './pre-reg-email.resolver';
 import { PreRegEmailsService } from './pre-reg-email.service';
-import { PreRegEmailSchema } from '@fm/nest/pre-reg-email/model';
+import { PreRegEmailSchema } from './schema/pre-reg-email.schema';
 import { IsEmailAlreadyExistingConstraint } from '@fm/nest/pre-reg-email/validator';
+import { PreRegEmail } from '@fm/nest/pre-reg-email/interface';
 
 @Module({
   imports: [
-    MongooseModule.forFeatureAsync([
+    MongooseModule.forFeature([
       {
-        name: 'pre-reg-emails',
-        useFactory: () => PreRegEmailSchema,
+        name: PreRegEmail.name,
+        schema: PreRegEmailSchema,
       },
     ]),
   ],

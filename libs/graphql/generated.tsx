@@ -178,6 +178,7 @@ export type Query = {
   __typename?: 'Query';
   getHello: Scalars['String'];
   material: Material;
+  materialByTitle: Array<Material>;
   materialCategories: Array<MaterialCategory>;
   materialCategoriesByParentId: Array<MaterialCategory>;
   materialCategoriesPaginate: MaterialCategoriesPaginateResponse;
@@ -194,6 +195,11 @@ export type Query = {
 
 export type QueryMaterialArgs = {
   id: Scalars['ID'];
+};
+
+
+export type QueryMaterialByTitleArgs = {
+  title: Scalars['String'];
 };
 
 
@@ -359,10 +365,12 @@ export type CheckMaterialTitleExistsQueryVariables = Exact<{
 
 export type CheckMaterialTitleExistsQuery = { __typename?: 'Query', materialTitleExists: boolean };
 
-export type GetMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetMaterialByTitleQueryVariables = Exact<{
+  title: Scalars['String'];
+}>;
 
 
-export type GetMaterialsQuery = { __typename?: 'Query', materials: Array<{ __typename?: 'Material', id: string, status: string, type: string, category: Array<string>, formData: string }> };
+export type GetMaterialByTitleQuery = { __typename?: 'Query', materialByTitle: Array<{ __typename?: 'Material', id: string }> };
 
 export type GetMaterialQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -377,6 +385,11 @@ export type GetMaterialsByCategoryIdQueryVariables = Exact<{
 
 
 export type GetMaterialsByCategoryIdQuery = { __typename?: 'Query', materialsByCategoryId: Array<{ __typename?: 'Material', id: string, title: string }> };
+
+export type GetMaterialsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMaterialsQuery = { __typename?: 'Query', materials: Array<{ __typename?: 'Material', id: string, status: string, type: string, category: Array<string>, formData: string }> };
 
 export type GetMaterialsPaginateQueryVariables = Exact<{
   categoryId: Scalars['ID'];
@@ -780,44 +793,41 @@ export function useCheckMaterialTitleExistsLazyQuery(baseOptions?: Apollo.LazyQu
 export type CheckMaterialTitleExistsQueryHookResult = ReturnType<typeof useCheckMaterialTitleExistsQuery>;
 export type CheckMaterialTitleExistsLazyQueryHookResult = ReturnType<typeof useCheckMaterialTitleExistsLazyQuery>;
 export type CheckMaterialTitleExistsQueryResult = Apollo.QueryResult<CheckMaterialTitleExistsQuery, CheckMaterialTitleExistsQueryVariables>;
-export const GetMaterialsDocument = gql`
-    query GetMaterials {
-  materials {
+export const GetMaterialByTitleDocument = gql`
+    query GetMaterialByTitle($title: String!) {
+  materialByTitle(title: $title) {
     id
-    status
-    type
-    category
-    formData
   }
 }
     `;
 
 /**
- * __useGetMaterialsQuery__
+ * __useGetMaterialByTitleQuery__
  *
- * To run a query within a React component, call `useGetMaterialsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMaterialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMaterialByTitleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialByTitleQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetMaterialsQuery({
+ * const { data, loading, error } = useGetMaterialByTitleQuery({
  *   variables: {
+ *      title: // value for 'title'
  *   },
  * });
  */
-export function useGetMaterialsQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
+export function useGetMaterialByTitleQuery(baseOptions: Apollo.QueryHookOptions<GetMaterialByTitleQuery, GetMaterialByTitleQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
+        return Apollo.useQuery<GetMaterialByTitleQuery, GetMaterialByTitleQueryVariables>(GetMaterialByTitleDocument, options);
       }
-export function useGetMaterialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
+export function useGetMaterialByTitleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialByTitleQuery, GetMaterialByTitleQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
+          return Apollo.useLazyQuery<GetMaterialByTitleQuery, GetMaterialByTitleQueryVariables>(GetMaterialByTitleDocument, options);
         }
-export type GetMaterialsQueryHookResult = ReturnType<typeof useGetMaterialsQuery>;
-export type GetMaterialsLazyQueryHookResult = ReturnType<typeof useGetMaterialsLazyQuery>;
-export type GetMaterialsQueryResult = Apollo.QueryResult<GetMaterialsQuery, GetMaterialsQueryVariables>;
+export type GetMaterialByTitleQueryHookResult = ReturnType<typeof useGetMaterialByTitleQuery>;
+export type GetMaterialByTitleLazyQueryHookResult = ReturnType<typeof useGetMaterialByTitleLazyQuery>;
+export type GetMaterialByTitleQueryResult = Apollo.QueryResult<GetMaterialByTitleQuery, GetMaterialByTitleQueryVariables>;
 export const GetMaterialDocument = gql`
     query GetMaterial($id: ID!) {
   material(id: $id) {
@@ -892,6 +902,44 @@ export function useGetMaterialsByCategoryIdLazyQuery(baseOptions?: Apollo.LazyQu
 export type GetMaterialsByCategoryIdQueryHookResult = ReturnType<typeof useGetMaterialsByCategoryIdQuery>;
 export type GetMaterialsByCategoryIdLazyQueryHookResult = ReturnType<typeof useGetMaterialsByCategoryIdLazyQuery>;
 export type GetMaterialsByCategoryIdQueryResult = Apollo.QueryResult<GetMaterialsByCategoryIdQuery, GetMaterialsByCategoryIdQueryVariables>;
+export const GetMaterialsDocument = gql`
+    query GetMaterials {
+  materials {
+    id
+    status
+    type
+    category
+    formData
+  }
+}
+    `;
+
+/**
+ * __useGetMaterialsQuery__
+ *
+ * To run a query within a React component, call `useGetMaterialsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMaterialsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMaterialsQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
+      }
+export function useGetMaterialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialsQuery, GetMaterialsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMaterialsQuery, GetMaterialsQueryVariables>(GetMaterialsDocument, options);
+        }
+export type GetMaterialsQueryHookResult = ReturnType<typeof useGetMaterialsQuery>;
+export type GetMaterialsLazyQueryHookResult = ReturnType<typeof useGetMaterialsLazyQuery>;
+export type GetMaterialsQueryResult = Apollo.QueryResult<GetMaterialsQuery, GetMaterialsQueryVariables>;
 export const GetMaterialsPaginateDocument = gql`
     query GetMaterialsPaginate($categoryId: ID!, $page: Int!, $limit: Int!) {
   materialsPaginate(dto: {categoryId: $categoryId, page: $page, limit: $limit}) {

@@ -1,7 +1,16 @@
-import { JSONSchema7 } from 'json-schema';
-import { MaterialTypePolicy } from '../../material/interface';
+import { Document } from 'mongoose';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-export interface MaterialFormSchema {
-  type: MaterialTypePolicy;
-  schema: JSONSchema7;
+@ObjectType()
+export class MaterialFormSchema {
+  @Field(() => ID)
+  readonly id: string;
+
+  @Field({ defaultValue: new Date() })
+  readonly createdAt: Date;
+
+  @Field()
+  readonly strSchema: string;
 }
+
+export type MaterialFormSchemaModel = MaterialFormSchema & Document;

@@ -17,7 +17,7 @@ import {
 @Injectable()
 export class MaterialCategoriesService {
   constructor(
-    @InjectModel('material-categories')
+    @InjectModel(MaterialCategory.name)
     private readonly materialCategoryModel: Model<MaterialCategoryModel>
   ) {}
 
@@ -66,7 +66,10 @@ export class MaterialCategoriesService {
   }
 
   async findByParentId(parentId: string): Promise<MaterialCategory[]> {
-    return await this.materialCategoryModel.find({ parentId });
+    // '*' === root
+    return await this.materialCategoryModel.find({
+      parentId: parentId === '*' ? '' : parentId,
+    });
   }
 
   //

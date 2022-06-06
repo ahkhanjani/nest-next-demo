@@ -16,19 +16,34 @@ import {
   MaterialDataObject,
 } from '@fm/gql';
 // cmp
-import MaterialCreator from './steps/MaterialCreateStep';
-import SnackbarAlert from '../../../components/SnackbarAlert';
 import CategorySelectStep from './steps/CategorySelectStep';
+import MaterialCreateStep from './steps/MaterialCreateStep';
+import SnackbarAlert from '../../../components/SnackbarAlert';
 // types
-import type { MaterialData, MaterialSchemaObjectArray } from '@fm/types';
+import type { MaterialSchemaObjectArray } from '@fm/types';
 import type { GraphQLErrors } from '@apollo/client/errors';
+// store
+import { useAppSelector, useAppDispatch } from '../../../hooks';
+import { setEditingMaterialData } from '../../../store/editing-material';
 
 const steps = ['Category', 'Create', 'Review and Publish'];
 
 const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
   materialSchemaArray,
-  editId,
 }) => {
+  //
+  // ─── STORE ───────────────────────────────────────────────────────
+  //
+
+  const { materialDataArray } = useAppSelector(
+    (state) => state.creatingMaterials
+  );
+  const { editMode, editingMaterialId } = useAppSelector(
+    (state) => state.editingMaterial
+  );
+
+  const dispatch = useAppDispatch();
+
   //
   // ─── STATE ──────────────────────────────────────────────────────────────────────
   //
@@ -52,20 +67,14 @@ const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
   // ─── DATA ───────────────────────────────────────────────────────────────────────
   //
 
-  const [categoryIdArray, setCategoryIdArray] = useState<string[]>(['']);
-  const [materialDataArray, setMaterialDataArray] = useState<MaterialData[]>(
-    []
-  );
-  const [editMode, setEditMode] = useState<boolean>(false);
+  const [categoryIdArray, setCategoryIdArray] = useState<string[]>([]);
 
   // in editing mode, fetch material data
   useEffect(() => {
     const fetchMaterial = async () => {
-      if (!editId) return;
+      if (!editMode) return;
 
-      setEditMode(true);
-
-      getMaterial({ variables: { id: editId } })
+      getMaterial({ variables: { id: editingMaterialId } })
         .then(({ data }) => {
           const {
             title,
@@ -74,9 +83,14 @@ const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
             category,
           } = data.material;
           const formData: unknown = JSON.parse(strFormData);
-          setMaterialDataArray([
-            { title, type, publish: false, data: formData },
-          ]);
+          dispatch(
+            setEditingMaterialData({
+              data: formData,
+              publish: false,
+              title,
+              type,
+            })
+          );
           setCategoryIdArray(category);
         })
         .catch((error) => {
@@ -85,7 +99,7 @@ const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
     };
 
     fetchMaterial();
-  }, [editId, getMaterial]);
+  }, [dispatch, editMode, editingMaterialId, getMaterial]);
 
   // handles next/submit button disabled
   useEffect(() => {
@@ -146,7 +160,7 @@ const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
     // updating existing material
     const res = await updateMaterial({
       variables: {
-        materialId: editId,
+        materialId: editingMaterialId,
         category: categoryIdArray,
         title,
         type,
@@ -215,13 +229,9 @@ const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
         );
       case 1:
         return (
-          <MaterialCreator
+          <MaterialCreateStep
             {...{
-              categoryIdArray,
-              materialDataArray,
-              setMaterialDataArray,
               materialSchemaArray,
-              editMode,
             }}
           />
         );
@@ -288,7 +298,6 @@ export default WizardContainer;
 
 interface MaterialWizardContainerProps {
   materialSchemaArray: MaterialSchemaObjectArray;
-  editId?: string;
 }
 
 interface SubmitResponseMessage {

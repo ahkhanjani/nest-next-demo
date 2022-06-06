@@ -1,13 +1,16 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { PreRegEmailModel } from '@fm/nest/pre-reg-email/interface';
+import {
+  PreRegEmail,
+  PreRegEmailModel,
+} from '@fm/nest/pre-reg-email/interface';
 import { CreatePreRegInput, PreRegResponse } from '@fm/nest/pre-reg-email/dto';
 
 @Injectable()
 export class PreRegEmailsService {
   constructor(
-    @InjectModel('pre-reg-emails')
+    @InjectModel(PreRegEmail.name)
     private readonly preRegModel: Model<PreRegEmailModel>
   ) {}
 

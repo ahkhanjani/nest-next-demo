@@ -39,10 +39,12 @@ export class MaterialsResolver {
   async getMaterialsByCategoryId(
     @Args('categoryId', { type: () => ID }) categoryId: string
   ): Promise<Material[]> {
-    const materials: Material[] = await this.materialsService.findByCategoryId(
-      categoryId
-    );
-    return materials;
+    return await this.materialsService.findByCategoryId(categoryId);
+  }
+
+  @Query(() => [Material], { name: 'materialByTitle' })
+  async getMaterialByTitle(@Args('title') title: string): Promise<Material> {
+    return await this.materialsService.findOneByTitle(title);
   }
 
   @Query(() => Boolean, { name: 'materialTitleExists' })

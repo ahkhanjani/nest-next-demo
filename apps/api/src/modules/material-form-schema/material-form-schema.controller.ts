@@ -1,7 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { MaterialFormSchemasService } from './material-form-schemas.service';
+import { MaterialFormSchema } from '@fm/nest/material-form-schema/interface/material-form-schema.interface';
 
-@Controller('material-form-schema')
+@Controller(MaterialFormSchema.name)
 export class MaterialFormSchemaController {
   constructor(
     private readonly materialFormSchemasService: MaterialFormSchemasService

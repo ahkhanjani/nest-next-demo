@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 // mui
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Skeleton from '@mui/material/Skeleton';
@@ -12,13 +12,14 @@ import { useGetMaterialCategoriesByParentIdQuery } from '@fm/gql';
 const CategorySelectField: React.FC<CategorySelectFieldProps> = ({
   parentId,
   fieldIndex,
-  handleSetCategoryId,
+  idArray,
+  setIdArray,
 }) => {
   //
   // ─── STATE ──────────────────────────────────────────────────────────────────────
   //
 
-  const [value, setValue] = useState<string>('');
+  const [selectedValue, setSelectedValue] = useState<string>('');
 
   //
   // ─── GQL ────────────────────────────────────────────────────────────────────────
@@ -38,6 +39,7 @@ const CategorySelectField: React.FC<CategorySelectFieldProps> = ({
   // ─── EFFECT ─────────────────────────────────────────────────────────────────────
   //
 
+  // handle fetch error
   useEffect(() => {
     if (materialCategoriesError) console.error('Error loading categories.');
   }, [materialCategoriesError]);
@@ -46,41 +48,52 @@ const CategorySelectField: React.FC<CategorySelectFieldProps> = ({
   // ─── HANDLERS ───────────────────────────────────────────────────────────────────
   //
 
-  function handleChange(id: string) {
-    setValue(id);
-    handleSetCategoryId(id, fieldIndex);
+  function handleChange(value: string) {
+    setSelectedValue(value);
+
+    // save changes to the id array
+    const currentIds: string[] = idArray.slice(0, fieldIndex + 1);
+    if (value !== '') currentIds.push(value);
+    setIdArray(currentIds);
   }
 
   // ────────────────────────────────────────────────────────────────────────────────
 
+  const domId = useId();
+
   if (materialCategoriesLoading || !materialCategories)
     return <Skeleton variant="rectangular" />;
 
-  if (materialCategories.length === 0) return <></>;
+  if (materialCategories.length === 0) return undefined;
 
   const labelText = `Category ${fieldIndex + 1}`;
 
   return (
-    <FormControl>
+    <FormControl sx={{ mb: 2 }}>
       <InputLabel id={`select-label-${fieldIndex}`}>{labelText}</InputLabel>
       <Select
         labelId={`select-label-${fieldIndex}`}
         label={labelText}
-        onChange={({ target: { value: id } }: SelectChangeEvent<string>) => {
-          handleChange(id);
+        onChange={({ target: { value } }: SelectChangeEvent<string>) => {
+          handleChange(value);
         }}
         error={Boolean(materialCategoriesError)}
-        {...{ value }}
+        value={selectedValue}
       >
-        {materialCategories.map(({ id, title }) => (
-          <MenuItem key={id} value={id}>
+        <MenuItem value="">
+          <em>Not Selected</em>
+        </MenuItem>
+        {materialCategories.map(({ id, title }, index) => (
+          <MenuItem key={`${domId}-${id}-${index}`} value={id}>
             {title}
           </MenuItem>
         ))}
       </Select>
-      <FormHelperText>
-        {materialCategoriesError?.message.toString()}
-      </FormHelperText>
+      {materialCategoriesError ? (
+        <FormHelperText>
+          {materialCategoriesError.message.toString()}
+        </FormHelperText>
+      ) : undefined}
     </FormControl>
   );
 };
@@ -89,5 +102,6 @@ export default CategorySelectField;
 interface CategorySelectFieldProps {
   fieldIndex: number;
   parentId: string;
-  handleSetCategoryId: (id: string, index: number) => void;
+  idArray: string[];
+  setIdArray: React.Dispatch<React.SetStateAction<string[]>>;
 }

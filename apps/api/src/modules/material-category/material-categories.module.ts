@@ -1,20 +1,17 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-// modules
 import { MaterialCategoriesResolver } from './material-categories.resolver';
 import { MaterialCategoriesService } from './material-categories.service';
 import { MaterialCategorySchema } from './schema/material-category.schema';
 import { IsMaterialCategoryAlreadyExistingConstraint } from '@fm/nest/material-categoy/validator';
+import { MaterialCategory } from '@fm/nest/material-categoy/interface';
 
 @Module({
   imports: [
-    MongooseModule.forFeatureAsync([
+    MongooseModule.forFeature([
       {
-        name: 'material-categories',
-        useFactory: () => {
-          const schema = MaterialCategorySchema;
-          return schema;
-        },
+        name: MaterialCategory.name,
+        schema: MaterialCategorySchema,
       },
     ]),
   ],

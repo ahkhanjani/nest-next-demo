@@ -3,11 +3,16 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
   children,
-  loading = false,
   onClick,
+  loading = false,
+  disabled = false,
 }) => {
   return (
-    <LoadingButton id="submit" loading={loading} onClick={() => onClick()}>
+    <LoadingButton
+      id="submit"
+      onClick={() => onClick()}
+      {...{ loading, disabled }}
+    >
       {children}
     </LoadingButton>
   );
@@ -16,5 +21,6 @@ export default SubmitButton;
 
 interface SubmitButtonProps {
   loading?: boolean;
+  disabled?: boolean;
   onClick?: (e?: FormEvent<HTMLFormElement>) => void;
 }

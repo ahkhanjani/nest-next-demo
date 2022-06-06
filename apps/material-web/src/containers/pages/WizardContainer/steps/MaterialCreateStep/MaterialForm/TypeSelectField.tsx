@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useFormikContext } from 'formik';
 // cmp
 import SelectField from '../../../../../../components/form/SelectField';
@@ -8,7 +8,7 @@ import type { FormikValues } from './types/formik';
 import type { MaterialSchemaObjectArray } from '@fm/types';
 
 const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
-  setRjsfSchema,
+  setDynamicFormSchema: setRjsfSchema,
   materialSchemaArray,
 }) => {
   const {
@@ -30,17 +30,20 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  return (
-    <SelectField
-      name="type"
-      label="Material Type"
-      data={materialSchemaArray.map(({ type }) => type)}
-    />
+  return useMemo(
+    () => (
+      <SelectField
+        name="type"
+        label="Material Type"
+        data={materialSchemaArray.map(({ type }) => type)}
+      />
+    ),
+    [materialSchemaArray]
   );
 };
 export default TypeSelectField;
 
 interface TypeSelectFieldProps {
   materialSchemaArray: MaterialSchemaObjectArray;
-  setRjsfSchema: React.Dispatch<React.SetStateAction<JSONSchema7>>;
+  setDynamicFormSchema: React.Dispatch<React.SetStateAction<JSONSchema7>>;
 }
