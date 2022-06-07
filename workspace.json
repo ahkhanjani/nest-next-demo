@@ -7,6 +7,6 @@
     "main-web-e2e": "apps/main-web-e2e",
     "material-web": "apps/material-web",
     "material-web-e2e": "apps/material-web-e2e",
-    "util-to-error-map": "libs/util/to-error-map"
+    "util": "libs/util"
   }
 }

@@ -13,11 +13,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // gql
 import { useLoginMutation } from '@fm/gql';
 // utils
-import { utilToErrorMap } from '@fm/to-error-map';
+import { utilToErrorMap } from '@fm/util';
 // auth
-import { AuthContext } from '@fm/material-web/auth/AuthProvider';
+import { AuthContext } from '../../../auth/AuthProvider';
 // routes
-import ROUTES from '@fm/material-web/routes';
+import ROUTES from '../../../routes';
 
 const LoginContainer: React.FC = () => {
   const router = useRouter();
@@ -38,7 +38,7 @@ const LoginContainer: React.FC = () => {
 
   // if user already exists redirect to dashboard
   useLayoutEffect(() => {
-    if (context.user) router.push(ROUTES.VIEW_MATERIALS);
+    if (context.user) router.push(ROUTES.BROWSE);
   }, [context.user, router]);
 
   async function handleSubmit() {

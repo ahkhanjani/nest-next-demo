@@ -3,15 +3,15 @@ import { useRouter } from 'next/router';
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 // cmp
-import InputField from '~components/InputField';
+import InputField from '../../../components/InputField';
 //gql
-import { useCreateUserMutation } from '~graphql/generated';
+import { useCreateUserMutation } from '@fm/gql';
 // utils
-import { toErrorMap } from '~utils/toErrorMap';
+import { utilToErrorMap } from '@fm/util';
 // styles
 import styles from './SignupForm.module.scss';
 // typese
-import { UnpredictedFormErrors } from 'types';
+import { UnpredictedFormErrors } from '../../../types';
 
 const validationSchema = yup.object({
   username: yup.string().min(4),
@@ -52,7 +52,7 @@ const SignupForm: React.FC = () => {
 
       const formErrors = res.data?.createUser.errors;
       if (formErrors) {
-        actions.setErrors(toErrorMap(formErrors));
+        actions.setErrors(utilToErrorMap(formErrors));
         return;
       }
 
@@ -101,9 +101,9 @@ const SignupForm: React.FC = () => {
       >
         {(props: FormikProps<Values>) => (
           <Form className={styles.form}>
-            <InputField name='username' type='text' label='Username' />
-            <InputField name='password' type='password' label='Password' />
-            <button className={styles.submitButton} type='submit'>
+            <InputField name="username" type="text" label="Username" />
+            <InputField name="password" type="password" label="Password" />
+            <button className={styles.submitButton} type="submit">
               Submit
             </button>
           </Form>

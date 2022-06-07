@@ -1,4 +1,4 @@
-import FieldError from 'libs/interface/FieldError';
+import type { FieldError } from '@fm/nest/_general/field-error';
 
 export const utilToErrorMap = (errors: FieldError[]) => {
   const errorMap: Record<string, string> = {};
