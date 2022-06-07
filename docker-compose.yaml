@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  api:
+    build:
+      context: .
+      dockerfile: api.dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - fm-back-main
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=postgres
+    volumes:
+      - './apps:/app/apps:ro'
+      - './libs:/app/libs:ro'
+
+  main-web:
+    build:
+      context: .
+      dockerfile: main-web.dockerfile
+    ports:
+      - 4200:4200
+    networks:
+      - fm-web-main
+    volumes:
+      - './apps:/app/apps:ro'
+      - './libs:/app/libs:ro'
+
+volumes:
+  db-data:
+    driver: flocker
+    driver_opts:
+      size: '10GiB'
+
+configs:
+  httpd-config:
+    external: true
+
+secrets:
+  server-certificate:
+    external: true
+
+networks:
+  fm-web-main: {}
+  fm-back-main: {}
