@@ -19,6 +19,7 @@
       "@fm/nest/*": ["libs/nest/*"],
       "@fm/types": ["libs/types/src/index.ts"],
       "@fm/util": ["libs/util/src/index.ts"],
+      "@fullmoon/shared-ui": ["libs/shared-ui/src/index.ts"],
       "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"]
     }
   },
