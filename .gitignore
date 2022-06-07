@@ -2,7 +2,6 @@
 
 # custom
 .env*
-/.github*
 
 # compiled output
 /dist
