@@ -104,6 +104,14 @@ export type MaterialDataObject = {
   type: Scalars['String'];
 };
 
+export type MaterialFormSchema = {
+  __typename?: 'MaterialFormSchema';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  strSchema: Scalars['String'];
+  title: Scalars['String'];
+};
+
 export type MaterialsPaginateInput = {
   categoryId: Scalars['ID'];
   limit: Scalars['Int'];
@@ -183,6 +191,7 @@ export type Query = {
   materialCategoriesByParentId: Array<MaterialCategory>;
   materialCategoriesPaginate: MaterialCategoriesPaginateResponse;
   materialCategory: MaterialCategory;
+  materialFormSchemas: Array<MaterialFormSchema>;
   materialTitleExists: Scalars['Boolean'];
   materials: Array<Material>;
   materialsByCategoryId: Array<Material>;
@@ -338,6 +347,11 @@ export type GetMaterialCategoryQueryVariables = Exact<{
 
 
 export type GetMaterialCategoryQuery = { __typename?: 'Query', materialCategory: { __typename?: 'MaterialCategory', title: string, parentId?: string | null } };
+
+export type GetMaterialFormSchemasQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMaterialFormSchemasQuery = { __typename?: 'Query', materialFormSchemas: Array<{ __typename?: 'MaterialFormSchema', id: string, title: string, strSchema: string }> };
 
 export type CreateMaterialsMutationVariables = Exact<{
   materialDataArray: Array<MaterialDataObject> | MaterialDataObject;
@@ -679,6 +693,42 @@ export function useGetMaterialCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetMaterialCategoryQueryHookResult = ReturnType<typeof useGetMaterialCategoryQuery>;
 export type GetMaterialCategoryLazyQueryHookResult = ReturnType<typeof useGetMaterialCategoryLazyQuery>;
 export type GetMaterialCategoryQueryResult = Apollo.QueryResult<GetMaterialCategoryQuery, GetMaterialCategoryQueryVariables>;
+export const GetMaterialFormSchemasDocument = gql`
+    query GetMaterialFormSchemas {
+  materialFormSchemas {
+    id
+    title
+    strSchema
+  }
+}
+    `;
+
+/**
+ * __useGetMaterialFormSchemasQuery__
+ *
+ * To run a query within a React component, call `useGetMaterialFormSchemasQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMaterialFormSchemasQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMaterialFormSchemasQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMaterialFormSchemasQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>(GetMaterialFormSchemasDocument, options);
+      }
+export function useGetMaterialFormSchemasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>(GetMaterialFormSchemasDocument, options);
+        }
+export type GetMaterialFormSchemasQueryHookResult = ReturnType<typeof useGetMaterialFormSchemasQuery>;
+export type GetMaterialFormSchemasLazyQueryHookResult = ReturnType<typeof useGetMaterialFormSchemasLazyQuery>;
+export type GetMaterialFormSchemasQueryResult = Apollo.QueryResult<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>;
 export const CreateMaterialsDocument = gql`
     mutation createMaterials($materialDataArray: [MaterialDataObject!]!, $category: [ID!]!) {
   createMaterials(

@@ -1,0 +1,7 @@
+query GetMaterialFormSchemas {
+  materialFormSchemas {
+    id
+    title
+    strSchema
+  }
+}

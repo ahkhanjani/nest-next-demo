@@ -1,13 +1,14 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 // mui
-import CategoryIcon from '@mui/icons-material/Category';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-// - icons
 import ListItemText from '@mui/material/ListItemText';
+// - icons
+import CategoryIcon from '@mui/icons-material/Category';
+import SchemaIcon from '@mui/icons-material/Schema';
 // routes
 import ROUTES from '../../../routes';
 
@@ -25,6 +26,15 @@ export const MainListItems: React.FC = () => {
             <CategoryIcon />
           </ListItemIcon>
           <ListItemText primary="View Materials" />
+        </ListItemButton>
+      </Link>
+      {/* eslint-disable-next-line @next/next/link-passhref */}
+      <Link href={ROUTES.FORM_SCHEMA}>
+        <ListItemButton selected={route === ROUTES.FORM_SCHEMA}>
+          <ListItemIcon>
+            <SchemaIcon />
+          </ListItemIcon>
+          <ListItemText primary="Manage Forms" />
         </ListItemButton>
       </Link>
     </>

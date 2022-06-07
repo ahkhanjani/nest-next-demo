@@ -19,6 +19,8 @@ const ThemeProvider: React.FC<PropsWithChildren<unknown>> = ({ children }) => {
     [colorMode.mode]
   );
 
+  // ────────────────────────────────────────────────────────────────────────────────
+
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />

@@ -8,7 +8,7 @@ import TypeSelectField from './TypeSelectField';
 import DynamicForm from './DynamicForm';
 import CategorySelectForm from '../../../components/CategorySelectForm';
 // types
-import type { MaterialData, MaterialSchemaObjectArray } from '@fm/types';
+import type { MaterialData } from '@fm/types';
 import type { FormikValues } from './types/formik';
 import type { JSONSchema7 } from 'json-schema';
 // store
@@ -19,7 +19,7 @@ import {
 } from '../../../../../../store/creating-materials';
 import { Typography } from '@mui/material';
 
-const FormContent: React.FC<FormContentProps> = ({ materialSchemaArray }) => {
+const FormContent: React.FC = () => {
   const {
     values,
     setSubmitting,
@@ -139,7 +139,6 @@ const FormContent: React.FC<FormContentProps> = ({ materialSchemaArray }) => {
         <TypeSelectField
           {...{
             setDynamicFormSchema,
-            materialSchemaArray,
           }}
         />
       </Form>
@@ -163,7 +162,3 @@ const FormContent: React.FC<FormContentProps> = ({ materialSchemaArray }) => {
   );
 };
 export default FormContent;
-
-interface FormContentProps {
-  materialSchemaArray: MaterialSchemaObjectArray;
-}

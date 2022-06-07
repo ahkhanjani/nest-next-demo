@@ -1,19 +1,25 @@
-import { useEffect, useMemo } from 'react';
+import { memo, useEffect } from 'react';
 import { useFormikContext } from 'formik';
 // cmp
 import SelectField from '../../../../../../components/form/SelectField';
 // types
 import type { JSONSchema7 } from 'json-schema';
 import type { FormikValues } from './types/formik';
-import type { MaterialSchemaObjectArray } from '@fm/types';
+import { useGetMaterialFormSchemasQuery } from '@fm/gql';
 
 const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
   setDynamicFormSchema: setRjsfSchema,
-  materialSchemaArray,
 }) => {
   const {
     values: { type },
   } = useFormikContext<FormikValues>();
+
+  //
+  // ─── GQL ────────────────────────────────────────────────────────────────────────
+  //
+
+  const { data: { materialFormSchemas } = {} } =
+    useGetMaterialFormSchemasQuery();
 
   //
   // ─── EFFECT ─────────────────────────────────────────────────────────────────────
@@ -21,29 +27,27 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
 
   // change form-schema when selected type changes
   useEffect(() => {
-    const materialSchemaObject = materialSchemaArray.find(
-      (ms) => ms.type === type
+    const selectedSchema = materialFormSchemas.find(
+      (schema) => schema.title === type
     );
-
-    if (materialSchemaObject) setRjsfSchema(materialSchemaObject.schema);
-  }, [materialSchemaArray, setRjsfSchema, type]);
+    if (selectedSchema) {
+      const parsedSchema: JSONSchema7 = JSON.parse(selectedSchema.strSchema);
+      setRjsfSchema(parsedSchema);
+    }
+  }, [materialFormSchemas, setRjsfSchema, type]);
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  return useMemo(
-    () => (
-      <SelectField
-        name="type"
-        label="Material Type"
-        data={materialSchemaArray.map(({ type }) => type)}
-      />
-    ),
-    [materialSchemaArray]
+  return (
+    <SelectField
+      name="type"
+      label="Material Type"
+      data={materialFormSchemas.map(({ title }) => title)}
+    />
   );
 };
-export default TypeSelectField;
+export default memo(TypeSelectField);
 
 interface TypeSelectFieldProps {
-  materialSchemaArray: MaterialSchemaObjectArray;
   setDynamicFormSchema: React.Dispatch<React.SetStateAction<JSONSchema7>>;
 }

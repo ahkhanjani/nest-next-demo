@@ -5,7 +5,7 @@ function getEnvVar(varName: string): string {
 }
 
 const config: Record<EnvVarPolicy, string> = {
-  apiBaseUri: getEnvVar('API_BASE_URI'),
+  apiBaseUri: getEnvVar('NEXT_PUBLIC_API_BASE_URI'),
 };
 export default config;
 

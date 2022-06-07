@@ -12,6 +12,8 @@ import { MaterialsModule } from '../modules/material/materials.module';
 import { UsersModule } from '../modules/user/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.module';
+import { MaterialCategoriesModule } from '../modules/material-category/material-categories.module';
+import { MaterialFormSchemasModule } from '../modules/material-form-schema/material-form-schemas.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.modul
 
     // ____ custom ____
     MaterialsModule,
+    MaterialCategoriesModule,
+    MaterialFormSchemasModule,
     UsersModule,
     AuthModule,
     PreRegEmailsModule,

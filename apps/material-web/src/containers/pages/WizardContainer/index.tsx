@@ -20,7 +20,6 @@ import CategorySelectStep from './steps/CategorySelectStep';
 import MaterialCreateStep from './steps/MaterialCreateStep';
 import SnackbarAlert from '../../../components/SnackbarAlert';
 // types
-import type { MaterialSchemaObjectArray } from '@fm/types';
 import type { GraphQLErrors } from '@apollo/client/errors';
 // store
 import { useAppSelector, useAppDispatch } from '../../../hooks';
@@ -28,9 +27,7 @@ import { setEditingMaterialData } from '../../../store/editing-material';
 
 const steps = ['Category', 'Create', 'Review and Publish'];
 
-const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
-  materialSchemaArray,
-}) => {
+const WizardContainer: React.FC = () => {
   //
   // ─── STORE ───────────────────────────────────────────────────────
   //
@@ -228,13 +225,7 @@ const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
           <CategorySelectStep {...{ categoryIdArray, setCategoryIdArray }} />
         );
       case 1:
-        return (
-          <MaterialCreateStep
-            {...{
-              materialSchemaArray,
-            }}
-          />
-        );
+        return <MaterialCreateStep />;
       case 2:
         return (
           <Typography variant="h5" gutterBottom>
@@ -295,10 +286,6 @@ const WizardContainer: React.FC<MaterialWizardContainerProps> = ({
   );
 };
 export default WizardContainer;
-
-interface MaterialWizardContainerProps {
-  materialSchemaArray: MaterialSchemaObjectArray;
-}
 
 interface SubmitResponseMessage {
   message: string;

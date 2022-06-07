@@ -6,6 +6,9 @@ class MaterialFormSchema {
   createdAt: Date;
 
   @Prop()
+  title: string;
+
+  @Prop()
   strSchema: string;
 }
 

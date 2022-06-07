@@ -10,6 +10,9 @@ export class MaterialFormSchema {
   readonly createdAt: Date;
 
   @Field()
+  readonly title: string;
+
+  @Field()
   readonly strSchema: string;
 }
 

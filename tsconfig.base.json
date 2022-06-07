@@ -18,6 +18,7 @@
       "@fm/field-error": ["libs/nest/_general/field-error/index.ts"],
       "@fm/to-error-map": ["libs/util/to-error-map/src/index.ts"],
       "@fm/nest/*": ["libs/nest/*"],
+      "@fm/form-schema/*": ["libs/form-schema/*"],
       "@fm/types": ["libs/types/src/index.ts"],
       "@fm/api/*": ["apps/api/src/modules/*"],
       "@fm/gql": ["libs/graphql/generated.tsx"],

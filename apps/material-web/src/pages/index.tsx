@@ -4,14 +4,13 @@ import { useRouter } from 'next/router';
 // routes
 import ROUTES from '../routes';
 
-const Index: NextPage = () => {
+const IndexPage: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
     router.push(ROUTES.BROWSE);
   }, [router]);
 
-  return <></>;
+  return undefined;
 };
-
-export default Index;
+export default IndexPage;

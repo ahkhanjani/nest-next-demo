@@ -1,12 +1,10 @@
 // mui
 import Paper from '@mui/material/Paper';
-// types
-import type { MaterialSchemaObjectArray } from '@fm/types';
 // cmp
 import FormikContainer from './FormikContainer';
 import FormContent from './FormContent';
 
-const MaterialForm: React.FC<MaterialFormProps> = ({ materialSchemaArray }) => {
+const MaterialForm: React.FC = () => {
   return (
     <Paper
       sx={{
@@ -17,13 +15,9 @@ const MaterialForm: React.FC<MaterialFormProps> = ({ materialSchemaArray }) => {
       }}
     >
       <FormikContainer>
-        <FormContent {...{ materialSchemaArray }} />
+        <FormContent />
       </FormikContainer>
     </Paper>
   );
 };
 export default MaterialForm;
-
-interface MaterialFormProps {
-  materialSchemaArray: MaterialSchemaObjectArray;
-}

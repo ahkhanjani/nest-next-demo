@@ -1,6 +1,13 @@
 import { useState, useDebugValue, useEffect } from 'react';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 
+/**
+ * @returns An array with two values.
+ * The first one returns a boolean, true when user is logged in.
+ * The second one returns the decoded JWT token, undefined if user is not logged in.
+ *
+ * @example const [isLoggedIn, decodedToken] = useLoginCheck()
+ */
 export const useLoginCheck = (): LoginReturnType => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [decodedToken, setDecodedToken] = useState<JwtPayload | undefined>(
