@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
 import { verify } from 'argon2';
 import { UsersService } from '../user/users.service';
-import { FieldError } from '@fm/field-error';
+import { FieldError } from '@fm/nest/_general/field-error';
 import { User } from '@fm/nest/user/interface';
 import { UserResponse } from '@fm/nest/user/dto';
 
