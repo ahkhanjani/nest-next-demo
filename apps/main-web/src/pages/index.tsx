@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => {
-  return <></>;
+const IndexPage: NextPage = () => {
+  return undefined;
 };
-export default Home;
+export default IndexPage;

@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
-// cmp
-import PreReleaseLandingContainer from 'containers/PreReleaseLandingContainer';
+// containers
+import PreReleaseLandingContainer from '../containers/PreReleaseLandingContainer';
 
 const PreRegisteration: NextPage = () => {
   return <PreReleaseLandingContainer />;
