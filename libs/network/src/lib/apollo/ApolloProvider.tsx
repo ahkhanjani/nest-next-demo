@@ -6,6 +6,7 @@ import {
   createHttpLink,
   from,
 } from '@apollo/client';
+import { offsetLimitPagination } from '@apollo/client/utilities';
 import { onError } from '@apollo/client/link/error';
 import { setContext } from '@apollo/client/link/context';
 
@@ -35,7 +36,15 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const client = new ApolloClient({
   link: from([errorLink, authLink.concat(httpLink)]),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          feed: offsetLimitPagination(),
+        },
+      },
+    },
+  }),
 });
 
 const MyApolloProvider: React.FC<PropsWithChildren<unknown>> = ({
@@ -43,4 +52,4 @@ const MyApolloProvider: React.FC<PropsWithChildren<unknown>> = ({
 }) => {
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
-export default MyApolloProvider;
+export { MyApolloProvider as ApolloProvider };

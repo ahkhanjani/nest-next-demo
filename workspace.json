@@ -3,10 +3,12 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "auth": "libs/auth",
     "main-web": "apps/main-web",
     "main-web-e2e": "apps/main-web-e2e",
     "material-web": "apps/material-web",
     "material-web-e2e": "apps/material-web-e2e",
+    "network": "libs/network",
     "shared-ui": "libs/shared-ui",
     "util": "libs/util"
   }

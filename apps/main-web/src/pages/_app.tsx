@@ -1,14 +1,14 @@
 import type { AppProps } from 'next/app';
 // providers
-import MyApolloProvider from '../apollo/ApolloProvider';
+import { ApolloProvider } from '@fm/network';
 // styles
 import '../styles/globals.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <MyApolloProvider>
+    <ApolloProvider>
       <Component {...pageProps} />
-    </MyApolloProvider>
+    </ApolloProvider>
   );
 }
 export default MyApp;

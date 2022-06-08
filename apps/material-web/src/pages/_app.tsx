@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 // providers
-import ApolloProvider from '../apollo/ApolloProvider';
+import { ApolloProvider } from '@fm/network';
 import AuthProvider from '../auth/AuthProvider';
 import ThemeProvider from '../providers/ThemeProvider';
 import ColorModeProvider from '../providers/ColorModeProvider';
