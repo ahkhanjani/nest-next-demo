@@ -1,4 +1,4 @@
-import { useContext, useLayoutEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 // mui
@@ -15,17 +15,25 @@ import { useLoginMutation } from '@fm/gql';
 // utils
 import { utilToErrorMap } from '@fm/util';
 // auth
-import { AuthContext } from '../../../auth/AuthProvider';
+import { useLoginCheck, AuthContext } from '@fm/auth';
 // routes
 import ROUTES from '../../../routes';
 
 const LoginContainer: React.FC = () => {
   const router = useRouter();
 
-  // ____ auth ____
-  const context = useContext(AuthContext);
+  //
+  // ─── AUTH ───────────────────────────────────────────────────────────────────────
+  //
 
-  // ____ gql ____
+  const authContext = useContext(AuthContext);
+
+  const [isLoggedIn] = useLoginCheck();
+
+  //
+  // ─── GQL ────────────────────────────────────────────────────────────────────────
+  //
+
   const [login] = useLoginMutation();
 
   const formik = useFormik<FormikValues>({
@@ -37,9 +45,9 @@ const LoginContainer: React.FC = () => {
   });
 
   // if user already exists redirect to dashboard
-  useLayoutEffect(() => {
-    if (context.user) router.push(ROUTES.BROWSE);
-  }, [context.user, router]);
+  useEffect(() => {
+    if (isLoggedIn) router.push(ROUTES.BROWSE);
+  }, [isLoggedIn, router]);
 
   async function handleSubmit() {
     // send login request
@@ -58,11 +66,11 @@ const LoginContainer: React.FC = () => {
 
     // set user global context
     const token = data?.login.token;
-    if (token) context.login(token);
+    if (token) authContext.login(token);
   }
 
   // if user already exists redirect to dashboard
-  if (context.user) return <p>Redirecting to dashboard...</p>;
+  if (isLoggedIn) return <p>Redirecting to dashboard...</p>;
 
   return (
     <Container component="main" maxWidth="xs">

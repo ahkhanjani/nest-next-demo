@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState, PropsWithChildren } from 'react';
+import { useEffect, useState, PropsWithChildren } from 'react';
 import { useRouter } from 'next/router';
+import { useLoginCheck } from '@fm/auth';
 // mui
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -15,8 +16,6 @@ import AppBar from './AppBar';
 import Drawer from './Drawer';
 import DrawerList from './DrawerList';
 import ColorModeToggleButton from './ColorModeToggleButton';
-// auth
-import { AuthContext } from '../../../auth/AuthProvider';
 // routes
 import ROUTES from '../../../routes';
 
@@ -32,20 +31,16 @@ const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   //
-  // ─── AUTH ───────────────────────────────────────────────────────────────────────
-  //
-
-  const context = useContext(AuthContext);
-
-  //
   // ─── EFFECT ─────────────────────────────────────────────────────────────────────
   //
+
+  const [isLoggedIn] = useLoginCheck();
 
   // check login
   useEffect(() => {
     function checkLogin() {
       // if not logged in, go to login page
-      if (context.user === undefined) {
+      if (!isLoggedIn) {
         router.push(ROUTES.LOGIN);
         return;
       }
@@ -55,7 +50,7 @@ const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
     }
 
     checkLogin();
-  }, [context.user, router]);
+  }, [isLoggedIn, router]);
 
   //
   // ─── HANDLERS ───────────────────────────────────────────────────────────────────
@@ -75,7 +70,7 @@ const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
             pr: '24px', // keep right padding when drawer closed
           }}
         >
-          {context.user && (
+          {isLoggedIn && (
             <IconButton
               edge="start"
               color="inherit"
@@ -104,7 +99,7 @@ const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
           <ColorModeToggleButton />
         </Toolbar>
       </AppBar>
-      {context.user !== undefined && (
+      {isLoggedIn && (
         <Drawer variant="permanent" open={isDrawerOpen}>
           <Toolbar
             sx={{

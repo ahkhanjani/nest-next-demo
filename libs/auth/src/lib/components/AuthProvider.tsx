@@ -1,5 +1,5 @@
 import { useReducer, createContext, PropsWithChildren, useMemo } from 'react';
-import { useLoginCheck } from './hook/use-login-check';
+import { useLoginCheck } from '../hooks/use-login-check';
 
 enum AuthActionType {
   LOGIN = 'LOGIN',

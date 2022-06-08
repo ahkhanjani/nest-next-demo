@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import { ApolloProvider } from './ApolloProvider';
+import { AuthProvider } from './AuthProvider';
 
-describe('ApolloProvider', () => {
+describe('AuthProvider', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<ApolloProvider />);
+    const { baseElement } = render(<AuthProvider />);
     expect(baseElement).toBeTruthy();
   });
 });

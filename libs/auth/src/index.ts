@@ -1,2 +1,11 @@
-export * from './lib/AuthProvider';
-export * from './lib/hook';
+//
+// ─── COMPONENTS ─────────────────────────────────────────────────────────────────
+//
+
+export * from './lib//components/AuthProvider';
+
+//
+// ─── HOOKS ──────────────────────────────────────────────────────────────────────
+//
+
+export * from './lib/hooks/use-login-check';
