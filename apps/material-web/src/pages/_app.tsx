@@ -8,6 +8,7 @@ import ColorModeProvider from '../providers/ColorModeProvider';
 // store
 import store from '../store';
 import { Provider } from 'react-redux';
+import SnackbarAlert from '../components/SnackbarAlert';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -21,6 +22,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <AuthProvider>
               <ColorModeProvider>
                 <ThemeProvider>
+                  <SnackbarAlert />
                   <Component {...pageProps} />
                 </ThemeProvider>
               </ColorModeProvider>

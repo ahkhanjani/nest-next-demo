@@ -1,24 +1,33 @@
-import { Alert, AlertColor, Snackbar } from '@mui/material';
+// mui
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+// store
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { closeSnackbar } from '../store/snackbar-message';
 
-const SnackbarAlert: React.FC<ErrorSnackbarProps> = ({
-  severity,
-  message,
-  isOpen,
-  setIsOpen,
-}) => {
-  /**
-   *  Closes the alert.
-   *
-   * _Triggered by:_
-   * - Clicking close alert (X) button.
-   * - Alert timeout.
-   */
+const SnackbarAlert: React.FC = () => {
+  //
+  // ─── STORE ──────────────────────────────────────────────────────────────────────
+  //
+
+  const { show, message, severity } = useAppSelector(
+    (state) => state.snackbarMessage
+  );
+
+  const dispatch = useAppDispatch();
+
+  //
+  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
+  //
+
   function handleClose() {
-    setIsOpen(false);
+    dispatch(closeSnackbar());
   }
 
+  // ────────────────────────────────────────────────────────────────────────────────
+
   return (
-    <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
+    <Snackbar open={show} autoHideDuration={5000} onClose={handleClose}>
       <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
         {message}
       </Alert>
@@ -26,11 +35,3 @@ const SnackbarAlert: React.FC<ErrorSnackbarProps> = ({
   );
 };
 export default SnackbarAlert;
-
-interface ErrorSnackbarProps {
-  severity: AlertColor;
-  message: string;
-
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}

@@ -16,10 +16,11 @@ const InputField: React.FC<InputFieldProps> = ({ name, type, label }) => {
       helperText={touched && error}
       {...{ type, label }}
       {...field}
+      autoComplete={name}
       autoFocus
-      margin='dense'
       fullWidth
-      variant='standard'
+      margin="dense"
+      variant="filled"
       sx={{ mb: 3 }}
     />
   );
