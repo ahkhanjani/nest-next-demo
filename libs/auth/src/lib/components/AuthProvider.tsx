@@ -1,4 +1,10 @@
-import { useReducer, createContext, PropsWithChildren, useMemo } from 'react';
+import {
+  useReducer,
+  createContext,
+  PropsWithChildren,
+  useMemo,
+  useEffect,
+} from 'react';
 import { useLoginCheck } from '../hooks/use-login-check';
 
 enum AuthActionType {
@@ -33,7 +39,10 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
 
 export const AuthProvider: React.FC<PropsWithChildren<unknown>> = (props) => {
   const [isLoggedIn, decodedToken] = useLoginCheck();
-  if (isLoggedIn && decodedToken) initialState.user = decodedToken;
+
+  useEffect(() => {
+    if (isLoggedIn && decodedToken) initialState.user = decodedToken;
+  }, [decodedToken, isLoggedIn]);
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 

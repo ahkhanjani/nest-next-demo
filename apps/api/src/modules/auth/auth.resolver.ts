@@ -14,18 +14,14 @@ export class AuthResolver {
 
   @Mutation(() => TokenResponse)
   async login(
-    @Args('input') { username, password }: LoginInput
+    @Args('dto') { username, password }: LoginInput
   ): Promise<TokenResponse> {
-    try {
-      const { user, errors } = await this.authService.validateLogin(
-        username,
-        password
-      );
+    const { userId, errors } = await this.authService.validateLogin(
+      username,
+      password
+    );
 
-      if (errors) return { errors };
-      return { token: this.authService.login(user) };
-    } catch (err) {
-      throw err;
-    }
+    if (errors) return { errors };
+    return { token: this.authService.login(userId, username) };
   }
 }

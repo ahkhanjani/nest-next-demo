@@ -1,17 +1,7 @@
-import {
-  Args,
-  Resolver,
-  Query,
-  Mutation,
-  Subscription,
-  ID,
-} from '@nestjs/graphql';
+import { Args, Resolver, Query, Mutation, ID } from '@nestjs/graphql';
 import { UsersService } from './users.service';
-import { PubSub } from 'graphql-subscriptions';
 import { User } from '@fm/nest/user/interface';
-import { CreateUserInput, UserResponse } from '@fm/nest/user/dto';
-
-const pubSub = new PubSub();
+import { CreateUserInput, CreateUserResponse } from '@fm/nest/user/dto';
 
 @Resolver()
 export class UsersResolver {
@@ -40,26 +30,10 @@ export class UsersResolver {
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //
 
-  @Mutation(() => UserResponse)
+  @Mutation(() => CreateUserResponse)
   async createUser(
     @Args('dto', { type: () => CreateUserInput }) dto: CreateUserInput
-  ): Promise<UserResponse> {
-    const res = await this.usersService.createOne(dto);
-
-    // subscribe
-    res.user && pubSub.publish('userCreated', { userCreated: res.user });
-
-    return res;
-  }
-
-  //
-  // ─── SUBSCRIPTION ───────────────────────────────────────────────────────────────
-  //
-
-  @Subscription(() => User, {
-    name: 'userCreated',
-  })
-  createUserHandler() {
-    return pubSub.asyncIterator('userCreated');
+  ): Promise<CreateUserResponse> {
+    return await this.usersService.createOne(dto);
   }
 }

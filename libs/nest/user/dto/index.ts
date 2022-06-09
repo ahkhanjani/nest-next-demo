@@ -1,2 +1,2 @@
 export { CreateUserInput } from './create-user-input.dto';
-export { UserResponse } from './user-response.dto';
+export { CreateUserResponse } from './create-user-response.dto';

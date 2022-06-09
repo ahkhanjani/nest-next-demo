@@ -1,5 +1,4 @@
-import { useContext, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useContext } from 'react';
 import { useFormik } from 'formik';
 // mui
 import Container from '@mui/material/Container';
@@ -16,12 +15,8 @@ import { useLoginMutation } from '@fm/gql';
 import { utilToErrorMap } from '@fm/util';
 // auth
 import { useLoginCheck, AuthContext } from '@fm/auth';
-// routes
-import ROUTES from '../../../routes';
 
 const LoginContainer: React.FC = () => {
-  const router = useRouter();
-
   //
   // ─── AUTH ───────────────────────────────────────────────────────────────────────
   //
@@ -43,11 +38,6 @@ const LoginContainer: React.FC = () => {
     },
     onSubmit: handleSubmit,
   });
-
-  // if user already exists redirect to dashboard
-  useEffect(() => {
-    if (isLoggedIn) router.push(ROUTES.BROWSE);
-  }, [isLoggedIn, router]);
 
   async function handleSubmit() {
     // send login request

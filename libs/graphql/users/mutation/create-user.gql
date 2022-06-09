@@ -1,8 +1,6 @@
 mutation CreateUser($username: String!, $password: String!) {
   createUser(dto: { username: $username, password: $password }) {
-    user {
-      id
-    }
+    success
     errors {
       field
       message

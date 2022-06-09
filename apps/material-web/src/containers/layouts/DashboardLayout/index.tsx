@@ -1,6 +1,4 @@
-import { useEffect, useState, PropsWithChildren } from 'react';
-import { useRouter } from 'next/router';
-import { useLoginCheck } from '@fm/auth';
+import { useState, PropsWithChildren } from 'react';
 // mui
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -16,43 +14,16 @@ import AppBar from './AppBar';
 import Drawer from './Drawer';
 import DrawerList from './DrawerList';
 import ColorModeToggleButton from './ColorModeToggleButton';
-// routes
-import ROUTES from '../../../routes';
 
 const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
   children,
 }) => {
-  const router = useRouter();
-
   //
   // ─── STATE ──────────────────────────────────────────────────────────────────────
   //
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  //
-  // ─── EFFECT ─────────────────────────────────────────────────────────────────────
-  //
-
-  const [isLoggedIn] = useLoginCheck();
-
-  // check login
-  useEffect(() => {
-    function checkLogin() {
-      // if not logged in, go to login page
-      if (!isLoggedIn) {
-        router.push(ROUTES.LOGIN);
-        return;
-      }
-
-      // if logged in, open drawer
-      setIsDrawerOpen(true);
-    }
-
-    checkLogin();
-  }, [isLoggedIn, router]);
-
-  //
   // ─── HANDLERS ───────────────────────────────────────────────────────────────────
   //
 
@@ -70,20 +41,18 @@ const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
             pr: '24px', // keep right padding when drawer closed
           }}
         >
-          {isLoggedIn && (
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleToggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(isDrawerOpen && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-          )}
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleToggleDrawer}
+            sx={{
+              marginRight: '36px',
+              ...(isDrawerOpen && { display: 'none' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography
             component="h1"
             variant="h6"
@@ -99,24 +68,23 @@ const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
           <ColorModeToggleButton />
         </Toolbar>
       </AppBar>
-      {isLoggedIn && (
-        <Drawer variant="permanent" open={isDrawerOpen}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={handleToggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <DrawerList />
-        </Drawer>
-      )}
+
+      <Drawer variant="permanent" open={isDrawerOpen}>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            px: [1],
+          }}
+        >
+          <IconButton onClick={handleToggleDrawer}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </Toolbar>
+        <Divider />
+        <DrawerList />
+      </Drawer>
 
       <Box
         component="main"

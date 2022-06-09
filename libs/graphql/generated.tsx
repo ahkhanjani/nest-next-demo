@@ -48,6 +48,12 @@ export type CreateUserInput = {
   username: Scalars['String'];
 };
 
+export type CreateUserResponse = {
+  __typename?: 'CreateUserResponse';
+  errors?: Maybe<Array<FieldError>>;
+  success: Scalars['Boolean'];
+};
+
 export type CreatedMaterial = {
   __typename?: 'CreatedMaterial';
   createdMaterial: Material;
@@ -129,7 +135,7 @@ export type Mutation = {
   createMaterialCategory: CreateMaterialCategoryResponse;
   createMaterials: CreateMaterialsResponse;
   createPreReg: PreRegResponse;
-  createUser: UserResponse;
+  createUser: CreateUserResponse;
   login: TokenResponse;
   updateMaterial: UpdateMaterialResponse;
   updateMaterialCategory: UpdateMaterialCategoryResponse;
@@ -157,7 +163,7 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationLoginArgs = {
-  input: LoginInput;
+  dto: LoginInput;
 };
 
 
@@ -249,7 +255,6 @@ export type QueryUserArgs = {
 export type Subscription = {
   __typename?: 'Subscription';
   preRegCreated: PreRegEmail;
-  userCreated: User;
 };
 
 export type TokenResponse = {
@@ -288,12 +293,6 @@ export type User = {
   id: Scalars['ID'];
   password: Scalars['String'];
   username: Scalars['String'];
-};
-
-export type UserResponse = {
-  __typename?: 'UserResponse';
-  errors?: Maybe<Array<FieldError>>;
-  user?: Maybe<User>;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -427,12 +426,12 @@ export type CreateUserMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'UserResponse', user?: { __typename?: 'User', id: string } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'CreateUserResponse', success: boolean, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
 
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
-  login(input: {username: $username, password: $password}) {
+  login(dto: {username: $username, password: $password}) {
     token
     errors {
       field
@@ -1073,9 +1072,7 @@ export type CreatePreRegMutationOptions = Apollo.BaseMutationOptions<CreatePreRe
 export const CreateUserDocument = gql`
     mutation CreateUser($username: String!, $password: String!) {
   createUser(dto: {username: $username, password: $password}) {
-    user {
-      id
-    }
+    success
     errors {
       field
       message
