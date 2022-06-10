@@ -1,8 +1,8 @@
 import MuiDrawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
-import { drawerWidth } from './AppBar';
+import { drawerWidth } from '../AppBar/AppBarContainer';
 
-const Drawer = styled(MuiDrawer, {
+const DrawerContainer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   '& .MuiDrawer-paper': {
@@ -27,4 +27,4 @@ const Drawer = styled(MuiDrawer, {
     }),
   },
 }));
-export default Drawer;
+export default DrawerContainer;

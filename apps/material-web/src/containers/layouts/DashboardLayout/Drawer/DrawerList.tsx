@@ -3,22 +3,21 @@ import Link from 'next/link';
 // mui
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
+import List from '@mui/material/List';
 // - icons
 import CategoryIcon from '@mui/icons-material/Category';
 import FeedIcon from '@mui/icons-material/Feed';
 // routes
-import ROUTES from '../../../routes';
+import ROUTES from '../../../../routes';
 
-export const MainListItems: React.FC = () => {
+export const DrawerList: React.FC = () => {
   const { route } = useRouter();
 
   // ────────────────────────────────────────────────────────────────────────────────
 
   return (
-    <>
+    <List component="nav">
       {/* eslint-disable-next-line @next/next/link-passhref */}
       <Link href={ROUTES.BROWSE}>
         <ListItemButton selected={route === ROUTES.BROWSE}>
@@ -37,36 +36,6 @@ export const MainListItems: React.FC = () => {
           <ListItemText primary="Manage Forms" />
         </ListItemButton>
       </Link>
-    </>
-  );
-};
-
-export const secondaryListItems = (
-  <>
-    {/* <ListSubheader component='div' inset>
-      Report
-    </ListSubheader>
-    <ListItemButton disabled>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary='Notifications' />
-    </ListItemButton>
-    <ListItemButton disabled>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary='Logs' />
-    </ListItemButton> */}
-  </>
-);
-
-const DrawerList: React.FC = () => {
-  return (
-    <List component="nav">
-      <MainListItems />
-      <Divider sx={{ my: 1 }} />
-      {secondaryListItems}
     </List>
   );
 };

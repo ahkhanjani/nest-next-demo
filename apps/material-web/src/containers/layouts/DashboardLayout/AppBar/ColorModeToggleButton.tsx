@@ -7,7 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 // context
-import { ColorModeContext } from '../../../providers/ColorModeProvider';
+import { ColorModeContext } from '../../../../providers/ColorModeProvider';
 
 const ColorModeToggleButton: React.FC = () => {
   const { mode: colorMode, toggleColorMode } = useContext(ColorModeContext);
