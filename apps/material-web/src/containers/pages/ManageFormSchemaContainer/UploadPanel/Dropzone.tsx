@@ -13,11 +13,9 @@ const Dropzone: React.FC = () => {
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const formData = new FormData();
-    acceptedFiles.forEach((file, index) => {
-      // console.log(await file.arrayBuffer());
-      formData.append(`material-form-schema-${index}`, file);
+    acceptedFiles.forEach((file) => {
+      formData.append('files', file);
     });
-    console.log(formData.get('material-form-schema-0'));
 
     appAxios
       .post('/material-form-schema/upload', formData, {
@@ -27,7 +25,7 @@ const Dropzone: React.FC = () => {
         console.log(res.data);
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error.response);
       });
   }, []);
 

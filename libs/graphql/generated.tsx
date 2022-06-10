@@ -116,6 +116,7 @@ export type MaterialFormSchema = {
   id: Scalars['ID'];
   strSchema: Scalars['String'];
   title: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type MaterialsPaginateInput = {

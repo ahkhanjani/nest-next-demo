@@ -1,8 +1,7 @@
-import fs from 'fs';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { parse } from 'yaml';
+import * as YAML from 'yaml';
 // interface
 import {
   MaterialFormSchema,
@@ -38,17 +37,13 @@ export class MaterialFormSchemasService {
 
       await Promise.all(
         files.map(async (file) => {
-          // yaml data in string
-          const fileContent: string = fs.readFileSync(file.buffer, 'utf-8');
-          // convert yaml to json
-          const parsed: JSONSchema7 = parse(fileContent);
-          // convert json to string to save
-          const strSchema: string = JSON.stringify(parsed);
-
           try {
+            const strSchema: string = file.buffer.toString('utf-8');
+            const schema: JSONSchema7 = YAML.parse(strSchema);
+
             const createdMaterialFormSchema: MaterialFormSchema =
               await this.materialFormSchemaModel.create({
-                title: parsed.title,
+                title: schema.title,
                 strSchema,
               });
 
@@ -60,18 +55,19 @@ export class MaterialFormSchemasService {
       );
 
       return {
-        createdSchemas,
-        errors: [
-          {
-            field: 'file-input',
-            message: `Error occurred with file(s): ${errorFileNames.join(
-              ', '
-            )}`,
-          },
-        ],
+        createdSchemas: createdSchemas.length ? createdSchemas : undefined,
+        errors: errorFileNames.length
+          ? [
+              {
+                field: 'file-input',
+                message: `Error occurred with file(s): ${errorFileNames.join(
+                  ', '
+                )}`,
+              },
+            ]
+          : undefined,
       };
     } catch (error) {
-      console.log(error);
       return {
         errors: [{ field: 'file-input', message: "Coundn't read file(s)." }],
       };

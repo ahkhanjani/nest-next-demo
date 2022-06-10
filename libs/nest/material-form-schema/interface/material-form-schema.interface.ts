@@ -6,8 +6,11 @@ export class MaterialFormSchema {
   @Field(() => ID)
   readonly id: string;
 
-  @Field({ defaultValue: new Date() })
+  @Field()
   readonly createdAt: Date;
+
+  @Field()
+  readonly updatedAt: Date;
 
   @Field()
   readonly title: string;
