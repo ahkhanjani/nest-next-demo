@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 // - icons
 import CategoryIcon from '@mui/icons-material/Category';
-import SchemaIcon from '@mui/icons-material/Schema';
+import FeedIcon from '@mui/icons-material/Feed';
 // routes
 import ROUTES from '../../../routes';
 
@@ -32,7 +32,7 @@ export const MainListItems: React.FC = () => {
       <Link href={ROUTES.FORM_SCHEMA}>
         <ListItemButton selected={route === ROUTES.FORM_SCHEMA}>
           <ListItemIcon>
-            <SchemaIcon />
+            <FeedIcon />
           </ListItemIcon>
           <ListItemText primary="Manage Forms" />
         </ListItemButton>

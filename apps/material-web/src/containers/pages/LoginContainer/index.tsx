@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Formik } from 'formik';
 // mui
 import Container from '@mui/material/Container';
@@ -11,6 +13,8 @@ import { useLoginCheck } from '@fm/auth';
 // cmp
 import FormContent from './FormContent';
 import { FormikValues } from './types/formik';
+// routes
+import ROUTES from '../../../routes';
 
 const formikInitialValues: FormikValues = {
   username: '',
@@ -18,16 +22,26 @@ const formikInitialValues: FormikValues = {
 };
 
 const LoginContainer: React.FC = () => {
+  const router = useRouter();
+
   //
   // ─── AUTH ───────────────────────────────────────────────────────────────────────
   //
 
   const [isLoggedIn] = useLoginCheck();
 
+  //
+  // ─── EFFECT ─────────────────────────────────────────────────────────────────────
+  //
+
+  useEffect(() => {
+    if (isLoggedIn) router.push(ROUTES.BROWSE);
+  }, [isLoggedIn, router]);
+
   // ────────────────────────────────────────────────────────────────────────────────
 
   // if user already exists redirect to dashboard
-  // if (isLoggedIn) return <p>Redirecting to dashboard...</p>;
+  if (isLoggedIn) return <p>Redirecting to dashboard...</p>;
 
   return (
     <Container component="main" maxWidth="xs">

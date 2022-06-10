@@ -11,12 +11,13 @@ const InputField: React.FC<InputFieldProps> = ({ name, type, label }) => {
 
   return (
     <TextField
+      {...field}
       id={name}
+      type={type}
+      label={label}
+      autoComplete={name}
       error={touched && Boolean(error)}
       helperText={touched && error}
-      {...{ type, label }}
-      {...field}
-      autoComplete={name}
       autoFocus
       fullWidth
       margin="dense"
