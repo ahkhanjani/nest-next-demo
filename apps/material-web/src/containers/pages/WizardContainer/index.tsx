@@ -18,12 +18,12 @@ import {
 // cmp
 import CategorySelectStep from './steps/CategorySelectStep';
 import MaterialCreateStep from './steps/MaterialCreateStep';
-import SnackbarAlert from '../../../components/SnackbarAlert';
 // types
 import type { GraphQLErrors } from '@apollo/client/errors';
 // store
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import { setEditingMaterialData } from '../../../store/editing-material';
+import { setSnackbarMessage } from '../../../store/snackbar-message';
 
 const steps = ['Category', 'Create', 'Review and Publish'];
 
@@ -47,9 +47,6 @@ const WizardContainer: React.FC = () => {
 
   const [activeStep, setActiveStep] = useState<number>(0);
   const [isNextBtnActive, setIsNextBtnActive] = useState<boolean>(false);
-  const [isErrorSnackbarOpen, setIsErrorSnackbarOpen] =
-    useState<boolean>(false);
-  const [errorSnackbarMsg, setErrorSnackbarMsg] = useState<string>('');
 
   //
   // ─── GQL ────────────────────────────────────────────────────────────────────────
@@ -181,12 +178,12 @@ const WizardContainer: React.FC = () => {
    */
   async function handleSubmitData() {
     if (!categoryIdArray) {
-      showErrorSnackbar('No category selected.');
+      showError('No category selected.');
       return;
     }
 
     if (!materialDataArray.length) {
-      showErrorSnackbar('No material created.');
+      showError('No material created.');
       return;
     }
 
@@ -211,9 +208,8 @@ const WizardContainer: React.FC = () => {
     setActiveStep(activeStep - 1);
   }
 
-  function showErrorSnackbar(message: string) {
-    setErrorSnackbarMsg(message);
-    setIsErrorSnackbarOpen(true);
+  function showError(message: string) {
+    dispatch(setSnackbarMessage({ message, severity: 'error' }));
   }
 
   // ────────────────────────────────────────────────────────────────────────────────
@@ -238,51 +234,43 @@ const WizardContainer: React.FC = () => {
   }
 
   return (
-    <>
-      <SnackbarAlert
-        severity="error"
-        message={errorSnackbarMsg}
-        isOpen={isErrorSnackbarOpen}
-        setIsOpen={setIsErrorSnackbarOpen}
-      />
-      <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
-        <Paper
-          variant="outlined"
-          sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
-        >
-          <Typography component="h1" variant="h4" align="center">
-            Create Material Wizard
-          </Typography>
-          <Container maxWidth="sm">
-            <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Container>
-          {getStepContent(activeStep)}
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            {activeStep !== 0 && (
-              <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                Back
-              </Button>
-            )}
-            <Button
-              variant="contained"
-              disabled={!isNextBtnActive}
-              onClick={
-                activeStep === steps.length - 1 ? handleSubmitData : handleNext
-              }
-              sx={{ mt: 3, ml: 1 }}
-            >
-              {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+    <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
+      <Paper
+        variant="outlined"
+        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
+      >
+        <Typography component="h1" variant="h4" align="center">
+          Create Material Wizard
+        </Typography>
+        <Container maxWidth="sm">
+          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </Container>
+        {getStepContent(activeStep)}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          {activeStep !== 0 && (
+            <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+              Back
             </Button>
-          </Box>
-        </Paper>
-      </Container>
-    </>
+          )}
+          <Button
+            variant="contained"
+            disabled={!isNextBtnActive}
+            onClick={
+              activeStep === steps.length - 1 ? handleSubmitData : handleNext
+            }
+            sx={{ mt: 3, ml: 1 }}
+          >
+            {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 };
 export default WizardContainer;

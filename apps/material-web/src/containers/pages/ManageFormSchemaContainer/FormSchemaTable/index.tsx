@@ -1,46 +1,47 @@
-// mui
+// fm
 import { useGetMaterialFormSchemasQuery } from '@fm/gql';
-import Link from '@mui/material/Link';
+// mui
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import SkeletonTable from './SkeletonTable';
 
 const FormSchemaTable: React.FC<ManageFormSchemaContainerProps> = () => {
   //
   // ─── GQL ────────────────────────────────────────────────────────────────────────
   //
 
-  const { data: { materialFormSchemas } = {} } =
-    useGetMaterialFormSchemasQuery();
+  const {
+    data: { materialFormSchemas } = {},
+    loading: materialFormSchemasLoading,
+  } = useGetMaterialFormSchemasQuery();
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  // mfs: material form schema
-  const rows = materialFormSchemas.map((mfs) => (
-    <TableRow key={mfs.id}>
-      <TableCell>{mfs.title}</TableCell>
-      <TableCell>{row.name}</TableCell>
-      <TableCell>{row.shipTo}</TableCell>
-      <TableCell>{row.paymentMethod}</TableCell>
-      <TableCell align="right">{`$${row.amount}`}</TableCell>
+  if (materialFormSchemasLoading) return <SkeletonTable />;
+
+  const rows = materialFormSchemas.map(({ id, title, strSchema }) => (
+    <TableRow key={id}>
+      <TableCell>{title}</TableCell>
+      <TableCell align="right"></TableCell>
     </TableRow>
   ));
 
   return (
-    <Table size="small">
-      <TableHead>
-        <TableRow>
-          <TableCell>Schema Name</TableCell>
-          <TableCell>Created At</TableCell>
-          <TableCell>Updated At</TableCell>
-          <TableCell>Creator</TableCell>
-          <TableCell align="right">Sale Amount</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>{rows}</TableBody>
-    </Table>
+    <Paper>
+      <Table size="medium">
+        <TableHead>
+          <TableRow>
+            <TableCell>Schema Name</TableCell>
+            <TableCell align="right">Sale Amount</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody sx={{ maxHeight: 250 }}>{rows}</TableBody>
+      </Table>
+    </Paper>
   );
 };
 export default FormSchemaTable;
