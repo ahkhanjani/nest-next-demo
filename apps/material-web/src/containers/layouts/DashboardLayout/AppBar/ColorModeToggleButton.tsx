@@ -12,6 +12,8 @@ import { ColorModeContext } from '../../../../providers/ColorModeProvider';
 const ColorModeToggleButton: React.FC = () => {
   const { mode: colorMode, toggleColorMode } = useContext(ColorModeContext);
 
+  // ────────────────────────────────────────────────────────────────────────────────
+
   return (
     <Tooltip
       title={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}
