@@ -28,7 +28,7 @@ export class MaterialFormSchemasService {
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //
 
-  async createMaterialFormSchema(
+  async createMany(
     files: Array<Express.Multer.File>
   ): Promise<CreateMaterialFormSchemaResponse> {
     try {
@@ -72,6 +72,15 @@ export class MaterialFormSchemasService {
       return {
         errors: [{ field: 'file-input', message: "Coundn't read file(s)." }],
       };
+    }
+  }
+
+  async deleteOne(id: string): Promise<boolean> {
+    try {
+      await this.materialFormSchemaModel.deleteOne({ _id: id });
+      return true;
+    } catch (error) {
+      return false;
     }
   }
 }

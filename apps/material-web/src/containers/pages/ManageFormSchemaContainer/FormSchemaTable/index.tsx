@@ -1,4 +1,7 @@
-import { useId, useState } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 // fm
 import { useGetMaterialFormSchemasQuery } from '@fm/gql';
 import { ScrollDialog } from '@fm/shared-ui';
@@ -15,6 +18,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 // cmp
 import SkeletonTable from './SkeletonTable';
 import OptionsMenu from './OptionsMenu';
+// types
+import type { RowData } from './types/row-data';
 
 const FormSchemaTable: React.FC = () => {
   //
@@ -22,7 +27,8 @@ const FormSchemaTable: React.FC = () => {
   //
 
   // view content dialog
-  const [dialog, setDialog] = useState<{ title: string; content: string }>({
+  const [selectedRowData, setSelectedRowData] = useState<RowData>({
+    id: '',
     title: '',
     content: '',
   });
@@ -39,9 +45,20 @@ const FormSchemaTable: React.FC = () => {
   const {
     data: { materialFormSchemas } = {},
     loading: materialFormSchemasLoading,
+    error: materialFormSchemasError,
   } = useGetMaterialFormSchemasQuery({
     fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-and-network',
   });
+
+  //
+  // ─── EFFECT ─────────────────────────────────────────────────────────────────────
+  //
+
+  // handle gql errors
+  useEffect(() => {
+    if (materialFormSchemasError) console.error(materialFormSchemasError);
+  }, [materialFormSchemasError]);
 
   //
   // ─── HANDLERS ───────────────────────────────────────────────────────────────────
@@ -51,17 +68,17 @@ const FormSchemaTable: React.FC = () => {
     setAnchorEl(event.currentTarget);
   }
 
-  function handleCloseOptionsMenu() {
+  const handleCloseOptionsMenu = useCallback(() => {
     setAnchorEl(null);
+  }, []);
+
+  function handleSetViewDialog(rowData: RowData) {
+    setSelectedRowData(rowData);
   }
 
-  function handleSetViewDialog(title: string, content: string) {
-    setDialog({ title, content });
-  }
-
-  function handleOpenViewDialog() {
+  const handleOpenViewDialog = useCallback(() => {
     setIsDialogOpen(true);
-  }
+  }, []);
 
   // ────────────────────────────────────────────────────────────────────────────────
 
@@ -69,33 +86,42 @@ const FormSchemaTable: React.FC = () => {
 
   if (materialFormSchemasLoading) return <SkeletonTable />;
 
-  const rows = materialFormSchemas.map(({ id, title, strSchema }, index) => (
-    <TableRow key={`${domId}-table-row-${id}-${index}`}>
-      <TableCell>{title}</TableCell>
-      <TableCell align="right">
-        <IconButton
-          onClick={(e) => {
-            handleSetViewDialog(title, strSchema);
-            handleOptionsButtonClick(e);
-          }}
-        >
-          <MoreVertIcon />
-        </IconButton>
-      </TableCell>
-    </TableRow>
-  ));
+  if (!materialFormSchemas) return <p>Error</p>;
+
+  const rows = materialFormSchemas.map(
+    ({ id, title, strSchema, createdAt, updatedAt }, index) => (
+      <TableRow key={`${domId}-table-row-${id}-${index}`}>
+        <TableCell>{title}</TableCell>
+        <TableCell>{dayjs(createdAt).fromNow()}</TableCell>
+        <TableCell>{!updatedAt ? 'N/A' : dayjs(updatedAt).fromNow()}</TableCell>
+        <TableCell align="right">
+          <IconButton
+            onClick={(e) => {
+              handleSetViewDialog({ id, title, content: strSchema });
+              handleOptionsButtonClick(e);
+            }}
+          >
+            <MoreVertIcon />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+    )
+  );
 
   return (
     <>
       <OptionsMenu
         isOpen={isOptionsMenuOpen}
         handleClose={handleCloseOptionsMenu}
-        handleOpenViewDialog={handleOpenViewDialog}
-        anchorEl={anchorEl}
+        selectedRowId={selectedRowData.id}
+        {...{
+          anchorEl,
+          handleOpenViewDialog,
+        }}
       />
       <ScrollDialog
-        title={dialog.title}
-        content={dialog.content}
+        title={selectedRowData.title}
+        content={selectedRowData.content}
         isOpen={isDialogOpen}
         setIsOpen={setIsDialogOpen}
       />
@@ -104,6 +130,8 @@ const FormSchemaTable: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell>Schema Name</TableCell>
+              <TableCell>Created</TableCell>
+              <TableCell>Edited</TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>

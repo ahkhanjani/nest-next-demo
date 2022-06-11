@@ -25,8 +25,6 @@ export class MaterialFormSchemasController {
   async uploadMaterialFormSchemas(
     @UploadedFiles() files: Array<Express.Multer.File>
   ): Promise<CreateMaterialFormSchemaResponse> {
-    return await this.materialFormSchemasService.createMaterialFormSchema(
-      files
-    );
+    return await this.materialFormSchemasService.createMany(files);
   }
 }

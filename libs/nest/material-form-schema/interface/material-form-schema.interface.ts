@@ -9,7 +9,7 @@ export class MaterialFormSchema {
   @Field()
   readonly createdAt: Date;
 
-  @Field()
+  @Field({ nullable: true })
   readonly updatedAt: Date;
 
   @Field()

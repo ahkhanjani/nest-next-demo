@@ -137,6 +137,7 @@ export type Mutation = {
   createMaterials: CreateMaterialsResponse;
   createPreReg: PreRegResponse;
   createUser: CreateUserResponse;
+  deleteMaterialFormSchema: Scalars['Boolean'];
   login: TokenResponse;
   updateMaterial: UpdateMaterialResponse;
   updateMaterialCategory: UpdateMaterialCategoryResponse;
@@ -160,6 +161,11 @@ export type MutationCreatePreRegArgs = {
 
 export type MutationCreateUserArgs = {
   dto: CreateUserInput;
+};
+
+
+export type MutationDeleteMaterialFormSchemaArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -348,10 +354,17 @@ export type GetMaterialCategoryQueryVariables = Exact<{
 
 export type GetMaterialCategoryQuery = { __typename?: 'Query', materialCategory: { __typename?: 'MaterialCategory', title: string, parentId?: string | null } };
 
+export type DeleteMaterialFormSchemaMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteMaterialFormSchemaMutation = { __typename?: 'Mutation', deleteMaterialFormSchema: boolean };
+
 export type GetMaterialFormSchemasQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMaterialFormSchemasQuery = { __typename?: 'Query', materialFormSchemas: Array<{ __typename?: 'MaterialFormSchema', id: string, title: string, strSchema: string }> };
+export type GetMaterialFormSchemasQuery = { __typename?: 'Query', materialFormSchemas: Array<{ __typename?: 'MaterialFormSchema', id: string, createdAt: any, updatedAt: any, title: string, strSchema: string }> };
 
 export type CreateMaterialsMutationVariables = Exact<{
   materialDataArray: Array<MaterialDataObject> | MaterialDataObject;
@@ -693,10 +706,43 @@ export function useGetMaterialCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetMaterialCategoryQueryHookResult = ReturnType<typeof useGetMaterialCategoryQuery>;
 export type GetMaterialCategoryLazyQueryHookResult = ReturnType<typeof useGetMaterialCategoryLazyQuery>;
 export type GetMaterialCategoryQueryResult = Apollo.QueryResult<GetMaterialCategoryQuery, GetMaterialCategoryQueryVariables>;
+export const DeleteMaterialFormSchemaDocument = gql`
+    mutation DeleteMaterialFormSchema($id: ID!) {
+  deleteMaterialFormSchema(id: $id)
+}
+    `;
+export type DeleteMaterialFormSchemaMutationFn = Apollo.MutationFunction<DeleteMaterialFormSchemaMutation, DeleteMaterialFormSchemaMutationVariables>;
+
+/**
+ * __useDeleteMaterialFormSchemaMutation__
+ *
+ * To run a mutation, you first call `useDeleteMaterialFormSchemaMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMaterialFormSchemaMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMaterialFormSchemaMutation, { data, loading, error }] = useDeleteMaterialFormSchemaMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteMaterialFormSchemaMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMaterialFormSchemaMutation, DeleteMaterialFormSchemaMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteMaterialFormSchemaMutation, DeleteMaterialFormSchemaMutationVariables>(DeleteMaterialFormSchemaDocument, options);
+      }
+export type DeleteMaterialFormSchemaMutationHookResult = ReturnType<typeof useDeleteMaterialFormSchemaMutation>;
+export type DeleteMaterialFormSchemaMutationResult = Apollo.MutationResult<DeleteMaterialFormSchemaMutation>;
+export type DeleteMaterialFormSchemaMutationOptions = Apollo.BaseMutationOptions<DeleteMaterialFormSchemaMutation, DeleteMaterialFormSchemaMutationVariables>;
 export const GetMaterialFormSchemasDocument = gql`
     query GetMaterialFormSchemas {
   materialFormSchemas {
     id
+    createdAt
+    updatedAt
     title
     strSchema
   }

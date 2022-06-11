@@ -6,13 +6,15 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 // - icons
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import DeleteIcon from '@mui/icons-material/Delete';
+// cmp
+import DeleteButton from './DeleteButton';
 
 const OptionsMenu: React.FC<OptionsMenuProps> = ({
   anchorEl,
   isOpen,
-  handleOpenViewDialog,
   handleClose,
+  handleOpenViewDialog,
+  selectedRowId,
 }) => {
   return (
     <Paper sx={{ width: 320, maxWidth: '100%' }}>
@@ -42,12 +44,7 @@ const OptionsMenu: React.FC<OptionsMenuProps> = ({
           <ListItemText>View</ListItemText>
         </MenuItem>
 
-        <MenuItem onClick={handleClose} disableRipple>
-          <ListItemIcon>
-            <DeleteIcon fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Delete</ListItemText>
-        </MenuItem>
+        <DeleteButton {...{ handleClose, selectedRowId }} />
       </Menu>
     </Paper>
   );
@@ -58,5 +55,6 @@ interface OptionsMenuProps {
   anchorEl: HTMLElement;
   isOpen: boolean;
   handleClose: () => void;
+  selectedRowId: string;
   handleOpenViewDialog: () => void;
 }

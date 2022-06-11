@@ -1,4 +1,4 @@
-import { Query, Resolver } from '@nestjs/graphql';
+import { Query, Mutation, Resolver, Args, ID } from '@nestjs/graphql';
 // modules
 import { MaterialFormSchemasService } from './material-form-schemas.service';
 // interface
@@ -17,5 +17,16 @@ export class MaterialFormSchemasResolver {
   @Query(() => [MaterialFormSchema], { name: 'materialFormSchemas' })
   async getMaterialFormSchemas(): Promise<MaterialFormSchema[]> {
     return await this.materialFormSchemasService.findAll();
+  }
+
+  //
+  // ─── MUTATION ───────────────────────────────────────────────────────────────────
+  //
+
+  @Mutation(() => Boolean)
+  async deleteMaterialFormSchema(
+    @Args('id', { type: () => ID }) id: string
+  ): Promise<boolean> {
+    return await this.materialFormSchemasService.deleteOne(id);
   }
 }
