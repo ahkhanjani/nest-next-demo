@@ -41,7 +41,6 @@ const FormSchemaTable: React.FC = () => {
     loading: materialFormSchemasLoading,
   } = useGetMaterialFormSchemasQuery({
     fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-and-network',
   });
 
   //
@@ -100,8 +99,8 @@ const FormSchemaTable: React.FC = () => {
         isOpen={isDialogOpen}
         setIsOpen={setIsDialogOpen}
       />
-      <Paper>
-        <Table size="medium">
+      <Paper sx={{ height: 550, overflow: 'auto' }}>
+        <Table size="medium" sx={{ maxHeight: '100%' }}>
           <TableHead>
             <TableRow>
               <TableCell>Schema Name</TableCell>

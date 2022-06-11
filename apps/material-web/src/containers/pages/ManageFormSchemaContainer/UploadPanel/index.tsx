@@ -5,7 +5,13 @@ import Dropzone from './Dropzone';
 
 const UploadPanel: React.FC = () => {
   return (
-    <Paper>
+    <Paper
+      sx={{
+        p: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Dropzone />
     </Paper>
   );
