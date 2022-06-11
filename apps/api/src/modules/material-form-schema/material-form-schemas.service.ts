@@ -38,13 +38,14 @@ export class MaterialFormSchemasService {
       await Promise.all(
         files.map(async (file) => {
           try {
-            const strSchema: string = file.buffer.toString('utf-8');
-            const schema: JSONSchema7 = YAML.parse(strSchema);
+            const strYamlSchema: string = file.buffer.toString('utf-8');
+            const jsonSchema: JSONSchema7 = YAML.parse(strYamlSchema);
+            const strJsonSchema: string = JSON.stringify(jsonSchema);
 
             const createdMaterialFormSchema: MaterialFormSchema =
               await this.materialFormSchemaModel.create({
-                title: schema.title,
-                strSchema,
+                title: jsonSchema.title,
+                strSchema: strJsonSchema,
               });
 
             createdSchemas.push(createdMaterialFormSchema);
