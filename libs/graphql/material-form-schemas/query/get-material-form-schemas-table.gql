@@ -1,0 +1,8 @@
+query GetMaterialFormSchemasTable {
+  materialFormSchemas {
+    id
+    createdAt
+    updatedAt
+    title
+  }
+}

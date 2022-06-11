@@ -24,6 +24,10 @@ export class MaterialFormSchemasService {
     return await this.materialFormSchemaModel.find();
   }
 
+  async findOne(id: string): Promise<MaterialFormSchema> {
+    return await this.materialFormSchemaModel.findById(id);
+  }
+
   //
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //

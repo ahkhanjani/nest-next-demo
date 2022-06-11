@@ -18,6 +18,12 @@ export class MaterialFormSchemasResolver {
   async getMaterialFormSchemas(): Promise<MaterialFormSchema[]> {
     return await this.materialFormSchemasService.findAll();
   }
+  @Query(() => MaterialFormSchema, { name: 'materialFormSchema' })
+  async getMaterialFormSchema(
+    @Args('id', { type: () => ID }) id: string
+  ): Promise<MaterialFormSchema> {
+    return await this.materialFormSchemasService.findOne(id);
+  }
 
   //
   // ─── MUTATION ───────────────────────────────────────────────────────────────────

@@ -10,16 +10,8 @@ export const ScrollDialog: React.FC<ScrollDialogProps> = ({
   title,
   content,
   isOpen,
-  setIsOpen,
+  handleClose,
 }) => {
-  //
-  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
-  //
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   // ────────────────────────────────────────────────────────────────────────────────
 
   return (
@@ -47,5 +39,5 @@ interface ScrollDialogProps {
   title: string;
   content: string;
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleClose: () => void;
 }

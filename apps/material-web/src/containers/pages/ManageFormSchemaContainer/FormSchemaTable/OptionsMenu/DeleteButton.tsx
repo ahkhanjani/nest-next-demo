@@ -7,8 +7,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 // - icons
 import DeleteIcon from '@mui/icons-material/Delete';
 // store
-import { useAppDispatch } from '../../../../hooks';
-import { setSnackbarMessage } from '../../../../store/snackbar-message';
+import { useAppDispatch } from '../../../../../hooks';
+import { setSnackbarMessage } from '../../../../../store/snackbar-message';
 
 const DeleteButton: React.FC<DeleteButtonProps> = ({
   handleClose,
