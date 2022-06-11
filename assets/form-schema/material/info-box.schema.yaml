@@ -9,8 +9,8 @@ properties:
       - description
     properties:
       title:
-        - type: string
-        - title: Title
+        type: string
+        title: Title
       description:
-        - type: string
-        - title: Description
+        type: string
+        title: Description
