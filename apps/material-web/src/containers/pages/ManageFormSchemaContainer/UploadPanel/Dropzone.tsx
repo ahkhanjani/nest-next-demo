@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import appAxios from '../../../../axios';
 // mui
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 // styles
 import styles from './Dropzone.module.scss';
 
@@ -38,13 +39,11 @@ const Dropzone: React.FC = () => {
   // ────────────────────────────────────────────────────────────────────────────────
 
   return (
-    <Box>
-      <div className={styles.fileInput} {...getRootProps()}>
-        <input {...getInputProps()} />
-        <span>Click...</span>
-        <em>or</em>
-        <span>Drop the files here...</span>
-      </div>
+    <Box className={styles.fileInput} {...getRootProps()}>
+      <input {...getInputProps()} />
+      <Typography variant="body1">Click...</Typography>
+      <Typography variant="body2">or</Typography>
+      <Typography variant="body1">Drop the files here...</Typography>
     </Box>
   );
 };

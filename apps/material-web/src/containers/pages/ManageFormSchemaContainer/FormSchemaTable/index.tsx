@@ -13,6 +13,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
 // - icons
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 // cmp
@@ -80,6 +81,10 @@ const FormSchemaTable: React.FC = () => {
     setIsDialogOpen(true);
   }, []);
 
+  function getDateFromNow(date: Date): string {
+    return dayjs(date).fromNow();
+  }
+
   // ────────────────────────────────────────────────────────────────────────────────
 
   const domId: string = useId();
@@ -88,12 +93,19 @@ const FormSchemaTable: React.FC = () => {
 
   if (!materialFormSchemas) return <p>Error</p>;
 
+  if (!materialFormSchemas.length)
+    return (
+      <Typography variant="body1">
+        {"You haven't created a material form schema yet!"}
+      </Typography>
+    );
+
   const rows = materialFormSchemas.map(
     ({ id, title, strSchema, createdAt, updatedAt }, index) => (
       <TableRow key={`${domId}-table-row-${id}-${index}`}>
         <TableCell>{title}</TableCell>
-        <TableCell>{dayjs(createdAt).fromNow()}</TableCell>
-        <TableCell>{!updatedAt ? 'N/A' : dayjs(updatedAt).fromNow()}</TableCell>
+        <TableCell>{getDateFromNow(createdAt)}</TableCell>
+        <TableCell>{!updatedAt ? 'N/A' : getDateFromNow(updatedAt)}</TableCell>
         <TableCell align="right">
           <IconButton
             onClick={(e) => {
