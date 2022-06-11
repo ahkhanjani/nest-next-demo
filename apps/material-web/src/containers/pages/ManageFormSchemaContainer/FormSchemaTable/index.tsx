@@ -18,6 +18,7 @@ const FormSchemaTable: React.FC = () => {
     data: { materialFormSchemas } = {},
     loading: materialFormSchemasLoading,
     error: materialFormSchemasError,
+    refetch: refetchMaterialFormSchemas,
   } = useGetMaterialFormSchemasTableQuery({
     fetchPolicy: 'network-only',
   });
@@ -47,7 +48,10 @@ const FormSchemaTable: React.FC = () => {
   return (
     <Paper sx={{ height: 550, overflow: 'auto' }}>
       <TableBody>
-        <TableRows rowDataArray={materialFormSchemas} />
+        <TableRows
+          rowDataArray={materialFormSchemas}
+          refetch={refetchMaterialFormSchemas}
+        />
       </TableBody>
     </Paper>
   );

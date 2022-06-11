@@ -11,8 +11,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import OptionsMenu from './OptionsMenu';
 // types
 import type { RowData } from './types/row-data';
+import type { RefetchType } from './types/refetch';
 
-const TableRows: React.FC<TableRowsProps> = ({ rowDataArray }) => {
+const TableRows: React.FC<TableRowsProps> = ({ rowDataArray, refetch }) => {
   //
   // ─── STATE ──────────────────────────────────────────────────────────────────────
   //
@@ -43,28 +44,6 @@ const TableRows: React.FC<TableRowsProps> = ({ rowDataArray }) => {
 
   const domId: string = useId();
 
-  const rows = rowDataArray.map(
-    ({ id, title, createdAt, updatedAt }, index) => (
-      <TableRow key={`${domId}-table-row-${id}-${index}`}>
-        <TableCell>{title}</TableCell>
-        <TableCell>{utilGetDateFromNow(createdAt)}</TableCell>
-        <TableCell>
-          {!updatedAt ? 'N/A' : utilGetDateFromNow(updatedAt)}
-        </TableCell>
-        <TableCell align="right">
-          <IconButton
-            onClick={(e) => {
-              setSelectedRowData({ id, title });
-              handleOptionsButtonClick(e);
-            }}
-          >
-            <MoreVertIcon />
-          </IconButton>
-        </TableCell>
-      </TableRow>
-    )
-  );
-
   return (
     <>
       <OptionsMenu
@@ -73,9 +52,28 @@ const TableRows: React.FC<TableRowsProps> = ({ rowDataArray }) => {
         {...{
           anchorEl,
           selectedRowData,
+          refetch,
         }}
       />
-      {rows}
+      {rowDataArray.map(({ id, title, createdAt, updatedAt }, index) => (
+        <TableRow key={`${domId}-table-row-${id}-${index}`}>
+          <TableCell>{title}</TableCell>
+          <TableCell>{utilGetDateFromNow(createdAt)}</TableCell>
+          <TableCell>
+            {!updatedAt ? 'N/A' : utilGetDateFromNow(updatedAt)}
+          </TableCell>
+          <TableCell align="right">
+            <IconButton
+              onClick={(e) => {
+                setSelectedRowData({ id, title });
+                handleOptionsButtonClick(e);
+              }}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          </TableCell>
+        </TableRow>
+      ))}
     </>
   );
 };
@@ -83,4 +81,5 @@ export default TableRows;
 
 interface TableRowsProps {
   rowDataArray: RowData[];
+  refetch: RefetchType;
 }

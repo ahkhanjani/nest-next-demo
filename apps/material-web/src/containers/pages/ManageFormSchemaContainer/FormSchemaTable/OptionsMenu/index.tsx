@@ -6,16 +6,21 @@ import DeleteButton from './DeleteButton';
 import ViewButton from './ViewButton';
 // types
 import type { RowData } from '../types/row-data';
+import type { RefetchType } from '../types/refetch';
 
 const OptionsMenu: React.FC<OptionsMenuProps> = ({
   selectedRowData,
   isOpen,
   anchorEl,
   handleClose,
+  refetch,
 }) => {
   return (
     <Paper sx={{ width: 320, maxWidth: '100%' }}>
       <Menu
+        anchorEl={anchorEl}
+        open={isOpen}
+        onClose={handleClose}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',
@@ -24,12 +29,12 @@ const OptionsMenu: React.FC<OptionsMenuProps> = ({
           vertical: 'top',
           horizontal: 'left',
         }}
-        anchorEl={anchorEl}
-        open={isOpen}
-        onClose={handleClose}
       >
-        <ViewButton {...{ handleClose, selectedRowData }} />
-        <DeleteButton selectedRowId={selectedRowData.id} {...{ handleClose }} />
+        <ViewButton handleCloseMenu={handleClose} {...{ selectedRowData }} />
+        <DeleteButton
+          selectedRowId={selectedRowData.id}
+          {...{ handleClose, refetch }}
+        />
       </Menu>
     </Paper>
   );
@@ -41,4 +46,5 @@ interface OptionsMenuProps {
   isOpen: boolean;
   anchorEl: HTMLElement;
   handleClose: () => void;
+  refetch: RefetchType;
 }

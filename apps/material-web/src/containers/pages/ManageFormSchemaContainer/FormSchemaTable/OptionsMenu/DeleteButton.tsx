@@ -9,10 +9,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 // store
 import { useAppDispatch } from '../../../../../hooks';
 import { setSnackbarMessage } from '../../../../../store/snackbar-message';
+// types
+import type { RefetchType } from '../types/refetch';
 
 const DeleteButton: React.FC<DeleteButtonProps> = ({
   handleClose,
   selectedRowId,
+  refetch,
 }) => {
   //
   // ─── STORE ──────────────────────────────────────────────────────────────────────
@@ -42,9 +45,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({
           severity: 'error',
         })
       );
-
       console.error(res.errors);
-
       return;
     }
 
@@ -55,7 +56,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({
           severity: 'success',
         })
       );
-
+      refetch();
       return;
     }
 
@@ -89,4 +90,5 @@ export default DeleteButton;
 interface DeleteButtonProps {
   handleClose: () => void;
   selectedRowId: string;
+  refetch: RefetchType;
 }

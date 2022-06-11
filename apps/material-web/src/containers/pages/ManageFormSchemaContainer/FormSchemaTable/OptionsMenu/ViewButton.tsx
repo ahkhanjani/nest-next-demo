@@ -15,7 +15,7 @@ import { useAppDispatch } from '../../../../../hooks';
 import { setSnackbarMessage } from '../../../../../store/snackbar-message';
 
 const ViewButton: React.FC<ViewButtonProps> = ({
-  handleClose,
+  handleCloseMenu,
   selectedRowData,
 }) => {
   //
@@ -100,13 +100,7 @@ const ViewButton: React.FC<ViewButtonProps> = ({
         isOpen={isDialogOpen}
         handleClose={handleCloseViewDialog}
       />
-      <MenuItem
-        onClick={() => {
-          handleClose();
-          handleClick();
-        }}
-        disableRipple
-      >
+      <MenuItem onClick={handleClick} disableRipple>
         <ListItemIcon>
           <VisibilityIcon fontSize="small" />
         </ListItemIcon>
@@ -118,6 +112,6 @@ const ViewButton: React.FC<ViewButtonProps> = ({
 export default ViewButton;
 
 interface ViewButtonProps {
-  handleClose: () => void;
+  handleCloseMenu: () => void;
   selectedRowData: RowData;
 }
