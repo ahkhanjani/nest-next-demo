@@ -48,7 +48,7 @@ const CategoryBreadcrumbs: React.FC = () => {
       >
         <ArrowBackIcon />
       </IconButton>
-      <Breadcrumbs maxItems={2}>
+      <Breadcrumbs maxItems={3}>
         {categoryPath.map(
           ({ id, title }, index) =>
             index < categoryPath.length - 1 && (
