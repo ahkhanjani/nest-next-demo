@@ -2,7 +2,7 @@ const ROUTES: Record<RouteNamePolicy, RouteFormat> = {
   LOGIN: '/login',
   BROWSE: '/browse',
   WIZARD: '/wizard',
-  FORM_SCHEMA: '/form-schema',
+  FORM_SCHEMA: '/manage-forms',
 };
 export default ROUTES;
 
