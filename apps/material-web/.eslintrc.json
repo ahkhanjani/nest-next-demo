@@ -12,7 +12,7 @@
       "rules": {
         "@next/next/no-html-link-for-pages": [
           "error",
-          "apps/material-web/pages"
+          "apps/material-web/src/pages"
         ]
       }
     },
