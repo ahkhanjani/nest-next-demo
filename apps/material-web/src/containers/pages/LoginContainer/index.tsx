@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { Formik } from 'formik';
 // mui
@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 // - icons
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // auth
-import { useLoginCheck } from '@fm/auth';
+import { AuthContext } from '@fm/auth';
 // cmp
 import FormContent from './FormContent';
 import { FormikValues } from './types/formik';
@@ -28,20 +28,20 @@ const LoginContainer: React.FC = () => {
   // ─── AUTH ───────────────────────────────────────────────────────────────────────
   //
 
-  const [isLoggedIn] = useLoginCheck();
+  const { user } = useContext(AuthContext);
 
   //
   // ─── EFFECT ─────────────────────────────────────────────────────────────────────
   //
 
   useEffect(() => {
-    if (isLoggedIn) router.push(ROUTES.BROWSE);
-  }, [isLoggedIn, router]);
+    if (user) router.push(ROUTES.BROWSE);
+  }, [user, router]);
 
   // ────────────────────────────────────────────────────────────────────────────────
 
   // if user already exists redirect to dashboard
-  if (isLoggedIn) return <p>Redirecting to dashboard...</p>;
+  if (user) return <p>Redirecting to dashboard...</p>;
 
   return (
     <Container component="main" maxWidth="xs">
