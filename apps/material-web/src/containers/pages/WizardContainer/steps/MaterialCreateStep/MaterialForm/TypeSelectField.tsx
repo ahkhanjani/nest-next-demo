@@ -1,5 +1,7 @@
-import { memo, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useFormikContext } from 'formik';
+// mui
+import Skeleton from '@mui/material/Skeleton';
 // cmp
 import SelectField from '../../../../../../components/form/SelectField';
 // types
@@ -12,14 +14,18 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
 }) => {
   const {
     values: { type },
+    setFieldError,
   } = useFormikContext<FormikValues>();
 
   //
   // ─── GQL ────────────────────────────────────────────────────────────────────────
   //
 
-  const { data: { materialFormSchemas } = {} } =
-    useGetMaterialFormSchemasQuery();
+  const {
+    data: { materialFormSchemas } = {},
+    loading: materialFormSchemasLoading,
+    error: materialFormSchemasError,
+  } = useGetMaterialFormSchemasQuery();
 
   //
   // ─── EFFECT ─────────────────────────────────────────────────────────────────────
@@ -27,16 +33,31 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
 
   // change form-schema when selected type changes
   useEffect(() => {
-    const selectedSchema = materialFormSchemas.find(
-      (schema) => schema.title === type
-    );
-    if (selectedSchema) {
-      const parsedSchema: JSONSchema7 = JSON.parse(selectedSchema.strSchema);
-      setRjsfSchema(parsedSchema);
+    function handleChange() {
+      if (!materialFormSchemas) return;
+
+      const selectedSchema = materialFormSchemas.find(
+        (schema) => schema.title === type
+      );
+      if (selectedSchema) {
+        const parsedSchema: JSONSchema7 = JSON.parse(selectedSchema.strSchema);
+        setRjsfSchema(parsedSchema);
+      }
     }
+    handleChange();
   }, [materialFormSchemas, setRjsfSchema, type]);
 
+  // handle gql errors
+  useEffect(() => {
+    if (materialFormSchemasError) {
+      setFieldError('type', "Couldn't fetch DataTransfer.");
+      console.error(materialFormSchemasError);
+    }
+  }, [materialFormSchemasError, setFieldError]);
+
   // ────────────────────────────────────────────────────────────────────────────────
+
+  if (materialFormSchemasLoading) return <Skeleton variant="rectangular" />;
 
   return (
     <SelectField
@@ -46,7 +67,7 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
     />
   );
 };
-export default memo(TypeSelectField);
+export default TypeSelectField;
 
 interface TypeSelectFieldProps {
   setDynamicFormSchema: React.Dispatch<React.SetStateAction<JSONSchema7>>;
