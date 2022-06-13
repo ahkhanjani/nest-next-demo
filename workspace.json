@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "api-interfaces": "libs/api-interfaces",
     "api-libs": "libs/api-libs",
     "auth": "libs/auth",
     "main-web": "apps/main-web",

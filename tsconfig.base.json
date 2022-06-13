@@ -24,6 +24,7 @@
       "@fm/shared-ui": ["libs/shared-ui/src/index.ts"],
       "@fm/types": ["libs/types/src/index.ts"],
       "@fm/util": ["libs/util/src/index.ts"],
+      "@fullmoon/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"]
     }
   },
