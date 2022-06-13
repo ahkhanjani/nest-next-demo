@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "api-libs": "libs/api-libs",
     "auth": "libs/auth",
     "main-web": "apps/main-web",
     "main-web-e2e": "apps/main-web-e2e",

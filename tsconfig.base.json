@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@fm/api": ["libs/api-libs/src/index.ts"],
       "@fm/api/*": ["apps/api/src/modules/*"],
       "@fm/auth": ["libs/auth/src/index.ts"],
       "@fm/gql": ["libs/graphql/generated.tsx"],
