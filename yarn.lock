@@ -2629,7 +2629,7 @@
   dependencies:
     nx "14.1.7"
 
-"@nrwl/cli@14.2.4":
+"@nrwl/cli@14.2.4", "@nrwl/cli@^14.2.4":
   version "14.2.4"
   resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-14.2.4.tgz#382592fe8cf5f5d5572dddbb366e55f2a2e23145"
   integrity sha512-Ak6mmM9W39DSVaRDxt0yqMwHWg5yL9+QqhSB7q464EAKS6r4NPr6Z+avAjqAfoS/H8WsEPlwJnsaaJiP/gBwWQ==

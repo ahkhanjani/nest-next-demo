@@ -2,7 +2,7 @@ __VSCode Extension for Nx:__ `nrwl.angular-console`
 
 # Bootstrap
 
-1. Install pnpm:
+1. Install yarn:
 
 ```bash
 npm i -g yarn
