@@ -5,19 +5,20 @@ __VSCode Extension for Nx:__ `nrwl.angular-console`
 1. Install pnpm:
 
 ```bash
-npm i -g pnpm
+npm i -g yarn
 ```
 
 2. Install Nx CLI:
 
 ```bash
-pnpm add -g nx
+npm i -g nx
 ```
 
 3. Install project dependencies:
 
 ```bash
-pnpm install
+# at project root
+yarn
 ```
 
 # Folder Structure
@@ -29,6 +30,9 @@ fullmoon/
 ├   ├── main-web/ # main next app 
 ├   └── material-web/ # material dashboard next app
 └── libs/ # shared code and app logic
+    ├── api/
+    ├── main-web/
+    └── material-web/
 ```
 
 # Dev
@@ -38,17 +42,17 @@ fullmoon/
 - Watch API:
 
 ```bash
-pnpm exec nx serve api
+yarn nx serve api
 ```
 
 - Watch Main Web:
 
 ```bash
-pnpm exec nx serve main-web
+yarn nx serve main-web
 ```
 
 - Watch Material Web:
 
 ```bash
-pnpm exec nx serve material-web
+yarn nx serve material-web
 ```
