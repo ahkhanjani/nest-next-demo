@@ -5,14 +5,15 @@
     "api": "apps/api",
     "api-lib": "libs/api",
     "auth": "libs/auth",
+    "graphql": "libs/graphql",
     "main-web": "apps/main-web",
     "main-web-e2e": "apps/main-web-e2e",
     "material-web": "apps/material-web",
     "material-web-e2e": "apps/material-web-e2e",
+    "material-web-lib": "libs/material-web",
     "network": "libs/network",
     "shared-interfaces": "libs/shared-interfaces",
     "shared-ui": "libs/shared-ui",
-    "util": "libs/util",
-    "graphql": "libs/graphql"
+    "util": "libs/util"
   }
 }

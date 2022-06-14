@@ -1,36 +1,12 @@
 import { AppProps } from 'next/app';
-import Head from 'next/head';
-// providers
-import { ApolloProvider } from '@fm/network';
-import { AuthProvider } from '@fm/auth';
-import ThemeProvider from '../providers/ThemeProvider';
-import ColorModeProvider from '../providers/ColorModeProvider';
-// store
-import store from '../store';
-import { Provider } from 'react-redux';
-import SnackbarAlert from '../components/SnackbarAlert';
+// containers
+import AppContainer from '@fm/material-web-lib/pages/_app';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <>
-      <Head>
-        <title>Material Client Dev</title>
-      </Head>
-      <main className="app">
-        <Provider store={store}>
-          <ApolloProvider>
-            <AuthProvider>
-              <ColorModeProvider>
-                <ThemeProvider>
-                  <SnackbarAlert />
-                  <Component {...pageProps} />
-                </ThemeProvider>
-              </ColorModeProvider>
-            </AuthProvider>
-          </ApolloProvider>
-        </Provider>
-      </main>
-    </>
+    <AppContainer>
+      <Component {...pageProps} />
+    </AppContainer>
   );
 };
 export default MyApp;

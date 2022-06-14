@@ -27,6 +27,7 @@
     "@nestjs/mongoose": "^9.1.0",
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.4.6",
+    "@nrwl/next": "14.1.7",
     "@reduxjs/toolkit": "^1.8.2",
     "@rjsf/core": "^4.2.0",
     "@rjsf/material-ui": "^4.2.0",
