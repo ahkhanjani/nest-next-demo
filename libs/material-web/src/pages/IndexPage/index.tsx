@@ -28,6 +28,6 @@ const IndexPage: React.FC = () => {
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  return <>''</>;
+  return <>Please wait...</>;
 };
 export default IndexPage;
