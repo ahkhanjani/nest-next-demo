@@ -1,16 +1,17 @@
 mutation createMaterials(
-  $materialDataArray: [MaterialDataObject!]!
+  $materialDtoArray: [MaterialDto!]!
   $category: [ID!]!
 ) {
   createMaterials(
-    dto: { materialDataArray: $materialDataArray, category: $category }
+    dto: { materialDtoArray: $materialDtoArray, category: $category }
   ) {
     createdMaterials {
-      createdMaterial {
-        id
-        title
-      }
-      message
+      id
+      title
     }
+    failedMaterials {
+      materialTitle
+    }
+    errors
   }
 }

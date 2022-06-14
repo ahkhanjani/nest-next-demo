@@ -4,6 +4,7 @@ mutation UpdateMaterial(
   $title: String!
   $type: String!
   $formData: String!
+  $status: String!
 ) {
   updateMaterial(
     dto: {
@@ -12,6 +13,7 @@ mutation UpdateMaterial(
       title: $title
       type: $type
       formData: $formData
+      status: $status
     }
   ) {
     message
