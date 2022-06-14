@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 // cmp
-import SignupContainer from '@fm/main-web-lib/pages/SignupPage';
+import SignupForm from './components/SignupForm';
 
 const SignupPage: NextPage = () => {
-  return <SignupContainer />;
+  return <SignupForm />;
 };
 export default SignupPage;

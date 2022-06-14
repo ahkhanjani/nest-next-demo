@@ -1,6 +1,6 @@
 {
   "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
-  "sourceRoot": "libs/material-web/src",
+  "sourceRoot": "libs/main-web-lib/src",
   "projectType": "library",
   "tags": ["react", "next"],
   "targets": {
@@ -8,14 +8,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/material-web/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/main-web-lib/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/material-web"],
+      "outputs": ["coverage/libs/main-web-lib"],
       "options": {
-        "jestConfig": "libs/material-web/jest.config.ts",
+        "jestConfig": "libs/main-web-lib/jest.config.ts",
         "passWithNoTests": true
       }
     }
