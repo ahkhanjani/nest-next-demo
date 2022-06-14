@@ -23,6 +23,8 @@ export class MaterialFormSchemasController {
   @Post('upload')
   @UseInterceptors(FilesInterceptor('files'))
   async uploadMaterialFormSchemas(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     @UploadedFiles() files: Array<Express.Multer.File>
   ): Promise<CreateMaterialFormSchemaResponse> {
     return await this.materialFormSchemasService.createMany(files);

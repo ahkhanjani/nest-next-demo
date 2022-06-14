@@ -33,6 +33,8 @@ export class MaterialFormSchemasService {
   //
 
   async createMany(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     files: Array<Express.Multer.File>
   ): Promise<CreateMaterialFormSchemaResponse> {
     try {

@@ -4,7 +4,7 @@ import * as argon2 from 'argon2';
 import { User } from '../user/interface/user.interface';
 // module
 import { UsersService } from '../user/users.service';
-import { LoginResponse } from './auth/dto/login-response.dto';
+import { LoginResponse } from './dto/login-response.dto';
 
 @Injectable()
 export class AuthService {
