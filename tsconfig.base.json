@@ -19,7 +19,7 @@
       "@fm/api-lib": ["libs/api/src/index.ts"],
       "@fm/api-lib/*": ["libs/api/src/lib/*"],
       "@fm/auth": ["libs/auth/src/index.ts"],
-      "@fm/gql": ["libs/graphql/generated.tsx"],
+      "@fm/gql": ["libs/graphql/index.tsx"],
       "@fm/network": ["libs/network/src/index.ts"],
       "@fm/shared-interfaces": ["libs/shared-interfaces/src/index.ts"],
       "@fm/shared-ui": ["libs/shared-ui/src/index.ts"],

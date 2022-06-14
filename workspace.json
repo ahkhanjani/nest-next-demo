@@ -12,6 +12,7 @@
     "network": "libs/network",
     "shared-interfaces": "libs/shared-interfaces",
     "shared-ui": "libs/shared-ui",
-    "util": "libs/util"
+    "util": "libs/util",
+    "graphql": "libs/graphql"
   }
 }
