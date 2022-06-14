@@ -31,7 +31,7 @@ const ColorModeProvider: React.FC<PropsWithChildren<unknown>> = ({
   // get the color mode from the local storage cookie.
   useEffect(() => {
     function getInitialMode() {
-      const userMode: string = localStorage.getItem(STORAGE_NAME);
+      const userMode: string | null = localStorage.getItem(STORAGE_NAME);
 
       if (
         // if cookie doesn't exist...

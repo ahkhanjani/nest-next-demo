@@ -9,7 +9,7 @@ import ColorModeProvider from '../providers/ColorModeProvider';
 import SnackbarAlert from '../components/SnackbarAlert';
 // store
 import store from '../store';
-import { Provider } from 'react-redux';
+import { Provider as StoreProvider } from 'react-redux';
 
 const AppContainer: React.FC<PropsWithChildren<unknown>> = ({ children }) => {
   return (
@@ -18,7 +18,7 @@ const AppContainer: React.FC<PropsWithChildren<unknown>> = ({ children }) => {
         <title>Material Client Dev</title>
       </Head>
       <main className="app">
-        <Provider store={store}>
+        <StoreProvider store={store}>
           <ApolloProvider>
             <AuthProvider>
               <ColorModeProvider>
@@ -29,7 +29,7 @@ const AppContainer: React.FC<PropsWithChildren<unknown>> = ({ children }) => {
               </ColorModeProvider>
             </AuthProvider>
           </ApolloProvider>
-        </Provider>
+        </StoreProvider>
       </main>
     </>
   );

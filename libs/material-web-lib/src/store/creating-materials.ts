@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MaterialData } from '@fm/types';
+import { MaterialData } from '@fm/shared-interfaces';
 
 const initialState: CreatingMaterialsState = {
   materialDataArray: [],

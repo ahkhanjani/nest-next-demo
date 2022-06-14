@@ -37,7 +37,7 @@ export default SnackbarMessageSlice.reducer;
 //
 
 interface SetMessagePayload {
-  message: string;
+  message: string | null;
   severity: AlertColor;
 }
 
