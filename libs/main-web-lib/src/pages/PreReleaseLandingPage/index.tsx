@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import RegisterForm from './components/RegisterForm';
+import RegisterForm from './RegisterForm';
 
 const PreReleaseLandingPage: NextPage = () => {
   return <RegisterForm />;
