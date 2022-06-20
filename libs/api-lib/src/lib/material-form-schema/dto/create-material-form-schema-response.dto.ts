@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { FieldError } from '@fm/shared-interfaces';
+import { FieldError } from '@fm/types';
 import { MaterialFormSchema } from '../interface/material-form-schema.interface';
 
 @ObjectType()

@@ -3,37 +3,33 @@ name: CI
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
 
 env:
   NX_CLOUD_DISTRIBUTED_EXECUTION: 'true'
-  NX_BRANCH: ${{ github.event.number }}
-  NX_RUN_GROUP: ${{ github.run_id }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-
-
   main:
     name: Nx Cloud - Main Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.2
+    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.3
     with:
       parallel-commands: |
-        pnpm exec nx-cloud record -- pnpm exec nx workspace-lint
-        pnpm exec nx-cloud record -- pnpm exec nx format:check
+        yarn nx-cloud record -- yarn nx workspace-lint
+        yarn nx-cloud record -- yarn nx format:check
       parallel-commands-on-agents: |
-        pnpm exec nx affected --target=lint --parallel=3
-        pnpm exec nx affected --target=test --parallel=3 --ci --code-coverage
-        pnpm exec nx affected --target=build --parallel=3
+        yarn nx affected --target=lint --parallel=3
+        yarn nx affected --target=test --parallel=3 --ci --code-coverage
+        yarn nx affected --target=build --parallel=3
 
   agents:
     name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.2
+    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.3
     with:
       number-of-agents: 3
+
+  deploy-api:

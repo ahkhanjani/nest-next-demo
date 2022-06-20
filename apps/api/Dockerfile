@@ -6,8 +6,8 @@ COPY ./dist/apps/api .
 
 EXPOSE 3000
 
-RUN npm install -g pnpm
+RUN npm install -g yarn
 
-RUN pnpm install --production
+RUN yarn install --production
 
 CMD ["node", "./main.js"]

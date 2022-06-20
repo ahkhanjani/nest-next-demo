@@ -4,17 +4,18 @@
   "projects": {
     "api": "apps/api",
     "api-lib": "libs/api-lib",
-    "auth": "libs/auth",
-    "graphql": "libs/graphql",
+    "graphql": "libs/shared/graphql",
     "main-web": "apps/main-web",
     "main-web-e2e": "apps/main-web-e2e",
     "main-web-lib": "libs/main-web-lib",
     "material-web": "apps/material-web",
     "material-web-e2e": "apps/material-web-e2e",
     "material-web-lib": "libs/material-web-lib",
-    "network": "libs/network",
-    "shared-interfaces": "libs/shared-interfaces",
-    "shared-ui": "libs/shared-ui",
-    "util": "libs/util"
+    "shared-state-auth": "libs/shared/state/auth",
+    "shared-state-network": "libs/shared/state/network",
+    "shared-types": "libs/shared/types",
+    "shared-ui-mui": "libs/shared/ui/mui",
+    "shared-util-date-from-now": "libs/shared/util/date-from-now",
+    "shared-util-to-error-map": "libs/shared/util/to-error-map"
   }
 }

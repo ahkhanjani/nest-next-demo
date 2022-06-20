@@ -20,22 +20,11 @@ services:
     env_file:
       - .env
     environment:
-      - DB_HOST=postgres
+      - DB_HOST=mongo
     volumes:
       - './apps:/app/apps:ro'
       - './libs:/app/libs:ro'
 
-  main-web:
-    build:
-      context: .
-      dockerfile: main-web.dockerfile
-    ports:
-      - 4200:4200
-    networks:
-      - fm-web-main
-    volumes:
-      - './apps:/app/apps:ro'
-      - './libs:/app/libs:ro'
 
 volumes:
   db-data:
@@ -52,5 +41,4 @@ secrets:
     external: true
 
 networks:
-  fm-web-main: {}
   fm-back-main: {}
