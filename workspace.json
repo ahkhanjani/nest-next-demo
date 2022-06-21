@@ -3,7 +3,6 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
-    "api-lib": "libs/api-lib",
     "graphql": "libs/shared/graphql",
     "main-web": "apps/main-web",
     "main-web-e2e": "apps/main-web-e2e",

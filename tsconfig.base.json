@@ -16,8 +16,6 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@fm/api-lib": ["libs/api-lib/src/index.ts"],
-      "@fm/api-lib/*": ["libs/api-lib/src/lib/*"],
       "@fm/auth": ["libs/shared/state/auth/src/index.ts"],
       "@fm/gql": ["libs/shared/graphql/src/index.ts"],
       "@fm/main-web-lib/*": ["libs/main-web-lib/src/*"],
