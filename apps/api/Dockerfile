@@ -1,13 +1,7 @@
-FROM node:16-alpine
-
+FROM node:lts-alpine
 WORKDIR /app
-
 COPY ./dist/apps/api .
-
-EXPOSE 3000
-
-RUN npm install -g yarn
-
-RUN yarn install --production
-
+ENV PORT=3333
+EXPOSE ${PORT}
+RUN npm install --production
 CMD ["node", "./main.js"]
