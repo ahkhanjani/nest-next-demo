@@ -1,0 +1,17 @@
+mutation createMaterials(
+  $materialDtoArray: [MaterialDto!]!
+  $category: [ID!]!
+) {
+  createMaterials(
+    dto: { materialDtoArray: $materialDtoArray, category: $category }
+  ) {
+    createdMaterials {
+      id
+      title
+    }
+    failedMaterials {
+      materialTitle
+    }
+    errors
+  }
+}

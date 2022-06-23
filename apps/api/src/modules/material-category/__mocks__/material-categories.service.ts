@@ -1,11 +1,9 @@
-import {
-  UpdateMaterialCategoryResponse,
-  CreateMaterialCategoryResponse,
-  CreateMaterialCategoryInput,
-} from '@fm/nest/material-categoy/dto';
-import { MaterialCategoriesPaginateResponse } from '@fm/nest/material-categoy/dto';
-import { MaterialCategory } from '@fm/nest/material-categoy/interface';
 import { MockType } from '@fm/types';
+import { CreateMaterialCategoryInput } from '../dto/create-material-category-input.dto';
+import { CreateMaterialCategoryResponse } from '../dto/create-material-category-response.dto';
+import { MaterialCategoriesPaginateResponse } from '../dto/material-categories-paginate-response.dto';
+import { UpdateMaterialCategoryResponse } from '../dto/update-material-category-response.dto';
+import { MaterialCategory } from '../interface/material-category.interface';
 import { MaterialCategoriesService as ServiceType } from '../material-categories.service';
 import { materialCategoryStub } from '../test/stubs/material-category.stub';
 

@@ -3,10 +3,18 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "graphql": "libs/shared/graphql",
     "main-web": "apps/main-web",
     "main-web-e2e": "apps/main-web-e2e",
+    "main-web-lib": "libs/main-web-lib",
     "material-web": "apps/material-web",
     "material-web-e2e": "apps/material-web-e2e",
-    "util-to-error-map": "libs/util/to-error-map"
+    "material-web-lib": "libs/material-web-lib",
+    "shared-state-auth": "libs/shared/state/auth",
+    "shared-state-network": "libs/shared/state/network",
+    "shared-types": "libs/shared/types",
+    "shared-ui-mui": "libs/shared/ui/mui",
+    "shared-util-date-from-now": "libs/shared/util/date-from-now",
+    "shared-util-to-error-map": "libs/shared/util/to-error-map"
   }
 }

@@ -1,10 +1,10 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { argon2id, hash } from 'argon2';
-// types
-import { User, UserModel } from '@fm/nest/user/interface';
-import { UserResponse, CreateUserInput } from '@fm/nest/user/dto';
+import * as argon2 from 'argon2';
+import * as bcrypt from 'bcrypt';
+import { User, UserModel } from './interface/user.interface';
+import { CreateUserInput, CreateUserResponse } from './dto';
 
 @Injectable()
 export class UsersService {
@@ -33,6 +33,14 @@ export class UsersService {
     return await this.userModel.findOne({ username });
   }
 
+  /**
+   * ! DO NOT USE ON RESOLVERS OR CONTROLLERS !
+   * @returns User with hashed password.
+   */
+  async findOneByUsername_UNSAFE(username: string): Promise<User> {
+    return await this.userModel.findOne({ username }).select('+password');
+  }
+
   //
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //
@@ -40,15 +48,38 @@ export class UsersService {
   async createOne({
     username,
     password,
-  }: CreateUserInput): Promise<UserResponse> {
-    const hashedPassword = await hash(password, { type: argon2id });
+  }: CreateUserInput): Promise<CreateUserResponse> {
+    try {
+      const salt: string = await bcrypt.genSalt(12);
+      const hashedPassword = await argon2.hash(password, {
+        type: argon2.argon2id,
+        salt: Buffer.from(salt),
+      });
 
-    const createdUser = new this.userModel({
-      username: username.toLowerCase(),
-      password: hashedPassword,
-    });
-    const user = await createdUser.save();
-    return { user };
+      const user = await this.userModel.create({
+        username: username.toLowerCase(),
+        password: hashedPassword,
+      });
+
+      if (user) return { success: true };
+      return {
+        errors: [
+          {
+            field: 'username',
+            message: 'Signup failed. please try again later.',
+          },
+        ],
+      };
+    } catch (error) {
+      return {
+        errors: [
+          {
+            field: 'username',
+            message: 'Signup failed. please try again later.',
+          },
+        ],
+      };
+    }
   }
 
   async updateOne(userId: string): Promise<User> {

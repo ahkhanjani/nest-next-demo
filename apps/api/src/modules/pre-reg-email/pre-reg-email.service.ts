@@ -4,8 +4,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import {
   PreRegEmail,
   PreRegEmailModel,
-} from '@fm/nest/pre-reg-email/interface';
-import { CreatePreRegInput, PreRegResponse } from '@fm/nest/pre-reg-email/dto';
+} from './interface/pre-reg-email.interface';
+import { CreatePreRegInput } from './dto/create-pre-reg-input.dto';
+import { PreRegResponse } from './dto/pre-reg-response.dto';
 
 @Injectable()
 export class PreRegEmailsService {

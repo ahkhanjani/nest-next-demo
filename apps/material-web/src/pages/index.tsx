@@ -1,16 +1,7 @@
-import { useEffect } from 'react';
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-// routes
-import ROUTES from '../routes';
+import IndexContainer from '@fm/material-web-lib/pages/IndexPage';
 
 const IndexPage: NextPage = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.push(ROUTES.BROWSE);
-  }, [router]);
-
-  return undefined;
+  return <IndexContainer />;
 };
 export default IndexPage;

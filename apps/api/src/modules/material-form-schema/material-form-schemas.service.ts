@@ -1,14 +1,13 @@
-import fs from 'fs';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { parse } from 'yaml';
+import * as YAML from 'yaml';
 // interface
 import {
   MaterialFormSchema,
   MaterialFormSchemaModel,
-} from '@fm/nest/material-form-schema/interface/material-form-schema.interface';
-import type { CreateMaterialFormSchemaResponse } from '@fm/nest/material-form-schema/dto/create-material-form-schema-response.dto';
+} from './interface/material-form-schema.interface';
+import { CreateMaterialFormSchemaResponse } from './dto/create-material-form-schema-response.dto';
 import type { JSONSchema7 } from 'json-schema';
 
 @Injectable()
@@ -25,11 +24,17 @@ export class MaterialFormSchemasService {
     return await this.materialFormSchemaModel.find();
   }
 
+  async findOne(id: string): Promise<MaterialFormSchema> {
+    return await this.materialFormSchemaModel.findById(id);
+  }
+
   //
   // ─── MUTATION ───────────────────────────────────────────────────────────────────
   //
 
-  async createMaterialFormSchema(
+  async createMany(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     files: Array<Express.Multer.File>
   ): Promise<CreateMaterialFormSchemaResponse> {
     try {
@@ -38,18 +43,15 @@ export class MaterialFormSchemasService {
 
       await Promise.all(
         files.map(async (file) => {
-          // yaml data in string
-          const fileContent: string = fs.readFileSync(file.buffer, 'utf-8');
-          // convert yaml to json
-          const parsed: JSONSchema7 = parse(fileContent);
-          // convert json to string to save
-          const strSchema: string = JSON.stringify(parsed);
-
           try {
+            const strYamlSchema: string = file.buffer.toString('utf-8');
+            const jsonSchema: JSONSchema7 = YAML.parse(strYamlSchema);
+            const strJsonSchema: string = JSON.stringify(jsonSchema);
+
             const createdMaterialFormSchema: MaterialFormSchema =
               await this.materialFormSchemaModel.create({
-                title: parsed.title,
-                strSchema,
+                title: jsonSchema.title,
+                strSchema: strJsonSchema,
               });
 
             createdSchemas.push(createdMaterialFormSchema);
@@ -60,21 +62,31 @@ export class MaterialFormSchemasService {
       );
 
       return {
-        createdSchemas,
-        errors: [
-          {
-            field: 'file-input',
-            message: `Error occurred with file(s): ${errorFileNames.join(
-              ', '
-            )}`,
-          },
-        ],
+        createdSchemas: createdSchemas.length ? createdSchemas : undefined,
+        errors: errorFileNames.length
+          ? [
+              {
+                field: 'file-input',
+                message: `Error occurred with file(s): ${errorFileNames.join(
+                  ', '
+                )}`,
+              },
+            ]
+          : undefined,
       };
     } catch (error) {
-      console.log(error);
       return {
         errors: [{ field: 'file-input', message: "Coundn't read file(s)." }],
       };
+    }
+  }
+
+  async deleteOne(id: string): Promise<boolean> {
+    try {
+      await this.materialFormSchemaModel.deleteOne({ _id: id });
+      return true;
+    } catch (error) {
+      return false;
     }
   }
 }

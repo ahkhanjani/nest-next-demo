@@ -14,10 +14,22 @@ async function bootstrap() {
     })
   );
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-  await app.listen(4000);
+  await app.listen(process.env.PORT);
 
-  console.log(
-    `fm-server is running on ${await app.getUrl()}\ngql playground: ${await app.getUrl()}/graphql`
-  );
+  switch (process.env.NODE_ENV) {
+    case 'development':
+    case 'dev':
+      console.log(
+        `'api' is running on '${await app.getUrl()}'.\nGraphQL Playground: ${await app.getUrl()}/graphql`
+      );
+      break;
+
+    case 'production':
+    case 'prod':
+      console.log('The main API started.');
+      break;
+
+    default:
+  }
 }
 bootstrap();

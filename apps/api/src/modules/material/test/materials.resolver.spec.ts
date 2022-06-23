@@ -2,15 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MaterialsService } from '../materials.service';
 import { MaterialsResolver } from '../materials.resolver';
 import { materialStub } from './stubs/material.stub';
-import { Material } from '@fm/nest/material/interface';
-import {
-  CreateMaterialsInput,
-  CreateMaterialsResponse,
-  MaterialsPaginateInput,
-  MaterialsPaginateResponse,
-  UpdateMaterialInput,
-  UpdateMaterialResponse,
-} from '@fm/nest/material/dto';
+import { Material } from '../interface/material.interface';
+import { MaterialsPaginateResponse } from '../dto/paginate-response.dto';
+import { MaterialsPaginateInput } from '../dto/paginate-input.dto';
+import { CreateMaterialsInput } from '../dto/create-materials-input.dto';
+import { CreateMaterialsResponse } from '../dto/create-materials-response.dto';
+import { UpdateMaterialResponse } from '../dto/update-material-response.dto';
+import { UpdateMaterialInput } from '../dto/update-material-input.dto';
 
 jest.mock('../materials.service.ts');
 
@@ -234,7 +232,7 @@ describe('MaterialsResolver', () => {
         const { id: _, createdAt: __, category, ...rest } = materialStub();
         createMaterialsDto = {
           category,
-          materialDataArray: [rest, rest],
+          materialDtoArray: [rest, rest],
         };
         response = await resolver.createMaterials(createMaterialsDto);
       });
@@ -246,14 +244,7 @@ describe('MaterialsResolver', () => {
 
       it('should return response', () => {
         expect(response).toEqual<CreateMaterialsResponse>({
-          createdMaterials: [
-            {
-              createdMaterial: materialStub(),
-            },
-            {
-              createdMaterial: materialStub(),
-            },
-          ],
+          createdMaterials: [materialStub(), materialStub()],
         });
       });
     });

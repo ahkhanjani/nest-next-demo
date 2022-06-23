@@ -1,0 +1,23 @@
+{
+  "$schema": "..\\..\\..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "sourceRoot": "libs/shared/ui/mui/src",
+  "projectType": "library",
+  "tags": ["ui", "react", "mui"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/ui/mui/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/ui/mui"],
+      "options": {
+        "jestConfig": "libs/shared/ui/mui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

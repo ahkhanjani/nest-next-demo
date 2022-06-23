@@ -9,13 +9,13 @@ export class AuthController {
 
   @Get('/facebook')
   @UseGuards(AuthGuard('facebook'))
-  async facebookLogin(): Promise<any> {
+  async facebookLogin(): Promise<unknown> {
     return HttpStatus.OK;
   }
 
   @Get('/facebook/redirect')
   @UseGuards(AuthGuard('facebook'))
-  async facebookLoginRedirect(@Req() req: Request): Promise<any> {
+  async facebookLoginRedirect(@Req() req: Request): Promise<unknown> {
     return {
       statusCode: HttpStatus.OK,
       data: req.user,
@@ -24,13 +24,13 @@ export class AuthController {
 
   @Get()
   @UseGuards(AuthGuard('google'))
-  async googleLogin(): Promise<any> {
+  async googleLogin(): Promise<unknown> {
     return HttpStatus.OK;
   }
 
   @Get('redirect')
   @UseGuards(AuthGuard('google'))
-  async googleLoginRedirect(@Req() req: Request): Promise<any> {
+  async googleLoginRedirect(@Req() req: Request): Promise<unknown> {
     return {
       statusCode: HttpStatus.OK,
       data: req.user,

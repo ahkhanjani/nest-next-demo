@@ -1,4 +1,4 @@
-import { User } from '@fm/nest/user/interface';
+import { User } from '../../interface/user.interface';
 
 export const userStub = (): User => ({
   id: '6293745c1d4f29749d32c4b4',

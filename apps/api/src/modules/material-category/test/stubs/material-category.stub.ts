@@ -1,4 +1,4 @@
-import { MaterialCategory } from '@fm/nest/material-categoy/interface';
+import { MaterialCategory } from '../../interface/material-category.interface';
 
 export const materialCategoryStub = (): MaterialCategory => ({
   id: '6293745c1d4f29749d32c4b4',

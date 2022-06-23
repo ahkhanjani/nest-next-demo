@@ -5,6 +5,9 @@ class MaterialFormSchema {
   @Prop({ default: Date.now })
   createdAt: Date;
 
+  @Prop({ default: null, required: false })
+  updatedAt: Date;
+
   @Prop()
   title: string;
 

@@ -5,10 +5,10 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { CreateMaterialFormSchemaResponse } from './dto/create-material-form-schema-response.dto';
 // module
 import { MaterialFormSchemasService } from './material-form-schemas.service';
 // interface
-import type { CreateMaterialFormSchemaResponse } from '@fm/nest/material-form-schema/dto/create-material-form-schema-response.dto';
 
 @Controller('material-form-schema')
 export class MaterialFormSchemasController {
@@ -23,11 +23,10 @@ export class MaterialFormSchemasController {
   @Post('upload')
   @UseInterceptors(FilesInterceptor('files'))
   async uploadMaterialFormSchemas(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     @UploadedFiles() files: Array<Express.Multer.File>
   ): Promise<CreateMaterialFormSchemaResponse> {
-    console.log(files);
-    return await this.materialFormSchemasService.createMaterialFormSchema(
-      files
-    );
+    return await this.materialFormSchemasService.createMany(files);
   }
 }

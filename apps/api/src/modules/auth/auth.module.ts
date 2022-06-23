@@ -13,7 +13,7 @@ import {
   JwtStrategy,
   // FacebookStrategy,
   // GoogleStrategy,
-} from '@fm/nest/auth/strategy';
+} from './strategy';
 
 @Module({
   imports: [

@@ -1,8 +1,9 @@
 import { Args, Resolver, Mutation, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
+import { CreatePreRegInput } from './dto/create-pre-reg-input.dto';
+import { PreRegResponse } from './dto/pre-reg-response.dto';
+import { PreRegEmail } from './interface/pre-reg-email.interface';
 import { PreRegEmailsService } from './pre-reg-email.service';
-import { PreRegEmail } from '@fm/nest/pre-reg-email/interface';
-import { PreRegResponse, CreatePreRegInput } from '@fm/nest/pre-reg-email/dto';
 
 const pubSub = new PubSub();
 

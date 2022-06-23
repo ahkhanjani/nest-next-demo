@@ -1,0 +1,21 @@
+mutation UpdateMaterial(
+  $materialId: ID!
+  $category: [ID!]!
+  $title: String!
+  $type: String!
+  $formData: String!
+  $status: String!
+) {
+  updateMaterial(
+    dto: {
+      materialId: $materialId
+      category: $category
+      title: $title
+      type: $type
+      formData: $formData
+      status: $status
+    }
+  ) {
+    message
+  }
+}

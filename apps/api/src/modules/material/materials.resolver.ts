@@ -1,17 +1,13 @@
-// nest
 import { Resolver, Query, Args, Mutation, ID } from '@nestjs/graphql';
-// modules
+import { CreateMaterialsInput } from './dto/create-materials-input.dto';
+import { CreateMaterialsResponse } from './dto/create-materials-response.dto';
+import { MaterialsPaginateInput } from './dto/paginate-input.dto';
+import { MaterialsPaginateResponse } from './dto/paginate-response.dto';
+import { UpdateMaterialInput } from './dto/update-material-input.dto';
+import { UpdateMaterialResponse } from './dto/update-material-response.dto';
+import { Material } from './interface/material.interface';
+// module
 import { MaterialsService } from './materials.service';
-// type
-import { Material } from '@fm/nest/material/interface';
-import {
-  CreateMaterialsInput,
-  MaterialsPaginateInput,
-  MaterialsPaginateResponse,
-  UpdateMaterialInput,
-  UpdateMaterialResponse,
-  CreateMaterialsResponse,
-} from '@fm/nest/material/dto';
 
 @Resolver()
 export class MaterialsResolver {

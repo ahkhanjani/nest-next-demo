@@ -2,5 +2,4 @@
 
 /dist
 /coverage
-graphql.schema.json
-pnpm-lock*.yaml
+yarn.lock

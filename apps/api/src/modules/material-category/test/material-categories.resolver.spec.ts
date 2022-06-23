@@ -9,8 +9,8 @@ import {
   MaterialCategoriesPaginateResponse,
   UpdateMaterialCategoryInput,
   UpdateMaterialCategoryResponse,
-} from '@fm/nest/material-categoy/dto';
-import { MaterialCategory } from '@fm/nest/material-categoy/interface';
+  MaterialCategory,
+} from '@fm/api-interfaces';
 
 jest.mock('../material-categories.service.ts');
 

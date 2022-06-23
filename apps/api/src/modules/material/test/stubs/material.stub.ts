@@ -1,4 +1,4 @@
-import { Material } from '@fm/nest/material/interface';
+import { Material } from '../../interface/material.interface';
 
 export const materialStub = (): Material => ({
   id: '6293745c1d4f29749d32c4b4',

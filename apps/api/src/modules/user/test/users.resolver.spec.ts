@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from '../users.service';
 import { UsersResolver } from '../users.resolver';
 import { userStub } from './stubs/user.stub';
-import { User } from '@fm/nest/user/interface';
-import { CreateUserInput, UserResponse } from '@fm/nest/user/dto';
+import { User } from '../interface/user.interface';
+import { CreateUserInput, CreateUserResponse } from '../dto';
 
 jest.mock('../users.service.ts');
 
@@ -119,7 +119,7 @@ describe('UsersResolver', () => {
 
   describe('createUser', () => {
     describe('when createUser is called', () => {
-      let response: UserResponse;
+      let response: CreateUserResponse;
       let createUserDto: CreateUserInput;
 
       beforeEach(async () => {
@@ -135,7 +135,9 @@ describe('UsersResolver', () => {
       });
 
       it('should return response', () => {
-        expect(response).toEqual<UserResponse>({ user: userStub() });
+        expect(response).toEqual<CreateUserResponse>({
+          success: true,
+        });
       });
     });
   });

@@ -10,6 +10,8 @@
     "**/*.test.ts",
     "**/*.spec.ts",
     "**/*.d.ts",
-    "**/__mocks__/*"
+    "**/__mocks__/*.service.ts",
+    "**/test/*.test.ts",
+    "**/test/*.spec.ts"
   ]
 }

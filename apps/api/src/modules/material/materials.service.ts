@@ -1,19 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import {
-  CreatedMaterial,
-  Material,
-  MaterialModel,
-} from '@fm/nest/material/interface';
-import {
-  CreateMaterialsInput,
-  CreateMaterialsResponse,
-  MaterialsPaginateInput,
-  MaterialsPaginateResponse,
-  UpdateMaterialInput,
-  UpdateMaterialResponse,
-} from '@fm/nest/material/dto';
+import { CreateMaterialsInput } from './dto/create-materials-input.dto';
+import { CreateMaterialsResponse } from './dto/create-materials-response.dto';
+import { FailedMaterialResponse } from './dto/failed-material-response.dto';
+import { MaterialsPaginateInput } from './dto/paginate-input.dto';
+import { MaterialsPaginateResponse } from './dto/paginate-response.dto';
+import { UpdateMaterialInput } from './dto/update-material-input.dto';
+import { UpdateMaterialResponse } from './dto/update-material-response.dto';
+import { Material, MaterialModel } from './interface/material.interface';
 
 @Injectable()
 export class MaterialsService {
@@ -83,32 +78,38 @@ export class MaterialsService {
   async createMany(
     dto: CreateMaterialsInput
   ): Promise<CreateMaterialsResponse> {
-    const { category, materialDataArray } = dto;
+    const { category, materialDtoArray } = dto;
 
-    if (!materialDataArray.length) return { message: 'Error: Empty list.' };
+    if (!materialDtoArray.length) return { errors: ['Error: Empty list.'] };
 
-    const createdMaterials: CreatedMaterial[] = await Promise.all(
-      materialDataArray.map(async (materialData) => {
+    const failedMaterials: FailedMaterialResponse[] = [];
+    const createdMaterials: Material[] = [];
+
+    await Promise.all(
+      materialDtoArray.map(async (materialData) => {
         const { title, ...rest } = materialData;
 
         // if name already exists, return error.
         const titleExists: boolean = await this.checkTitleExists(title);
-        if (titleExists)
-          return {
-            message: 'Name already exists.',
+        if (titleExists) {
+          failedMaterials.push({
+            message: 'Title already exists.',
             materialTitle: title,
-          };
+          });
+          return;
+        }
 
         const createdMaterial = await this.materialModel.create({
           category,
           title,
           ...rest,
         });
-        return { createdMaterial };
+        createdMaterials.push(createdMaterial);
       })
     );
 
     return {
+      failedMaterials,
       createdMaterials,
     };
   }
