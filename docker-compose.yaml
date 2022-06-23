@@ -1,44 +1,37 @@
 version: '3.8'
+
 services:
   mongo:
-    image: mongo
+    image: mongo:${MONGO_VERSION}
     restart: always
+    container_name: 'mongo'
+    ports:
+      - '27017:27017'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PWD}
+    volumes:
+      - mongodb:/data/db
+    networks:
+      - fm-main-api
 
   api:
-    build:
-      context: .
-      dockerfile: api.dockerfile
+    image: api
+    restart: always
+    container_name: 'main-api'
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URI=mongodb://mongo:27017/${MONGO_COLLECTION_NAME}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     ports:
-      - 3000:3000
-    networks:
-      - fm-back-main
+      - ${API_PORT}:3333
     depends_on:
       - mongo
-    env_file:
-      - .env
-    environment:
-      - DB_HOST=mongo
-    volumes:
-      - './apps:/app/apps:ro'
-      - './libs:/app/libs:ro'
-
-
-volumes:
-  db-data:
-    driver: flocker
-    driver_opts:
-      size: '10GiB'
-
-configs:
-  httpd-config:
-    external: true
-
-secrets:
-  server-certificate:
-    external: true
+    networks:
+      - fm-main-api
 
 networks:
-  fm-back-main: {}
+   fm-main-api:
+
+volumes:
+  mongodb:
