@@ -2,22 +2,11 @@ __VSCode Extension for Nx:__ `nrwl.angular-console`
 
 # Bootstrap
 
-1. Install yarn:
-
 ```bash
 npm i -g yarn
-```
+yarn global add nx
 
-2. Install Nx CLI:
-
-```bash
-npm i -g nx
-```
-
-3. Install project dependencies:
-
-```bash
-# at project root
+# In the root directory:
 yarn
 ```
 
@@ -37,22 +26,14 @@ fullmoon/
 
 # Dev
 
+__Only push to 'dev' branch.__
+
 ## Start in watch mode
 
-- Watch API:
+- Run apps in watch mode
 
 ```bash
-yarn nx serve api
-```
-
-- Watch Main Web:
-
-```bash
-yarn nx serve main-web
-```
-
-- Watch Material Web:
-
-```bash
-yarn nx serve material-web
+yarn nx serve APP_NAME
+# Replace APP_NAME with the app name.
+# e.g. yarn nx serve main-web
 ```
