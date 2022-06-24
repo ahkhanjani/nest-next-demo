@@ -10,7 +10,6 @@
     "main-web-types": "libs/main-web/types",
     "material-web": "apps/material-web",
     "material-web-e2e": "apps/material-web-e2e",
-    "material-web-lib": "libs/material-web-lib",
     "shared-state-auth": "libs/shared/state/auth",
     "shared-state-network": "libs/shared/state/network",
     "shared-types": "libs/shared/types",
