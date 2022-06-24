@@ -20,6 +20,7 @@
       "@fm/daily.co": ["libs/main-web/daily.co/src/index.js"],
       "@fm/gql": ["libs/shared/graphql/src/index.ts"],
       "@fm/main-web-lib/*": ["libs/main-web-lib/src/*"],
+      "@fm/main-web/types": ["libs/main-web/types/src/index.ts"],
       "@fm/material-web-lib/*": ["libs/material-web-lib/src/*"],
       "@fm/mui": ["libs/shared/ui/mui/src/index.ts"],
       "@fm/network": ["libs/shared/state/network/src/index.ts"],
