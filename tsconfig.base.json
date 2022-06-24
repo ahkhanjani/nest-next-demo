@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@fm/auth": ["libs/shared/state/auth/src/index.ts"],
+      "@fm/daily.co": ["libs/main-web/daily.co/src/index.js"],
       "@fm/gql": ["libs/shared/graphql/src/index.ts"],
       "@fm/main-web-lib/*": ["libs/main-web-lib/src/*"],
       "@fm/material-web-lib/*": ["libs/material-web-lib/src/*"],

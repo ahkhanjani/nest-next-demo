@@ -5,6 +5,7 @@
     "api": "apps/api",
     "graphql": "libs/shared/graphql",
     "main-web": "apps/main-web",
+    "main-web-daily.co": "libs/main-web/daily.co",
     "main-web-e2e": "apps/main-web-e2e",
     "main-web-lib": "libs/main-web-lib",
     "material-web": "apps/material-web",
