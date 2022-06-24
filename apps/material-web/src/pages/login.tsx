@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import LoginContainer from '@fm/material-web-lib/pages/LoginPage';
+import LoginContainer from '../page-containers/LoginPage';
 
 const DashboardPage: NextPage = () => {
   return <LoginContainer />;

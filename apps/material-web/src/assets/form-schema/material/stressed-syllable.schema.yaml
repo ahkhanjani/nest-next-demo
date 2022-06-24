@@ -1,0 +1,18 @@
+title: Stressed Syllable
+type: object
+properties:
+  info:
+    type: array
+    title: Syllables
+    items:
+      type: object
+      required:
+        - syllable
+        - isStressed
+      properties:
+        syllable:
+          type: string
+          title: Syllable
+        isStressed:
+          type: boolean
+          title: Sressed?

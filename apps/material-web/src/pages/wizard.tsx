@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 // containers
-import DashboardLayout from '@fm/material-web-lib/layouts/DashboardLayout';
-import WizardContainer from '@fm/material-web-lib/pages/WizardPage';
+import DashboardLayout from '../layouts/DashboardLayout';
+import WizardContainer from '../page-containers/WizardPage';
 
 const CreateMaterialsPage: NextPage = () => {
   return (
