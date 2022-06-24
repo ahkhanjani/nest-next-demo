@@ -7,11 +7,11 @@ import InputField from '../../../components/InputField';
 //gql
 import { useCreateUserMutation } from '@fm/gql';
 // utils
-import { utilToErrorMap } from '@fm/util';
+import { utilToErrorMap } from '@fm/util-to-error-map';
 // styles
 import styles from './SignupForm.module.scss';
 // typese
-import { UnpredictedFormErrors } from '../../../types';
+import { UnpredictedFormErrors } from '@fm/main-web/types';
 
 const validationSchema = yup.object({
   username: yup.string().min(4),
