@@ -1,0 +1,24 @@
+**/*.env*
+**/.gitkeep
+
+# nx folders
+node_modules
+.git
+libs
+tools
+apps
+
+# dev
+.vscode
+.github
+.prettier*
+babel.config.json
+.eslintrc.json
+jest*
+nginx.conf
+nx.json
+.editorconfig
+
+# docker
+docker-compose.*
+.dockerignore
