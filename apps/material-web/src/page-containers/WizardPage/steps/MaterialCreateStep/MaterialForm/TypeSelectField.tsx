@@ -7,7 +7,6 @@ import SelectField from '../../../../../components/form/SelectField';
 // types
 import type { JSONSchema7 } from 'json-schema';
 import type { FormikValues } from './types/formik';
-import { useGetMaterialFormSchemasQuery } from '@fm/gql';
 
 const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
   setDynamicFormSchema: setRjsfSchema,
@@ -16,16 +15,6 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
     values: { type },
     setFieldError,
   } = useFormikContext<FormikValues>();
-
-  //
-  // ─── GQL ────────────────────────────────────────────────────────────────────────
-  //
-
-  const {
-    data: { materialFormSchemas } = {},
-    loading: materialFormSchemasLoading,
-    error: materialFormSchemasError,
-  } = useGetMaterialFormSchemasQuery();
 
   //
   // ─── EFFECT ─────────────────────────────────────────────────────────────────────
@@ -46,14 +35,6 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
     }
     handleChange();
   }, [materialFormSchemas, setRjsfSchema, type]);
-
-  // handle gql errors
-  useEffect(() => {
-    if (materialFormSchemasError) {
-      setFieldError('type', "Couldn't fetch DataTransfer.");
-      console.error(materialFormSchemasError);
-    }
-  }, [materialFormSchemasError, setFieldError]);
 
   // ────────────────────────────────────────────────────────────────────────────────
 
