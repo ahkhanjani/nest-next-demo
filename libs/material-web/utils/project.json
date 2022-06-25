@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/material-web/utils/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/material-web/utils/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/material-web/utils"],
+      "options": {
+        "jestConfig": "libs/material-web/utils/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["utils"]
+}
