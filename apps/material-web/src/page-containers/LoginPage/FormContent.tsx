@@ -3,7 +3,7 @@ import { Form, useFormikContext } from 'formik';
 // gql
 import { useLoginMutation } from '@fm/gql';
 // utils
-import { utilToErrorMap } from '@fm/util';
+import { utilToErrorMap } from '@fm/util-to-error-map';
 // auth
 import { AuthContext } from '@fm/auth';
 // cmp

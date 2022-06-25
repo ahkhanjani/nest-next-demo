@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 // fm
-import { ScrollDialog } from '@fm/shared-ui';
+import { ScrollDialog } from '@fm/mui';
 import { useGetMaterialFormSchemaStringLazyQuery } from '@fm/gql';
 // mui
 import MenuItem from '@mui/material/MenuItem';
