@@ -10,7 +10,14 @@
       "options": {
         "root": "apps/material-web",
         "outputPath": "dist/apps/material-web",
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "assets": [
+          {
+            "input": "libs/material-web/feature/material-form-schema-generator/src/assets",
+            "glob": "**/*.yaml",
+            "output": "./.."
+          }
+        ]
       },
       "configurations": {
         "development": {},

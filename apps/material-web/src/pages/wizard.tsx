@@ -7,7 +7,7 @@ import {
 import DashboardLayout from '../layouts/DashboardLayout';
 import WizardContainer from '../page-containers/WizardPage';
 // utils
-import { getMaterialFormSchemas } from '@fm/material-web/utils';
+import { generateMaterialFormSchemas } from '@fm/material-web/material-form-schema-generator';
 // types
 import type { MaterialFormSchema } from '@fm/material-web/types';
 
@@ -34,7 +34,7 @@ export async function getServerSideProps({
   );
 
   const materialFormSchemas: MaterialFormSchema[] =
-    await getMaterialFormSchemas();
+    generateMaterialFormSchemas();
 
   return { props: { materialFormSchemas } };
 }

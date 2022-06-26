@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'material-web-utils',
-  preset: '../../../jest.preset.js',
+  displayName: 'material-web-feature-material-form-schema-generator',
+  preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -12,5 +12,6 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/libs/material-web/utils',
+  coverageDirectory:
+    '../../../../coverage/libs/material-web/feature/material-form-schema-generator',
 };
