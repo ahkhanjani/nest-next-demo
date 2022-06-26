@@ -15,7 +15,7 @@
           {
             "input": "libs/material-web/feature/material-form-schema-generator/src/assets",
             "glob": "**/*.yaml",
-            "output": "./.."
+            "output": "assets/material-form-schema"
           }
         ]
       },
