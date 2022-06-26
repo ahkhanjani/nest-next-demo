@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/material-web/assets/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/material-web/assets/**/*.yaml",
+          "libs/material-web/assets/**/*.yml"
+        ]
+      }
+    }
+  },
+  "tags": ["assets"]
+}

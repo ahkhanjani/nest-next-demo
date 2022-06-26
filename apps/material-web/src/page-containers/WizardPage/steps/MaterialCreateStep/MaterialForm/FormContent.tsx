@@ -17,8 +17,9 @@ import {
   editMaterialData,
 } from '../../../../../store/creating-materials';
 import { Typography } from '@mui/material';
+import { MaterialFormSchema } from '@fm/material-web/types';
 
-const FormContent: React.FC = () => {
+const FormContent: React.FC<FormContentProps> = ({ materialFormSchemas }) => {
   const {
     values,
     setSubmitting,
@@ -138,6 +139,7 @@ const FormContent: React.FC = () => {
         <TypeSelectField
           {...{
             setDynamicFormSchema,
+            materialFormSchemas,
           }}
         />
       </Form>
@@ -161,3 +163,7 @@ const FormContent: React.FC = () => {
   );
 };
 export default FormContent;
+
+interface FormContentProps {
+  materialFormSchemas: MaterialFormSchema[];
+}

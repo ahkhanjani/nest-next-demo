@@ -9,7 +9,7 @@ properties:
       - correct
     properties:
       wrong:
-        type: string,
+        type: string
         title: Wrong Sentence
       correct:
         type: string

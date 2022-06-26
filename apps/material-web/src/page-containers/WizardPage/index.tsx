@@ -13,7 +13,6 @@ import {
   useGetMaterialLazyQuery,
   useCreateMaterialsMutation,
   useUpdateMaterialMutation,
-  MaterialDataObject,
 } from '@fm/gql';
 // cmp
 import CategorySelectStep from './steps/CategorySelectStep';
@@ -24,10 +23,11 @@ import type { GraphQLErrors } from '@apollo/client/errors';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { setEditingMaterialData } from '../../store/editing-material';
 import { setSnackbarMessage } from '../../store/snackbar-message';
+import { MaterialFormSchema } from '@fm/material-web/types';
 
 const steps = ['Category', 'Create', 'Review and Publish'];
 
-const WizardPage: React.FC = () => {
+const WizardPage: React.FC<WizardPageProps> = ({ materialFormSchemas }) => {
   //
   // ─── STORE ───────────────────────────────────────────────────────
   //
@@ -120,19 +120,17 @@ const WizardPage: React.FC = () => {
    */
   async function handleCreateMany(): Promise<SubmitResponse> {
     // stringify each material object
-    const dataArray: MaterialDataObject[] = materialDataArray.map(
-      ({ data, publish, ...rest }) => {
-        // stringify form data object
-        const formData: string = JSON.stringify(data);
-        const status: 'published' | 'unpublished' =
-          publish === true ? 'published' : 'unpublished';
-        return { formData, status, ...rest };
-      }
-    );
+    const dataArray = materialDataArray.map(({ data, publish, ...rest }) => {
+      // stringify form data object
+      const formData: string = JSON.stringify(data);
+      const status: 'published' | 'unpublished' =
+        publish === true ? 'published' : 'unpublished';
+      return { formData, status, ...rest };
+    });
 
     const res = await createMaterials({
       variables: {
-        materialDataArray: dataArray,
+        materialDtoArray: dataArray,
         category: categoryIdArray,
       },
     });
@@ -158,6 +156,7 @@ const WizardPage: React.FC = () => {
         category: categoryIdArray,
         title,
         type,
+        status: 'any',
         formData: data,
       },
     });
@@ -221,7 +220,7 @@ const WizardPage: React.FC = () => {
           <CategorySelectStep {...{ categoryIdArray, setCategoryIdArray }} />
         );
       case 1:
-        return <MaterialCreateStep />;
+        return <MaterialCreateStep {...{ materialFormSchemas }} />;
       case 2:
         return (
           <Typography variant="h5" gutterBottom>
@@ -274,6 +273,10 @@ const WizardPage: React.FC = () => {
   );
 };
 export default WizardPage;
+
+interface WizardPageProps {
+  materialFormSchemas: MaterialFormSchema[];
+}
 
 interface SubmitResponseMessage {
   message: string;

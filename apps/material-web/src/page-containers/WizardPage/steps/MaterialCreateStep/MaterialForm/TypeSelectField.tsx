@@ -1,19 +1,18 @@
 import { useEffect } from 'react';
 import { useFormikContext } from 'formik';
-// mui
-import Skeleton from '@mui/material/Skeleton';
 // cmp
 import SelectField from '../../../../../components/form/SelectField';
 // types
 import type { JSONSchema7 } from 'json-schema';
 import type { FormikValues } from './types/formik';
+import { MaterialFormSchema } from '@fm/material-web/types';
 
 const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
   setDynamicFormSchema: setRjsfSchema,
+  materialFormSchemas,
 }) => {
   const {
     values: { type },
-    setFieldError,
   } = useFormikContext<FormikValues>();
 
   //
@@ -29,7 +28,7 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
         (schema) => schema.title === type
       );
       if (selectedSchema) {
-        const parsedSchema: JSONSchema7 = JSON.parse(selectedSchema.strSchema);
+        const parsedSchema: JSONSchema7 = selectedSchema.schema;
         setRjsfSchema(parsedSchema);
       }
     }
@@ -37,8 +36,6 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
   }, [materialFormSchemas, setRjsfSchema, type]);
 
   // ────────────────────────────────────────────────────────────────────────────────
-
-  if (materialFormSchemasLoading) return <Skeleton variant="rectangular" />;
 
   return (
     <SelectField
@@ -52,4 +49,5 @@ export default TypeSelectField;
 
 interface TypeSelectFieldProps {
   setDynamicFormSchema: React.Dispatch<React.SetStateAction<JSONSchema7>>;
+  materialFormSchemas: MaterialFormSchema[];
 }

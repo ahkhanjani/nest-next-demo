@@ -5,8 +5,11 @@ import MaterialStack from './MaterialStack';
 import MaterialForm from './MaterialForm';
 // store
 import { useAppSelector } from '../../../../hooks';
+import { MaterialFormSchema } from '@fm/material-web/types';
 
-const MaterialCreator: React.FC = () => {
+const MaterialCreator: React.FC<MaterialCreatorProps> = ({
+  materialFormSchemas,
+}) => {
   //
   // ─── STORE ───────────────────────────────────────────────────────
   //
@@ -23,9 +26,13 @@ const MaterialCreator: React.FC = () => {
         </Grid>
       )}
       <Grid item xs={12} md={editMode === false ? 8 : undefined}>
-        <MaterialForm />
+        <MaterialForm {...{ materialFormSchemas }} />
       </Grid>
     </Grid>
   );
 };
 export default MaterialCreator;
+
+interface MaterialCreatorProps {
+  materialFormSchemas: MaterialFormSchema[];
+}

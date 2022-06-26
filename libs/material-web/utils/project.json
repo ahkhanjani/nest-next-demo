@@ -2,6 +2,7 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/material-web/utils/src",
   "projectType": "library",
+  "implicitDependencies": ["material-web-assets"],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",

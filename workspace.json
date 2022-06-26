@@ -9,6 +9,7 @@
     "main-web-e2e": "apps/main-web-e2e",
     "main-web-types": "libs/main-web/types",
     "material-web": "apps/material-web",
+    "material-web-assets": "libs/material-web/assets",
     "material-web-e2e": "apps/material-web-e2e",
     "material-web-types": "libs/material-web/types",
     "material-web-utils": "libs/material-web/utils",

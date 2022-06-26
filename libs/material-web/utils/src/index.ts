@@ -1,1 +1,1 @@
-export * from './lib/parse-material-form-schema';
+export * from './lib/get-material-form-schemas';
