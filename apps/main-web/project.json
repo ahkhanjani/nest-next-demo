@@ -9,7 +9,8 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/main-web",
-        "outputPath": "dist/apps/main-web"
+        "outputPath": "dist/apps/main-web",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
