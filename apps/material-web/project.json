@@ -8,7 +8,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "root": "apps/material-web/src",
+        "root": "apps/material-web",
         "outputPath": "dist/apps/material-web",
         "generatePackageJson": true
       },
