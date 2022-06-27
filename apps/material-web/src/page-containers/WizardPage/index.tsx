@@ -19,11 +19,11 @@ import CategorySelectStep from './steps/CategorySelectStep';
 import MaterialCreateStep from './steps/MaterialCreateStep';
 // types
 import type { GraphQLErrors } from '@apollo/client/errors';
+import type { MaterialFormSchema } from '@fm/material-web/types';
 // store
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { setEditingMaterialData } from '../../store/editing-material';
 import { setSnackbarMessage } from '../../store/snackbar-message';
-import { MaterialFormSchema } from '@fm/material-web/types';
 
 const steps = ['Category', 'Create', 'Review and Publish'];
 
