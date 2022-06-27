@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 // types
-import type { PathCategory } from '@fm/shared-interfaces';
+import type { PathCategory } from '@fm/types';
 
 const initialState: State = { path: [], endId: '' };
 
