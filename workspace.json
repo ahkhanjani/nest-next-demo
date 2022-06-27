@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "api-guards": "libs/api/guards",
     "graphql": "libs/shared/graphql",
     "main-web": "apps/main-web",
     "main-web-daily.co": "libs/main-web/daily.co",
