@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+// interface
+import { Material, MaterialModel } from './interface/material.interface';
+// dto
 import { CreateMaterialsInput } from './dto/create-materials-input.dto';
 import { CreateMaterialsResponse } from './dto/create-materials-response.dto';
 import { FailedMaterialResponse } from './dto/failed-material-response.dto';
@@ -8,7 +11,6 @@ import { MaterialsPaginateInput } from './dto/paginate-input.dto';
 import { MaterialsPaginateResponse } from './dto/paginate-response.dto';
 import { UpdateMaterialInput } from './dto/update-material-input.dto';
 import { UpdateMaterialResponse } from './dto/update-material-response.dto';
-import { Material, MaterialModel } from './interface/material.interface';
 
 @Injectable()
 export class MaterialsService {
