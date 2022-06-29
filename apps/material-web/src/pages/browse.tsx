@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 // containers
-import DashboardLayout from '@fm/material-web-lib/layouts/DashboardLayout';
-import BrowseContainer from '@fm/material-web-lib/pages/BrowsePage';
+import DashboardLayout from '../layouts/DashboardLayout';
+import BrowseContainer from '../page-containers/BrowsePage';
 
 const BrowsePage: NextPage = () => {
   return (

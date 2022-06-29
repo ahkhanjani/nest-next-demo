@@ -1,5 +1,5 @@
 {
-  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/material-web",
   "projectType": "application",
   "targets": {
@@ -9,7 +9,15 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/material-web",
-        "outputPath": "dist/apps/material-web"
+        "outputPath": "dist/apps/material-web",
+        "generatePackageJson": true,
+        "assets": [
+          {
+            "input": "libs/material-web/feature/material-form-schema-generator/src/assets",
+            "glob": "**/*.yaml",
+            "output": "assets"
+          }
+        ]
       },
       "configurations": {
         "development": {},

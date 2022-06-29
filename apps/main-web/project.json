@@ -1,5 +1,5 @@
 {
-  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/main-web",
   "projectType": "application",
   "targets": {
@@ -9,7 +9,8 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/main-web",
-        "outputPath": "dist/apps/main-web"
+        "outputPath": "dist/apps/main-web",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},

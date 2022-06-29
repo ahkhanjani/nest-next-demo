@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import IndexContainer from '@fm/material-web-lib/pages/IndexPage';
+import IndexContainer from '../page-containers/IndexPage';
 
 const IndexPage: NextPage = () => {
   return <IndexContainer />;

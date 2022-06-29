@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 // cmp
-import SignupContainer from '@fm/main-web-lib/pages/SignupPage';
+import SignupContainer from '../page-containers/SignupPage';
 
 const SignupPage: NextPage = () => {
   return <SignupContainer />;

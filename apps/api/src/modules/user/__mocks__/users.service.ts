@@ -7,10 +7,18 @@ import { CreateUserResponse } from '../dto/create-user-response.dto';
 export const UsersService = jest.fn(
   (): MockType<ServiceType> => ({
     count: jest.fn((): number => 2),
+    findAll: jest.fn((): User[] => [userStub()]),
     findOne: jest.fn(
       (id: string): User => (id === userStub().id ? userStub() : undefined)
     ),
-    findAll: jest.fn((): User[] => [userStub()]),
+    findOneByUsername: jest.fn(
+      (username: string): User =>
+        username === userStub().username ? userStub() : undefined
+    ),
+    findOneByUsername_UNSAFE: jest.fn(
+      (username: string): User =>
+        username === userStub().username ? userStub() : undefined
+    ),
     createOne: jest.fn(
       (): CreateUserResponse => ({ success: true, errors: undefined })
     ),

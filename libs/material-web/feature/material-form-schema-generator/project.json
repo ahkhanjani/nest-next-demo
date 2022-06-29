@@ -1,0 +1,27 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/material-web/feature/material-form-schema-generator/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/material-web/feature/material-form-schema-generator/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/material-web/feature/material-form-schema-generator"
+      ],
+      "options": {
+        "jestConfig": "libs/material-web/feature/material-form-schema-generator/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": ["node", "feature"]
+}
