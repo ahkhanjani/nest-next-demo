@@ -1,5 +1,7 @@
 import {
   createContext,
+  DispatchWithoutAction,
+  PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
@@ -7,7 +9,7 @@ import {
   useReducer,
   useState,
 } from 'react';
-import { sortByKey } from '@custom/shared/lib/sortByKey';
+import { sortByKey } from '../lib/sortByKey';
 import { useNetworkState } from '../hooks/useNetworkState';
 import { useCallState } from './CallProvider';
 import { useUIState } from './UIStateProvider';
@@ -16,10 +18,15 @@ import {
   isLocalId,
   participantsReducer,
 } from './participantsState';
+import { ParticipantActionType } from './enums/participant-action-type.enum';
+import { DailyEventObject } from '@daily-co/daily-js';
 
-export const ParticipantsContext = createContext(null);
+// TODO provide a type
+export const ParticipantsContext = createContext<any>(null);
 
-export const ParticipantsProvider = ({ children }) => {
+export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
+  children,
+}) => {
   const { isMobile, pinnedId, viewMode } = useUIState();
   const {
     broadcast,
@@ -27,10 +34,14 @@ export const ParticipantsProvider = ({ children }) => {
     callObject: daily,
     videoQuality,
   } = useCallState();
-  const [state, dispatch] = useReducer(participantsReducer, initialParticipantsState);
-  const [participantMarkedForRemoval, setParticipantMarkedForRemoval] = useState(null);
+  const [state, dispatch] = useReducer(
+    participantsReducer,
+    initialParticipantsState
+  );
+  const [participantMarkedForRemoval, setParticipantMarkedForRemoval] =
+    useState(null);
 
-  const { threshold } = useNetworkState();
+  const threshold = useNetworkState();
 
   /**
    * ALL participants (incl. shared screens) in a convenient array
@@ -78,9 +89,10 @@ export const ParticipantsProvider = ({ children }) => {
     [allParticipants]
   );
 
-  const isOwner = useMemo(() => !!localParticipant?.isOwner, [
-    localParticipant,
-  ]);
+  const isOwner = useMemo(
+    () => !!localParticipant?.isOwner,
+    [localParticipant]
+  );
 
   /**
    * The participant who should be rendered prominently right now
@@ -195,11 +207,11 @@ export const ParticipantsProvider = ({ children }) => {
   }, [daily]);
 
   const handleNewParticipantsState = useCallback(
-    (event = null) => {
+    (event: DailyEventObject) => {
       switch (event?.action) {
         case 'participant-joined':
           dispatch({
-            type: 'PARTICIPANT_JOINED',
+            type: ParticipantActionType.PARTICIPANT_JOINED,
             participant: event.participant,
           });
           if (muteNewParticipants && daily) {
@@ -210,13 +222,13 @@ export const ParticipantsProvider = ({ children }) => {
           break;
         case 'participant-updated':
           dispatch({
-            type: 'PARTICIPANT_UPDATED',
+            type: ParticipantActionType.PARTICIPANT_UPDATED,
             participant: event.participant,
           });
           break;
         case 'participant-left':
           dispatch({
-            type: 'PARTICIPANT_LEFT',
+            type: ParticipantActionType.PARTICIPANT_LEFT,
             participant: event.participant,
           });
           break;
@@ -304,13 +316,12 @@ export const ParticipantsProvider = ({ children }) => {
       if (localId === activeSpeakerId) return;
 
       dispatch({
-        type: 'ACTIVE_SPEAKER',
+        type: ParticipantActionType.ACTIVE_SPEAKER,
         id: activeSpeakerId,
       });
     };
     daily.on('active-speaker-change', handleActiveSpeakerChange);
-    return () =>
-      daily.off('active-speaker-change', handleActiveSpeakerChange);
+    return () => daily.off('active-speaker-change', handleActiveSpeakerChange);
   }, [daily]);
 
   return (

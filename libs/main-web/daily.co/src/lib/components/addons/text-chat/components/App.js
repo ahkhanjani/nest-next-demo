@@ -1,5 +1,3 @@
-import React from 'react';
-
 import App from '@custom/basic-call/components/App';
 import { ChatProvider } from '../contexts/ChatProvider';
 

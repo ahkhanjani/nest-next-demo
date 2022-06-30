@@ -6,43 +6,31 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import DailyIframe from '@daily-co/daily-js';
-
-import {
-  ACCESS_STATE_LOBBY,
-  ACCESS_STATE_NONE,
-  ACCESS_STATE_UNKNOWN,
-  MEETING_STATE_JOINED,
-} from '../constants';
-
-export const CALL_STATE_READY = 'ready';
-export const CALL_STATE_LOBBY = 'lobby';
-export const CALL_STATE_JOINING = 'joining';
-export const CALL_STATE_JOINED = 'joined';
-export const CALL_STATE_ENDED = 'ended';
-export const CALL_STATE_ERROR = 'error';
-export const CALL_STATE_FULL = 'full';
-export const CALL_STATE_EXPIRED = 'expired';
-export const CALL_STATE_NOT_BEFORE = 'nbf';
-export const CALL_STATE_REMOVED = 'removed-from-call';
-export const CALL_STATE_REDIRECTING = 'redirecting';
-export const CALL_STATE_NOT_FOUND = 'not-found';
-export const CALL_STATE_NOT_ALLOWED = 'not-allowed';
-export const CALL_STATE_AWAITING_ARGS = 'awaiting-args';
-export const CALL_STATE_NOT_SECURE = 'not-secure';
+import DailyIframe, {
+  DailyCall,
+  DailyEvent,
+  DailyEventObject,
+  DailyEventObjectAccessState,
+  DailyRoomInfo,
+} from '@daily-co/daily-js';
+// enums
+import { ACCESS_STATE } from './enums/access-state.enum';
+import { MEETING_STATE } from './enums/meeting-state.enum';
+// type
+import { CALL_STATE } from './enums/call-state.enum';
 
 export const useCallMachine = ({
   domain,
   room,
   token,
   subscribeToTracksAutomatically = true,
-}) => {
-  const [daily, setDaily] = useState(null);
-  const [state, setState] = useState(CALL_STATE_READY);
-  const [redirectOnLeave, setRedirectOnLeave] = useState(false);
+}: UseCallMachineProps) => {
+  const [daily, setDaily] = useState<DailyCall>(null);
+  const [state, setState] = useState<CALL_STATE>(CALL_STATE.READY);
+  const [redirectOnLeave, setRedirectOnLeave] = useState<boolean>(false);
 
   const url = useMemo(
-    () => (domain && room ? `https://${domain}.daily.co/${room}` : null),
+    () => (domain && room ? `https://${domain}.daily.co/${room}` : undefined),
     [domain, room]
   );
 
@@ -52,8 +40,9 @@ export const useCallMachine = ({
    * `enable_knocking` and `enable_prejoin_ui` when creating the room
    * @param co – Daily call object
    */
-  const prejoinUIEnabled = async (co) => {
-    const dailyRoomInfo = await co.room();
+  const prejoinUIEnabled = async (co: DailyCall) => {
+    // @ts-ignore
+    const dailyRoomInfo: DailyRoomInfo = await co.room();
     const { access } = co.accessState();
 
     const prejoinEnabled =
@@ -65,8 +54,8 @@ export const useCallMachine = ({
 
     return (
       prejoinEnabled ||
-      (access !== ACCESS_STATE_UNKNOWN &&
-        access?.level === ACCESS_STATE_LOBBY &&
+      (access !== ACCESS_STATE.UNKNOWN &&
+        access?.level === ACCESS_STATE.LOBBY &&
         knockingEnabled)
     );
   };
@@ -77,26 +66,27 @@ export const useCallMachine = ({
    * Joins call (with the token, if applicable)
    */
   const join = useCallback(
-    async (callObject) => {
-      setState(CALL_STATE_JOINING);
-      const dailyRoomInfo = await callObject.room();
+    async (co: DailyCall) => {
+      setState(CALL_STATE.JOINING);
+      const dailyRoomInfo = await co.room();
 
       // Force mute clients when joining a call with experimental_optimize_large_calls enabled.
+      // @ts-ignore
       if (dailyRoomInfo?.config?.experimental_optimize_large_calls) {
-        callObject.setLocalAudio(false);
+        co.setLocalAudio(false);
       }
 
-      await callObject.join({ subscribeToTracksAutomatically, token, url });
-      setState(CALL_STATE_JOINED);
+      await co.join({ subscribeToTracksAutomatically, token, url });
+      setState(CALL_STATE.JOINED);
     },
-    [room, token, subscribeToTracksAutomatically, url]
+    [token, subscribeToTracksAutomatically, url]
   );
 
   /**
    * PreAuth checks whether we have access or need to knock
    */
   const preAuth = useCallback(
-    async (co) => {
+    async (co: DailyCall) => {
       const { access } = await co.preAuth({
         subscribeToTracksAutomatically,
         token,
@@ -105,18 +95,18 @@ export const useCallMachine = ({
 
       // Private room and no `token` was passed
       if (
-        access === ACCESS_STATE_UNKNOWN ||
-        access?.level === ACCESS_STATE_NONE
+        access === ACCESS_STATE.UNKNOWN ||
+        access?.level === ACCESS_STATE.NONE
       ) {
         return;
       }
 
       // Either `enable_knocking_ui` or `enable_prejoin_ui` is set to `true`
       if (
-        access?.level === ACCESS_STATE_LOBBY ||
+        access?.level === ACCESS_STATE.LOBBY ||
         (await prejoinUIEnabled(co))
       ) {
-        setState(CALL_STATE_LOBBY);
+        setState(CALL_STATE.LOBBY);
         return;
       }
 
@@ -132,7 +122,7 @@ export const useCallMachine = ({
   const leave = useCallback(() => {
     if (!daily) return;
     // If we're in the error state, we've already "left", so just clean up
-    if (state === CALL_STATE_ERROR) {
+    if (state === CALL_STATE.ERROR) {
       daily.destroy();
     } else {
       daily.leave();
@@ -143,32 +133,29 @@ export const useCallMachine = ({
    * Listen for access state updates
    */
   const handleAccessStateUpdated = useCallback(
-    async ({ access }) => {
+    async ({ access }: DailyEventObjectAccessState | undefined) => {
       console.log(`🔑 Access level: ${access?.level}`);
 
       /**
        * Ignore initial access-state-updated event
        */
       if (
-        [CALL_STATE_ENDED, CALL_STATE_AWAITING_ARGS, CALL_STATE_READY].includes(
+        [CALL_STATE.ENDED, CALL_STATE.AWAITING_ARGS, CALL_STATE.READY].includes(
           state
         )
       ) {
         return;
       }
 
-      if (
-        access === ACCESS_STATE_UNKNOWN ||
-        access?.level === ACCESS_STATE_NONE
-      ) {
-        setState(CALL_STATE_NOT_ALLOWED);
+      if (access?.level === ACCESS_STATE.NONE) {
+        setState(CALL_STATE.NOT_ALLOWED);
         return;
       }
 
       const meetingState = daily.meetingState();
       if (
-        access?.level === ACCESS_STATE_LOBBY &&
-        meetingState === MEETING_STATE_JOINED
+        access?.level === ACCESS_STATE.LOBBY &&
+        meetingState === MEETING_STATE.JOINED
       ) {
         // Already joined, no need to call join(daily) again.
         return;
@@ -188,16 +175,7 @@ export const useCallMachine = ({
    * Instantiate the call object and preauthenticate
    */
   useEffect(() => {
-    if (daily || !url || state !== CALL_STATE_READY) return;
-
-    if (
-      location.protocol !== 'https:' &&
-      // We want to still allow local development.
-      !['localhost'].includes(location.hostname)
-    ) {
-      setState('not-secure');
-      return;
-    }
+    if (daily || !url || state !== CALL_STATE.READY) return;
 
     console.log('🚀 Creating call object');
 
@@ -229,14 +207,14 @@ export const useCallMachine = ({
   useEffect(() => {
     if (!daily) return false;
 
-    const events = [
+    const events: DailyEvent[] = [
       'joined-meeting',
       'joining-meeting',
       'left-meeting',
       'error',
     ];
 
-    const handleMeetingState = async (ev) => {
+    const handleMeetingState = async (ev: DailyEventObject) => {
       const { access } = daily.accessState();
 
       switch (ev.action) {
@@ -248,28 +226,28 @@ export const useCallMachine = ({
          */
         case 'joining-meeting':
           if (
-            access === ACCESS_STATE_UNKNOWN ||
-            access.level === ACCESS_STATE_NONE ||
-            access.level === ACCESS_STATE_LOBBY
+            access === ACCESS_STATE.UNKNOWN ||
+            access.level === ACCESS_STATE.NONE ||
+            access.level === ACCESS_STATE.LOBBY
           ) {
             return;
           }
-          setState(CALL_STATE_JOINING);
+          setState(CALL_STATE.JOINING);
           break;
         case 'joined-meeting':
           if (
-            access === ACCESS_STATE_UNKNOWN ||
-            access.level === ACCESS_STATE_NONE ||
-            access.level === ACCESS_STATE_LOBBY
+            access === ACCESS_STATE.UNKNOWN ||
+            access.level === ACCESS_STATE.NONE ||
+            access.level === ACCESS_STATE.LOBBY
           ) {
             return;
           }
-          setState(CALL_STATE_JOINED);
+          setState(CALL_STATE.JOINED);
           break;
         case 'left-meeting':
           daily.destroy();
           setState(
-            !redirectOnLeave ? CALL_STATE_ENDED : CALL_STATE_REDIRECTING
+            !redirectOnLeave ? CALL_STATE.ENDED : CALL_STATE.REDIRECTING
           );
           break;
         case 'error':
@@ -277,43 +255,43 @@ export const useCallMachine = ({
             case 'nbf-room':
             case 'nbf-token':
               daily.destroy();
-              setState(CALL_STATE_NOT_BEFORE);
+              setState(CALL_STATE.NOT_BEFORE);
               break;
             case 'exp-room':
             case 'exp-token':
               daily.destroy();
-              setState(CALL_STATE_EXPIRED);
+              setState(CALL_STATE.EXPIRED);
               break;
             case 'ejected':
               daily.destroy();
-              setState(CALL_STATE_REMOVED);
+              setState(CALL_STATE.REMOVED);
               break;
             default:
               switch (ev?.errorMsg) {
                 case 'Join request rejected':
                   // Join request to a private room was denied. We can end here.
-                  setState(CALL_STATE_LOBBY);
+                  setState(CALL_STATE.LOBBY);
                   daily.leave();
                   break;
                 case 'Meeting has ended':
                   // Meeting has ended or participant was removed by an owner.
                   daily.destroy();
-                  setState(CALL_STATE_ENDED);
+                  setState(CALL_STATE.ENDED);
                   break;
                 case 'Meeting is full':
                   daily.destroy();
-                  setState(CALL_STATE_FULL);
+                  setState(CALL_STATE.FULL);
                   break;
                 case "The meeting you're trying to join does not exist.":
                   daily.destroy();
-                  setState(CALL_STATE_NOT_FOUND);
+                  setState(CALL_STATE.NOT_FOUND);
                   break;
                 case 'You are not allowed to join this meeting':
                   daily.destroy();
-                  setState(CALL_STATE_NOT_ALLOWED);
+                  setState(CALL_STATE.NOT_ALLOWED);
                   break;
                 default:
-                  setState(CALL_STATE_ERROR);
+                  setState(CALL_STATE.ERROR);
                   break;
               }
               break;
@@ -339,3 +317,10 @@ export const useCallMachine = ({
     state: useMemo(() => state, [state]),
   };
 };
+
+interface UseCallMachineProps {
+  domain: string;
+  room: string;
+  token: string;
+  subscribeToTracksAutomatically: boolean;
+}

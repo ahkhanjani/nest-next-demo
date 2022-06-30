@@ -1,8 +1,14 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import Tile from '@custom/shared/components/Tile';
-import { DEFAULT_ASPECT_RATIO } from '@custom/shared/constants';
-import { useParticipants } from '@custom/shared/contexts/ParticipantsProvider';
+// cmp
+import Tile from '../../shared/components/Tile';
+// constants
+import { DEFAULT_ASPECT_RATIO } from '../../shared/constants';
+// providers
+import { useParticipants } from '../../shared/contexts/ParticipantsProvider';
+// hooks
 import { useDeepCompareMemo } from 'use-deep-compare';
+// styles
+import styles from './VideoGrid.module.scss';
 
 /**
  * Basic unpaginated video tile grid, scaled by aspect ratio
@@ -15,18 +21,18 @@ import { useDeepCompareMemo } from 'use-deep-compare';
  *
  * Note: this grid does not sort participants
  */
-export const VideoGrid = React.memo(
+const VideoGrid = React.memo(
   () => {
-    const containerRef = useRef();
+    const containerRef = useRef<HTMLDivElement>();
     const { participants } = useParticipants();
-    const [dimensions, setDimensions] = useState({
+    const [dimensions, setDimensions] = useState<Dimensions>({
       width: 1,
       height: 1,
     });
 
     // Keep a reference to the width and height of the page, so we can repack
     useEffect(() => {
-      let frame;
+      let frame: number;
       const handleResize = () => {
         if (frame) cancelAnimationFrame(frame);
         frame = requestAnimationFrame(() =>
@@ -107,34 +113,19 @@ export const VideoGrid = React.memo(
       return null;
     }
 
-    return (
-      <div className="video-grid" ref={containerRef}>
-        <div className="tiles">{tiles}</div>
-        <style jsx>{`
-          .video-grid {
-            align-items: center;
-            display: flex;
-            height: 100%;
-            justify-content: center;
-            position: relative;
-            width: 100%;
-          }
+    // ─────────────────────────────────────────────────────────────────
 
-          .video-grid .tiles {
-            align-items: center;
-            display: flex;
-            flex-flow: row wrap;
-            max-height: 100%;
-            justify-content: center;
-            margin: auto;
-            overflow: hidden;
-            width: 100%;
-          }
-        `}</style>
+    return (
+      <div className={styles['video-grid']} ref={containerRef}>
+        <div className={styles['tiles']}>{tiles}</div>
       </div>
     );
   },
   () => true
 );
-
 export default VideoGrid;
+
+interface Dimensions {
+  width?: number;
+  height?: number;
+}

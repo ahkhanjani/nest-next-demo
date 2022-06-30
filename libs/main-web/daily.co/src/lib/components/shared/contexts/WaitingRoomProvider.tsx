@@ -1,16 +1,19 @@
-import React, {
+import {
   createContext,
+  PropsWithChildren,
   useContext,
   useEffect,
   useMemo,
   useState,
 } from 'react';
 import { useWaitingParticipants } from '@daily-co/daily-react-hooks';
-import PropTypes from 'prop-types';
 
-const WaitingRoomContext = createContext(null);
+// TODO provide a type
+const WaitingRoomContext = createContext<any>(null);
 
-export const WaitingRoomProvider = ({ children }) => {
+export const WaitingRoomProvider: React.FC<PropsWithChildren> = ({
+  children,
+}) => {
   const { waitingParticipants, grantAccess, denyAccess } =
     useWaitingParticipants();
   const [showModal, setShowModal] = useState(false);
@@ -40,10 +43,6 @@ export const WaitingRoomProvider = ({ children }) => {
       {children}
     </WaitingRoomContext.Provider>
   );
-};
-
-WaitingRoomProvider.propTypes = {
-  children: PropTypes.node,
 };
 
 export const useWaitingRoom = () => useContext(WaitingRoomContext);

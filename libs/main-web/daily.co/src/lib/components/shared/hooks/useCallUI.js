@@ -2,16 +2,16 @@ import React, { useCallback, useEffect } from 'react';
 import Loader from '@custom/shared/components/Loader';
 import MessageCard from '@custom/shared/components/MessageCard';
 import {
-  CALL_STATE_ENDED,
-  CALL_STATE_JOINED,
-  CALL_STATE_JOINING,
-  CALL_STATE_LOBBY,
-  CALL_STATE_NOT_FOUND,
-  CALL_STATE_NOT_BEFORE,
-  CALL_STATE_READY,
-  CALL_STATE_REDIRECTING,
-  CALL_STATE_NOT_ALLOWED,
-  CALL_STATE_EXPIRED,
+  CallState.ENDED,
+  CallState.JOINED,
+  CallState.JOINING,
+  CallState.LOBBY,
+  CallState.NOT_FOUND,
+  CallState.NOT_BEFORE,
+  CallState.READY,
+  CallState.REDIRECTING,
+  CallState.NOT_ALLOWED,
+  CallState.EXPIRED,
 } from '@custom/shared/contexts/useCallMachine';
 import { useRouter } from 'next/router';
 import HairCheck from '../components/HairCheck';
@@ -32,51 +32,51 @@ export const useCallUI = ({
 
   const renderByState = useCallback(() => {
     // Show loader when state is undefined or ready to join
-    if (!state || [CALL_STATE_READY, CALL_STATE_JOINING].includes(state)) {
+    if (!state || [CallState.READY, CallState.JOINING].includes(state)) {
       return <Loader />;
     }
 
     // Update the UI based on the state of our call
     switch (state) {
-      case CALL_STATE_NOT_FOUND:
+      case CallState.NOT_FOUND:
         router.replace(notFoundRedirect);
         return null;
-      case CALL_STATE_NOT_ALLOWED:
+      case CallState.NOT_ALLOWED:
         return (
           <MessageCard error header="Access denied">
             You are not allowed to join this meeting. Please make sure you have
             a valid meeting token.
           </MessageCard>
         );
-      case CALL_STATE_NOT_BEFORE:
+      case CallState.NOT_BEFORE:
         return (
           <MessageCard error header="Cannot join before owner">
             This room has `nbf` set, meaning you cannot join the call before the
             owner
           </MessageCard>
         );
-      case CALL_STATE_EXPIRED:
+      case CallState.EXPIRED:
         return (
           <MessageCard error header="Room expired">
             The room you are trying to join has expired. Please create or join
             another room.
           </MessageCard>
         );
-      case CALL_STATE_LOBBY:
+      case CallState.LOBBY:
         return haircheck ? haircheck() : <HairCheck />;
-      case CALL_STATE_JOINED:
+      case CallState.JOINED:
         return room ? (
           room
         ) : (
           <MessageCard error header="No room component declared" />
         );
-      case CALL_STATE_REDIRECTING:
+      case CallState.REDIRECTING:
         if (!redirectUrl) {
           break;
         }
         window.location = redirectUrl;
         break;
-      case CALL_STATE_ENDED:
+      case CallState.ENDED:
         return callEnded ? (
           callEnded()
         ) : (

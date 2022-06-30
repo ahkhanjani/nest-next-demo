@@ -5,29 +5,26 @@
  * to enable, as well as instantiate the 'call machine' hook responsible
  * for the overaching call loop (joining, leaving, etc)
  */
-import React, {
+import {
   createContext,
+  PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
   useState,
 } from 'react';
-import DailyIframe from '@daily-co/daily-js';
+import DailyIframe, { DailyRoomInfo } from '@daily-co/daily-js';
 import { DailyProvider } from '@daily-co/daily-react-hooks';
 import Bowser from 'bowser';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
-import {
-  ACCESS_STATE_LOBBY,
-  ACCESS_STATE_UNKNOWN,
-  VIDEO_QUALITY_AUTO,
-} from '../constants';
+import { ACCESS_STATE } from './enums/access-state.enum';
+import { VIDEO_QUALITY } from './enums/video-quality.enum';
 import { useNetworkState } from '../hooks/useNetworkState';
 import { useCallMachine } from './useCallMachine';
 
-export const CallContext = createContext();
+export const CallContext = createContext<unknown>({} as unknown);
 
-export const CallProvider = ({
+export const CallProvider: React.FC<PropsWithChildren<CallProviderProps>> = ({
   children,
   domain,
   room,
@@ -36,15 +33,23 @@ export const CallProvider = ({
   cleanURLOnJoin = false,
 }) => {
   const router = useRouter();
-  const [roomInfo, setRoomInfo] = useState(null);
-  const [enableScreenShare, setEnableScreenShare] = useState(false);
-  const [enableJoinSound, setEnableJoinSound] = useState(true);
-  const [videoQuality, setVideoQuality] = useState(VIDEO_QUALITY_AUTO);
-  const [showLocalVideo, setShowLocalVideo] = useState(true);
-  const [preJoinNonAuthorized, setPreJoinNonAuthorized] = useState(false);
-  const [enableRecording, setEnableRecording] = useState(null);
-  const [startCloudRecording, setStartCloudRecording] = useState(false);
-  const [roomExp, setRoomExp] = useState(null);
+  const [roomInfo, setRoomInfo] = useState<DailyRoomInfo | null>(null);
+  const [enableScreenShare, setEnableScreenShare] = useState<
+    boolean | undefined
+  >(false);
+  const [enableJoinSound, setEnableJoinSound] = useState<boolean>(true);
+  const [videoQuality, setVideoQuality] = useState<VIDEO_QUALITY>(
+    VIDEO_QUALITY.AUTO
+  );
+  const [showLocalVideo, setShowLocalVideo] = useState<boolean>(true);
+  const [preJoinNonAuthorized, setPreJoinNonAuthorized] =
+    useState<boolean>(false);
+  const [enableRecording, setEnableRecording] = useState<
+    string | null | undefined
+  >(null);
+  const [startCloudRecording, setStartCloudRecording] =
+    useState<boolean>(false);
+  const [roomExp, setRoomExp] = useState<number | null>(null);
 
   // Daily CallMachine hook (primarily handles status of the call)
   const { daily, leave, state, setRedirectOnLeave } = useCallMachine({
@@ -59,10 +64,11 @@ export const CallProvider = ({
   useEffect(() => {
     if (!daily) return;
     const updateRoomConfigState = async () => {
-      const roomConfig = await daily.room();
-      const isOob = !!roomConfig.config?.owner_only_broadcast;
-      const owner = roomConfig.tokenConfig?.is_owner;
-      const config = roomConfig?.config;
+      const roomConfig: DailyRoomInfo = await daily.room();
+
+      const isOob = !!roomConfig.config.owner_only_broadcast;
+      const owner = roomConfig.tokenConfig.is_owner;
+      const config = roomConfig.config;
 
       setRoomInfo(roomConfig);
 
@@ -93,9 +99,9 @@ export const CallProvider = ({
       }
       setEnableScreenShare(
         fullUI &&
-        (roomConfig?.tokenConfig?.enable_screenshare ??
-          roomConfig?.config?.enable_screenshare) &&
-        DailyIframe.supportedBrowser().supportsScreenShare
+          (roomConfig?.tokenConfig?.enable_screenshare ??
+            roomConfig?.config?.enable_screenshare) &&
+          DailyIframe.supportedBrowser().supportsScreenShare
       );
     };
     updateRoomConfigState();
@@ -108,7 +114,7 @@ export const CallProvider = ({
 
   // Convenience wrapper for changing the bandwidth of the client
   const setBandwidth = useCallback(
-    (quality) => {
+    (quality: Bandwidth) => {
       daily.setBandwidth(quality);
     },
     [daily]
@@ -118,9 +124,9 @@ export const CallProvider = ({
     if (!daily) return;
 
     const { access } = daily.accessState();
-    if (access === ACCESS_STATE_UNKNOWN) return;
+    if (access === ACCESS_STATE.UNKNOWN) return;
 
-    const requiresPermission = access?.level === ACCESS_STATE_LOBBY;
+    const requiresPermission = access?.level === ACCESS_STATE.LOBBY;
     setPreJoinNonAuthorized(requiresPermission && !token);
   }, [state, daily, token]);
 
@@ -131,7 +137,9 @@ export const CallProvider = ({
       daily.on('joined-meeting', () => router.replace(`/${room}`));
     }
 
-    return () => daily.off('joined-meeting', () => router.replace(`/${room}`));
+    return () => {
+      daily.off('joined-meeting', () => router.replace(`/${room}`));
+    };
   }, [cleanURLOnJoin, daily, room, router]);
 
   return (
@@ -158,7 +166,7 @@ export const CallProvider = ({
         setEnableScreenShare,
         startCloudRecording,
         subscribeToTracksAutomatically,
-        setEnableJoinSound
+        setEnableJoinSound,
       }}
     >
       <DailyProvider callObject={daily}>{children}</DailyProvider>
@@ -166,12 +174,17 @@ export const CallProvider = ({
   );
 };
 
-CallProvider.propTypes = {
-  children: PropTypes.node,
-  domain: PropTypes.string.isRequired,
-  room: PropTypes.string.isRequired,
-  token: PropTypes.string,
-  subscribeToTracksAutomatically: PropTypes.bool,
-};
+export const useCallState = (): any => useContext(CallContext);
 
-export const useCallState = () => useContext(CallContext);
+interface CallProviderProps {
+  domain: string;
+  room: string;
+  token?: string;
+  subscribeToTracksAutomatically?: boolean;
+  cleanURLOnJoin?: boolean;
+}
+
+interface Bandwidth {
+  kbs?: number | 'NO_CAP' | null | undefined;
+  trackConstraints?: MediaTrackConstraints | undefined;
+}

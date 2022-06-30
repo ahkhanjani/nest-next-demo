@@ -1,22 +1,24 @@
+import { DailyCall, DailyEventObject } from '@daily-co/daily-js';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useCallState } from '../contexts/CallProvider';
+import { VIDEO_QUALITY } from '../contexts/enums/video-quality.enum';
 
 const STANDARD_HIGH_BITRATE_CAP = 980;
 const STANDARD_LOW_BITRATE_CAP = 300;
 
 export const useNetworkState = (
-  co = null,
-  quality = 'high'
+  co: DailyCall | null = null,
+  quality: VIDEO_QUALITY = VIDEO_QUALITY.HIGH
 ) => {
-  const [threshold, setThreshold] = useState('good');
-  const lastSetKBS = useRef(null);
+  const [threshold, setThreshold] = useState<VIDEO_QUALITY>(VIDEO_QUALITY.HIGH);
+  const lastSetKBS = useRef<unknown>(null);
 
   const callState = useCallState();
 
   const callObject = co ?? callState?.callObject;
 
   const setQuality = useCallback(
-    async (q) => {
+    async (q: VIDEO_QUALITY) => {
       if (!callObject) return;
       const peers = Object.keys(callObject.participants()).length - 1;
       const isSFU = (await callObject.getNetworkTopology()).topology === 'sfu';
@@ -28,22 +30,22 @@ export const useNetworkState = (
         : Math.floor(STANDARD_HIGH_BITRATE_CAP / Math.max(1, peers));
 
       switch (q) {
-        case 'auto':
-        case 'high':
+        case VIDEO_QUALITY.AUTO:
+        case VIDEO_QUALITY.HIGH:
           if (lastSetKBS.current === highKbs) break;
           callObject.setBandwidth({
             kbs: highKbs,
           });
           lastSetKBS.current = highKbs;
           break;
-        case 'low':
+        case VIDEO_QUALITY.LOW:
           if (lastSetKBS.current === lowKbs) break;
           callObject.setBandwidth({
             kbs: lowKbs,
           });
           lastSetKBS.current = lowKbs;
           break;
-        case 'bandwidth-saver':
+        case VIDEO_QUALITY.BANDWIDTH_SAVER:
           callObject.setLocalVideo(false);
           if (lastSetKBS.current === lowKbs) break;
           callObject.setBandwidth({
@@ -57,23 +59,29 @@ export const useNetworkState = (
   );
 
   const handleNetworkQualityChange = useCallback(
-    (ev) => {
+    (ev: DailyEventObject) => {
       if (ev.threshold === threshold) return;
 
       switch (ev.threshold) {
-        case 'very-low':
-          setQuality('bandwidth-saver');
-          setThreshold('very-low');
+        case VIDEO_QUALITY.VERY_LOW:
+          setQuality(VIDEO_QUALITY.BANDWIDTH_SAVER);
+          setThreshold(VIDEO_QUALITY.VERY_LOW);
           break;
-        case 'low':
-          setQuality(quality === 'bandwidth-saver' ? quality : 'low');
-          setThreshold('low');
-          break;
-        case 'good':
+        case VIDEO_QUALITY.LOW:
           setQuality(
-            ['bandwidth-saver', 'low'].includes(quality) ? quality : 'high'
+            quality === VIDEO_QUALITY.BANDWIDTH_SAVER
+              ? quality
+              : VIDEO_QUALITY.LOW
           );
-          setThreshold('good');
+          setThreshold(VIDEO_QUALITY.LOW);
+          break;
+        case VIDEO_QUALITY.HIGH:
+          setQuality(
+            [VIDEO_QUALITY.BANDWIDTH_SAVER, VIDEO_QUALITY.LOW].includes(quality)
+              ? quality
+              : VIDEO_QUALITY.HIGH
+          );
+          setThreshold(VIDEO_QUALITY.HIGH);
           break;
       }
     },
@@ -91,7 +99,7 @@ export const useNetworkState = (
   useEffect(() => {
     if (!callObject) return;
     setQuality(quality);
-    let timeout;
+    let timeout: NodeJS.Timeout;
     const handleParticipantCountChange = () => {
       if (timeout) clearTimeout(timeout);
       timeout = setTimeout(() => {

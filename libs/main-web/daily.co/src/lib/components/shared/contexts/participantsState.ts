@@ -1,8 +1,8 @@
 import fasteq from 'fast-deep-equal';
-
 import { MAX_RECENT_SPEAKER_COUNT } from './TracksProvider';
+import { ParticipantActionType } from './enums/participant-action-type.enum';
 
-const initialParticipantsState = {
+const initialParticipantsState: ParticipantsState = {
   lastPendingUnknownActiveSpeaker: null,
   participants: [
     {
@@ -29,11 +29,11 @@ const initialParticipantsState = {
 // --- Reducer and helpers --
 
 function participantsReducer(
-  prevState,
-  action
+  prevState: ParticipantsState,
+  action: { type: ParticipantActionType; id: string }
 ) {
   switch (action.type) {
-    case 'ACTIVE_SPEAKER': {
+    case ParticipantActionType.ACTIVE_SPEAKER: {
       const { participants, ...state } = prevState;
       if (!action.id)
         return {
@@ -47,9 +47,9 @@ function participantsReducer(
         lastPendingUnknownActiveSpeaker: isParticipantKnown
           ? null
           : {
-            date,
-            id: action.id,
-          },
+              date,
+              id: action.id,
+            },
         participants: participants.map((p) => ({
           ...p,
           isActiveSpeaker: p.id === action.id,
@@ -57,7 +57,7 @@ function participantsReducer(
         })),
       };
     }
-    case 'JOINED_MEETING': {
+    case ParticipantActionType.JOINED_MEETING: {
       const localItem = getNewParticipant(action.participant);
 
       const participants = [...prevState.participants].map((p) =>
@@ -69,7 +69,7 @@ function participantsReducer(
         participants,
       };
     }
-    case 'PARTICIPANT_JOINED': {
+    case ParticipantActionType.PARTICIPANT_JOINED: {
       const item = getNewParticipant(action.participant);
 
       const participants = [...prevState.participants];
@@ -117,7 +117,7 @@ function participantsReducer(
         screens,
       };
     }
-    case 'PARTICIPANT_UPDATED': {
+    case ParticipantActionType.PARTICIPANT_UPDATED: {
       const item = getUpdatedParticipant(
         action.participant,
         prevState.participants
@@ -159,7 +159,7 @@ function participantsReducer(
 
       return newState;
     }
-    case 'PARTICIPANT_LEFT': {
+    case ParticipantActionType.PARTICIPANT_LEFT: {
       const id = getId(action.participant);
       const screenId = getScreenId(id);
 
@@ -169,7 +169,7 @@ function participantsReducer(
         screens: [...prevState.screens].filter((s) => s.id !== screenId),
       };
     }
-    case 'SWAP_POSITION': {
+    case ParticipantActionType.SWAP_POSITION: {
       const participants = [...prevState.participants];
       if (!action.id1 || !action.id2) return prevState;
       const idx1 = participants.findIndex((p) => p.id === action.id1);
@@ -213,10 +213,7 @@ function getNewParticipant(participant) {
   };
 }
 
-function getUpdatedParticipant(
-  participant,
-  participants
-) {
+function getUpdatedParticipant(participant, participants) {
   const id = getId(participant);
   const prevItem = participants.find((p) => p.id === id);
 
@@ -283,3 +280,27 @@ export {
   isScreenId,
   participantsReducer,
 };
+
+interface ParticipantsState {
+  lastPendingUnknownActiveSpeaker: unknown;
+  participants: Participant[];
+  screens: unknown[];
+}
+
+interface Participant {
+  camMutedByHost: boolean;
+  hasNameSet: boolean;
+  id: string;
+  isActiveSpeaker: boolean;
+  isCamMuted: boolean;
+  isLoading: boolean;
+  isLocal: boolean;
+  isMicMuted: boolean;
+  isOwner: boolean;
+  isRecording: boolean;
+  isScreenshare: boolean;
+  lastActiveDate: unknown;
+  micMutedByHost: boolean;
+  name: string;
+  sessionId: string;
+}

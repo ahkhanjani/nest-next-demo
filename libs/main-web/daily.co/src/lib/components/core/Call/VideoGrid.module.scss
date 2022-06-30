@@ -1,0 +1,19 @@
+.video-grid {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.video-grid .tiles {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  max-height: 100%;
+  justify-content: center;
+  margin: auto;
+  overflow: hidden;
+  width: 100%;
+}

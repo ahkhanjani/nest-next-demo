@@ -5,7 +5,7 @@ import { TextInput } from '@custom/shared/components/Input';
 import Loader from '@custom/shared/components/Loader';
 import MuteButton from '@custom/shared/components/MuteButton';
 import Tile from '@custom/shared/components/Tile';
-import { ACCESS_STATE_LOBBY } from '@custom/shared/constants';
+import { ACCESS_STATE.LOBBY } from '@custom/shared/constants';
 import { useCallState } from '@custom/shared/contexts/CallProvider';
 import {
   DEVICE_STATE_BLOCKED,
@@ -66,7 +66,7 @@ export const HairCheck = () => {
     await callObject.join();
 
     // If we we're in the lobby, wait for the owner to let us in
-    if (access?.level === ACCESS_STATE_LOBBY) {
+    if (access?.level === ACCESS_STATE.LOBBY) {
       setWaiting(true);
       const { granted } = await callObject.requestAccess({
         name: userName,
