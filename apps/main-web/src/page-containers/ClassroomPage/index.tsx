@@ -1,18 +1,19 @@
 import { useState } from 'react';
 // daily.co
-// - contexts
-import { CallProvider } from '@fm/daily.co/components/shared/contexts/CallProvider';
+// - providers
+import { CallProvider } from '@fm/daily.co/components/shared/providers/CallProvider';
 import { MediaDeviceProvider } from '@fm/daily.co/components/shared/contexts/MediaDeviceProvider';
-import { ParticipantsProvider } from '@fm/daily.co/components/shared/contexts/ParticipantsProvider';
+import { ParticipantsProvider } from '@fm/daily.co/components/shared/providers/ParticipantsProvider';
 import { ScreenShareProvider } from '@fm/daily.co/components/shared/contexts/ScreenShareProvider';
 import { TracksProvider } from '@fm/daily.co/components/shared/contexts/TracksProvider';
 import { UIStateProvider } from '@fm/daily.co/components/shared/contexts/UIStateProvider';
-import { WaitingRoomProvider } from '@fm/daily.co/components/shared/contexts/WaitingRoomProvider';
+import { WaitingRoomProvider } from '@fm/daily.co/components/shared/providers/WaitingRoomProvider';
 // - libs
 import getDemoProps from '@fm/daily.co/components/shared/lib/demoProps';
 // - cmp
+import CoreApp from '@fm/daily.co/components/core/App';
 import Tray from '@fm/daily.co/components/addons/text-chat/components/Tray';
-import TextChatApp from '@fm/daily.co/components/addons/text-chat/components/App';
+import { ChatProvider } from '@fm/daily.co/components/addons/text-chat/contexts/ChatProvider';
 
 const ClassroomPage: React.FC<ClassroomPageProps> = ({
   domain,
@@ -47,7 +48,9 @@ const ClassroomPage: React.FC<ClassroomPageProps> = ({
             <MediaDeviceProvider>
               <WaitingRoomProvider>
                 <ScreenShareProvider>
-                  <TextChatApp />
+                  <ChatProvider>
+                    <CoreApp />
+                  </ChatProvider>
                 </ScreenShareProvider>
               </WaitingRoomProvider>
             </MediaDeviceProvider>

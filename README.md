@@ -15,9 +15,9 @@ yarn
 ```bash
 fullmoon/
 ├── apps/
-├   ├── api/ # main server
-├   ├── main-web/ # main next app 
-├   └── material-web/ # material dashboard next app
+│   ├── api/ # main server
+│   ├── main-web/ # main next app 
+│   └── material-web/ # material dashboard next app
 └── libs/ # shared code and app logic
     ├── api/
     ├── main-web/
