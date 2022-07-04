@@ -37,3 +37,9 @@ yarn nx serve APP_NAME
 # Replace APP_NAME with the app name.
 # e.g. yarn nx serve main-web
 ```
+
+### Migration
+
+```bash
+nx migrate latest
+```
