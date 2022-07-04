@@ -1,6 +1,6 @@
-__VSCode Extension for Nx:__ `nrwl.angular-console`
+# Fullmoon Core monorepo
 
-# Bootstrap
+## Bootstrap
 
 ```bash
 npm i -g yarn
@@ -10,7 +10,7 @@ yarn global add nx
 yarn
 ```
 
-# Folder Structure
+## Folder Structure
 
 ```bash
 fullmoon/
@@ -24,18 +24,14 @@ fullmoon/
     └── material-web/
 ```
 
-# Dev
+## Dev
 
 __Only push to 'dev' branch.__
 
-## Start in watch mode
-
-- Run apps in watch mode
+### Start in watch mode
 
 ```bash
-yarn nx serve APP_NAME
-# Replace APP_NAME with the app name.
-# e.g. yarn nx serve main-web
+yarn nx serve <app-name>
 ```
 
 ### Migration
