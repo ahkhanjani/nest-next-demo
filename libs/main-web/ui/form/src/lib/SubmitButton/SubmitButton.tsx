@@ -8,7 +8,7 @@ const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
   children,
 }) => {
   return (
-    <button className={styles.submitButton} type='submit'>
+    <button className={styles['submitButton']} type="submit">
       {children}
     </button>
   );

@@ -9,6 +9,7 @@
     "main-web-daily.co": "libs/main-web/daily.co",
     "main-web-e2e": "apps/main-web-e2e",
     "main-web-types": "libs/main-web/types",
+    "main-web-ui-form": "libs/main-web/ui/form",
     "material-web": "apps/material-web",
     "material-web-e2e": "apps/material-web-e2e",
     "material-web-feature-material-form-schema-generator": "libs/material-web/feature/material-form-schema-generator",

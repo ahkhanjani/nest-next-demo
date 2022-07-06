@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
 import * as yup from 'yup';
 // cmp
-import InputField from '../../../components/InputField';
+import { InputField } from '@fm/main-web-ui-form';
 //gql
 import { useCreateUserMutation } from '@fm/gql';
 // utils
