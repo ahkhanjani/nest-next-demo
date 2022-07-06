@@ -1,9 +1,9 @@
-import { utilToErrorMap } from '..';
+import { toErrorMap } from '../toErrorMap';
 import { fieldErrorStub } from './stubs/field-error.stub';
 
-describe('utilToErrorMap', () => {
+describe('toErrorMap', () => {
   it('should create an error object', () => {
-    expect(utilToErrorMap([fieldErrorStub])).toEqual({
+    expect(toErrorMap([fieldErrorStub])).toEqual({
       [fieldErrorStub.field]: fieldErrorStub.message,
     });
   });

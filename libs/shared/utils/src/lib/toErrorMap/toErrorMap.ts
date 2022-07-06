@@ -1,6 +1,6 @@
-import type { FieldError } from '@fm/shared-interfaces';
+import type { FieldError } from '@fm/types';
 
-export const utilToErrorMap = (errors: FieldError[]) => {
+export const toErrorMap = (errors: FieldError[]) => {
   const errorMap: Record<string, string> = {};
   errors.forEach(({ field, message }) => {
     errorMap[field] = message;

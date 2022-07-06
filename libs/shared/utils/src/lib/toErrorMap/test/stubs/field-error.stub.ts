@@ -1,4 +1,4 @@
-import type { FieldError } from '@fm/nest/_general/field-error';
+import type { FieldError } from '@fm/types';
 
 export const fieldErrorStub: FieldError = {
   field: 'username',

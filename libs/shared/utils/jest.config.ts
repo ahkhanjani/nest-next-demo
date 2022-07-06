@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'shared-util-date-from-now',
-  preset: '../../../../jest.preset.js',
+  displayName: 'shared-utils',
+  preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -12,5 +12,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/shared/util/date-from-now',
+  coverageDirectory: '../../../coverage/libs/shared/utils',
 };
