@@ -1,5 +1,5 @@
 import { useMediaDevices } from '../providers';
-import Field from './Field';
+import Field from './form/Field';
 import SelectInput from './SelectInput';
 
 const DeviceSelect: React.FC = () => {

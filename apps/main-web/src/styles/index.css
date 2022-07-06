@@ -1,0 +1,9 @@
+// base
+@import 'tailwindcss/base';
+@import './base.css';
+
+// cmp
+@import 'tailwindcss/components';
+
+// utils
+@import 'tailwindcss/utilities';
