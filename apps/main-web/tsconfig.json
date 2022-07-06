@@ -14,5 +14,10 @@
     "types": ["jest", "node"]
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
-  "exclude": ["node_modules", "jest.config.ts"]
+  "exclude": [
+    "node_modules",
+    "jest.config.ts",
+    "tailwind.config.js",
+    "postcss.config.js"
+  ]
 }

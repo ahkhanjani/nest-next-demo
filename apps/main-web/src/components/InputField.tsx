@@ -10,7 +10,7 @@ const InputField: React.FC<InputFieldProps> = ({ name, type, label }) => {
       <label className={styles.label}>
         {label}
         <input
-          className={`${styles.input} ${type}`}
+          className={`daisy-input daisy-input-bordered ${styles.input} ${type}`}
           {...{ name, type }}
           {...field}
         />
