@@ -1,8 +1,12 @@
 import { useField } from 'formik';
 // styles
-import styles from './InputField.module.scss';
+import styles from './InputField.module.css';
 
-const InputField: React.FC<InputFieldProps> = ({ name, type, label }) => {
+export const InputField: React.FC<InputFieldProps> = ({
+  name,
+  type,
+  label,
+}) => {
   const [field, meta] = useField({ name, type });
 
   return (
@@ -10,9 +14,8 @@ const InputField: React.FC<InputFieldProps> = ({ name, type, label }) => {
       <label className={styles.label}>
         {label}
         <input
-          className={`daisy-input daisy-input-bordered ${styles.input} ${type}`}
-          {...{ name, type }}
-          {...field}
+          className={`tw-daisy-input tw-daisy-input-bordered ${styles.input} ${type}`}
+          {...{ name, type, ...field }}
         />
       </label>
       {meta.touched && meta.error ? (
@@ -23,7 +26,6 @@ const InputField: React.FC<InputFieldProps> = ({ name, type, label }) => {
     </>
   );
 };
-export default InputField;
 
 interface InputFieldProps {
   name: string;
