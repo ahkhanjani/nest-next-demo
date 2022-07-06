@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { Formik, Form, FormikHelpers, FormikProps } from 'formik';
+import { Formik, Form, type FormikHelpers } from 'formik';
 import * as yup from 'yup';
 // cmp
-import { InputField } from '@fm/main-web-ui-form';
+import { InputField, SubmitButton } from '@fm/main-web-ui-form';
 //gql
 import { useCreateUserMutation } from '@fm/gql';
 // utils
@@ -33,7 +33,8 @@ const SignupForm: React.FC = () => {
   // ─── GQL ────────────────────────────────────────────────────────────────────────
   //
 
-  const [createUser] = useCreateUserMutation({});
+  const [createUser, { error: createUserError, loading: createUserLoading }] =
+    useCreateUserMutation({});
 
   //
   // ─── HANDLERS ───────────────────────────────────────────────────────────────────
@@ -96,18 +97,23 @@ const SignupForm: React.FC = () => {
         </div>
       )}
       <Formik
-        onSubmit={(values, actions) => handleSubmit(values, actions)}
+        onSubmit={(values: Values, actions: FormikHelpers<Values>) =>
+          handleSubmit(values, actions)
+        }
         {...{ initialValues, validationSchema }}
       >
-        {(props: FormikProps<Values>) => (
-          <Form className={styles.form}>
-            <InputField name="username" type="text" label="Username" />
-            <InputField name="password" type="password" label="Password" />
-            <button className={styles.submitButton} type="submit">
-              Submit
-            </button>
-          </Form>
-        )}
+        <Form className={styles.form}>
+          <InputField name="username" type="text" label="Username" />
+          <InputField name="password" type="password" label="Password" />
+          <SubmitButton
+            sx={{
+              color: errors.length || createUserError ? 'error' : 'primary',
+              loading: createUserLoading,
+            }}
+          >
+            Submit
+          </SubmitButton>
+        </Form>
       </Formik>
     </>
   );
