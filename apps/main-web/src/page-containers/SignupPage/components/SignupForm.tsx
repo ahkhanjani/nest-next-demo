@@ -7,7 +7,7 @@ import { InputField } from '@fm/main-web-ui-form';
 //gql
 import { useCreateUserMutation } from '@fm/gql';
 // utils
-import { utilToErrorMap } from '@fm/util-to-error-map';
+import { toErrorMap } from '@fm/utils';
 // styles
 import styles from './SignupForm.module.scss';
 // typese
@@ -52,7 +52,7 @@ const SignupForm: React.FC = () => {
 
       const formErrors = res.data?.createUser.errors;
       if (formErrors) {
-        actions.setErrors(utilToErrorMap(formErrors));
+        actions.setErrors(toErrorMap(formErrors));
         return;
       }
 

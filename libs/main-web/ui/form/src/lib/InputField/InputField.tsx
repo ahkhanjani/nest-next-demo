@@ -1,11 +1,13 @@
 import { useField } from 'formik';
+// fm
+import { capitalizeFirstLetter } from '@fm/utils';
 // styles
 import styles from './InputField.module.css';
 
 export const InputField: React.FC<InputFieldProps> = ({
   name,
   type = 'text',
-  label = name,
+  label = capitalizeFirstLetter(name),
 }) => {
   const [field, meta] = useField({ name, type });
 
