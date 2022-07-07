@@ -8,27 +8,29 @@ export const InputField: React.FC<InputFieldProps> = ({
   name,
   type = 'text',
   label = capitalizeFirstLetter(name),
+  placeholder = '',
 }) => {
   const [field, meta] = useField({ name, type });
 
   // ────────────────────────────────────────────────────────────────────────────────
 
   return (
-    <>
-      <label className={styles['label']}>
-        {label}
+    <div className={styles['inputField']}>
+      <label className={`tw-daisy-input-group ${styles['label']}`}>
+        <span className={styles['firstLabelText']}>{label}</span>
         <input
           className={`tw-daisy-input tw-daisy-input-bordered ${styles['input']} ${type}`}
           type={type}
+          placeholder={placeholder}
           {...field}
         />
       </label>
       {meta.touched && meta.error ? (
         <div className={styles['errorBox']}>
-          <span className={styles['errorText']}>{meta.error}</span>
+          <span className={styles['error-text']}>{meta.error}</span>
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
@@ -36,4 +38,5 @@ interface InputFieldProps {
   name: string;
   type?: 'text' | 'password' | 'email';
   label?: string;
+  placeholder?: string;
 }
