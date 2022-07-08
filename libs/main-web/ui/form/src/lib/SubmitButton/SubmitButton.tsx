@@ -1,34 +1,34 @@
 import { PropsWithChildren } from 'react';
+import classNames from 'classnames';
 // styles
 import styles from './SubmitButton.module.css';
 
 export const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
   className = '',
-  sx: {
-    size = 'md',
-    color = 'normal',
-    loading = false,
-    disabled = false,
-    outline = false,
-    wide = false,
-  },
+  size,
+  color,
+  loading = false,
+  disabled = false,
+  outline = false,
+  wide = false,
   children,
 }) => {
+  const buttonClassName = classNames(
+    'tw-daisy-btn',
+    { [`tw-daisy-btn-${size}`]: size },
+    { [`tw-daisy-btn-${color}`]: color },
+    { 'tw-daisy-btn-disabled': disabled },
+    { 'tw-daisy-btn-loading': loading },
+    { 'tw-daisy-btn-outline': outline },
+    { 'tw-daisy-btn-wide': wide },
+    className,
+    styles['submitButton']
+  );
+
+  // ────────────────────────────────────────────────────────────────────────────────
+
   return (
-    <button
-      className={`
-      tw-daisy-btn
-      tw-daisy-btn-${size}
-      tw-daisy-btn-${color}
-      ${disabled ? 'tw-daisy-btn-disabled' : null}
-      ${loading && 'tw-daisy-loading'}
-      ${outline ? 'tw-daisy-btn-outline' : null}
-      ${wide ? 'tw-daisy-btn-wide' : null}
-      ${className}
-      ${styles['submitButton']}
-      `}
-      type="submit"
-    >
+    <button className={buttonClassName} type="submit">
       {children}
     </button>
   );
@@ -36,23 +36,21 @@ export const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
 
 interface SubmitButtonProps {
   className?: string;
-  sx: {
-    size?: 'lg' | 'md' | 'sm' | 'xs';
-    color?:
-      | 'normal'
-      | 'primary'
-      | 'secondary'
-      | 'accent'
-      | 'info'
-      | 'success'
-      | 'warning'
-      | 'error'
-      | 'ghost'
-      | 'link'
-      | 'glass';
-    loading?: boolean;
-    disabled?: boolean;
-    outline?: boolean;
-    wide?: boolean;
-  };
+  size?: 'lg' | 'md' | 'sm' | 'xs';
+  color?:
+    | 'normal'
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error'
+    | 'ghost'
+    | 'link'
+    | 'glass';
+  loading?: boolean;
+  disabled?: boolean;
+  outline?: boolean;
+  wide?: boolean;
 }
