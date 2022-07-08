@@ -11,4 +11,4 @@ const Template: ComponentStory<typeof InputField> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = { name: 'username', placeholder: 'e.g: sunflower021' };

@@ -6,5 +6,11 @@
     "*.tsx": "${capture}.ts, , ${capture}.module.scss",
     "tsconfig.json": "tsconfig.*.json",
     "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml"
+  },
+  "gitProjectManager.ignoredFolders": [],
+  "search.exclude": {
+    ".swc": true,
+    "dist": true,
+    "**/yarn*.lock": true
   }
 }
