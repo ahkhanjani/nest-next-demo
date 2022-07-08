@@ -4,13 +4,13 @@ import { Formik, Form, type FormikHelpers } from 'formik';
 import * as yup from 'yup';
 // cmp
 import { InputField, SubmitButton } from '@fm/main-web-ui-form';
-//gql
+// gql
 import { useCreateUserMutation } from '@fm/gql';
 // utils
 import { toErrorMap } from '@fm/utils';
 // styles
 import styles from './SignupForm.module.scss';
-// typese
+// types
 import { UnpredictedFormErrors } from '@fm/main-web/types';
 
 const validationSchema = yup.object({
@@ -106,12 +106,10 @@ const SignupForm: React.FC = () => {
           <InputField name="username" type="text" label="Username" />
           <InputField name="password" type="password" label="Password" />
           <SubmitButton
-            sx={{
-              color: errors.length || createUserError ? 'error' : 'primary',
-              loading: createUserLoading,
-            }}
+            color={errors.length || createUserError ? 'error' : 'primary'}
+            loading={createUserLoading}
           >
-            Submit
+            Sign Up
           </SubmitButton>
         </Form>
       </Formik>
