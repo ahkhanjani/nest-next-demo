@@ -13,7 +13,7 @@ module.exports = {
     },
   },
   prefix: 'tw-', // note: use tailwind styles like "tw-*"
-  plugins: [require('daisyui')],
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
 
   // See https://daisyui.com/docs/config/
   daisyui: {
