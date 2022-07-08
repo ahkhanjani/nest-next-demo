@@ -14,7 +14,12 @@ const SelectInput = <
   ...rest
 }: PropsWithChildren<SelectInputProps<TValue>>): ReactElement => {
   return (
-    <select onChange={onChange} value={value} {...rest}>
+    <select
+      className="tw-daisy-select tw-daisy-select-bordered"
+      onChange={onChange}
+      value={value}
+      {...rest}
+    >
       {children}
     </select>
   );
