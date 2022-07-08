@@ -22,8 +22,6 @@ export const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
     className
   );
 
-  // ────────────────────────────────────────────────────────────────────────────────
-
   return (
     <button className={buttonClassName} type="submit">
       {children}
