@@ -13,6 +13,8 @@ const ClassroomPage: NextPage = () => {
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  return <ClassroomContainer roomId={id} />;
+  return (
+    <ClassroomContainer roomId={id instanceof Array<string> ? id[0] : id} />
+  );
 };
 export default ClassroomPage;
