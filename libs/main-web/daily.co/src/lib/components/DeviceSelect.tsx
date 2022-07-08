@@ -1,5 +1,4 @@
 import { useMediaDevices } from '../providers';
-import Field from './form/Field';
 import SelectInput from './SelectInput';
 
 const DeviceSelect: React.FC = () => {
@@ -21,7 +20,7 @@ const DeviceSelect: React.FC = () => {
 
   return (
     <>
-      <Field label="Select camera:">
+      <label title="Select camera:">
         <SelectInput
           onChange={(e) => {
             setCurrentCam(cams[e.target.value]);
@@ -36,9 +35,9 @@ const DeviceSelect: React.FC = () => {
             </option>
           ))}
         </SelectInput>
-      </Field>
+      </label>
 
-      <Field label="Select microphone:">
+      <label title="Select microphone:">
         <SelectInput
           onChange={(e) => {
             setCurrentMic(mics[e.target.value]);
@@ -53,13 +52,13 @@ const DeviceSelect: React.FC = () => {
             </option>
           ))}
         </SelectInput>
-      </Field>
+      </label>
 
       {/**
        * Note: Safari does not support selection audio output devices
        */}
       {speakers.length > 0 && (
-        <Field label="Select speakers:">
+        <label title="Select speakers:">
           <SelectInput
             onChange={(e) => {
               setCurrentSpeaker(speakers[e.target.value]);
@@ -75,7 +74,7 @@ const DeviceSelect: React.FC = () => {
               </option>
             ))}
           </SelectInput>
-        </Field>
+        </label>
       )}
     </>
   );
