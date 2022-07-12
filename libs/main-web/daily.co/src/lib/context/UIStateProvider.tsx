@@ -10,7 +10,9 @@ import { useDeepCompareMemo } from 'use-deep-compare';
 // enums
 import { VIEW_MODE } from '../enums';
 
-export const UIStateContext = createContext({});
+export const UIStateContext = createContext<UIStateContextValue>(
+  {} as UIStateContextValue
+);
 
 export const UIStateProvider: React.FC<
   PropsWithChildren<UIStateProviderProps>
@@ -24,8 +26,8 @@ export const UIStateProvider: React.FC<
   const [isShowingScreenshare, setIsShowingScreenshare] =
     useState<boolean>(false);
   const [showParticipantsBar, setShowParticipantsBar] = useState<boolean>(true);
-  const [showAside, setShowAside] = useState<unknown>();
-  const [activeModals, setActiveModals] = useState<Record<string, boolean>>({});
+  const [showAside, setShowAside] = useState<React.FC | null>(null);
+  const [activeModals, setActiveModals] = useState<CurrentModalMap>({});
   const [customCapsule, setCustomCapsule] = useState<React.FC>();
   const [showAutoplayFailedModal, setShowAutoplayFailedModal] =
     useState<boolean>(false);
@@ -63,8 +65,8 @@ export const UIStateProvider: React.FC<
 
   const currentModals = useDeepCompareMemo(() => activeModals, [activeModals]);
 
-  const toggleAside = useCallback((newAside: React.FC) => {
-    setShowAside((p: React.FC) => (p === newAside ? null : newAside));
+  const toggleAside = useCallback((newAside: React.FC | null) => {
+    setShowAside((p: React.FC | null) => (p === newAside ? null : newAside));
   }, []);
 
   const closeAside = useCallback(() => {
@@ -115,7 +117,35 @@ export const UIStateProvider: React.FC<
 export const useUIState = () => useContext(UIStateContext);
 
 interface UIStateProviderProps {
+  asides?: React.FC[];
+  modals?: React.FC[];
+  customTrayComponent?: React.FC;
+}
+
+interface UIStateContextValue {
   asides: React.FC[];
   modals: React.FC[];
-  customTrayComponent: React.ReactNode;
+  customTrayComponent: React.FC | undefined;
+  viewMode: VIEW_MODE;
+  openModal: (modalName: string) => void;
+  closeModal: (modalName: string) => void;
+  closeAside: () => void;
+  showParticipantsBar: boolean;
+  currentModals: CurrentModalMap;
+  toggleAside: (newAside: React.FC | null) => void;
+  pinnedId: string | null;
+  showAside: React.FC | null;
+  setShowAside: React.Dispatch<React.SetStateAction<React.FC | null>>;
+  setIsShowingScreenshare: React.Dispatch<React.SetStateAction<boolean>>;
+  setPreferredViewMode: React.Dispatch<React.SetStateAction<VIEW_MODE>>;
+  setPinnedId: React.Dispatch<React.SetStateAction<string | null>>;
+  setShowParticipantsBar: React.Dispatch<React.SetStateAction<boolean>>;
+  customCapsule: React.FC | undefined;
+  setCustomCapsule: React.Dispatch<React.SetStateAction<React.FC | undefined>>;
+  showAutoplayFailedModal: boolean;
+  setShowAutoplayFailedModal: React.Dispatch<React.SetStateAction<boolean>>;
+  isMobile: boolean;
+  setIsMobile: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+type CurrentModalMap = Record<string, boolean>;

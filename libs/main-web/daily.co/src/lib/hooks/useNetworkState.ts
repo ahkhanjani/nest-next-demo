@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 // daily.co
 import { DailyCall, DailyEventObject } from '@daily-co/daily-js';
 // providers
-import { useCallState } from '../providers/CallProvider';
+import { useCallState } from '../context/CallProvider';
 // enums
 import { VIDEO_QUALITY } from '../enums';
 
@@ -16,7 +16,7 @@ export const useNetworkState = ({
   // ─── State ──────────────────────────────────────────────────────────────────────
 
   const [threshold, setThreshold] = useState('good');
-  const lastSetKBS = useRef<any>(null);
+  const lastSetKBS = useRef<unknown>(null);
 
   // ─── Hooks ──────────────────────────────────────────────────────────────────────
 
@@ -131,6 +131,6 @@ export const useNetworkState = ({
 };
 
 interface UseNetworkStateProps {
-  co: DailyCall | null;
-  quality: VIDEO_QUALITY;
+  co?: DailyCall | null;
+  quality?: VIDEO_QUALITY;
 }

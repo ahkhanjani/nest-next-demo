@@ -1,5 +1,5 @@
 // providers
-import { useMediaDevices } from '../../providers';
+import { useMediaDevices } from '../../context';
 // cmp
 import DeviceSelect from './DeviceSelect';
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 // providers
-import { useChat } from '../../providers/ChatProvider';
+import { useChat } from '../../context/ChatProvider';
 // styles
 import styles from './ChatAside.module.scss';
 

@@ -2,10 +2,10 @@ import { useCallback, useMemo, useEffect, useState } from 'react';
 // daily.co
 import { DailyNetworkStats } from '@daily-co/daily-js';
 // hooks
-import { useCallState } from '../providers/CallProvider';
+import { useCallState } from '../../context/CallProvider';
 // enums
-import { NETWORK_QUALITY_LABELS } from '../constants';
-import Capsule from './Capsule';
+import { NETWORK_QUALITY_LABELS } from '../../constants';
+import Capsule from '../Capsule';
 
 export const NetworkAside = () => {
   // ─── State ──────────────────────────────────────────────────────────────────────

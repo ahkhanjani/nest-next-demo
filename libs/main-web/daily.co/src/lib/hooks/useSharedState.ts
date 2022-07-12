@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 // daily.co
 import type { DailyEventObject } from '@daily-co/daily-js';
 // providers
-import { useCallState } from '../providers/CallProvider';
+import { useCallState } from '../context/CallProvider';
 
 // @params initialValues - initial values of the shared state.
 // @params broadcast - share the state with the other participants whenever the state changes.
