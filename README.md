@@ -3,10 +3,13 @@
 ## Bootstrap
 
 ```bash
-npm i -g pnpm
+# install pnpm globally
+npm -g install pnpm
+
+# install nx CLI globally
 pnpm -g add nx
 
-# In the root directory:
+# in project root:
 pnpm install
 ```
 
