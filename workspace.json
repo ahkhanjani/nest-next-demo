@@ -8,6 +8,7 @@
     "main-web": "apps/main-web",
     "main-web-daily.co": "libs/main-web/daily.co",
     "main-web-e2e": "apps/main-web-e2e",
+    "main-web-feature-auth": "libs/main-web/feature/auth",
     "main-web-types": "libs/main-web/types",
     "main-web-ui-form": "libs/main-web/ui/form",
     "main-web-ui-form-e2e": "apps/main-web-ui-form-e2e",

@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/main-web/feature/auth/src",
+  "projectType": "library",
+  "tags": ["feature", "auth", "react"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/main-web/feature/auth/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/main-web/feature/auth"],
+      "options": {
+        "jestConfig": "libs/main-web/feature/auth/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
