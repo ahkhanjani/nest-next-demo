@@ -3,25 +3,26 @@
 ## Bootstrap
 
 ```bash
-npm i -g yarn
-yarn global add nx
+npm i -g pnpm
+pnpm -g add nx
 
 # In the root directory:
-yarn
+pnpm install
 ```
 
 ## Folder Structure
 
 ```bash
-fullmoon/
+fullmoon-core/
 ├── apps/
 │   ├── api/ # main server
 │   ├── main-web/ # main next app 
 │   └── material-web/ # material dashboard next app
-└── libs/ # shared code and app logic
+└── libs/ # most of the app logic
     ├── api/
     ├── main-web/
-    └── material-web/
+    ├── material-web/
+    └── shared/ # shared code and app logic
 ```
 
 ## Dev
@@ -31,11 +32,11 @@ __Only push to 'dev' branch.__
 ### Start in watch mode
 
 ```bash
-yarn nx serve <app-name>
+pnpm start <app-name>
 ```
 
 ### Migration
 
 ```bash
-nx migrate latest
+pnpm migrate
 ```
