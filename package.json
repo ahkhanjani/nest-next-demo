@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "migrate": "pnpm nx migrate latest",
+    "migrate": "nx migrate latest",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
