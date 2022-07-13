@@ -1,16 +1,15 @@
 {
-  "explorer.fileNesting.patterns": {
-    "*.ts": "${capture}.js",
-    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
-    "*.jsx": "${capture}.js, ${capture}.module.scss",
-    "*.tsx": "${capture}.ts, , ${capture}.module.scss",
-    "tsconfig.json": "tsconfig.*.json",
-    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml"
-  },
   "gitProjectManager.ignoredFolders": [],
   "search.exclude": {
     ".swc": true,
     "dist": true,
     "**/yarn*.lock": true
-  }
+  },
+  "explorer.fileNesting.patterns": {
+    "*.jsx": "${capture}.js, ${capture}.module.css, ${capture}.module.scss, ${capture}.spec.jsx",
+    "*.tsx": "${capture}.ts, ${capture}.module.css, ${capture}.module.scss, ${capture}.spec.tsx",
+    "*.js": "${capture}.spec.js",
+    "*.ts": "${capture}.spec.ts"
+  },
+  "explorer.fileNesting.enabled": true
 }
