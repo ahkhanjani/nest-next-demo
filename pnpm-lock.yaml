@@ -10,7 +10,7 @@ specifiers:
   '@daily-co/daily-react-hooks': ^0.2.5
   '@emotion/react': ^11.9.3
   '@emotion/styled': ^11.9.3
-  '@graphql-codegen/cli': ^2.8.0
+  '@graphql-codegen/cli': ^2.8.1
   '@graphql-codegen/typescript': ^2.7.1
   '@graphql-codegen/typescript-operations': ^2.5.1
   '@graphql-codegen/typescript-react-apollo': ^3.3.1
@@ -246,7 +246,7 @@ devDependencies:
   '@babel/preset-env': 7.18.6_@babel+core@7.18.6
   '@babel/preset-typescript': 7.18.6_@babel+core@7.18.6
   '@bbbtech/storybook-formik': 2.5.0_o27kcmhm2j2m55re7gyxcokyxu
-  '@graphql-codegen/cli': 2.8.0_kqlgh3qfz56lumowe57ujqqtt4
+  '@graphql-codegen/cli': 2.8.1_kqlgh3qfz56lumowe57ujqqtt4
   '@graphql-codegen/typescript': 2.7.1_graphql@16.5.0
   '@graphql-codegen/typescript-operations': 2.5.1_graphql@16.5.0
   '@graphql-codegen/typescript-react-apollo': 3.3.1_ubrtutz2urcxyhwqr2zvlqjzha
@@ -2389,8 +2389,8 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
 
-  /@graphql-codegen/cli/2.8.0_kqlgh3qfz56lumowe57ujqqtt4:
-    resolution: {integrity: sha512-qpLnfWLd7M6ISlXN5c9WPwUE9iZkzS6996hwlvKcYpyGWj10ZtDcEQpH+NFoNjNP3Bu+QOSt6gSnpnCnajwadA==}
+  /@graphql-codegen/cli/2.8.1_kqlgh3qfz56lumowe57ujqqtt4:
+    resolution: {integrity: sha512-o+Za1483WhnbMA5G4JJq72EeqXROsdEiDTfUTxtX1iPPebv+VMekTFfHnBCUXpes0XTeZViXTd16AX6cmtUF4Q==}
     hasBin: true
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -2424,6 +2424,7 @@ packages:
       mkdirp: 1.0.4
       string-env-interpolation: 1.0.1
       ts-log: 2.2.4
+      tslib: 2.4.0
       yaml: 1.10.2
       yargs: 17.5.1
     transitivePeerDependencies:
