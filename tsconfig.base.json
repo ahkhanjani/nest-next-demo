@@ -29,6 +29,7 @@
       "@fm/material-web/types": ["libs/material-web/types/src/index.ts"],
       "@fm/mui": ["libs/shared/ui/mui/src/index.ts"],
       "@fm/network": ["libs/shared/state/network/src/index.ts"],
+      "@fm/shared-ui-form": ["libs/shared/ui/form/src/index.ts"],
       "@fm/tailwind/*": [".tailwind/*"],
       "@fm/types": ["libs/shared/types/src/index.ts"],
       "@fm/utils": ["libs/shared/utils/src/index.ts"],

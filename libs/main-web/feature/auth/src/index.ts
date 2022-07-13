@@ -1,1 +1,1 @@
-export * from './components/SignupForm/SignupForm';
+export * from './feature/signup/components/SignupForm';
