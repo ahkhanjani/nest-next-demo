@@ -1,0 +1,51 @@
+.messages-container {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.message {
+  margin: var(--spacing-xxs);
+  padding: var(--spacing-xxs);
+  background: var(--gray-wash);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+.message.local {
+  background: var(--gray-light);
+}
+
+.message.local .sender {
+  color: var(--primary-dark);
+}
+
+.content {
+  color: var(--text-mid);
+  display: block;
+}
+
+.sender {
+  font-weight: var(--weight-medium);
+  font-size: 0.75rem;
+}
+
+.chat-footer {
+  flex-flow: row nowrap;
+  box-sizing: border-box;
+  padding: var(--spacing-xxs) 0;
+  display: flex;
+  position: relative;
+  border-top: 1px solid var(--gray-light);
+}
+
+.chat-footer :global(.input-container) {
+  flex: 1;
+}
+
+.chat-footer :global(.input-container input) {
+  padding-right: 0px;
+}
+
+.chat-footer :global(.send-button) {
+  padding: 0 var(--spacing-xs);
+}

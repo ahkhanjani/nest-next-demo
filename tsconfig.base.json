@@ -18,8 +18,10 @@
     "paths": {
       "@fm/api/guards": ["libs/api/guards/src/index.ts"],
       "@fm/auth": ["libs/shared/state/auth/src/index.ts"],
-      "@fm/daily.co/*": ["libs/main-web/daily.co/src/lib/*"],
+      "@fm/daily.co": ["libs/main-web/daily.co/src/index.ts"],
       "@fm/gql": ["libs/shared/graphql/src/index.ts"],
+      "@fm/main-web-feature-auth": ["libs/main-web/feature/auth/src/index.ts"],
+      "@fm/main-web-ui-form": ["libs/main-web/ui/form/src/index.ts"],
       "@fm/main-web/types": ["libs/main-web/types/src/index.ts"],
       "@fm/material-web/material-form-schema-generator": [
         "libs/material-web/feature/material-form-schema-generator/src/index.ts"
@@ -27,9 +29,9 @@
       "@fm/material-web/types": ["libs/material-web/types/src/index.ts"],
       "@fm/mui": ["libs/shared/ui/mui/src/index.ts"],
       "@fm/network": ["libs/shared/state/network/src/index.ts"],
+      "@fm/tailwind/*": [".tailwind/*"],
       "@fm/types": ["libs/shared/types/src/index.ts"],
-      "@fm/util-date-from-now": ["libs/shared/util/date-from-now/src/index.ts"],
-      "@fm/util-to-error-map": ["libs/shared/util/to-error-map/src/index.ts"],
+      "@fm/utils": ["libs/shared/utils/src/index.ts"],
       "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"]
     }
   },

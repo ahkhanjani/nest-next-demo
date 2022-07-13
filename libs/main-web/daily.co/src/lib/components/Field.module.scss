@@ -1,0 +1,9 @@
+.field {
+  margin-bottom: var(--spacing-sm);
+
+  .label {
+    font-weight: var(--weight-medium);
+    color: var(--text-default);
+    margin-bottom: var(--spacing-xxxs);
+  }
+}

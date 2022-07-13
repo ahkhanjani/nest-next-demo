@@ -1,39 +1,45 @@
-__VSCode Extension for Nx:__ `nrwl.angular-console`
+# Fullmoon Core monorepo
 
-# Bootstrap
+## Bootstrap
 
 ```bash
-npm i -g yarn
-yarn global add nx
+# install pnpm globally
+npm -g install pnpm
 
-# In the root directory:
-yarn
+# install nx CLI globally
+pnpm -g add nx
+
+# in project root:
+pnpm install
 ```
 
-# Folder Structure
+## Folder Structure
 
 ```bash
-fullmoon/
+fullmoon-core/
 ├── apps/
-├   ├── api/ # main server
-├   ├── main-web/ # main next app 
-├   └── material-web/ # material dashboard next app
-└── libs/ # shared code and app logic
+│   ├── api/ # main server
+│   ├── main-web/ # main next app 
+│   └── material-web/ # material dashboard next app
+└── libs/ # most of the app logic
     ├── api/
     ├── main-web/
-    └── material-web/
+    ├── material-web/
+    └── shared/ # shared code and app logic
 ```
 
-# Dev
+## Dev
 
 __Only push to 'dev' branch.__
 
-## Start in watch mode
-
-- Run apps in watch mode
+### Start in watch mode
 
 ```bash
-yarn nx serve APP_NAME
-# Replace APP_NAME with the app name.
-# e.g. yarn nx serve main-web
+pnpm start <app-name>
+```
+
+### Migration
+
+```bash
+pnpm migrate
 ```

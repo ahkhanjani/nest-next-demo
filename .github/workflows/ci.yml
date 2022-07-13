@@ -19,12 +19,12 @@ jobs:
     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.3
     with:
       parallel-commands: |
-        yarn nx-cloud record -- yarn nx workspace-lint
-        yarn nx-cloud record -- yarn nx format:check
+        pnpm nx-cloud record -- pnpm nx workspace-lint
+        pnpm nx-cloud record -- pnpm nx format:check
       parallel-commands-on-agents: |
-        yarn nx affected --target=lint --parallel=3
-        yarn nx affected --target=test --parallel=3 --ci --code-coverage
-        yarn nx affected --target=build --parallel=3 --configuration=production
+        pnpm nx affected --target=lint --parallel=3
+        pnpm nx affected --target=test --parallel=3 --ci --code-coverage
+        pnpm nx affected --target=build --parallel=3 --configuration=production
 
   agents:
     name: Nx Cloud Agents
@@ -46,8 +46,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - uses: pnpm/action-setup@v2.2.2
+
       - name: Build Docker image
-        run: yarn nx affected --target=docker
+        run: pnpm nx affected --target=docker
 
   compose:
     name: Docker Compose
