@@ -60,7 +60,9 @@ specifiers:
   '@storybook/manager-webpack5': ^6.5.9
   '@storybook/react': ~6.5.9
   '@svgr/webpack': ^6.2.1
+  '@swc/core': ^1.2.173
   '@swc/helpers': ^0.4.3
+  '@swc/jest': 0.2.20
   '@tailwindcss/typography': ^0.5.3
   '@testing-library/react': ^13.3.0
   '@testing-library/user-event': ^14.2.1
@@ -276,7 +278,9 @@ devDependencies:
   '@storybook/manager-webpack5': 6.5.9_nv67ephtrmjb6bh7xtyh3spxta
   '@storybook/react': 6.5.9_snejpoyc5sbw2lkc3mvog245ju
   '@svgr/webpack': 6.2.1
+  '@swc/core': 1.2.212
   '@swc/helpers': 0.4.3
+  '@swc/jest': 0.2.20_@swc+core@1.2.212
   '@tailwindcss/typography': 0.5.3_tailwindcss@3.1.6
   '@testing-library/react': 13.3.0_biqbaboplfbrettd7655fr4n2y
   '@testing-library/user-event': 14.2.1_gwcpuyfvwbszhlmedmugzivgzu
@@ -2950,6 +2954,13 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - ts-node
+    dev: true
+
+  /@jest/create-cache-key-function/27.5.1:
+    resolution: {integrity: sha512-dmH1yW+makpTSURTy8VzdUwFnfQh1G8R+DxO2Ho2FFmBbKFEVm+3jWdvFhE2VqB/LATCTokkP0dotjyQyw5/AQ==}
+    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+    dependencies:
+      '@jest/types': 27.5.1
     dev: true
 
   /@jest/environment/27.5.1:
@@ -6843,6 +6854,16 @@ packages:
     resolution: {integrity: sha512-6JrF+fdUK2zbGpJIlN7G3v966PQjyx/dPt1T9km2wj+EUBqgrxCk3uX4Kct16MIm9gGxfKRcfax2hVf5jvlTzA==}
     dependencies:
       tslib: 2.4.0
+    dev: true
+
+  /@swc/jest/0.2.20_@swc+core@1.2.212:
+    resolution: {integrity: sha512-5qSUBYY1wyIMn7p0Vl9qqV4hMI69oJwZCIPUpBsTFWN2wlwn6RDugzdgCn+bLXVYh+Cxi8bJcZ1uumDgsoL+FA==}
+    engines: {npm: '>= 7.0.0'}
+    peerDependencies:
+      '@swc/core': '*'
+    dependencies:
+      '@jest/create-cache-key-function': 27.5.1
+      '@swc/core': 1.2.212
     dev: true
 
   /@tailwindcss/typography/0.5.3_tailwindcss@3.1.6:

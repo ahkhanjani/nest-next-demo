@@ -2,7 +2,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/main-web/feature/auth/src",
   "projectType": "library",
-  "tags": ["feature", "auth", "react"],
+  "tags": ["react", "feature"],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",

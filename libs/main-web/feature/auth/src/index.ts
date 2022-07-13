@@ -1,1 +1,1 @@
-export * from './lib/main-web-feature-auth';
+export * from './components/SignupForm/SignupForm';

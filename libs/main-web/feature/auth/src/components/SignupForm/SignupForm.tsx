@@ -2,16 +2,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Formik, Form, type FormikHelpers } from 'formik';
 import * as yup from 'yup';
-// cmp
+// fm
 import { InputField, SubmitButton } from '@fm/main-web-ui-form';
-// gql
 import { useCreateUserMutation } from '@fm/gql';
-// utils
 import { toErrorMap } from '@fm/utils';
+import type { UnpredictedFormErrors } from '@fm/main-web/types';
 // styles
-import styles from './SignupForm.module.scss';
-// types
-import { UnpredictedFormErrors } from '@fm/main-web/types';
+import styles from './SignupForm.module.css';
 
 const validationSchema = yup.object({
   username: yup.string().min(4),
@@ -20,25 +17,19 @@ const validationSchema = yup.object({
 
 const initialValues: Values = { username: '', password: '' };
 
-const SignupForm: React.FC = () => {
+export const SignupForm: React.FC<SubmitFormProps> = ({ onSubmit }) => {
   const router = useRouter();
 
-  //
-  // ─── STATE ──────────────────────────────────────────────────────────────────────
-  //
+  // ─── State ──────────────────────────────────────────────────────────────────────
 
   const [errors, setErrors] = useState<UnpredictedFormErrors>([]);
 
-  //
-  // ─── GQL ────────────────────────────────────────────────────────────────────────
-  //
+  // ─── Gql ────────────────────────────────────────────────────────────────────────
 
   const [createUser, { error: createUserError, loading: createUserLoading }] =
     useCreateUserMutation({});
 
-  //
-  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
-  //
+  // ─── Handlers ───────────────────────────────────────────────────────────────────
 
   async function handleSubmit(values: Values, actions: FormikHelpers<Values>) {
     resetErrors();
@@ -79,30 +70,28 @@ const SignupForm: React.FC = () => {
   // ────────────────────────────────────────────────────────────────────────────────
 
   const errorListItems =
-    errors.length > 0 ? (
-      errors.map((err, index) => (
-        <li key={`error-${index}`} className={styles.errorListItem}>
-          {err.toString()}
-        </li>
-      ))
-    ) : (
-      <></>
-    );
+    errors.length > 0
+      ? errors.map((err, index) => (
+          <li key={`error-${index}`} className={styles['errorListItem']}>
+            {err.toString()}
+          </li>
+        ))
+      : null;
 
   return (
     <>
       {errors.length > 0 && (
-        <div className={styles.errorBox}>
-          <ul className={styles.errorList}>{errorListItems}</ul>
+        <div className={styles['errorBox']}>
+          <ul className={styles['errorList']}>{errorListItems}</ul>
         </div>
       )}
       <Formik
         onSubmit={(values: Values, actions: FormikHelpers<Values>) =>
-          handleSubmit(values, actions)
+          onSubmit ? onSubmit() : handleSubmit(values, actions)
         }
         {...{ initialValues, validationSchema }}
       >
-        <Form className={styles.form}>
+        <Form className={styles['form']}>
           <InputField name="username" type="text" label="Username" />
           <InputField name="password" type="password" label="Password" />
           <SubmitButton
@@ -118,7 +107,11 @@ const SignupForm: React.FC = () => {
 };
 export default SignupForm;
 
-interface Values {
+interface SubmitFormProps {
+  onSubmit?: () => void;
+}
+
+export interface Values {
   username: string;
   password: string;
 }
