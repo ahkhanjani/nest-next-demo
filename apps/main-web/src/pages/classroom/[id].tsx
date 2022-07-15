@@ -1,20 +1,18 @@
 import { NextPage } from 'next';
 // containers
-import ClassroomContainer from '../../page-containers/ClassroomPage';
-import { useRouter } from 'next/router';
+import { DeviceSelectList } from '@fm/daily.co';
+// import { useRouter } from 'next/router';
 
 const ClassroomPage: NextPage = () => {
   //
   // ─── ROUTER ─────────────────────────────────────────────────────────────────────
   //
 
-  const router = useRouter();
-  const { id } = router.query;
+  // const router = useRouter();
+  // const { id } = router.query;
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  return (
-    <ClassroomContainer roomId={id instanceof Array<string> ? id[0] : id} />
-  );
+  return undefined;
 };
 export default ClassroomPage;
