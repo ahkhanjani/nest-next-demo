@@ -32,11 +32,15 @@
       "@fm/material-web/types": ["libs/material-web/types/src/index.ts"],
       "@fm/mui": ["libs/shared/ui/mui/src/index.ts"],
       "@fm/network": ["libs/shared/state/network/src/index.ts"],
+      "@fm/shared-types": ["libs/shared/types/src/index.ts"],
       "@fm/shared-ui-form": ["libs/shared/ui/form/src/index.ts"],
       "@fm/tailwind/*": [".tailwind/*"],
-      "@fm/types": ["libs/shared/types/src/index.ts"],
       "@fm/utils": ["libs/shared/utils/src/index.ts"],
-      "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"]
+      "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"],
+      "fm/main-web-feature-network": [
+        "libs/main-web/feature/network/src/index.ts"
+      ],
+      "fm/shared-feature-network": ["libs/shared/feature/network/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

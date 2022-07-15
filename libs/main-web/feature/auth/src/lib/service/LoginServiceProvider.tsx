@@ -3,7 +3,7 @@ import { type FormikHelpers } from 'formik';
 // fm
 import { CreateUserMutation, useCreateUserMutation } from '@fm/gql';
 import { toErrorMap } from '@fm/utils';
-import type { UnpredictedFormErrors } from '@fm/main-web/types';
+import type { UnpredictedFormErrors } from '@fm/shared-types';
 import type { SignupFormikValues } from '../types/signup-formik-values';
 
 export const LoginServiceContext = createContext<LoginServiceContextValue>(

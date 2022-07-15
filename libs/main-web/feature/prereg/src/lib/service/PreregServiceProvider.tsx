@@ -3,7 +3,7 @@ import { type FormikHelpers } from 'formik';
 // fm
 import { CreatePreRegMutation, useCreatePreRegMutation } from '@fm/gql';
 import { toErrorMap } from '@fm/utils';
-import type { UnpredictedFormErrors } from '@fm/main-web/types';
+import type { UnpredictedFormErrors } from '@fm/shared-types';
 import type { RegFormikValues as Values } from '../types/reg-formik-values';
 
 export const PreregServiceContext = createContext<PreregServiceContextValue>(
