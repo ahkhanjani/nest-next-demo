@@ -7,14 +7,14 @@ import { useSignupService } from '../service/SignupServiceProvider';
 // styles
 import styles from './SignupForm.module.css';
 // types
-import type { SignupFormikValues } from '../types/signup-formik-values';
+import type { SignupFormikValues as Values } from '../types/signup-formik-values';
 
 const validationSchema = yup.object({
   username: yup.string().min(4),
   password: yup.string().min(8),
 });
 
-const initialValues: SignupFormikValues = { username: '', password: '' };
+const initialValues: Values = { username: '', password: '' };
 
 export const SignupForm: React.FC = () => {
   const { errors, loading, handleSubmit } = useSignupService();
@@ -23,10 +23,7 @@ export const SignupForm: React.FC = () => {
 
   return (
     <Formik
-      onSubmit={(
-        values: SignupFormikValues,
-        actions: FormikHelpers<SignupFormikValues>
-      ) => {
+      onSubmit={(values: Values, actions: FormikHelpers<Values>) => {
         handleSubmit(values, actions);
       }}
       {...{ initialValues, validationSchema }}

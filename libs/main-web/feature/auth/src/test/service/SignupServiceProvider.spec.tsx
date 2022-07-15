@@ -11,11 +11,9 @@ import SignupForm from '../../lib/components/SignupForm';
 describe('SignupServiceProvider', () => {
   describe('provider', () => {
     it('should render successfully', () => {
-      const { baseElement } = render(
-        <ApolloProvider>
-          <SignupServiceProvider />
-        </ApolloProvider>
-      );
+      const { baseElement } = render(<SignupServiceProvider />, {
+        wrapper: ApolloProvider,
+      });
       expect(baseElement).toBeTruthy();
     });
 
@@ -23,19 +21,18 @@ describe('SignupServiceProvider', () => {
       const handleSubmit = jest.fn();
 
       render(
-        <ApolloProvider>
-          <SignupServiceContext.Provider
-            value={{
-              handleSubmit,
-              data: null,
-              errors: [],
-              loading: false,
-              success: false,
-            }}
-          >
-            <SignupForm />
-          </SignupServiceContext.Provider>
-        </ApolloProvider>
+        <SignupServiceContext.Provider
+          value={{
+            handleSubmit,
+            data: null,
+            errors: [],
+            loading: false,
+            success: false,
+          }}
+        >
+          <SignupForm />
+        </SignupServiceContext.Provider>,
+        { wrapper: ApolloProvider }
       );
 
       const user = userEvent.setup();
@@ -60,20 +57,19 @@ describe('SignupServiceProvider', () => {
   describe('consumer', () => {
     it('should return the default value from provider', () => {
       render(
-        <ApolloProvider>
-          <SignupServiceProvider>
-            <SignupServiceContext.Consumer>
-              {({ data, errors, loading, success }) => {
-                expect(data).toBeUndefined();
-                expect(errors).toEqual([]);
-                expect(loading).toBe(false);
-                expect(success).toBe(false);
+        <SignupServiceProvider>
+          <SignupServiceContext.Consumer>
+            {({ data, errors, loading, success }) => {
+              expect(data).toBeUndefined();
+              expect(errors).toEqual([]);
+              expect(loading).toBe(false);
+              expect(success).toBe(false);
 
-                return undefined;
-              }}
-            </SignupServiceContext.Consumer>
-          </SignupServiceProvider>
-        </ApolloProvider>
+              return undefined;
+            }}
+          </SignupServiceContext.Consumer>
+        </SignupServiceProvider>,
+        { wrapper: ApolloProvider }
       );
     });
   });
