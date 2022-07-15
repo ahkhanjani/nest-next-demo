@@ -1,4 +1,4 @@
-export interface SignupFormValues {
+export interface SignupFormikValues {
   username: string;
   password: string;
 }

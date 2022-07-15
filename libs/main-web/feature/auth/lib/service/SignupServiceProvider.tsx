@@ -1,10 +1,10 @@
-import { createContext, PropsWithChildren, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { type FormikHelpers } from 'formik';
 // fm
 import { CreateUserMutation, useCreateUserMutation } from '@fm/gql';
 import { toErrorMap } from '@fm/utils';
 import type { UnpredictedFormErrors } from '@fm/main-web/types';
-import type { SignupFormValues } from '../types/SignupFormValues';
+import type { SignupFormikValues } from '../types/signup-formik-values';
 
 export const SignupServiceContext = createContext<SignupServiceContextValue>(
   {} as SignupServiceContextValue
@@ -23,8 +23,8 @@ export const SignupServiceProvider: React.FC<PropsWithChildren> = ({
   // ─── Handlers ───────────────────────────────────────────────────────────────────
 
   async function handleSubmit(
-    values: SignupFormValues,
-    actions: FormikHelpers<SignupFormValues>
+    values: SignupFormikValues,
+    actions: FormikHelpers<SignupFormikValues>
   ) {
     resetErrors();
 
@@ -75,13 +75,15 @@ export const SignupServiceProvider: React.FC<PropsWithChildren> = ({
   );
 };
 
-interface SignupServiceContextValue {
+export const useSignupService = () => useContext(SignupServiceContext);
+
+export interface SignupServiceContextValue {
   data: CreateUserMutation | null | undefined;
   errors: UnpredictedFormErrors;
   loading: boolean;
   handleSubmit: (
-    values: SignupFormValues,
-    actions: FormikHelpers<SignupFormValues>
+    values: SignupFormikValues,
+    actions: FormikHelpers<SignupFormikValues>
   ) => Promise<void>;
   success: boolean;
 }

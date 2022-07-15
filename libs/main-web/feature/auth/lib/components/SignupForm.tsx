@@ -2,29 +2,30 @@ import { Formik, Form, type FormikHelpers } from 'formik';
 import * as yup from 'yup';
 // fm
 import { InputField, SubmitButton } from '@fm/main-web-ui-form';
+// context
+import { useSignupService } from '../service/SignupServiceProvider';
 // styles
 import styles from './SignupForm.module.css';
-import { SignupFormValues } from '../types/SignupFormValues';
-import { useContext } from 'react';
-import { SignupServiceContext } from '../service/SignupServiceProvider';
+// types
+import type { SignupFormikValues } from '../types/signup-formik-values';
 
 const validationSchema = yup.object({
   username: yup.string().min(4),
   password: yup.string().min(8),
 });
 
-const initialValues: SignupFormValues = { username: '', password: '' };
+const initialValues: SignupFormikValues = { username: '', password: '' };
 
 export const SignupForm: React.FC = () => {
-  const { errors, loading, handleSubmit } = useContext(SignupServiceContext);
+  const { errors, loading, handleSubmit } = useSignupService();
 
   // ────────────────────────────────────────────────────────────────────────────────
 
   return (
     <Formik
       onSubmit={(
-        values: SignupFormValues,
-        actions: FormikHelpers<SignupFormValues>
+        values: SignupFormikValues,
+        actions: FormikHelpers<SignupFormikValues>
       ) => {
         handleSubmit(values, actions);
       }}
