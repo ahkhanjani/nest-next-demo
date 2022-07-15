@@ -1,4 +1,3 @@
-import { useState } from 'react';
 // context
 import { LoginServiceProvider } from '../service/LoginServiceProvider';
 import { SignupServiceProvider } from '../service/SignupServiceProvider';
@@ -6,13 +5,7 @@ import { SignupServiceProvider } from '../service/SignupServiceProvider';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
-export const Auth: React.FC = () => {
-  // ─── State ──────────────────────────────────────────────────────────────────────
-
-  const [mode, setMode] = useState<'login' | 'signup'>('login');
-
-  // ────────────────────────────────────────────────────────────────────────────────
-
+export const Auth: React.FC<AuthProps> = ({ mode }) => {
   return mode === 'login' ? (
     <LoginServiceProvider>
       <LoginForm />
@@ -23,5 +16,10 @@ export const Auth: React.FC = () => {
     </SignupServiceProvider>
   );
 };
-
 export default Auth;
+
+interface AuthProps {
+  mode: AuthMode;
+}
+
+export type AuthMode = 'login' | 'signup';
