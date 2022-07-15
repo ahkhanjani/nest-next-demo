@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter } from './capitalizeFirstLetter';
+import { capitalizeFirstLetter } from '../lib/capitalizeFirstLetter';
 
 describe('capitalizeFirstLetter', () => {
   it('should capitalize the first letter of the input', () => {
