@@ -4,8 +4,6 @@ import * as yup from 'yup';
 import { InputField, SubmitButton } from '@fm/main-web-ui-form';
 // context
 import { useLoginService } from '../service/LoginServiceProvider';
-// styles
-import styles from './LoginForm.module.css';
 // types
 import type { LoginFormikValues as Values } from '../types/login-formik-values';
 
@@ -29,7 +27,7 @@ export const LoginForm: React.FC = () => {
       }}
       {...{ initialValues, validationSchema }}
     >
-      <Form className={styles['form']}>
+      <Form>
         <InputField name="username" type="text" label="Username" />
         <InputField name="password" type="password" label="Password" />
         <SubmitButton

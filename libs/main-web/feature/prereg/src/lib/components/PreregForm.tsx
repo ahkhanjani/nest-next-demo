@@ -3,19 +3,19 @@ import * as yup from 'yup';
 // fm
 import { InputField, SubmitButton } from '@fm/main-web-ui-form';
 // context
-import { useSignupService } from '../service/SignupServiceProvider';
+import { useLoginService } from '../service/PreregServiceProvider';
 // types
-import type { SignupFormikValues as Values } from '../types/signup-formik-values';
+import type { RegFormikValues as Values } from '../types/reg-formik-values';
 
 const validationSchema = yup.object({
-  username: yup.string().min(4),
-  password: yup.string().min(8),
+  email: yup.string().email(),
 });
 
-const initialValues: Values = { username: '', password: '' };
+const initialValues: Values = { email: '' };
+Object.freeze(initialValues);
 
-export const SignupForm: React.FC = () => {
-  const { errors, loading, handleSubmit } = useSignupService();
+export const PreregForm: React.FC = () => {
+  const { errors, loading, handleSubmit } = useLoginService();
 
   // ────────────────────────────────────────────────────────────────────────────────
 
@@ -27,16 +27,15 @@ export const SignupForm: React.FC = () => {
       {...{ initialValues, validationSchema }}
     >
       <Form>
-        <InputField name="username" type="text" label="Username" />
-        <InputField name="password" type="password" label="Password" />
+        <InputField name="email" type="email" label="Email" />
         <SubmitButton
           color={errors?.length ? 'error' : 'primary'}
           loading={loading}
         >
-          Signup
+          Register
         </SubmitButton>
       </Form>
     </Formik>
   );
 };
-export default SignupForm;
+export default PreregForm;

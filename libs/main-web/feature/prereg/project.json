@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/main-web/feature/prereg/src",
+  "projectType": "library",
+  "tags": ["react", "feature"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/main-web/feature/prereg/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/main-web/feature/prereg"],
+      "options": {
+        "jestConfig": "libs/main-web/feature/prereg/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

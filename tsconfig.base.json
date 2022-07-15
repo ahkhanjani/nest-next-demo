@@ -21,6 +21,9 @@
       "@fm/daily.co": ["libs/main-web/daily.co/src/index.ts"],
       "@fm/gql": ["libs/shared/graphql/src/index.ts"],
       "@fm/main-web-feature-auth": ["libs/main-web/feature/auth/src/index.ts"],
+      "@fm/main-web-feature-prereg": [
+        "libs/main-web/feature/prereg/src/index.ts"
+      ],
       "@fm/main-web-ui-form": ["libs/main-web/ui/form/src/index.ts"],
       "@fm/main-web/types": ["libs/main-web/types/src/index.ts"],
       "@fm/material-web/material-form-schema-generator": [
