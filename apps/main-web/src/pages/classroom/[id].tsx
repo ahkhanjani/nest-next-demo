@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 // containers
-import { DeviceSelectList } from '@fm/daily.co';
+// import { DeviceSelectList } from '@fm/daily.co';
 // import { useRouter } from 'next/router';
 
 const ClassroomPage: NextPage = () => {
