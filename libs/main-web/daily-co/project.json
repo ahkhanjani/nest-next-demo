@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/main-web/daily.co/src",
+  "sourceRoot": "libs/main-web/daily-co/src",
   "projectType": "library",
   "tags": ["react"],
   "targets": {
@@ -8,14 +8,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/main-web/daily.co/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/main-web/daily-co/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/main-web/daily.co"],
+      "outputs": ["coverage/libs/main-web/daily-co"],
       "options": {
-        "jestConfig": "libs/main-web/daily.co/jest.config.js",
+        "jestConfig": "libs/main-web/daily-co/jest.config.js",
         "passWithNoTests": true
       }
     },
@@ -25,7 +25,7 @@
         "uiFramework": "@storybook/react",
         "port": 4400,
         "config": {
-          "configFolder": "libs/main-web/daily.co/.storybook"
+          "configFolder": "libs/main-web/daily-co/.storybook"
         }
       },
       "configurations": {
@@ -39,9 +39,9 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "uiFramework": "@storybook/react",
-        "outputPath": "dist/storybook/main-web-daily.co",
+        "outputPath": "dist/storybook/main-web-daily-co",
         "config": {
-          "configFolder": "libs/main-web/daily.co/.storybook"
+          "configFolder": "libs/main-web/daily-co/.storybook"
         }
       },
       "configurations": {
