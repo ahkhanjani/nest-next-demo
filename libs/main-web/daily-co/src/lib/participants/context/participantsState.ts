@@ -2,7 +2,7 @@ import fasteq from 'fast-deep-equal';
 // daily.co
 import { DailyParticipant } from '@daily-co/daily-js';
 // context
-import { MAX_RECENT_SPEAKER_COUNT } from '../../context/TracksProvider';
+import { MAX_RECENT_SPEAKER_COUNT } from '../../tracks/context/TracksProvider';
 // enums
 import { ParticipantsActionType } from '../enums/ParticipantsActionType.enum';
 // types
@@ -11,7 +11,6 @@ import type { MyParticipant } from '../types/MyParticipant.interface';
 import type { ParticipantsState } from '../types/ParticipantsState.interface';
 
 const initialParticipantsState: ParticipantsState = {
-  lastPendingUnknownActiveSpeaker: null,
   participants: [
     {
       camMutedByHost: false,
@@ -37,90 +36,31 @@ const initialParticipantsState: ParticipantsState = {
 // ─── Reducer ────────────────────────────────────────────────────────────────────
 
 const participantsReducer = (
-  prevState: typeof initialParticipantsState,
+  prevState: ParticipantsState,
   action: ParticipantsAction
-) => {
+): ParticipantsState => {
   switch (action.type) {
-    case ParticipantsActionType.ACTIVE_SPEAKER: {
-      const { participants, ...state } = prevState;
-      if (!action.id)
-        return {
-          ...prevState,
-          lastPendingUnknownActiveSpeaker: null,
-        };
-      const date = new Date();
-      const isParticipantKnown = participants.some((p) => p.id === action.id);
-      return {
-        ...state,
-        lastPendingUnknownActiveSpeaker: isParticipantKnown
-          ? null
-          : {
-              date,
-              id: action.id,
-            },
-        participants: participants.map((p) => ({
-          ...p,
-          isActiveSpeaker: p.id === action.id,
-          lastActiveDate: p.id === action.id ? date : p?.lastActiveDate,
-        })),
-      };
-    }
-    case ParticipantsActionType.JOINED_MEETING: {
-      const localItem = getNewParticipant(action.participant);
-
-      const participants = [...prevState.participants].map((p) =>
-        p.isLocal ? localItem : p
-      );
-
-      return {
-        ...prevState,
-        participants,
-      };
-    }
     case ParticipantsActionType.PARTICIPANT_JOINED: {
       const item = getNewParticipant(action.participant);
 
       const participants = [...prevState.participants];
       const screens = [...prevState.screens];
 
-      const isPendingActiveSpeaker =
-        item.id === prevState.lastPendingUnknownActiveSpeaker?.id;
-      if (isPendingActiveSpeaker) {
-        item.isActiveSpeaker = true;
-        item.lastActiveDate = prevState.lastPendingUnknownActiveSpeaker?.date;
-      }
-
-      if (item.isCamMuted) {
-        participants.push(item);
-      } else {
-        const firstInactiveCamOffIndex = prevState.participants.findIndex(
-          (p) => p.isCamMuted && !p.isLocal && !p.isActiveSpeaker
-        );
-        if (firstInactiveCamOffIndex >= 0) {
-          participants.splice(firstInactiveCamOffIndex, 0, item);
-        } else {
-          participants.push(item);
-        }
-      }
+      participants.push(item);
 
       // Mark new participant as active speaker, for quicker audio subscription
       if (
         !item.isMicMuted &&
         participants.length <= MAX_RECENT_SPEAKER_COUNT + 1 // + 1 for local participant
-      ) {
+      )
         item.lastActiveDate = new Date();
-      }
 
       // Participant is sharing screen
-      if (action.participant.screen) {
+      if (action.participant.screen)
         screens.push(getScreenItem(action.participant));
-      }
 
       return {
         ...prevState,
-        lastPendingUnknownActiveSpeaker: isPendingActiveSpeaker
-          ? null
-          : prevState.lastPendingUnknownActiveSpeaker,
         participants,
         screens,
       };
@@ -192,15 +132,15 @@ function getNewParticipant(participant: DailyParticipant): MyParticipant {
 
   return {
     camMutedByHost: video?.off?.byRemoteRequest,
-    hasNameSet: !!participant.user_name,
+    hasNameSet: Boolean(participant.user_name),
     id,
     isActiveSpeaker: false,
     isCamMuted: video?.state === 'off' || video?.state === 'blocked',
     isLoading: audio?.state === 'loading' || video?.state === 'loading',
     isLocal: local,
     isMicMuted: audio?.state === 'off' || audio?.state === 'blocked',
-    isOwner: !!participant.owner,
-    isRecording: !!participant.record,
+    isOwner: Boolean(participant.owner),
+    isRecording: Boolean(participant.record),
     isScreenshare: false,
     lastActiveDate: undefined,
     micMutedByHost: audio?.off?.byRemoteRequest,
@@ -280,4 +220,5 @@ export {
   isLocalId,
   isScreenId,
   participantsReducer,
+  getNewParticipant,
 };

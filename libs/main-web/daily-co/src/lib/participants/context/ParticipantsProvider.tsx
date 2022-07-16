@@ -17,6 +17,7 @@ import {
   participantsReducer,
 } from './participantsState';
 import { DailyEventObject } from '@daily-co/daily-js';
+import { ParticipantsActionType } from '../enums/ParticipantsActionType.enum';
 
 export const ParticipantsContext = createContext(null);
 
@@ -68,7 +69,7 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
     if (!daily) return;
 
     dispatch({
-      type: 'JOINED_MEETING',
+      type: ParticipantsActionType.JOINED_MEETING,
       participant: daily.participants().local,
     });
   }, [daily]);
@@ -78,7 +79,7 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
       switch (event?.action) {
         case 'participant-joined':
           dispatch({
-            type: 'PARTICIPANT_JOINED',
+            type: ParticipantsActionType.PARTICIPANT_JOINED,
             participant: event.participant,
           });
           if (daily) {
@@ -89,13 +90,13 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
           break;
         case 'participant-updated':
           dispatch({
-            type: 'PARTICIPANT_UPDATED',
+            type: ParticipantsActionType.PARTICIPANT_UPDATED,
             participant: event.participant,
           });
           break;
         case 'participant-left':
           dispatch({
-            type: 'PARTICIPANT_LEFT',
+            type: ParticipantsActionType.PARTICIPANT_LEFT,
             participant: event.participant,
           });
           break;
@@ -176,7 +177,7 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
       if (localId === activeSpeakerId) return;
 
       dispatch({
-        type: 'ACTIVE_SPEAKER',
+        type: ParticipantsActionType.ACTIVE_SPEAKER,
         id: activeSpeakerId,
       });
     };
