@@ -34,7 +34,7 @@ const initialParticipantsState: ParticipantsState = {
   screens: [],
 };
 
-// --- Reducer and helpers --
+// ─── Reducer ────────────────────────────────────────────────────────────────────
 
 const participantsReducer = (
   prevState: typeof initialParticipantsState,
@@ -182,6 +182,8 @@ const participantsReducer = (
   }
 };
 
+// ─── Helpers ────────────────────────────────────────────────────────────────────
+
 function getNewParticipant(participant: DailyParticipant): MyParticipant {
   const id = getId(participant);
 
@@ -251,7 +253,7 @@ function getScreenItem(participant: DailyParticipant) {
   };
 }
 
-// --- Derived data ---
+// ─── Derived Data ───────────────────────────────────────────────────────────────
 
 function getId(participant: DailyParticipant): string {
   return participant.local ? 'local' : participant.session_id;
@@ -268,6 +270,8 @@ function isLocalId(id: string): boolean {
 function isScreenId(id: string): boolean {
   return id.endsWith('-screen');
 }
+
+// ────────────────────────────────────────────────────────────────────────────────
 
 export {
   getId,
