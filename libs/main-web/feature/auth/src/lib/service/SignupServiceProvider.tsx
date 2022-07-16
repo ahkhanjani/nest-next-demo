@@ -4,7 +4,7 @@ import { type FormikHelpers } from 'formik';
 import { CreateUserMutation, useCreateUserMutation } from '@fm/gql';
 import { toErrorMap } from '@fm/utils';
 import type { UnpredictedFormErrors } from '@fm/shared-types';
-import type { SignupFormikValues } from '../types/signup-formik-values';
+import type { SignupFormikValues as Values } from '../types/signup-formik-values';
 
 export const SignupServiceContext = createContext<SignupServiceContextValue>(
   {} as SignupServiceContextValue
@@ -22,10 +22,7 @@ export const SignupServiceProvider: React.FC<PropsWithChildren> = ({
 
   // ─── Handlers ───────────────────────────────────────────────────────────────────
 
-  async function handleSubmit(
-    values: SignupFormikValues,
-    actions: FormikHelpers<SignupFormikValues>
-  ) {
+  async function handleSubmit(values: Values, actions: FormikHelpers<Values>) {
     resetErrors();
 
     try {
@@ -82,8 +79,8 @@ export interface SignupServiceContextValue {
   errors: UnpredictedFormErrors;
   loading: boolean;
   handleSubmit: (
-    values: SignupFormikValues,
-    actions: FormikHelpers<SignupFormikValues>
+    values: Values,
+    actions: FormikHelpers<Values>
   ) => Promise<void>;
   success: boolean;
 }
