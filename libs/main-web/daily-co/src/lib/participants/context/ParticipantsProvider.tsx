@@ -8,9 +8,9 @@ import {
   useReducer,
   useState,
 } from 'react';
-import { useNetworkState } from '../hooks/useNetworkState';
-import { useCallState } from './CallProvider';
-import { useUIState } from './UIStateProvider';
+import { useNetworkState } from '../../hooks/useNetworkState';
+import { useCallState } from '../../context/CallProvider';
+import { useUIState } from '../../context/UIStateProvider';
 import {
   initialParticipantsState,
   isLocalId,
@@ -23,13 +23,8 @@ export const ParticipantsContext = createContext(null);
 export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
-  const { isMobile, pinnedId, viewMode } = useUIState();
-  const {
-    broadcast,
-    broadcastRole,
-    callObject: daily,
-    videoQuality,
-  } = useCallState();
+  const { viewMode } = useUIState();
+  const { callObject: daily, videoQuality } = useCallState();
   const [state, dispatch] = useReducer(
     participantsReducer,
     initialParticipantsState
@@ -48,96 +43,6 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
   );
 
   /**
-   * Only return participants that should be visible in the call
-   */
-  const participants = useMemo(() => {
-    if (broadcast) {
-      return state.participants.filter((p) => p?.isOwner);
-    }
-    return state.participants;
-  }, [broadcast, state.participants]);
-
-  /**
-   * The number of participants, who are not a shared screen
-   * (technically a shared screen counts as a participant, but we shouldn't tell humans)
-   */
-  const participantCount = useMemo(
-    () => participants.filter(({ isScreenshare }) => !isScreenshare).length,
-    [participants]
-  );
-
-  /**
-   * The participant who most recently got mentioned via a `active-speaker-change` event
-   */
-  const activeParticipant = useMemo(
-    () => participants.find(({ isActiveSpeaker }) => isActiveSpeaker),
-    [participants]
-  );
-
-  /**
-   * The local participant
-   */
-  const localParticipant = useMemo(
-    () =>
-      allParticipants.find(
-        ({ isLocal, isScreenshare }) => isLocal && !isScreenshare
-      ),
-    [allParticipants]
-  );
-
-  const isOwner = useMemo(
-    () => !!localParticipant?.isOwner,
-    [localParticipant]
-  );
-
-  /**
-   * The participant who should be rendered prominently right now
-   */
-  const currentSpeaker = useMemo(() => {
-    /**
-     * Ensure activeParticipant is still present in the call.
-     * The activeParticipant only updates to a new active participant so
-     * if everyone else is muted when AP leaves, the value will be stale.
-     */
-    const isPresent = participants.some((p) => p?.id === activeParticipant?.id);
-    const pinned = participants.find((p) => p?.id === pinnedId);
-
-    if (pinned) return pinned;
-
-    const displayableParticipants = participants.filter((p) =>
-      isMobile ? !p?.isLocal && !p?.isScreenshare : !p?.isLocal
-    );
-
-    if (
-      !isPresent &&
-      displayableParticipants.length > 0 &&
-      displayableParticipants.every((p) => p.isMicMuted && !p.lastActiveDate)
-    ) {
-      // Return first cam on participant in case everybody is muted and nobody ever talked
-      // or first remote participant, in case everybody's cam is muted, too.
-      return (
-        displayableParticipants.find((p) => !p.isCamMuted) ??
-        displayableParticipants?.[0]
-      );
-    }
-
-    const sorted = displayableParticipants
-      .sort(sortByKey('lastActiveDate'))
-      .reverse();
-
-    const fallback = broadcastRole === 'attendee' ? null : localParticipant;
-
-    return isPresent ? activeParticipant : sorted?.[0] ?? fallback;
-  }, [
-    activeParticipant,
-    broadcastRole,
-    isMobile,
-    localParticipant,
-    participants,
-    pinnedId,
-  ]);
-
-  /**
    * Screen shares
    */
   const screens = useMemo(() => state?.screens, [state?.screens]);
@@ -152,50 +57,16 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
    * @param name The new username
    */
   const setUsername = useCallback(
-    (name) => {
+    (name: string) => {
+      if (!daily) return;
       daily.setUserName(name);
     },
     [daily]
   );
 
-  const swapParticipantPosition = useCallback((id1, id2) => {
-    /**
-     * Ignore in the following cases:
-     * - id1 and id2 are equal
-     * - one of both ids is not set
-     * - one of both ids is 'local'
-     */
-    if (id1 === id2 || !id1 || !id2 || isLocalId(id1) || isLocalId(id2)) return;
-    dispatch({
-      type: 'SWAP_POSITION',
-      id1,
-      id2,
-    });
-  }, []);
-
-  const [muteNewParticipants, setMuteNewParticipants] = useState(false);
-
-  const muteAll = useCallback(
-    (muteFutureParticipants = false) => {
-      if (!localParticipant.isOwner) return;
-      setMuteNewParticipants(muteFutureParticipants);
-      const unmutedParticipants = participants.filter(
-        (p) => !p.isLocal && !p.isMicMuted
-      );
-      if (!unmutedParticipants.length) return;
-      daily.updateParticipants(
-        unmutedParticipants.reduce((o, p) => {
-          o[p.id] = {
-            setAudio: false,
-          };
-          return o;
-        }, {})
-      );
-    },
-    [daily, localParticipant, participants]
-  );
-
   const handleParticipantJoined = useCallback(() => {
+    if (!daily) return;
+
     dispatch({
       type: 'JOINED_MEETING',
       participant: daily.participants().local,
@@ -210,7 +81,7 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
             type: 'PARTICIPANT_JOINED',
             participant: event.participant,
           });
-          if (muteNewParticipants && daily) {
+          if (daily) {
             daily.updateParticipant(event.participant.session_id, {
               setAudio: false,
             });
@@ -230,7 +101,7 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
           break;
       }
     },
-    [daily, dispatch, muteNewParticipants]
+    [daily, dispatch]
   );
 
   useEffect(() => {
@@ -287,14 +158,7 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
     });
 
     daily.updateReceiveSettings(receiveSettings);
-  }, [
-    currentSpeaker?.id,
-    daily,
-    participantIds,
-    threshold,
-    videoQuality,
-    viewMode,
-  ]);
+  }, [daily, participantIds, threshold, videoQuality, viewMode]);
 
   useEffect(() => {
     setBandWidthControls();
@@ -324,19 +188,12 @@ export const ParticipantsProvider: React.FC<PropsWithChildren> = ({
     <ParticipantsContext.Provider
       value={{
         allParticipants,
-        currentSpeaker,
-        localParticipant,
-        muteAll,
         muteNewParticipants,
-        participantCount,
         participantMarkedForRemoval,
-        participants,
         screens,
         setParticipantMarkedForRemoval,
         setUsername,
-        swapParticipantPosition,
         username,
-        isOwner,
       }}
     >
       {children}

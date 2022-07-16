@@ -11,7 +11,7 @@ import {
 } from 'react';
 // hooks
 import { useCallState } from './CallProvider';
-import { useParticipants } from './ParticipantsProvider';
+import { useParticipants } from '../participants/context/ParticipantsProvider';
 // state
 import { getScreenId, isLocalId, isScreenId } from './participantsState';
 import { initialTracksState, tracksReducer } from '../state/tracksState';

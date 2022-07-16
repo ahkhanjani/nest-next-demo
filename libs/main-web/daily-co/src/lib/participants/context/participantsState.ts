@@ -2,7 +2,13 @@ import fasteq from 'fast-deep-equal';
 // daily.co
 import { DailyParticipant } from '@daily-co/daily-js';
 // context
-import { MAX_RECENT_SPEAKER_COUNT } from './TracksProvider';
+import { MAX_RECENT_SPEAKER_COUNT } from '../../context/TracksProvider';
+// enums
+import { ParticipantsActionType } from '../enums/ParticipantsActionType.enum';
+// types
+import type { ParticipantsAction } from '../types/ParticipantsAction.interface';
+import type { MyParticipant } from '../types/MyParticipant.interface';
+import type { ParticipantsState } from '../types/ParticipantsState.interface';
 
 const initialParticipantsState: ParticipantsState = {
   lastPendingUnknownActiveSpeaker: null,
@@ -30,20 +36,12 @@ const initialParticipantsState: ParticipantsState = {
 
 // --- Reducer and helpers --
 
-interface ParticipantsAction {
-  type: string;
-  id: string;
-  id1: string;
-  id2: string;
-  participant: DailyParticipant;
-}
-
 const participantsReducer = (
   prevState: typeof initialParticipantsState,
   action: ParticipantsAction
 ) => {
   switch (action.type) {
-    case 'ACTIVE_SPEAKER': {
+    case ParticipantsActionType.ACTIVE_SPEAKER: {
       const { participants, ...state } = prevState;
       if (!action.id)
         return {
@@ -67,7 +65,7 @@ const participantsReducer = (
         })),
       };
     }
-    case 'JOINED_MEETING': {
+    case ParticipantsActionType.JOINED_MEETING: {
       const localItem = getNewParticipant(action.participant);
 
       const participants = [...prevState.participants].map((p) =>
@@ -79,7 +77,7 @@ const participantsReducer = (
         participants,
       };
     }
-    case 'PARTICIPANT_JOINED': {
+    case ParticipantsActionType.PARTICIPANT_JOINED: {
       const item = getNewParticipant(action.participant);
 
       const participants = [...prevState.participants];
@@ -127,7 +125,7 @@ const participantsReducer = (
         screens,
       };
     }
-    case 'PARTICIPANT_UPDATED': {
+    case ParticipantsActionType.PARTICIPANT_UPDATED: {
       const item = getUpdatedParticipant(
         action.participant,
         prevState.participants
@@ -169,7 +167,7 @@ const participantsReducer = (
 
       return newState;
     }
-    case 'PARTICIPANT_LEFT': {
+    case ParticipantsActionType.PARTICIPANT_LEFT: {
       const id = getId(action.participant);
       const screenId = getScreenId(id);
 
@@ -177,20 +175,6 @@ const participantsReducer = (
         ...prevState,
         participants: [...prevState.participants].filter((p) => p.id !== id),
         screens: [...prevState.screens].filter((s) => s.id !== screenId),
-      };
-    }
-    case 'SWAP_POSITION': {
-      const participants = [...prevState.participants];
-      if (!action.id1 || !action.id2) return prevState;
-      const idx1 = participants.findIndex((p) => p.id === action.id1);
-      const idx2 = participants.findIndex((p) => p.id === action.id2);
-      if (idx1 === -1 || idx2 === -1) return prevState;
-      const tmp = participants[idx1];
-      participants[idx1] = participants[idx2];
-      participants[idx2] = tmp;
-      return {
-        ...prevState,
-        participants,
       };
     }
     default:
@@ -239,14 +223,14 @@ function getUpdatedParticipant(
   return {
     ...prevItem,
     camMutedByHost: video?.off?.byRemoteRequest,
-    hasNameSet: !!participant.user_name,
+    hasNameSet: Boolean(participant.user_name),
     id,
     isCamMuted: video?.state === 'off' || video?.state === 'blocked',
     isLoading: audio?.state === 'loading' || video?.state === 'loading',
     isLocal: local,
     isMicMuted: audio?.state === 'off' || audio?.state === 'blocked',
-    isOwner: !!participant.owner,
-    isRecording: !!participant.record,
+    isOwner: Boolean(participant.owner),
+    isRecording: Boolean(participant.record),
     micMutedByHost: audio?.off?.byRemoteRequest,
     name: participant.user_name,
     sessionId: participant.session_id,
@@ -293,30 +277,3 @@ export {
   isScreenId,
   participantsReducer,
 };
-
-interface ParticipantsState {
-  lastPendingUnknownActiveSpeaker: {
-    date: Date;
-    id: string;
-  } | null;
-  participants: MyParticipant[];
-  screens: { id: string }[];
-}
-
-interface MyParticipant {
-  camMutedByHost?: boolean;
-  hasNameSet?: boolean | null;
-  id: string;
-  isActiveSpeaker: boolean;
-  isCamMuted: boolean;
-  isLoading: boolean;
-  isLocal: boolean;
-  isMicMuted: boolean;
-  isOwner: boolean;
-  isRecording: boolean;
-  isScreenshare: boolean;
-  lastActiveDate?: Date | null;
-  micMutedByHost?: boolean;
-  name: string;
-  sessionId: string;
-}

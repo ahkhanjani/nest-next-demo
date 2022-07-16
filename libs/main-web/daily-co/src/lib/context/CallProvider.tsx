@@ -1,9 +1,3 @@
-/**
- * Configures the general state of a Daily call, such as which features
- * to enable, as well as instantiate the 'call machine' hook responsible
- * for the overaching call loop (joining, leaving, etc)
- */
-
 import {
   createContext,
   PropsWithChildren,
