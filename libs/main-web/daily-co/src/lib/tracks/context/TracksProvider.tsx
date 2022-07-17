@@ -10,11 +10,15 @@ import {
   useState,
 } from 'react';
 // hooks
-import { useCallState } from './CallProvider';
-import { useParticipants } from '../participants/context/ParticipantsProvider';
+import { useCallState } from '../../../context/CallProvider';
+import { useParticipants } from '../../participants/context/ParticipantsProvider';
 // state
-import { getScreenId, isLocalId, isScreenId } from './participantsState';
-import { initialTracksState, tracksReducer } from '../state/tracksState';
+import {
+  getScreenId,
+  isLocalId,
+  isScreenId,
+} from '../../participants/context/participantsState';
+import { initialTracksState, tracksReducer } from './tracksState';
 
 /**
  * Maximum amount of concurrently subscribed or staged most recent speakers.

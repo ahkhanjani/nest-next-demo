@@ -221,4 +221,5 @@ export {
   isScreenId,
   participantsReducer,
   getNewParticipant,
+  getUpdatedParticipant,
 };
