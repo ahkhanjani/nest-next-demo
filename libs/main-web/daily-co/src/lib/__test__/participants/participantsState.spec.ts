@@ -2,11 +2,11 @@ import {
   participantsReducer,
   initialParticipantsState,
   getNewParticipant,
-} from '../../lib/participants/context/participantsState';
+} from '../../participants/context/participantsState';
 // enums
-import { ParticipantsActionType } from '../../lib/participants/enums/ParticipantsActionType.enum';
+import { ParticipantsActionType } from '../../participants/enums/ParticipantsActionType.enum';
 // types
-import type { ParticipantsState } from '../../lib/participants/types/ParticipantsState.interface';
+import type { ParticipantsState } from '../../participants/types/ParticipantsState.interface';
 
 const mockInitialParticipantsState = () => initialParticipantsState;
 
