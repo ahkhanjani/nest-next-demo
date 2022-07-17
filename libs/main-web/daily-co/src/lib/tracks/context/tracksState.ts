@@ -1,4 +1,7 @@
-import { getId, getScreenId } from './participantsState';
+import {
+  getId,
+  getScreenId,
+} from '../../participants/context/participantsState';
 
 const initialTracksState = {
   audioTracks: {},

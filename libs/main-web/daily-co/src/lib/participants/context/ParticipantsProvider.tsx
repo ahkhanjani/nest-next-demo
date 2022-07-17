@@ -10,7 +10,7 @@ import {
 } from 'react';
 import { useNetworkState } from '../../hooks/useNetworkState';
 import { useCallState } from '../../context/CallProvider';
-import { useUIState } from '../../context/UIStateProvider';
+import { useUIState } from '../../ui-state/context/UIStateProvider';
 import {
   initialParticipantsState,
   isLocalId,

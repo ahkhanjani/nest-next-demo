@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { useDeepCompareMemo } from 'use-deep-compare';
 // enums
-import { VIEW_MODE } from '../enums';
+import { VIEW_MODE } from '../../../enums/view-mode.enum';
 
 export const UIStateContext = createContext<UIStateContextValue>(
   {} as UIStateContextValue
