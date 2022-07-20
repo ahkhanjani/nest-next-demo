@@ -73,7 +73,7 @@ export const PreregServiceProvider: React.FC<PropsWithChildren> = ({
   );
 };
 
-export const useLoginService = () => useContext(PreregServiceContext);
+export const usePreregService = () => useContext(PreregServiceContext);
 
 export interface PreregServiceContextValue {
   data: CreatePreRegMutation | null | undefined;
