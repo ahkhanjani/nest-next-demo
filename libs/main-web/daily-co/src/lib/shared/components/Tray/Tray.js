@@ -1,5 +1,4 @@
-import React from 'react';
-import Button from '@custom/shared/components/Button';
+import Button from '../Button';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 

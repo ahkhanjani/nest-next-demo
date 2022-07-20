@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useEffect, useState } from 'react';
-import { Aside } from '@custom/shared/components/Aside';
+import { Aside } from '../../../shared/components/Aside';
 import { useCallState } from '../../contexts/CallProvider';
 import { useUIState } from '../../contexts/UIStateProvider';
 import Capsule from '../Capsule';

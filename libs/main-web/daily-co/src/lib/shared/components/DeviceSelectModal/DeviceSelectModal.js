@@ -1,6 +1,5 @@
-import React from 'react';
-import Modal from '@custom/shared/components/Modal';
-import { useUIState } from '@custom/shared/contexts/UIStateProvider';
+import Modal from '../../components/Modal';
+import { useUIState } from '../../contexts/UIStateProvider';
 import Button from '../Button';
 import DeviceSelect from '../DeviceSelect';
 

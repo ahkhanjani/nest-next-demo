@@ -1,9 +1,8 @@
-import React from 'react';
-import { Aside } from '@custom/shared/components/Aside';
-import { ReactComponent as IconCamOff } from '@custom/shared/icons/camera-off-sm.svg';
-import { ReactComponent as IconCamOn } from '@custom/shared/icons/camera-on-sm.svg';
-import { ReactComponent as IconMicOff } from '@custom/shared/icons/mic-off-sm.svg';
-import { ReactComponent as IconMicOn } from '@custom/shared/icons/mic-on-sm.svg';
+import { Aside } from '../../components/Aside';
+import { ReactComponent as IconCamOff } from '../../icons/camera-off-sm.svg';
+import { ReactComponent as IconCamOn } from '../../icons/camera-on-sm.svg';
+import { ReactComponent as IconMicOff } from '../../icons/mic-off-sm.svg';
+import { ReactComponent as IconMicOn } from '../../icons/mic-on-sm.svg';
 import PropTypes from 'prop-types';
 import { useCallState } from '../../contexts/CallProvider';
 import { useParticipants } from '../../contexts/ParticipantsProvider';

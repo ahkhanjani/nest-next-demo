@@ -1,6 +1,5 @@
-import React from 'react';
-import Modal from '@custom/shared/components/Modal';
-import { useWaitingRoom } from '@custom/shared/contexts/WaitingRoomProvider';
+import Modal from '../Modal';
+import { useWaitingRoom } from '../../contexts/WaitingRoomProvider';
 import PropTypes from 'prop-types';
 import Button from '../Button';
 import { WaitingParticipantRow } from './WaitingParticipantRow';

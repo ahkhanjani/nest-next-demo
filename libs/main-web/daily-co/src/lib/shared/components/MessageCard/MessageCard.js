@@ -1,11 +1,5 @@
-import React from 'react';
-import Button from '@custom/shared/components/Button';
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-} from '@custom/shared/components/Card';
+import Button from '../Button';
+import { Card, CardBody, CardFooter, CardHeader } from '../Card';
 import PropTypes from 'prop-types';
 
 export const MessageCard = ({

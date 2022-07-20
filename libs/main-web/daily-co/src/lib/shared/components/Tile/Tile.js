@@ -1,6 +1,6 @@
-import React, { memo, useEffect, useState, useRef } from 'react';
-import { useVideoTrack } from '@custom/shared/hooks/useVideoTrack';
-import { ReactComponent as IconMicMute } from '@custom/shared/icons/mic-off-sm.svg';
+import { memo, useEffect, useState, useRef } from 'react';
+import { useVideoTrack } from '../../hooks/useVideoTrack';
+import { ReactComponent as IconMicMute } from '../../icons/mic-off-sm.svg';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { DEFAULT_ASPECT_RATIO } from '../../constants';

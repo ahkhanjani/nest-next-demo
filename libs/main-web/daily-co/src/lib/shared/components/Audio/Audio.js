@@ -8,15 +8,14 @@
  * into into a single audio node using the CombinedAudioTrack component
  */
 import React, { useEffect, useMemo } from 'react';
-import { useCallState } from '@custom/shared/contexts/CallProvider';
-import { useTracks } from '@custom/shared/contexts/TracksProvider';
-import { useUIState } from '@custom/shared/contexts/UIStateProvider';
-import { isScreenId } from '@custom/shared/contexts/participantsState';
+import { useCallState } from '../../contexts/CallProvider';
+import { useTracks } from '../../contexts/TracksProvider';
+import { useUIState } from '../../contexts/UIStateProvider';
+import { isScreenId } from '../../contexts/participantsState';
 import Bowser from 'bowser';
 import { Portal } from 'react-portal';
 import AudioTrack from './AudioTrack';
 import CombinedAudioTrack from './CombinedAudioTrack';
-
 
 export const Audio = () => {
   const { disableAudio } = useCallState();
@@ -40,17 +39,15 @@ export const Audio = () => {
   // To fix that, we call `play` on each audio track on all devicechange events.
   useEffect(() => {
     const playTracks = () => {
-      document
-        .querySelectorAll('.audioTracks audio')
-        .forEach(async (audio) => {
-          try {
-            if (audio.paused && audio.readyState === audio.HAVE_ENOUGH_DATA) {
-              await audio?.play();
-            }
-          } catch (e) {
-            setShowAutoplayFailedModal(true);
+      document.querySelectorAll('.audioTracks audio').forEach(async (audio) => {
+        try {
+          if (audio.paused && audio.readyState === audio.HAVE_ENOUGH_DATA) {
+            await audio?.play();
           }
-        });
+        } catch (e) {
+          setShowAutoplayFailedModal(true);
+        }
+      });
     };
     navigator.mediaDevices.addEventListener('devicechange', playTracks);
     return () => {

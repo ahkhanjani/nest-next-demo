@@ -7,7 +7,7 @@ import {
   useReducer,
   useState,
 } from 'react';
-import { sortByKey } from '@custom/shared/lib/sortByKey';
+import { sortByKey } from '../lib/sortByKey';
 import { useNetworkState } from '../hooks/useNetworkState';
 import { useCallState } from './CallProvider';
 import { useUIState } from './UIStateProvider';
@@ -27,8 +27,12 @@ export const ParticipantsProvider = ({ children }) => {
     callObject: daily,
     videoQuality,
   } = useCallState();
-  const [state, dispatch] = useReducer(participantsReducer, initialParticipantsState);
-  const [participantMarkedForRemoval, setParticipantMarkedForRemoval] = useState(null);
+  const [state, dispatch] = useReducer(
+    participantsReducer,
+    initialParticipantsState
+  );
+  const [participantMarkedForRemoval, setParticipantMarkedForRemoval] =
+    useState(null);
 
   const { threshold } = useNetworkState();
 
@@ -78,9 +82,10 @@ export const ParticipantsProvider = ({ children }) => {
     [allParticipants]
   );
 
-  const isOwner = useMemo(() => !!localParticipant?.isOwner, [
-    localParticipant,
-  ]);
+  const isOwner = useMemo(
+    () => !!localParticipant?.isOwner,
+    [localParticipant]
+  );
 
   /**
    * The participant who should be rendered prominently right now
@@ -309,8 +314,7 @@ export const ParticipantsProvider = ({ children }) => {
       });
     };
     daily.on('active-speaker-change', handleActiveSpeakerChange);
-    return () =>
-      daily.off('active-speaker-change', handleActiveSpeakerChange);
+    return () => daily.off('active-speaker-change', handleActiveSpeakerChange);
   }, [daily]);
 
   return (

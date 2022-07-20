@@ -1,5 +1,4 @@
-import React from 'react';
-import { useMediaDevices } from '@custom/shared/contexts/MediaDeviceProvider';
+import { useMediaDevices } from '../../contexts/MediaDeviceProvider';
 import Field from '../Field';
 import { SelectInput } from '../Input';
 
@@ -25,9 +24,7 @@ export const DeviceSelect = () => {
       <Field label="Select camera:">
         <SelectInput
           onChange={(e) => setCurrentCam(cams[e.target.value])}
-          value={cams.findIndex(
-            (i) => i.deviceId === currentCam.deviceId
-          )}
+          value={cams.findIndex((i) => i.deviceId === currentCam.deviceId)}
         >
           {cams.map(({ deviceId, label }, i) => (
             <option key={`cam-${deviceId}`} value={i}>
@@ -40,9 +37,7 @@ export const DeviceSelect = () => {
       <Field label="Select microphone:">
         <SelectInput
           onChange={(e) => setCurrentMic(mics[e.target.value])}
-          value={mics.findIndex(
-            (i) => i.deviceId === currentMic.deviceId
-          )}
+          value={mics.findIndex((i) => i.deviceId === currentMic.deviceId)}
         >
           {mics.map(({ deviceId, label }, i) => (
             <option key={`mic-${deviceId}`} value={i}>

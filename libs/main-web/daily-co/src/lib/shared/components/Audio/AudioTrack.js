@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from 'react';
-import { useUIState } from '@custom/shared/contexts/UIStateProvider';
+import { useRef, useEffect } from 'react';
+import { useUIState } from '../../contexts/UIStateProvider';
 import PropTypes from 'prop-types';
 
 export const AudioTrack = ({ track }) => {

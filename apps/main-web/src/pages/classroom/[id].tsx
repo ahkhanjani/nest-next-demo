@@ -1,3 +1,4 @@
+import { TextChat } from '@fm/daily-co';
 import { NextPage } from 'next';
 // containers
 // import { DeviceSelectList } from '@fm/daily.co';
@@ -13,6 +14,10 @@ const ClassroomPage: NextPage = () => {
 
   // ────────────────────────────────────────────────────────────────────────────────
 
-  return undefined;
+  return (
+    <>
+      <TextChat />
+    </>
+  );
 };
 export default ClassroomPage;

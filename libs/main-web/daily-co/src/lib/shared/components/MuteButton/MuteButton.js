@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
-import { ReactComponent as IconCameraOff } from '@custom/shared/icons/camera-off-md.svg';
-import { ReactComponent as IconCameraOn } from '@custom/shared/icons/camera-on-md.svg';
-import { ReactComponent as IconMicOff } from '@custom/shared/icons/mic-off-md.svg';
-import { ReactComponent as IconMicOn } from '@custom/shared/icons/mic-on-md.svg';
+import { useState } from 'react';
+import { ReactComponent as IconCameraOff } from '../../icons/camera-off-md.svg';
+import { ReactComponent as IconCameraOn } from '../../icons/camera-on-md.svg';
+import { ReactComponent as IconMicOff } from '../../icons/mic-off-md.svg';
+import { ReactComponent as IconMicOn } from '../../icons/mic-on-md.svg';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { useCallState } from '../../contexts/CallProvider';
 import Button from '../Button';
 
-export const MuteButton = ({ isMuted, mic = false, className, disabled = false, ...props }) => {
+export const MuteButton = ({
+  isMuted,
+  mic = false,
+  className,
+  disabled = false,
+  ...props
+}) => {
   const { callObject } = useCallState();
   const [muted, setMuted] = useState(!isMuted);
 

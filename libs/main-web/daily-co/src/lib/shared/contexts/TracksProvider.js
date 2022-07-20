@@ -8,7 +8,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { sortByKey } from '@custom/shared/lib/sortByKey';
+import { sortByKey } from '../lib/sortByKey';
 import deepEqual from 'fast-deep-equal';
 import { useDeepCompareCallback } from 'use-deep-compare';
 
@@ -32,7 +32,11 @@ const SUBSCRIBE_OR_STAGE_ALL_VIDEO_THRESHOLD = 9;
 const TracksContext = createContext(null);
 
 export const TracksProvider = ({ children }) => {
-  const { callObject: daily, optimizeLargeCalls, subscribeToTracksAutomatically } = useCallState();
+  const {
+    callObject: daily,
+    optimizeLargeCalls,
+    subscribeToTracksAutomatically,
+  } = useCallState();
   const { participants } = useParticipants();
   const { viewMode } = useUIState();
   const [state, dispatch] = useReducer(tracksReducer, initialTracksState);
@@ -244,10 +248,10 @@ export const TracksProvider = ({ children }) => {
       const hasAudioChanged =
         // State changed
         participant.tracks.audio.state !==
-        state.audioTracks?.[participant.user_id]?.state ||
+          state.audioTracks?.[participant.user_id]?.state ||
         // Screen state changed
         participant.tracks.screenAudio.state !==
-        state.audioTracks?.[getScreenId(participant.user_id)]?.state ||
+          state.audioTracks?.[getScreenId(participant.user_id)]?.state ||
         // Off/blocked reason changed
         !deepEqual(
           {
@@ -262,7 +266,7 @@ export const TracksProvider = ({ children }) => {
       const hasVideoChanged =
         // State changed
         participant.tracks.video?.state !==
-        state.videoTracks?.[participant.user_id]?.state ||
+          state.videoTracks?.[participant.user_id]?.state ||
         // Off/blocked reason changed
         !deepEqual(
           {
@@ -322,7 +326,7 @@ export const TracksProvider = ({ children }) => {
     handleParticipantLeft,
     handleParticipantUpdated,
     handleTrackStarted,
-    handleTrackStopped
+    handleTrackStopped,
   ]);
 
   const joinedSubscriptionQueue = useRef([]);
@@ -334,23 +338,20 @@ export const TracksProvider = ({ children }) => {
       const ids = joinedSubscriptionQueue.current.splice(0);
       const participants = daily.participants();
       const topology = (await daily.getNetworkTopology())?.topology;
-      const updates = ids.reduce(
-        (o, id) => {
-          if (!participants?.[id]?.tracks?.audio?.subscribed) {
-            o[id] = {
-              setSubscribedTracks: {
-                screenAudio: true,
-                screenVideo: true,
-              },
-            };
-          }
-          if (topology === 'peer') {
-            o[id] = { setSubscribedTracks: true };
-          }
-          return o;
-        },
-        {}
-      );
+      const updates = ids.reduce((o, id) => {
+        if (!participants?.[id]?.tracks?.audio?.subscribed) {
+          o[id] = {
+            setSubscribedTracks: {
+              screenAudio: true,
+              screenVideo: true,
+            },
+          };
+        }
+        if (topology === 'peer') {
+          o[id] = { setSubscribedTracks: true };
+        }
+        return o;
+      }, {});
       if (Object.keys(updates).length === 0) return;
       daily.updateParticipants(updates);
     }, 100);

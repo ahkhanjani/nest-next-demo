@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import Button from '@custom/shared/components/Button';
-import { DEVICE_MODAL } from '@custom/shared/components/DeviceSelectModal/DeviceSelectModal';
-import { TextInput } from '@custom/shared/components/Input';
-import Loader from '@custom/shared/components/Loader';
-import MuteButton from '@custom/shared/components/MuteButton';
-import Tile from '@custom/shared/components/Tile';
-import { ACCESS_STATE_LOBBY } from '@custom/shared/constants';
-import { useCallState } from '@custom/shared/contexts/CallProvider';
+import { useState, useEffect, useMemo } from 'react';
+import Button from '../Button';
+import { DEVICE_MODAL } from '../DeviceSelectModal/DeviceSelectModal';
+import { TextInput } from '../Input';
+import Loader from '../Loader';
+import MuteButton from '../MuteButton';
+import Tile from '../Tile';
+import { ACCESS_STATE_LOBBY } from '../../constants';
+import { useCallState } from '../../contexts/CallProvider';
 import {
   DEVICE_STATE_BLOCKED,
   DEVICE_STATE_NOT_FOUND,
   DEVICE_STATE_IN_USE,
   DEVICE_STATE_PENDING,
   useMediaDevices,
-} from '@custom/shared/contexts/MediaDeviceProvider';
-import { useParticipants } from '@custom/shared/contexts/ParticipantsProvider';
-import { useUIState } from '@custom/shared/contexts/UIStateProvider';
-import IconSettings from '@custom/shared/icons/settings-sm.svg';
+} from '../../contexts/MediaDeviceProvider';
+import { useParticipants } from '../../contexts/ParticipantsProvider';
+import { useUIState } from '../../contexts/UIStateProvider';
+import IconSettings from '../../icons/settings-sm.svg';
 
 import { useDeepCompareMemo } from 'use-deep-compare';
 
@@ -30,14 +30,8 @@ import { useDeepCompareMemo } from 'use-deep-compare';
 export const HairCheck = () => {
   const { callObject } = useCallState();
   const { localParticipant } = useParticipants();
-  const {
-    camState,
-    micState,
-    camError,
-    micError,
-    isCamMuted,
-    isMicMuted,
-  } = useMediaDevices();
+  const { camState, micState, camError, micError, isCamMuted, isMicMuted } =
+    useMediaDevices();
   const { openModal } = useUIState();
   const [waiting, setWaiting] = useState(false);
   const [joining, setJoining] = useState(false);
@@ -99,9 +93,11 @@ export const HairCheck = () => {
     [localParticipant]
   );
 
-  const isLoading = useMemo(() => camState === DEVICE_STATE_PENDING || micState === DEVICE_STATE_PENDING, [
-    camState, micState,
-  ]);
+  const isLoading = useMemo(
+    () =>
+      camState === DEVICE_STATE_PENDING || micState === DEVICE_STATE_PENDING,
+    [camState, micState]
+  );
 
   const hasError = useMemo(() => camError || micError, [camError, micError]);
 
@@ -165,10 +161,7 @@ export const HairCheck = () => {
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
         />
-        <Button
-          disabled={joining || userName.length < 3}
-          type="submit"
-        >
+        <Button disabled={joining || userName.length < 3} type="submit">
           Join call
         </Button>
       </>
@@ -222,10 +215,12 @@ export const HairCheck = () => {
             </div>
             {tileMemo}
           </div>
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            joinCall(userName);
-          }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              joinCall(userName);
+            }}
+          >
             <footer>{waiting ? showWaitingMessage : showUsernameInput}</footer>
           </form>
         </div>

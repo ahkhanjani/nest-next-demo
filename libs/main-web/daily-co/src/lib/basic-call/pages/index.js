@@ -4,7 +4,7 @@ import { MediaDeviceProvider } from '../../shared/contexts/MediaDeviceProvider';
 import { ParticipantsProvider } from '../../shared/contexts/ParticipantsProvider';
 import { ScreenShareProvider } from '../../shared/contexts/ScreenShareProvider';
 import { TracksProvider } from '../../shared/contexts/TracksProvider';
-import { UIStateProvider } from '../../shared/CallProvider/shared/contexts/UIStateProvider';
+import { UIStateProvider } from '../../shared/contexts/UIStateProvider';
 import { WaitingRoomProvider } from '../../shared/contexts/WaitingRoomProvider';
 import getDemoProps from '../../shared/lib/demoProps';
 import PropTypes from 'prop-types';

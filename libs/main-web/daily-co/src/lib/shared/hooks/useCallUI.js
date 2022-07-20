@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
-import Loader from '@custom/shared/components/Loader';
-import MessageCard from '@custom/shared/components/MessageCard';
+import { useCallback, useEffect } from 'react';
+import Loader from '../components/Loader';
+import MessageCard from '../components/MessageCard';
 import {
   CALL_STATE_ENDED,
   CALL_STATE_JOINED,
@@ -12,7 +12,7 @@ import {
   CALL_STATE_REDIRECTING,
   CALL_STATE_NOT_ALLOWED,
   CALL_STATE_EXPIRED,
-} from '@custom/shared/contexts/useCallMachine';
+} from '../contexts/useCallMachine';
 import { useRouter } from 'next/router';
 import HairCheck from '../components/HairCheck';
 
