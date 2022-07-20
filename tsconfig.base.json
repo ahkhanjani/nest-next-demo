@@ -43,9 +43,13 @@
       "fm/main-web-feature-network": [
         "libs/main-web/feature/network/src/index.ts"
       ],
+      "fm/material-web-feature-material-browser": [
+        "libs/material-web/feature/material-browser/src/index.ts"
+      ],
       "fm/material-web-feature-network": [
         "libs/material-web/feature/network/src/index.ts"
       ],
+      "fm/material-web-state": ["libs/material-web/state/src/index.ts"],
       "fm/shared-feature-network": ["libs/shared/feature/network/src/index.ts"],
       "fm/shared-util-routing": ["libs/shared/util/routing/src/index.ts"]
     }
