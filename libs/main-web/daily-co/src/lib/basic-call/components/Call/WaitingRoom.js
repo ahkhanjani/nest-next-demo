@@ -2,8 +2,8 @@ import React from 'react';
 import {
   WaitingRoomModal,
   WaitingRoomNotification,
-} from '@custom/shared/components/WaitingRoom';
-import { useWaitingRoom } from '@custom/shared/contexts/WaitingRoomProvider';
+} from '../../../shared/components/WaitingRoom';
+import { useWaitingRoom } from '../../../shared/contexts/WaitingRoomProvider';
 
 export const WaitingRoom = () => {
   const { setShowModal, showModal } = useWaitingRoom();

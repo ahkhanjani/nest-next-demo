@@ -1,5 +1,5 @@
 import React from 'react';
-import GlobalStyle from '@custom/shared/components/GlobalStyle';
+import GlobalStyle from '../../shared/components/GlobalStyle';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 

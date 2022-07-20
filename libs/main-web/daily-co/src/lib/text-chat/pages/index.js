@@ -1,5 +1,5 @@
-import Index from '@custom/basic-call/pages';
-import getDemoProps from '@custom/shared/lib/demoProps';
+import Index from '../../basic-call/pages';
+import getDemoProps from '../../shared/lib/demoProps';
 
 export async function getStaticProps() {
   const defaultProps = getDemoProps();

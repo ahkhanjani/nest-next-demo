@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody, CardHeader } from '@custom/shared/components/Card';
+import { Card, CardBody, CardHeader } from '../../../shared/components/Card';
 
 export const NotConfigured = () => (
   <Card>

@@ -1,6 +1,6 @@
 import React from 'react';
-import DeviceSelectModal from '@custom/shared/components/DeviceSelectModal/DeviceSelectModal';
-import { useUIState } from '@custom/shared/contexts/UIStateProvider';
+import DeviceSelectModal from '../../../shared/components/DeviceSelectModal/DeviceSelectModal';
+import { useUIState } from '../../../shared/contexts/UIStateProvider';
 
 export const Modals = () => {
   const { modals } = useUIState();

@@ -1,5 +1,5 @@
 import React from 'react';
-import MessageCard from '@custom/shared/components/MessageCard';
+import MessageCard from '../../shared/components/MessageCard';
 import { useRouter } from 'next/router';
 
 export default function RoomNotFound() {

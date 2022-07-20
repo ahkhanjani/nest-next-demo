@@ -1,5 +1,5 @@
 import React from 'react';
-import VideoContainer from '@custom/shared/components/VideoContainer/VideoContainer';
+import VideoContainer from '../../../shared/components/VideoContainer/VideoContainer';
 
 import { Container } from './Container';
 import { Header } from './Header';

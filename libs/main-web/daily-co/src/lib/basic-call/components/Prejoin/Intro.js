@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Button from '@custom/shared/components/Button';
+import Button from '../../../shared/components/Button';
 import {
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-} from '@custom/shared/components/Card';
-import Field from '@custom/shared/components/Field';
-import { TextInput, BooleanInput } from '@custom/shared/components/Input';
-import Well from '@custom/shared/components/Well';
+} from '../../../shared/components/Card';
+import Field from '../../../shared/components/Field';
+import { TextInput, BooleanInput } from '../../../shared/components/Input';
+import Well from '../../../shared/components/Well';
 import PropTypes from 'prop-types';
 
 /**
@@ -35,10 +35,12 @@ export const Intro = ({
   }, [room]);
 
   return (
-    <form onSubmit={(e) => {
-      e.preventDefault();
-      onJoin(roomName, owner, fetchToken);
-    }}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        onJoin(roomName, owner, fetchToken);
+      }}
+    >
       <Card>
         <CardHeader>{title}</CardHeader>
         <CardBody>
@@ -69,10 +71,7 @@ export const Intro = ({
           )}
         </CardBody>
         <CardFooter divider>
-          <Button
-            type="submit"
-            disabled={!roomName || fetching}
-          >
+          <Button type="submit" disabled={!roomName || fetching}>
             {fetching ? 'Fetching token...' : 'Join meeting'}
           </Button>
         </CardFooter>

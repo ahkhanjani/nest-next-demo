@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
-import ExpiryTimer from '@custom/shared/components/ExpiryTimer';
-import { useCallState } from '@custom/shared/contexts/CallProvider';
-import { useCallUI } from '@custom/shared/hooks/useCallUI';
+import ExpiryTimer from '../../../shared/components/ExpiryTimer';
+import { useCallState } from '../../../shared/contexts/CallProvider';
+import { useCallUI } from '../../../shared/hooks/useCallUI';
 
 import PropTypes from 'prop-types';
 import Room from '../Call/Room';

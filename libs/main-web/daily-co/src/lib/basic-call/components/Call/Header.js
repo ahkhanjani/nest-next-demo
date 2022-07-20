@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
-import HeaderCapsule from '@custom/shared/components/HeaderCapsule';
-import { useParticipants } from '@custom/shared/contexts/ParticipantsProvider';
-import { useUIState } from '@custom/shared/contexts/UIStateProvider';
+import HeaderCapsule from '../../../shared/components/HeaderCapsule';
+import { useParticipants } from '../../../shared/contexts/ParticipantsProvider';
+import { useUIState } from '../../../shared/contexts/UIStateProvider';
 
 export const Header = () => {
   const { participantCount } = useParticipants();

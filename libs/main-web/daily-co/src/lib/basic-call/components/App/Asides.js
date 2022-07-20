@@ -1,7 +1,7 @@
 import React from 'react';
-import { NetworkAside } from '@custom/shared/components/Aside';
-import { PeopleAside } from '@custom/shared/components/Aside';
-import { useUIState } from '@custom/shared/contexts/UIStateProvider';
+import { NetworkAside } from '../../../shared/components/Aside';
+import { PeopleAside } from '../../../shared/components/Aside';
+import { useUIState } from '../../../shared/contexts/UIStateProvider';
 
 export const Asides = () => {
   const { asides } = useUIState();

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Aside } from '@custom/shared/components/Aside';
-import Button from '@custom/shared/components/Button';
-import { TextInput } from '@custom/shared/components/Input';
-import { useParticipants } from '@custom/shared/contexts/ParticipantsProvider';
-import { useUIState } from '@custom/shared/contexts/UIStateProvider';
-import { useMessageSound } from '@custom/text-chat/hooks/useMessageSound';
+import { Aside } from '../../shared/components/Aside';
+import Button from '../../shared/components/Button';
+import { TextInput } from '../../shared/components/Input';
+import { useParticipants } from '../../shared/contexts/ParticipantsProvider';
+import { useUIState } from '../../shared/contexts/UIStateProvider';
+import { useMessageSound } from '../../text-chat/hooks/useMessageSound';
 import { useChat } from '../contexts/ChatProvider';
 
 export const CHAT_ASIDE = 'chat';
@@ -49,7 +49,9 @@ export const ChatAside = () => {
       <div className="messages-container" ref={chatWindowRef}>
         {chatHistory.map((chatItem) => (
           <div
-            className={isLocalUser(chatItem.senderID) ? 'message local' : 'message'}
+            className={
+              isLocalUser(chatItem.senderID) ? 'message local' : 'message'
+            }
             key={chatItem.id}
           >
             <span className="content">{chatItem.message}</span>
@@ -57,11 +59,13 @@ export const ChatAside = () => {
           </div>
         ))}
       </div>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        sendMessage(newMessage);
-        setNewMessage('');
-      }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          sendMessage(newMessage);
+          setNewMessage('');
+        }}
+      >
         <footer className="chat-footer">
           <TextInput
             value={newMessage}
