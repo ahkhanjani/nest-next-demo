@@ -17,3 +17,8 @@ export function path<Pattern extends string>(
 ): Path<Params<Pattern>> {
   return 'shared-util-routing' as any;
 }
+
+// export function next_getPages() {
+//   const pages = await glob('pages/**/*.js', { cwd: __dirname });
+//   return pages;
+// }
