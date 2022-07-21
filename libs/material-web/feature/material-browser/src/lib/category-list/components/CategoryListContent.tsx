@@ -14,19 +14,23 @@ import ListContainer from '../../../components/ListContainer';
 import CreateCategoryButton from './CreateCategoryButton';
 import EditDialog from './EditDialog';
 // store
-import { useAppDispatch, addPathCategory } from 'fm/material-web-state';
+import {
+  useAppDispatch,
+  addPathCategory,
+  useAppSelector,
+} from 'fm/material-web-state';
 // service
 import { useCategoryListService } from '../service/CategoryListServiceProvider';
 
 export const CategoryListContent: React.FC<CategoryListContentProps> = ({
   page,
   setPage,
-  parentId,
 }) => {
   const { data, loading, refetch } = useCategoryListService();
 
   // ─── Store ──────────────────────────────────────────────────────────────────────
 
+  const { endId: parentId } = useAppSelector((state) => state.categoryPath);
   const dispatch = useAppDispatch();
 
   // ─── State ──────────────────────────────────────────────────────────────────────
@@ -120,5 +124,4 @@ export default CategoryListContent;
 interface CategoryListContentProps {
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  parentId: string;
 }

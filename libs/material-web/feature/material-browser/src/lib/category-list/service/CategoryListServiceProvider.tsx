@@ -8,6 +8,7 @@ import {
 // constants
 import { PAGINATION_LIMIT } from '../../../constants';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';
+import { useAppSelector } from 'fm/material-web-state';
 
 export const CategoryListServiceContext =
   createContext<CategoryListServiceContextValue>(
@@ -16,7 +17,11 @@ export const CategoryListServiceContext =
 
 export const CategoryListServiceProvider: React.FC<
   PropsWithChildren<CategoryListServiceProviderProps>
-> = ({ page, parentId, children }) => {
+> = ({ page, children }) => {
+  // ─── Store ──────────────────────────────────────────────────────────────────────
+
+  const { endId: parentId } = useAppSelector((state) => state.categoryPath);
+
   // ─── Gql ────────────────────────────────────────────────────────────────────────
 
   const { data, error, loading, refetch } =
@@ -60,5 +65,4 @@ export interface CategoryListServiceContextValue {
 
 interface CategoryListServiceProviderProps {
   page: number;
-  parentId: string;
 }
