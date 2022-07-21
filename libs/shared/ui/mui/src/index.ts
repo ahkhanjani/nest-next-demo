@@ -1,1 +1,2 @@
-export * from './lib/ScrollDialog';
+export * from './components/ScrollDialog';
+export * from './components/ListSkeleton';

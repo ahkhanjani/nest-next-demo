@@ -12,18 +12,18 @@ import { PathCategory } from '@fm/shared-types';
 // cmp
 import ListContainer from '../../../components/ListContainer';
 import CreateCategoryButton from './CreateCategoryButton';
-import CreateCategoryDialog from './CreateCategoryDialog';
+import EditDialog from './EditDialog';
 // store
 import { useAppDispatch, addPathCategory } from 'fm/material-web-state';
 // service
 import { useCategoryListService } from '../service/CategoryListServiceProvider';
 
-const CategoryListContent: React.FC<CategoryListContentProps> = ({
+export const CategoryListContent: React.FC<CategoryListContentProps> = ({
   page,
   setPage,
   parentId,
 }) => {
-  const { data, error, loading, refetch } = useCategoryListService();
+  const { data, loading, refetch } = useCategoryListService();
 
   // ─── Store ──────────────────────────────────────────────────────────────────────
 
@@ -84,10 +84,10 @@ const CategoryListContent: React.FC<CategoryListContentProps> = ({
         pageCount: data ? data.materialCategoriesPaginate.pagesCount : 1,
       }}
     >
-      <CreateCategoryDialog
+      <EditDialog
         isOpen={isInputDialogOpen}
         setIsOpen={setIsInputDialogOpen}
-        {...{ refetch, editingCategory }}
+        {...{ editingCategory }}
       />
       <List>
         <CreateCategoryButton {...{ handleOpenCreateDialog }} />

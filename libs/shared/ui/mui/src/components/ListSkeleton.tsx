@@ -1,6 +1,7 @@
+// mui
 import Skeleton from '@mui/material/Skeleton';
 
-const ListSkeleton: React.FC = () => {
+export const ListSkeleton: React.FC = () => {
   return (
     <>
       <Skeleton variant="rectangular" />

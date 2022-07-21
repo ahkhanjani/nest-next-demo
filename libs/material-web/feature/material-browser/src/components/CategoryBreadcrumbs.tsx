@@ -10,24 +10,16 @@ import classes from './CategoryBreadcrumbs.module.scss';
 import {
   useAppSelector,
   useAppDispatch,
-} from '../../../../../../apps/material-web/src/hooks';
-import { removePathCategories } from '../../../../../../apps/material-web/src/store/category-path';
+  removePathCategories,
+} from 'fm/material-web-state';
 
 const CategoryBreadcrumbs: React.FC = () => {
-  //
-  // ─── STORE ──────────────────────────────────────────────────────────────────────
-  //
+  // ─── Store ──────────────────────────────────────────────────────────────────────
 
   const { path: categoryPath } = useAppSelector((state) => state.categoryPath);
   const dispatch = useAppDispatch();
 
-  //
-  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
-  //
-
-  function handleArrowBackClick() {
-    dispatch(removePathCategories(1));
-  }
+  // ─── Handlers ───────────────────────────────────────────────────────────────────
 
   function handleItemClick(id: string) {
     const clickedItemIndex: number = categoryPath.findIndex(
@@ -46,7 +38,9 @@ const CategoryBreadcrumbs: React.FC = () => {
       <IconButton
         aria-label="arrow-back"
         sx={{ mr: 3 }}
-        onClick={handleArrowBackClick}
+        onClick={() => {
+          dispatch(removePathCategories(1));
+        }}
         disabled={categoryPath.length === 0}
       >
         <ArrowBackIcon />
@@ -55,10 +49,13 @@ const CategoryBreadcrumbs: React.FC = () => {
         {categoryPath.map(
           ({ id, title }, index) =>
             index < categoryPath.length - 1 && (
+              // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <a
                 key={id}
-                className={classes.breadcrumbLink}
-                onClick={() => handleItemClick(id)}
+                className={classes['breadcrumbLink']}
+                onClick={() => {
+                  handleItemClick(id);
+                }}
               >
                 {title}
               </a>

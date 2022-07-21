@@ -5,26 +5,16 @@ import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 // cmp
-import ListSkeleton from './ListSkeleton';
+import { ListSkeleton } from '@fm/mui';
 
-const ListContainer: React.FC<PropsWithChildren<ListContainerProps>> = ({
-  children,
+export const ListContainer: React.FC<PropsWithChildren<ListContainerProps>> = ({
   title,
   loading,
   page,
   setPage,
   pageCount,
+  children,
 }) => {
-  //
-  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
-  //
-
-  function handleChangePage(newPage: number) {
-    setPage(newPage);
-  }
-
-  // ────────────────────────────────────────────────────────────────────────────────
-
   return (
     <>
       <Typography mb={2} ml={2}>
@@ -45,7 +35,9 @@ const ListContainer: React.FC<PropsWithChildren<ListContainerProps>> = ({
             count={pageCount}
             size="small"
             page={page}
-            onChange={(_, newPage) => handleChangePage(newPage)}
+            onChange={(_, newPage) => {
+              setPage(newPage);
+            }}
           />
         </Container>
       )}

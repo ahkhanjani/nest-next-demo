@@ -12,8 +12,6 @@ export const ScrollDialog: React.FC<ScrollDialogProps> = ({
   isOpen,
   handleClose,
 }) => {
-  // ────────────────────────────────────────────────────────────────────────────────
-
   return (
     <Dialog
       open={isOpen}
@@ -34,6 +32,7 @@ export const ScrollDialog: React.FC<ScrollDialogProps> = ({
     </Dialog>
   );
 };
+export default ScrollDialog;
 
 interface ScrollDialogProps {
   title: string;

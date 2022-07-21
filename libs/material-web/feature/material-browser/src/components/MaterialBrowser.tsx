@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid';
 // cmp
 import CategoryBreadcrumbs from './CategoryBreadcrumbs';
-import CategoryList from './CategoryList';
-import MaterialList from './MaterialList';
+import CategoryList from '../lib/category-list/components/CategoryList';
+import MaterialList from '../lib/material-list/components/MaterialList';
 
-const MaterialBrowser: React.FC = () => {
+export const MaterialBrowser: React.FC = () => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} display="flex" flexDirection="row" alignItems="center">

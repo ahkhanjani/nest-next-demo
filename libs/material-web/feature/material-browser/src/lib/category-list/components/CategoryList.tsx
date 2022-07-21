@@ -1,6 +1,9 @@
-import { useAppSelector } from 'fm/material-web-state';
 import { useState } from 'react';
+// state
+import { useAppSelector } from 'fm/material-web-state';
+// service
 import { CategoryListServiceProvider } from '../service/CategoryListServiceProvider';
+// cmp
 import CategoryListContent from './CategoryListContent';
 
 export const CategoryList: React.FC = () => {
