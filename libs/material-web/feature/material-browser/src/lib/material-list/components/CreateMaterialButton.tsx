@@ -6,13 +6,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 // - icons
 import AddIcon from '@mui/icons-material/Add';
-// routes
-import ROUTES from '../../../../../../../../apps/material-web/src/routes';
 
 const CreateMaterialButton: React.FC = () => {
   return (
     <ListItem disablePadding>
-      <Link href={ROUTES.WIZARD} shallow>
+      <Link href={'' /* ROUTES.WIZARD */} shallow>
         <ListItemButton>
           <ListItemIcon>
             <AddIcon />
