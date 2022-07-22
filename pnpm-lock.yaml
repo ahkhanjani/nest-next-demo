@@ -158,6 +158,7 @@ specifiers:
   storybook-addon-next: ^1.6.7
   storybook-addon-swc: ^1.1.7
   supertest: ^6.2.4
+  swc-loader: 0.1.15
   tailwindcss: ^3.1.6
   ts-jest: ^28.0.5
   ts-loader: ^9.3.1
@@ -335,6 +336,7 @@ devDependencies:
   storybook-addon-next: 1.6.7_7ax4sfkz4ofyn4jhflircdjpkm
   storybook-addon-swc: 1.1.7_webpack@5.73.0
   supertest: 6.2.4
+  swc-loader: 0.1.15_fbxb6tjmf573k2epils4wic3g4
   tailwindcss: 3.1.6_ts-node@10.8.2
   ts-jest: 28.0.5_dvf3gqad2lwurck7yyca7j3d3i
   ts-loader: 9.3.1_3o2jfq6vfqxns3sz6wn2nnc3ei
@@ -20167,6 +20169,17 @@ packages:
     resolution: {integrity: sha512-kc6S2YS/2yXbtkSMunBtKdah4VFETZ8Oh6ONSmSd9bRxhqTrtARUCBUiWXH3xVPpvR7tz2CSnkuXVE42EcGnMw==}
     dependencies:
       tslib: 2.4.0
+    dev: true
+
+  /swc-loader/0.1.15_fbxb6tjmf573k2epils4wic3g4:
+    resolution: {integrity: sha512-cn1WPIeQJvXM4bbo3OwdEIapsQ4uUGOfyFj0h2+2+brT0k76DCGnZXDE2KmcqTd2JSQ+b61z2NPMib7eEwMYYw==}
+    peerDependencies:
+      '@swc/core': ^1.2.52
+      webpack: '>=2'
+    dependencies:
+      '@swc/core': 1.2.212
+      loader-utils: 2.0.2
+      webpack: 5.73.0_@swc+core@1.2.212
     dev: true
 
   /swc-loader/0.1.16_fbxb6tjmf573k2epils4wic3g4:
