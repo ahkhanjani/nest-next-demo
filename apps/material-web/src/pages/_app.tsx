@@ -8,7 +8,7 @@ import ColorModeProvider from '../providers/ColorModeProvider';
 // cmp
 import SnackbarAlert from '../components/SnackbarAlert';
 // store
-import store from '../store';
+import { store } from 'fm/material-web-state';
 import { Provider as StoreProvider } from 'react-redux';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

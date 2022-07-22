@@ -64,51 +64,35 @@ const EditDialog: React.FC<EditDialogProps> = ({
   async function handleUpdate() {
     if (!editingCategory) return;
 
-    try {
-      await submitUpdate(
-        {
-          id: editingCategory.id,
-          title: formik.values.title,
-        },
-        { setErrors: formik.setErrors } as FormikHelpers<UpdateValues>
-      );
+    await submitUpdate(
+      {
+        id: editingCategory.id,
+        title: formik.values.title,
+      },
+      { setErrors: formik.setErrors } as FormikHelpers<UpdateValues>
+    );
 
-      if (updateErrors) {
-        console.error(updateErrors);
-        return;
-      }
+    handleClose();
 
-      handleClose();
-      await refetch();
-    } catch (err) {
-      console.error(err);
-    }
+    await refetch();
   }
 
   async function handleCreate() {
     if (!editingCategory) return;
 
-    try {
-      await submitCreate(
-        {
-          parentId,
-          title: formik.values.title,
-        },
-        {
-          setErrors: formik.setErrors,
-        } as FormikHelpers<CreateCategoryServiceValues>
-      );
+    await submitCreate(
+      {
+        parentId,
+        title: formik.values.title,
+      },
+      {
+        setErrors: formik.setErrors,
+      } as FormikHelpers<CreateCategoryServiceValues>
+    );
 
-      if (createErrors) {
-        console.error(createErrors);
-        return;
-      }
+    handleClose();
 
-      handleClose();
-      await refetch();
-    } catch (err) {
-      console.error(err);
-    }
+    await refetch();
   }
 
   function handleClose() {
@@ -120,24 +104,18 @@ const EditDialog: React.FC<EditDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onClose={handleClose}>
-      {editingCategory ? (
-        <DialogTitle>Edit Category...</DialogTitle>
-      ) : (
-        <DialogTitle>Create New Category...</DialogTitle>
-      )}
+      <DialogTitle>
+        {editingCategory ? 'Edit Category...' : 'Create New Category...'}
+      </DialogTitle>
       <DialogContent>
-        {editingCategory ? (
-          <DialogContentText>
-            {`Current name: ${editingCategory?.title}`}
-          </DialogContentText>
-        ) : (
-          <DialogContentText>
-            Current path:
-            {categoryPath.map(({ title }, index) =>
+        <DialogContentText>
+          {editingCategory
+            ? `Current name: ${editingCategory?.title}`
+            : `Current path:
+            ${categoryPath.map(({ title }, index) =>
               index === 0 ? ` ${title}` : ` / ${title}`
-            )}
-          </DialogContentText>
-        )}
+            )}`}
+        </DialogContentText>
         <TextField
           autoFocus
           margin="dense"
@@ -155,7 +133,11 @@ const EditDialog: React.FC<EditDialogProps> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={() => formik.handleSubmit()}>
+        <Button
+          onClick={() => {
+            formik.handleSubmit();
+          }}
+        >
           {editingCategory ? 'Update' : 'Create'}
         </Button>
       </DialogActions>

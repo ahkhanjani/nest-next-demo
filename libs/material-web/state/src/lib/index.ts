@@ -4,7 +4,7 @@ import editingMaterialReducer from './editing-material';
 import CategoryPathReducer from './category-path';
 import SnackbarMessageReducer from './snackbar-message';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     creatingMaterials: creatingMaterialsReducer,
     editingMaterial: editingMaterialReducer,

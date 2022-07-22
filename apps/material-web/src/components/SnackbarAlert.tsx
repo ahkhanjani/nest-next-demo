@@ -3,7 +3,7 @@ import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 // store
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { closeSnackbar } from '../store/snackbar-message';
+import { closeSnackbar } from 'fm/material-web-state';
 
 const SnackbarAlert: React.FC = () => {
   //

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 // - icons
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 // styles
-import classes from './CategoryBreadcrumbs.module.scss';
+import classes from './CategoryBreadcrumbs.module.css';
 // store
 import {
   useAppSelector,
