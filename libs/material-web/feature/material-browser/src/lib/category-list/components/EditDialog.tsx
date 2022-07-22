@@ -33,10 +33,8 @@ const EditDialog: React.FC<EditDialogProps> = ({
   setIsOpen,
 }) => {
   const { refetch } = useCategoryListService();
-  const { errors: createErrors, handleSubmit: submitCreate } =
-    useCreateMaterialCategoryService();
-  const { errors: updateErrors, handleSubmit: submitUpdate } =
-    useUpdateMaterialCategoryService();
+  const { handleSubmit: submitCreate } = useCreateMaterialCategoryService();
+  const { handleSubmit: submitUpdate } = useUpdateMaterialCategoryService();
 
   // ─── Store ──────────────────────────────────────────────────────────────────────
 
