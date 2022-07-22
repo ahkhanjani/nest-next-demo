@@ -21,6 +21,8 @@ import {
 } from 'fm/material-web-state';
 // service
 import { useCategoryListService } from '../service/CategoryListServiceProvider';
+import { UpdateMaterialCategoryServiceProvider } from '../service/UpdateCategoryServiceProvider';
+import { CreateMaterialCategoryServiceProvider } from '../service/CreateCategoryServiceProvider';
 
 export const CategoryListContent: React.FC<CategoryListContentProps> = ({
   page,
@@ -79,44 +81,59 @@ export const CategoryListContent: React.FC<CategoryListContentProps> = ({
   // ────────────────────────────────────────────────────────────────────────────────
 
   return (
-    <ListContainer
-      title="Categories"
-      loading={loading}
-      {...{
-        page,
-        setPage,
-        pageCount: data ? data.materialCategoriesPaginate.pagesCount : 1,
-      }}
-    >
-      <EditDialog
-        isOpen={isInputDialogOpen}
-        setIsOpen={setIsInputDialogOpen}
-        {...{ editingCategory }}
-      />
-      <List>
-        <CreateCategoryButton {...{ handleOpenCreateDialog }} />
-        {data &&
-          data.materialCategoriesPaginate.materialCategories.map((ctg) => (
-            <ListItem
-              key={ctg.id}
-              secondaryAction={
-                <IconButton
-                  edge="end"
-                  aria-label="edit"
-                  onClick={() => handleClickEdit(ctg)}
-                >
-                  <EditIcon />
-                </IconButton>
-              }
-              disablePadding
-            >
-              <ListItemButton onClick={() => handleCategoryClick(ctg)}>
-                <ListItemText primary={ctg.title} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-      </List>
-    </ListContainer>
+    <>
+      {editingCategory ? (
+        // edit mode
+        <UpdateMaterialCategoryServiceProvider>
+          <EditDialog
+            isOpen={isInputDialogOpen}
+            setIsOpen={setIsInputDialogOpen}
+            editingCategory={editingCategory}
+          />
+        </UpdateMaterialCategoryServiceProvider>
+      ) : (
+        // create mode
+        <CreateMaterialCategoryServiceProvider>
+          <EditDialog
+            isOpen={isInputDialogOpen}
+            setIsOpen={setIsInputDialogOpen}
+          />
+        </CreateMaterialCategoryServiceProvider>
+      )}
+      <ListContainer
+        title="Categories"
+        loading={loading}
+        {...{
+          page,
+          setPage,
+          pageCount: data ? data.materialCategoriesPaginate.pagesCount : 1,
+        }}
+      >
+        <List>
+          <CreateCategoryButton {...{ handleOpenCreateDialog }} />
+          {data &&
+            data.materialCategoriesPaginate.materialCategories.map((ctg) => (
+              <ListItem
+                key={ctg.id}
+                secondaryAction={
+                  <IconButton
+                    edge="end"
+                    aria-label="edit"
+                    onClick={() => handleClickEdit(ctg)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                }
+                disablePadding
+              >
+                <ListItemButton onClick={() => handleCategoryClick(ctg)}>
+                  <ListItemText primary={ctg.title} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+        </List>
+      </ListContainer>
+    </>
   );
 };
 export default CategoryListContent;

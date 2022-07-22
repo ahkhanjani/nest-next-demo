@@ -72,12 +72,10 @@ const EditDialog: React.FC<EditDialogProps> = ({
 
     handleClose();
 
-    await refetch();
+    refetch();
   }
 
   async function handleCreate() {
-    if (!editingCategory) return;
-
     await submitCreate(
       {
         parentId,
@@ -90,7 +88,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
 
     handleClose();
 
-    await refetch();
+    refetch();
   }
 
   function handleClose() {
@@ -109,10 +107,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
         <DialogContentText>
           {editingCategory
             ? `Current name: ${editingCategory?.title}`
-            : `Current path:
-            ${categoryPath.map(({ title }, index) =>
-              index === 0 ? ` ${title}` : ` / ${title}`
-            )}`}
+            : `Path: ${categoryPath.map(({ title }) => ` ${title}`)}`}
         </DialogContentText>
         <TextField
           autoFocus
