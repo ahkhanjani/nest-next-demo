@@ -10,7 +10,7 @@ import {
   UpdateMaterialCategoryInput,
   UpdateMaterialCategoryResponse,
   MaterialCategory,
-} from '@fm/api-interfaces';
+} from 'fm/api-interfaces';
 
 jest.mock('../material-categories.service.ts');
 

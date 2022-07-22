@@ -9,9 +9,9 @@ import { type FormikHelpers } from 'formik';
 import {
   CreateMaterialCategoryMutation,
   useCreateMaterialCategoryMutation,
-} from '@fm/gql';
-import { toErrorMap } from '@fm/utils';
-import type { UnpredictedFormErrors } from '@fm/shared-types';
+} from 'fm/shared-graphql';
+import { toErrorMap } from 'fm/shared-utils';
+import type { UnpredictedFormErrors } from 'fm/shared-types';
 import type { CreateCategoryServiceValues as Values } from '../types/CreateCategoryValues.interface';
 
 export const CreateMaterialCategoryServiceContext =

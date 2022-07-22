@@ -4,7 +4,7 @@ import {
   Exact,
   GetMaterialCategoriesPaginateQuery,
   useGetMaterialCategoriesPaginateQuery,
-} from '@fm/gql';
+} from 'fm/shared-graphql';
 // constants
 import { PAGINATION_LIMIT } from '../../../constants';
 import { ApolloError, ApolloQueryResult } from '@apollo/client';

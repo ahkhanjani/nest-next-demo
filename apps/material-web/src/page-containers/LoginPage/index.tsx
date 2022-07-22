@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 // - icons
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // auth
-import { AuthContext } from '@fm/auth';
+import { AuthContext } from 'fm/auth';
 // cmp
 import FormContent from './FormContent';
 import { FormikValues } from './types/formik';

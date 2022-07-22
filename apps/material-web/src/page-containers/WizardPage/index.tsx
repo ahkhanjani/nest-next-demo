@@ -13,13 +13,13 @@ import {
   useGetMaterialLazyQuery,
   useCreateMaterialsMutation,
   useUpdateMaterialMutation,
-} from '@fm/gql';
+} from 'fm/shared-graphql';
 // cmp
 import CategorySelectStep from './steps/CategorySelectStep';
 import MaterialCreateStep from './steps/MaterialCreateStep';
 // types
 import type { GraphQLErrors } from '@apollo/client/errors';
-import type { MaterialFormSchema } from '@fm/material-web/types';
+import type { MaterialFormSchema } from 'fm/material-web/types';
 // store
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { setEditingMaterialData } from '../../store/editing-material';

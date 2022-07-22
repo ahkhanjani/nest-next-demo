@@ -5,7 +5,7 @@ import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 // cmp
-import { ListSkeleton } from '@fm/mui';
+import { ListSkeleton } from 'fm/shared-ui-mui';
 
 export const ListContainer: React.FC<PropsWithChildren<ListContainerProps>> = ({
   title,

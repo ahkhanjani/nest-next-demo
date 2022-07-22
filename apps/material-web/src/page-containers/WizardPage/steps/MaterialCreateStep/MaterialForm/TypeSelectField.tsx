@@ -5,7 +5,7 @@ import SelectField from '../../../../../components/form/SelectField';
 // types
 import type { JSONSchema7 } from 'json-schema';
 import type { FormikValues } from './types/formik';
-import { MaterialFormSchema } from '@fm/material-web/types';
+import { MaterialFormSchema } from 'fm/material-web/types';
 
 const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
   setDynamicFormSchema: setRjsfSchema,

@@ -1,4 +1,4 @@
-import { getEnvironmentVariable } from '@fm/utils';
+import { getEnvironmentVariable } from 'fm/shared-utils';
 
 const config = {
   // daily.co

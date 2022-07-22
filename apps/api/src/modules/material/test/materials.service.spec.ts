@@ -1,8 +1,8 @@
 // import { Test, TestingModule } from '@nestjs/testing';
 // import { getModelToken } from '@nestjs/mongoose';
 // import { MaterialsService } from '../materials.service';
-// import { Material, MaterialModel } from '@fm/nest/material/interface';
-// import { MockType } from '@fm/types';
+// import { Material, MaterialModel } from 'fm/nest/material/interface';
+// import { MockType } from 'fm/types';
 // import { Model } from 'mongoose';
 // import { materialStub } from './stubs';
 //

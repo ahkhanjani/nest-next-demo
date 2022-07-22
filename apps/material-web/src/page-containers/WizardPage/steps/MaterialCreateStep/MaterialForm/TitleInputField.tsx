@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react';
 import { useFormikContext } from 'formik';
 // gql
-import { useCheckMaterialTitleExistsLazyQuery } from '@fm/gql';
+import { useCheckMaterialTitleExistsLazyQuery } from 'fm/shared-graphql';
 // cmp
 import InputField from '../../../../../components/form/InputField';
 // types

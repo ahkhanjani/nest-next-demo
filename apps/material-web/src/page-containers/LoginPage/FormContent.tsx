@@ -1,11 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { Form, useFormikContext } from 'formik';
 // gql
-import { useLoginMutation } from '@fm/gql';
+import { useLoginMutation } from 'fm/shared-graphql';
 // utils
-import { utilToErrorMap } from '@fm/util-to-error-map';
+import { utilToErrorMap } from 'fm/util-to-error-map';
 // auth
-import { AuthContext } from '@fm/auth';
+import { AuthContext } from 'fm/auth';
 // cmp
 import InputField from '../../components/form/InputField';
 import SubmitButton from '../../components/form/SubmitButton';

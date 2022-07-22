@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { FieldError } from '@fm/shared-types';
+import { FieldError } from 'fm/shared-types';
 import { PreRegEmail } from '../interface/pre-reg-email.interface';
 
 @ObjectType()

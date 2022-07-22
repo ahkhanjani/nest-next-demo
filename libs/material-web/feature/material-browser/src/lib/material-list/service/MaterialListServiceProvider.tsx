@@ -5,7 +5,7 @@ import {
   Exact,
   GetMaterialsPaginateQuery,
   useGetMaterialsPaginateQuery,
-} from '@fm/gql';
+} from 'fm/shared-graphql';
 // constants
 import { PAGINATION_LIMIT } from '../../../constants';
 // store

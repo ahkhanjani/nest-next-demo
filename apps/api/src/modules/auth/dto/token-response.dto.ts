@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { FieldError } from '@fm/shared-types';
+import { FieldError } from 'fm/shared-types';
 
 @ObjectType()
 export class TokenResponse {

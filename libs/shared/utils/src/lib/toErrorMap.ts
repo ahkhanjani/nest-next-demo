@@ -1,4 +1,4 @@
-import type { FieldError } from '@fm/shared-types';
+import type { FieldError } from 'fm/shared-types';
 
 export const toErrorMap = (errors: FieldError[]) => {
   const errorMap: Record<string, string> = {};

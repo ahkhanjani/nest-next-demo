@@ -1,8 +1,7 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 // providers
-import { ApolloProvider } from '@fm/network';
-import { AuthProvider } from '@fm/auth';
+import { ApolloProvider } from 'fm/material-web-feature-network';
 import ThemeProvider from '../providers/ThemeProvider';
 import ColorModeProvider from '../providers/ColorModeProvider';
 // cmp
@@ -20,14 +19,12 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <main className="app">
         <StoreProvider store={store}>
           <ApolloProvider>
-            <AuthProvider>
-              <ColorModeProvider>
-                <ThemeProvider>
-                  <SnackbarAlert />
-                  <Component {...pageProps} />
-                </ThemeProvider>
-              </ColorModeProvider>
-            </AuthProvider>
+            <ColorModeProvider>
+              <ThemeProvider>
+                <SnackbarAlert />
+                <Component {...pageProps} />
+              </ThemeProvider>
+            </ColorModeProvider>
           </ApolloProvider>
         </StoreProvider>
       </main>

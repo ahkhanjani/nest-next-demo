@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 // gql
-import { useGetMaterialCategoriesByParentIdQuery } from '@fm/gql';
+import { useGetMaterialCategoriesByParentIdQuery } from 'fm/shared-graphql';
 
 const CategorySelectField: React.FC<CategorySelectFieldProps> = ({
   parentId,

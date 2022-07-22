@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { MaterialData } from '@fm/shared-types';
+import type { MaterialData } from 'fm/shared-types';
 
 const initialState: EditingMaterialState = {
   editingMaterialData: undefined,

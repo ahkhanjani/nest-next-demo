@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 // fm
-import { capitalizeFirstLetter } from '@fm/utils';
+import { capitalizeFirstLetter } from 'fm/shared-utils';
 // styles
 import styles from './InputField.module.css';
 

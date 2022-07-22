@@ -9,7 +9,7 @@ import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 // types
-import type { PathCategory } from '@fm/shared-types';
+import type { PathCategory } from 'fm/shared-types';
 import type {
   CreateCategoryFormikValues as Values,
   CreateCategoryServiceValues,

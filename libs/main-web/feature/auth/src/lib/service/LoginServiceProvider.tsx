@@ -1,9 +1,9 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { type FormikHelpers } from 'formik';
 // fm
-import { CreateUserMutation, useCreateUserMutation } from '@fm/gql';
-import { toErrorMap } from '@fm/utils';
-import type { UnpredictedFormErrors } from '@fm/shared-types';
+import { CreateUserMutation, useCreateUserMutation } from 'fm/shared-graphql';
+import { toErrorMap } from 'fm/shared-utils';
+import type { UnpredictedFormErrors } from 'fm/shared-types';
 import type { LoginFormikValues as Values } from '../types/login-formik-values';
 
 export const LoginServiceContext = createContext<LoginServiceContextValue>(

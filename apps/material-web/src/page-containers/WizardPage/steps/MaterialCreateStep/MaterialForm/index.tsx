@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 // cmp
 import FormikContainer from './FormikContainer';
 import FormContent from './FormContent';
-import { MaterialFormSchema } from '@fm/material-web/types';
+import { MaterialFormSchema } from 'fm/material-web/types';
 
 const MaterialForm: React.FC<MaterialFormProps> = ({ materialFormSchemas }) => {
   return (

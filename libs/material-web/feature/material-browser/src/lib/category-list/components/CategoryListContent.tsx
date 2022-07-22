@@ -8,7 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 // - icons
 import EditIcon from '@mui/icons-material/Edit';
 // types
-import { PathCategory } from '@fm/shared-types';
+import { PathCategory } from 'fm/shared-types';
 // cmp
 import ListContainer from '../../../components/ListContainer';
 import CreateCategoryButton from './CreateCategoryButton';

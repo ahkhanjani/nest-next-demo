@@ -5,7 +5,7 @@ import MaterialStack from './MaterialStack';
 import MaterialForm from './MaterialForm';
 // store
 import { useAppSelector } from '../../../../hooks';
-import { MaterialFormSchema } from '@fm/material-web/types';
+import { MaterialFormSchema } from 'fm/material-web/types';
 
 const MaterialCreator: React.FC<MaterialCreatorProps> = ({
   materialFormSchemas,

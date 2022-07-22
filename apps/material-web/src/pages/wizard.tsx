@@ -7,9 +7,9 @@ import {
 import DashboardLayout from '../layouts/DashboardLayout';
 import WizardContainer from '../page-containers/WizardPage';
 // utils
-import { generateMaterialFormSchemas } from '@fm/material-web/material-form-schema-generator';
+import { generateMaterialFormSchemas } from 'fm/material-web/material-form-schema-generator';
 // types
-import type { MaterialFormSchema } from '@fm/material-web/types';
+import type { MaterialFormSchema } from 'fm/material-web/types';
 
 const CreateMaterialsPage: NextPage<CreateMaterialsPageServerSideProps> = ({
   materialFormSchemas,

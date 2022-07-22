@@ -4,9 +4,9 @@ import { type FormikHelpers } from 'formik';
 import {
   UpdateMaterialCategoryMutation,
   useUpdateMaterialCategoryMutation,
-} from '@fm/gql';
-import { toErrorMap } from '@fm/utils';
-import type { UnpredictedFormErrors } from '@fm/shared-types';
+} from 'fm/shared-graphql';
+import { toErrorMap } from 'fm/shared-utils';
+import type { UnpredictedFormErrors } from 'fm/shared-types';
 import type { UpdateCategoryFormikValues as Values } from '../types/UpdateCategoryValues.interface';
 
 export const UpdateMaterialCategoryServiceContext =

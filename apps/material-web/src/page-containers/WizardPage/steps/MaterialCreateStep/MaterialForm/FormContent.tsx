@@ -17,7 +17,7 @@ import {
   editMaterialData,
 } from '../../../../../store/creating-materials';
 import { Typography } from '@mui/material';
-import { MaterialFormSchema } from '@fm/material-web/types';
+import { MaterialFormSchema } from 'fm/material-web/types';
 
 const FormContent: React.FC<FormContentProps> = ({ materialFormSchemas }) => {
   const {

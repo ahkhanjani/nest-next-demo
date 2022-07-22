@@ -1,4 +1,4 @@
-import { FieldError } from '@fm/shared-types';
+import { FieldError } from 'fm/shared-types';
 import { toErrorMap } from '../lib/toErrorMap';
 
 describe('toErrorMap', () => {
