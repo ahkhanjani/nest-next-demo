@@ -1,4 +1,11 @@
+import { useEffect, useId } from 'react';
 import Link from 'next/link';
+// fm
+import {
+  setEditingMaterialId,
+  useAppDispatch,
+  useAppSelector,
+} from 'fm/material-web-state';
 // mui
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -6,13 +13,8 @@ import ListItemText from '@mui/material/ListItemText';
 // cmp
 import CreateMaterialButton from './CreateMaterialButton';
 import ListContainer from '../../../components/ListContainer';
+// service
 import { useMaterialListService } from '../service/MaterialListServiceProvider';
-import {
-  setEditingMaterialId,
-  useAppDispatch,
-  useAppSelector,
-} from 'fm/material-web-state';
-import { useEffect } from 'react';
 
 export const MaterialListContent: React.FC<MaterialListContentProps> = ({
   page,
@@ -33,10 +35,12 @@ export const MaterialListContent: React.FC<MaterialListContentProps> = ({
 
   // ────────────────────────────────────────────────────────────────────────────────
 
+  const domId = useId();
+
   return (
     <ListContainer
       title="Materials"
-      pageCount={data ? data.materialsPaginate.pagesCount : 1}
+      pageCount={data?.materialsPaginate.pagesCount || 1}
       {...{
         page,
         setPage,
@@ -47,7 +51,7 @@ export const MaterialListContent: React.FC<MaterialListContentProps> = ({
         <CreateMaterialButton />
         {data?.materialsPaginate.materials.map(({ id, title }) => {
           return (
-            <Link key={id} href={'' /* ROUTES.WIZARD */}>
+            <Link key={`${domId}-${id}`} href={'' /* ROUTES.WIZARD */}>
               <ListItemButton
                 onClick={() => {
                   dispatch(setEditingMaterialId(id));

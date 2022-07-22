@@ -80,33 +80,26 @@ export const CategoryListContent: React.FC<CategoryListContentProps> = ({
 
   // ────────────────────────────────────────────────────────────────────────────────
 
+  const EditDialogServiceProvider = editingCategory
+    ? UpdateMaterialCategoryServiceProvider
+    : CreateMaterialCategoryServiceProvider;
+
   return (
     <>
-      {editingCategory ? (
-        // edit mode
-        <UpdateMaterialCategoryServiceProvider>
-          <EditDialog
-            isOpen={isInputDialogOpen}
-            setIsOpen={setIsInputDialogOpen}
-            editingCategory={editingCategory}
-          />
-        </UpdateMaterialCategoryServiceProvider>
-      ) : (
-        // create mode
-        <CreateMaterialCategoryServiceProvider>
-          <EditDialog
-            isOpen={isInputDialogOpen}
-            setIsOpen={setIsInputDialogOpen}
-          />
-        </CreateMaterialCategoryServiceProvider>
-      )}
+      <EditDialogServiceProvider>
+        <EditDialog
+          isOpen={isInputDialogOpen}
+          setIsOpen={setIsInputDialogOpen}
+          {...{ editingCategory }}
+        />
+      </EditDialogServiceProvider>
       <ListContainer
         title="Categories"
-        loading={loading}
+        pageCount={data?.materialCategoriesPaginate.pagesCount || 1}
         {...{
           page,
           setPage,
-          pageCount: data ? data.materialCategoriesPaginate.pagesCount : 1,
+          loading,
         }}
       >
         <List>
@@ -119,7 +112,9 @@ export const CategoryListContent: React.FC<CategoryListContentProps> = ({
                   <IconButton
                     edge="end"
                     aria-label="edit"
-                    onClick={() => handleClickEdit(ctg)}
+                    onClick={() => {
+                      handleClickEdit(ctg);
+                    }}
                   >
                     <EditIcon />
                   </IconButton>

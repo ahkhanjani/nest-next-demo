@@ -5,8 +5,6 @@ import { MaterialListServiceProvider } from '../service/MaterialListServiceProvi
 import { MaterialListContent } from './MaterialListContent';
 
 const MaterialList: React.FC = () => {
-  // ─── State ──────────────────────────────────────────────────────────────────────
-
   const [page, setPage] = useState<number>(1);
 
   // ────────────────────────────────────────────────────────────────────────────────
