@@ -9,7 +9,7 @@ import WizardContainer from '../page-containers/WizardPage';
 // utils
 import { generateMaterialFormSchemas } from 'fm/material-web/material-form-schema-generator';
 // types
-import type { MaterialFormSchema } from 'fm/material-web/types';
+import type { MaterialFormSchema } from 'fm/material-web-types';
 
 const CreateMaterialsPage: NextPage<CreateMaterialsPageServerSideProps> = ({
   materialFormSchemas,
