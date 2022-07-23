@@ -5,6 +5,7 @@ import { CreateUserMutation, useCreateUserMutation } from 'fm/shared-graphql';
 import { toErrorMap } from 'fm/shared-utils';
 import type { UnpredictedFormErrors } from 'fm/shared-types';
 import type { LoginFormikValues as Values } from '../types/login-formik-values';
+import { setSnackbarMessage, useAppDispatch } from 'fm/material-web-state';
 
 export const LoginServiceContext = createContext<LoginServiceContextValue>(
   {} as LoginServiceContextValue
@@ -13,6 +14,10 @@ export const LoginServiceContext = createContext<LoginServiceContextValue>(
 export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
+  // ─── State ──────────────────────────────────────────────────────────────────────
+
+  const dispatch = useAppDispatch();
+
   const [errors, setErrors] = useState<UnpredictedFormErrors>([]);
   const [success, setSuccess] = useState<boolean>(false);
 
@@ -30,6 +35,12 @@ export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
 
       if (error) {
         setErrors([error]);
+        dispatch(
+          setSnackbarMessage({
+            message: 'Logged in successfully.',
+            severity: 'success',
+          })
+        );
         return;
       }
 
