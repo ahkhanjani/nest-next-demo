@@ -1,7 +1,8 @@
 import { NextPage } from 'next';
-import LoginContainer from '../page-containers/LoginPage';
+// cmp
+import { Auth } from 'fm/material-web-feature-auth';
 
 const DashboardPage: NextPage = () => {
-  return <LoginContainer />;
+  return <Auth />;
 };
 export default DashboardPage;
