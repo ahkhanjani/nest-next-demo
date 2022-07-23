@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Form, useFormikContext } from 'formik';
+// mui
+import Typography from '@mui/material/Typography';
 // cmp
 import CheckboxField from '../../../../../components/form/CheckboxField';
 import SubmitButton from '../../../../../components/form/SubmitButton';
@@ -11,13 +13,13 @@ import CategorySelectForm from '../../../components/CategorySelectForm';
 import type { FormikValues } from './types/formik';
 import type { JSONSchema7 } from 'json-schema';
 // store
-import { useAppDispatch, useAppSelector } from '../../../../../hooks';
 import {
+  useAppDispatch,
+  useAppSelector,
   addMaterialData,
   editMaterialData,
-} from '../../../../../store/creating-materials';
-import { Typography } from '@mui/material';
-import { MaterialFormSchema } from 'fm/material-web/types';
+} from 'fm/material-web-state';
+import { MaterialFormSchema } from 'fm/material-web-types';
 
 const FormContent: React.FC<FormContentProps> = ({ materialFormSchemas }) => {
   const {

@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 // types
 import type { JSONSchema7 } from 'json-schema';
 // store
-import { useAppSelector } from '../../../../../hooks';
+import { useAppSelector } from 'fm/material-web-state';
 
 const DynamicForm: React.FC<DynamicFormProps> = ({
   schema,
@@ -31,7 +31,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
   useEffect(() => {
     function handleSetInitialData() {
       if (!editMode) return;
-      const { data } = { ...editingMaterialData };
+      const data = { ...editingMaterialData }.data;
       setFormData(data);
     }
     handleSetInitialData();
@@ -51,8 +51,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
 
       //* a locally created material material
       // set form data to the selected material
-      const selectedMaterial = materialDataArray[selectedMaterialIndex];
-      const { data } = { ...selectedMaterial };
+      const data = { ...materialDataArray[selectedMaterialIndex] }.data;
       setFormData(data);
     }
 
