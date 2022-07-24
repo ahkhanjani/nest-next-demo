@@ -11,5 +11,6 @@
     "*.js": "${capture}.spec.js",
     "*.ts": "${capture}.spec.ts"
   },
-  "explorer.fileNesting.enabled": true
+  "explorer.fileNesting.enabled": true,
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

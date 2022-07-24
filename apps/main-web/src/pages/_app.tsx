@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 // providers
-import { ApolloProvider } from '@fm/network';
+import { ApolloProvider } from 'fm/network';
 // styles
 import '../styles/index.css';
 

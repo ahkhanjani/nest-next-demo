@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/feature/network/src",
+  "projectType": "library",
+  "tags": ["react", "network"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/feature/network/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/feature/network"],
+      "options": {
+        "jestConfig": "libs/shared/feature/network/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

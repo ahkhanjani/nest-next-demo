@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
-import IndexContainer from '../page-containers/IndexPage';
 
 const IndexPage: NextPage = () => {
-  return <IndexContainer />;
+  return undefined;
 };
 export default IndexPage;

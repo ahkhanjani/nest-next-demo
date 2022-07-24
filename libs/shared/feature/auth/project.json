@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/feature/auth/src",
+  "projectType": "library",
+  "tags": ["react", "network"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/feature/auth/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/shared/feature/auth"],
+      "options": {
+        "jestConfig": "libs/shared/feature/auth/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

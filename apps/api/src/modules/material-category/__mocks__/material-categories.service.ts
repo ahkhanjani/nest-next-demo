@@ -1,4 +1,4 @@
-import { MockType } from '@fm/types';
+import { MockType } from 'fm/types';
 import { CreateMaterialCategoryInput } from '../dto/create-material-category-input.dto';
 import { CreateMaterialCategoryResponse } from '../dto/create-material-category-response.dto';
 import { MaterialCategoriesPaginateResponse } from '../dto/material-categories-paginate-response.dto';

@@ -1,5 +1,5 @@
 import { User } from '../interface/user.interface';
-import { MockType } from '@fm/types';
+import { MockType } from 'fm/types';
 import { UsersService as ServiceType } from '../users.service';
 import { userStub } from '../test/stubs/user.stub';
 import { CreateUserResponse } from '../dto/create-user-response.dto';

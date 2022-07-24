@@ -2,7 +2,7 @@ import { useId } from 'react';
 // styles
 import styles from './GeneralFormErrorBox.module.css';
 // types
-import type { UnpredictedFormErrors } from '@fm/main-web/types';
+import type { UnpredictedFormErrors } from 'fm/shared-types';
 
 export const GeneralFormErrorBox: React.FC<GeneralFormErrorBoxProps> = ({
   errors,

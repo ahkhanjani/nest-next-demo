@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/material-web/feature/auth/src",
+  "projectType": "library",
+  "tags": ["react", "feature"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/material-web/feature/auth/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/material-web/feature/auth"],
+      "options": {
+        "jestConfig": "libs/material-web/feature/auth/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

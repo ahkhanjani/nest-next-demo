@@ -1,4 +1,4 @@
-import { MockType } from '@fm/types';
+import { MockType } from 'fm/types';
 import { CreateMaterialsResponse } from '../dto/create-materials-response.dto';
 import { MaterialsPaginateResponse } from '../dto/paginate-response.dto';
 import { UpdateMaterialResponse } from '../dto/update-material-response.dto';

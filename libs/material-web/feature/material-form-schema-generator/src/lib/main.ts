@@ -1,7 +1,7 @@
 import { extractFilenames } from './extract-filenames';
 import { generateSchema } from './generate-schema';
 // types
-import type { MaterialFormSchema } from '@fm/material-web/types';
+import type { MaterialFormSchema } from 'fm/material-web/types';
 
 /** Directory where the schema files are located. */
 const DIRNAME =

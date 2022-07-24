@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/material-web/feature/material-wizard/src",
+  "projectType": "library",
+  "tags": ["react", "mui"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/material-web/feature/material-wizard/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/material-web/feature/material-wizard"],
+      "options": {
+        "jestConfig": "libs/material-web/feature/material-wizard/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
