@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo } from 'react';
-import { MaterialCategoryServiceProvider } from '../service/MaterialCategoryServiceProvider';
+import { MaterialCategoryServiceProvider } from '../services/MaterialCategoryServiceProvider';
 // cmp
 import CategorySelectField from './CategorySelectField';
 

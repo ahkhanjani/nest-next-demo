@@ -7,9 +7,9 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
 // service
-import { useMaterialCategoryService } from '../service/MaterialCategoryServiceProvider';
+import { useMaterialCategoryService } from '../services/MaterialCategoryServiceProvider';
 
-export const CategorySelectField: React.FC<CategorySelectFieldProps> = ({
+const CategorySelectField: React.FC<CategorySelectFieldProps> = ({
   fieldIndex,
   idArray,
   setIdArray,

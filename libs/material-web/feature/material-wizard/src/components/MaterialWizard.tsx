@@ -1,4 +1,18 @@
 import { useEffect, useState } from 'react';
+import type { GraphQLErrors } from '@apollo/client/errors';
+// fm
+import {
+  useGetMaterialLazyQuery,
+  useCreateMaterialsMutation,
+  useUpdateMaterialMutation,
+} from 'fm/shared-graphql';
+import {
+  useAppSelector,
+  useAppDispatch,
+  setEditingMaterialData,
+  setSnackbarMessage,
+} from 'fm/material-web-state';
+import type { MaterialFormSchema } from 'fm/material-web-types';
 // mui
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -8,29 +22,16 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-// gql
-import {
-  useGetMaterialLazyQuery,
-  useCreateMaterialsMutation,
-  useUpdateMaterialMutation,
-} from 'fm/shared-graphql';
 // cmp
-import CategorySelectStep from './steps/CategorySelectStep';
-import MaterialCreateStep from '../src/lib/MaterialCreateStep';
-// types
-import type { GraphQLErrors } from '@apollo/client/errors';
-import type { MaterialFormSchema } from 'fm/material-web/types';
-// store
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { setEditingMaterialData } from '../../store/editing-material';
-import { setSnackbarMessage } from '../../store/snackbar-message';
+import CategorySelectStep from '../steps/CategorySelectStep';
+import MaterialCreateStep from '../steps/material-create-step/MaterialCreateStep';
 
 const steps = ['Category', 'Create', 'Review and Publish'];
 
-const WizardPage: React.FC<WizardPageProps> = ({ materialFormSchemas }) => {
-  //
-  // ─── STORE ───────────────────────────────────────────────────────
-  //
+export const MaterialWizard: React.FC<WizardPageProps> = ({
+  materialFormSchemas,
+}) => {
+  // ─── State ──────────────────────────────────────────────────────────────────────
 
   const { materialDataArray } = useAppSelector(
     (state) => state.creatingMaterials
@@ -38,12 +39,7 @@ const WizardPage: React.FC<WizardPageProps> = ({ materialFormSchemas }) => {
   const { editMode, editingMaterialId } = useAppSelector(
     (state) => state.editingMaterial
   );
-
   const dispatch = useAppDispatch();
-
-  //
-  // ─── STATE ──────────────────────────────────────────────────────────────────────
-  //
 
   const [activeStep, setActiveStep] = useState<number>(0);
   const [isNextBtnActive, setIsNextBtnActive] = useState<boolean>(false);
@@ -66,10 +62,12 @@ const WizardPage: React.FC<WizardPageProps> = ({ materialFormSchemas }) => {
   // in editing mode, fetch material data
   useEffect(() => {
     const fetchMaterial = async () => {
-      if (!editMode) return;
+      if (!editMode || !editingMaterialId) return;
 
       getMaterial({ variables: { id: editingMaterialId } })
         .then(({ data }) => {
+          if (!data) return;
+
           const {
             title,
             type,
@@ -146,7 +144,9 @@ const WizardPage: React.FC<WizardPageProps> = ({ materialFormSchemas }) => {
   /**
    * Updates one material if edit mode is on.
    */
-  async function handleUpdateOne(): Promise<SubmitResponse> {
+  async function handleUpdateOne(): Promise<SubmitResponse | undefined> {
+    if (!editingMaterialId) return;
+
     const { title, type, data } = materialDataArray[0];
 
     // updating existing material
@@ -190,7 +190,9 @@ const WizardPage: React.FC<WizardPageProps> = ({ materialFormSchemas }) => {
     handleResponse(res);
   }
 
-  function handleResponse(res: SubmitResponse) {
+  function handleResponse(res: SubmitResponse | undefined) {
+    if (!res) return;
+
     if (res.errors) {
       console.error(res.errors);
       return;
@@ -272,7 +274,7 @@ const WizardPage: React.FC<WizardPageProps> = ({ materialFormSchemas }) => {
     </Container>
   );
 };
-export default WizardPage;
+export default MaterialWizard;
 
 interface WizardPageProps {
   materialFormSchemas: MaterialFormSchema[];
