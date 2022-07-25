@@ -10,6 +10,13 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      borderRadius: {
+        18: '18px',
+      },
+    },
+    colors: {
+      blue: '#3A87FF',
+      borderColor: '#00000038',
     },
   },
   prefix: 'tw-', // note: use tailwind styles like "tw-*"
