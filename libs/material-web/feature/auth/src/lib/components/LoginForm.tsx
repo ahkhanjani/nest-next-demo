@@ -3,7 +3,7 @@ import * as yup from 'yup';
 // fm
 import { InputField, SubmitButton } from 'fm/main-web-ui-form';
 // context
-import { useLoginService } from '../service/LoginServiceProvider';
+import { useLoginService } from '../services/LoginServiceProvider';
 // types
 import type { LoginFormikValues as Values } from '../types/login-formik-values';
 

@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 // icons
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 // context
-import { LoginServiceProvider } from '../service/LoginServiceProvider';
+import { LoginServiceProvider } from '../services/LoginServiceProvider';
 // cmp
 import LoginForm from './LoginForm';
 
