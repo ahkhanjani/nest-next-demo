@@ -1,7 +1,7 @@
 import { FormEvent, PropsWithChildren } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 
-const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
+export const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
   children,
   onClick,
   loading = false,

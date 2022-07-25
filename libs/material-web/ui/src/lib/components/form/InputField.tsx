@@ -1,13 +1,15 @@
 import { useField } from 'formik';
 import TextField from '@mui/material/TextField';
 
-const InputField: React.FC<InputFieldProps> = ({ name, type, label }) => {
+export const InputField: React.FC<InputFieldProps> = ({
+  name,
+  type,
+  label,
+}) => {
   const [field, { touched, error }] = useField({
     name,
     type,
   });
-
-  // ────────────────────────────────────────────────────────────────────────────────
 
   return (
     <TextField

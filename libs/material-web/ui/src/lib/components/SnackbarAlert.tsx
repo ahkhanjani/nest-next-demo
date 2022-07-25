@@ -8,20 +8,15 @@ import {
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 
-const SnackbarAlert: React.FC = () => {
-  //
-  // ─── STORE ──────────────────────────────────────────────────────────────────────
-  //
+export const SnackbarAlert: React.FC = () => {
+  // ─── State ──────────────────────────────────────────────────────────────────────
 
   const { show, message, severity } = useAppSelector(
     (state) => state.snackbarMessage
   );
-
   const dispatch = useAppDispatch();
 
-  //
-  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
-  //
+  // ─── Handlers ───────────────────────────────────────────────────────────────────
 
   function handleClose() {
     dispatch(closeSnackbar());

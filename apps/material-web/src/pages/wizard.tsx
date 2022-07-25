@@ -4,10 +4,10 @@ import {
   NextPage,
 } from 'next';
 // containers
-import DashboardLayout from '../layouts/DashboardLayout';
-import WizardContainer from '../page-containers/WizardPage';
+import { DashboardLayout } from 'fm/material-web-ui';
+// import WizardContainer from '';
 // utils
-import { generateMaterialFormSchemas } from 'fm/material-web/material-form-schema-generator';
+import { generateMaterialFormSchemas } from 'fm/material-web-feature-schemagen';
 // types
 import type { MaterialFormSchema } from 'fm/material-web-types';
 

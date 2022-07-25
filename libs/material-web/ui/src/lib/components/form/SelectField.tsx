@@ -6,10 +6,12 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 
-const SelectField: React.FC<SelectFieldProps> = ({ name, label, data }) => {
+export const SelectField: React.FC<SelectFieldProps> = ({
+  name,
+  label,
+  data,
+}) => {
   const [field, { touched, error }] = useField({ name });
-
-  // ────────────────────────────────────────────────────────────────────────────────
 
   return (
     <FormControl fullWidth sx={{ mb: 3 }}>

@@ -8,7 +8,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 // providers
 import { ColorModeContext, ColorModeContextType } from './ColorModeProvider';
 
-const ThemeProvider: React.FC<PropsWithChildren<unknown>> = ({ children }) => {
+export const ThemeProvider: React.FC<PropsWithChildren<unknown>> = ({
+  children,
+}) => {
   const colorMode: ColorModeContextType = useContext(ColorModeContext);
 
   const theme = useMemo(

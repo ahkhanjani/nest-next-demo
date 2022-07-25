@@ -7,23 +7,12 @@ import Container from '@mui/material/Container';
 import AppBar from './AppBar';
 import Drawer from './Drawer';
 
-const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
-  children,
-}) => {
-  //
-  // ─── STATE ──────────────────────────────────────────────────────────────────────
-  //
-
+export const DashboardLayout: React.FC<PropsWithChildren> = ({ children }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
-  //
 
   function handleToggleDrawer() {
     setIsDrawerOpen(!isDrawerOpen);
   }
-
-  // ────────────────────────────────────────────────────────────────────────────────
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -47,4 +36,4 @@ const DashboardContainer: React.FC<PropsWithChildren<unknown>> = ({
     </Box>
   );
 };
-export default DashboardContainer;
+export default DashboardLayout;

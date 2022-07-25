@@ -1,14 +1,14 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-// providers
-import { ApolloProvider } from 'fm/material-web-feature-network';
-import ThemeProvider from '../providers/ThemeProvider';
-import ColorModeProvider from '../providers/ColorModeProvider';
-// cmp
-import SnackbarAlert from '../components/SnackbarAlert';
-// store
-import { store } from 'fm/material-web-state';
 import { Provider as StoreProvider } from 'react-redux';
+// fm
+import { ApolloProvider } from 'fm/material-web-feature-network';
+import {
+  ThemeProvider,
+  ColorModeProvider,
+  SnackbarAlert,
+} from 'fm/material-web-ui';
+import { store } from 'fm/material-web-state';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (

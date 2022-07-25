@@ -13,7 +13,7 @@ export const ColorModeContext = createContext<ColorModeContextType>(
   {} as ColorModeContextType
 );
 
-const ColorModeProvider: React.FC<PropsWithChildren<unknown>> = ({
+export const ColorModeProvider: React.FC<PropsWithChildren<unknown>> = ({
   children,
 }) => {
   const [mode, setMode] = useState<ColorMode>('light');
