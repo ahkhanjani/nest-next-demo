@@ -11,30 +11,25 @@ export const SnackbarMessageSlice = createSlice({
   name: 'snackbarMessage',
   initialState,
   reducers: {
-    setSnackbarMessage: (state, action: PayloadAction<SetMessagePayload>) => {
+    setSnackbarMessage: (
+      state: SnackbarMessageState,
+      action: PayloadAction<SetMessagePayload>
+    ) => {
       const { message, severity } = action.payload;
       state.message = message;
       state.severity = severity;
       state.show = true;
     },
-    closeSnackbar: (state) => {
+    closeSnackbar: (state: SnackbarMessageState) => {
       state.show = false;
     },
   },
 });
 
-//
-// ─── EXPORT ─────────────────────────────────────────────────────────────────────
-//
-
 export const { setSnackbarMessage, closeSnackbar } =
   SnackbarMessageSlice.actions;
 
 export default SnackbarMessageSlice.reducer;
-
-//
-// ─── TYPES ──────────────────────────────────────────────────────────────────────
-//
 
 interface SetMessagePayload {
   message: string | null;

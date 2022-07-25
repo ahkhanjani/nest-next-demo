@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import creatingMaterialsReducer from './creating-materials';
-import editingMaterialReducer from './editing-material';
-import CategoryPathReducer from './category-path';
-import SnackbarMessageReducer from './snackbar-message';
+// slices
+import creatingMaterialsReducer from './slices/creating-materials';
+import editingMaterialReducer from './slices/editing-material';
+import CategoryPathReducer from './slices/category-path';
+import SnackbarMessageReducer from './slices/snackbar-message';
 
 export const store = configureStore({
   reducer: {

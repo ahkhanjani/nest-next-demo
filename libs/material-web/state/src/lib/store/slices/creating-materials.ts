@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MaterialData } from 'fm/shared-types';
+import { MaterialData } from 'fm/material-web-types';
 
 const initialState: CreatingMaterialsState = {
   materialDataArray: [],
@@ -10,30 +10,41 @@ export const creatingMaterialsSlice = createSlice({
   name: 'creatingMaterials',
   initialState,
   reducers: {
-    setMaterialDataArray: (state, action: PayloadAction<MaterialData[]>) => {
+    setMaterialDataArray: (
+      state: CreatingMaterialsState,
+      action: PayloadAction<MaterialData[]>
+    ) => {
       state.materialDataArray = action.payload;
     },
-    addMaterialData: (state, action: PayloadAction<MaterialData>) => {
+    addMaterialData: (
+      state: CreatingMaterialsState,
+      action: PayloadAction<MaterialData>
+    ) => {
       state.materialDataArray.push(action.payload);
     },
-    removeMaterialData: (state, action: PayloadAction<number>) => {
+    removeMaterialData: (
+      state: CreatingMaterialsState,
+      action: PayloadAction<number>
+    ) => {
       state.materialDataArray.splice(action.payload, 1);
     },
-    editMaterialData: (state, action: PayloadAction<MaterialData>) => {
+    editMaterialData: (
+      state: CreatingMaterialsState,
+      action: PayloadAction<MaterialData>
+    ) => {
       state.materialDataArray[state.selectedMaterialIndex] = action.payload;
     },
 
-    setSelectedMaterialIndex: (state, action: PayloadAction<number>) => {
+    setSelectedMaterialIndex: (
+      state: CreatingMaterialsState,
+      action: PayloadAction<number>
+    ) => {
       state.selectedMaterialIndex = action.payload;
       // '-2' means material created. set back to '-1' to reset the form.
       if (state.selectedMaterialIndex === -2) state.selectedMaterialIndex = -1;
     },
   },
 });
-
-//
-// ─── EXPORT ─────────────────────────────────────────────────────────────────────
-//
 
 export const {
   setMaterialDataArray,
@@ -44,10 +55,6 @@ export const {
 } = creatingMaterialsSlice.actions;
 
 export default creatingMaterialsSlice.reducer;
-
-//
-// ─── TYPES ──────────────────────────────────────────────────────────────────────
-//
 
 interface CreatingMaterialsState {
   materialDataArray: MaterialData[];

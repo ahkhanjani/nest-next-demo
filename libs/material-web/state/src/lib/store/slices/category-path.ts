@@ -1,18 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// types
 import type { PathCategory } from 'fm/shared-types';
 
-const initialState: State = { path: [], endId: '' };
+const initialState: CategoryPathState = { path: [], lastId: '' };
 
 export const currentPathSlice = createSlice({
   name: 'categoryPath',
   initialState,
   reducers: {
-    addPathCategory: (state, action: PayloadAction<PathCategory>) => {
+    addPathCategory: (
+      state: CategoryPathState,
+      action: PayloadAction<PathCategory>
+    ) => {
       state.path.push(action.payload);
-      state.endId = action.payload.id;
+      state.lastId = action.payload.id;
     },
-    removePathCategories: (state, action: PayloadAction<number>) => {
+    removePathCategories: (
+      state: CategoryPathState,
+      action: PayloadAction<number>
+    ) => {
       // number of items that are being removed from the end of the path
       const removedItemsCount: number = action.payload;
 
@@ -24,7 +29,7 @@ export const currentPathSlice = createSlice({
       const lastCategoryIndex: number = state.path.length - 1;
       const lastCategory: PathCategory | undefined =
         state.path.at(lastCategoryIndex);
-      state.endId = lastCategory ? lastCategory.id : '';
+      state.lastId = lastCategory ? lastCategory.id : '';
     },
   },
 });
@@ -34,9 +39,9 @@ export const { addPathCategory, removePathCategories } =
 
 export default currentPathSlice.reducer;
 
-interface State {
+interface CategoryPathState {
   path: PathCategory[];
   // id of the last category in the list.
   // default: ''
-  endId: string;
+  lastId: string;
 }
