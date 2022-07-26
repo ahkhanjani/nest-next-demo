@@ -9,10 +9,10 @@
         hue-rotate(191deg) brightness(112%) contrast(100%);
     }
   }
-  .black-svg {
+  .gray-svg {
     img {
-      filter: brightness(0) saturate(100%) invert(0%) sepia(100%) saturate(0%)
-        hue-rotate(269deg) brightness(101%) contrast(95%);
+      filter: brightness(0) saturate(100%) invert(33%) sepia(32%) saturate(177%)
+        hue-rotate(158deg) brightness(95%) contrast(94%);
     }
   }
 }

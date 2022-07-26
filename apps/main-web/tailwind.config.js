@@ -17,7 +17,21 @@ module.exports = {
     colors: {
       blue: '#3A87FF',
       borderColor: '#00000038',
+      field: '#f1f1f1',
+      gray:'#4F5B62',
+      lightGray:'#93999D'
     },
+    screens: {
+      'sm': '640px',
+
+      'md': '768px',
+
+      'lg': '1024px',
+
+      'xl': '1280px',
+
+      '2xl': '1440px',
+    }
   },
   prefix: 'tw-', // note: use tailwind styles like "tw-*"
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
