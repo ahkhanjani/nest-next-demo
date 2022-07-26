@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -15,6 +15,8 @@ import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.modul
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+
+    CacheModule.register({ isGlobal: true }),
 
     // used code first approach: https://docs.nestjs.com/graphql/quick-start#code-first
     // will auto-generate schema file
