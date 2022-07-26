@@ -17,8 +17,10 @@
     "baseUrl": ".",
     "paths": {
       "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"],
-      "fm/main-web-daily-co": ["libs/main-web/daily-co/src/index.ts"],
       "fm/main-web-feature-auth": ["libs/main-web/feature/auth/src/index.ts"],
+      "fm/main-web-feature-daily-co": [
+        "libs/main-web/feature/daily-co/src/index.ts"
+      ],
       "fm/main-web-feature-network": [
         "libs/main-web/feature/network/src/index.ts"
       ],
