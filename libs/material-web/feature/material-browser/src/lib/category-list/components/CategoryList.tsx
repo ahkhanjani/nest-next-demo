@@ -1,6 +1,6 @@
 import { useState } from 'react';
 // service
-import { CategoryListServiceProvider } from '../service/CategoryListServiceProvider';
+import { CategoryListServiceProvider } from '../services/CategoryListServiceProvider';
 // cmp
 import CategoryListContent from './CategoryListContent';
 

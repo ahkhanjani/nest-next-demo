@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 // - icons
 import { Add as AddIcon } from '@mui/icons-material';
 
-export const CreateCategoryButton: React.FC<CreateButtonProps> = ({
+const CreateCategoryButton: React.FC<CreateButtonProps> = ({
   handleOpenCreateDialog,
 }) => {
   return (

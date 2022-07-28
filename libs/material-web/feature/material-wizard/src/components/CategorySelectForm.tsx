@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo } from 'react';
+import { useEffect, useId } from 'react';
 import { MaterialCategoryServiceProvider } from '../services/MaterialCategoryServiceProvider';
 // cmp
 import CategorySelectField from './CategorySelectField';
@@ -11,25 +11,20 @@ const CategorySelectForm: React.FC<CategorySelectFormProps> = ({
     if (idArray.length === 0) setIdArray(['*']);
   }, [idArray, setIdArray]);
 
-  // ────────────────────────────────────────────────────────────────────────────────
-
   const domId = useId();
 
-  return useMemo(
-    () => (
-      <>
-        {idArray.map((id, index) => (
-          <MaterialCategoryServiceProvider parentId={id}>
-            <CategorySelectField
-              key={`${domId}-${id}`}
-              fieldIndex={index}
-              {...{ idArray, setIdArray }}
-            />
-          </MaterialCategoryServiceProvider>
-        ))}
-      </>
-    ),
-    [domId, idArray, setIdArray]
+  return (
+    <>
+      {idArray.map((id, index) => (
+        <MaterialCategoryServiceProvider parentId={id}>
+          <CategorySelectField
+            key={domId + id}
+            fieldIndex={index}
+            {...{ idArray, setIdArray }}
+          />
+        </MaterialCategoryServiceProvider>
+      ))}
+    </>
   );
 };
 export default CategorySelectForm;

@@ -26,9 +26,7 @@ export const currentPathSlice = createSlice({
       state.path.splice(startingItemIndex, removedItemsCount);
 
       // set endId
-      const lastCategoryIndex: number = state.path.length - 1;
-      const lastCategory: PathCategory | undefined =
-        state.path.at(lastCategoryIndex);
+      const lastCategory: PathCategory | undefined = state.path.at(-1);
       state.lastId = lastCategory ? lastCategory.id : '';
     },
   },

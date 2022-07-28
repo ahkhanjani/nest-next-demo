@@ -87,7 +87,7 @@ export const CreateMaterialCategoryServiceProvider: React.FC<
 export const useCreateMaterialCategoryService = () =>
   useContext(CreateMaterialCategoryServiceContext);
 
-export interface CreateMaterialCategoryServiceContextValue {
+interface CreateMaterialCategoryServiceContextValue {
   data: CreateMaterialCategoryMutation | null | undefined;
   errors: UnpredictedFormErrors;
   loading: boolean;

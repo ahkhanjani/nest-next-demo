@@ -41,7 +41,8 @@ const WeekdayTableRow: React.FC<{ weekday: string }> = ({ weekday }) => {
       </td>
       <td className="tw-uppercase">{weekday}</td>
       <td className="tw-uppercase">
-        {checked === false ? 'unavailable' : <TimeRangePicker />}
+        {checked ? <TimeRangePicker /> : 'unavailable'}
+        <button></button>
       </td>
     </tr>
   );

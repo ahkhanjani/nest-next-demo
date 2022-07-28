@@ -20,7 +20,7 @@ export const CategoryListServiceProvider: React.FC<
 > = ({ page, children }) => {
   // ─── Store ──────────────────────────────────────────────────────────────────────
 
-  const { endId: parentId } = useAppSelector((state) => state.categoryPath);
+  const { lastId: parentId } = useAppSelector((state) => state.categoryPath);
 
   // ─── Gql ────────────────────────────────────────────────────────────────────────
 
