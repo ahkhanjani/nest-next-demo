@@ -10,6 +10,7 @@
     "main-web-feature-network": "libs/main-web/feature/network",
     "main-web-feature-prereg": "libs/main-web/feature/prereg",
     "main-web-feature-scheduler": "libs/main-web/feature/scheduler",
+    "main-web-state": "libs/main-web/state",
     "main-web-ui-form": "libs/main-web/ui/form",
     "material-web": "apps/material-web",
     "material-web-e2e": "apps/material-web-e2e",

@@ -9,6 +9,7 @@ specifiers:
   '@daily-co/daily-react-hooks': ^0.2.6
   '@emotion/react': ^11.9.3
   '@emotion/styled': ^11.9.3
+  '@formkit/auto-animate': 1.0.0-beta.1
   '@graphql-codegen/cli': ^2.11.0
   '@graphql-codegen/typescript': ^2.7.2
   '@graphql-codegen/typescript-operations': ^2.5.2
@@ -165,6 +166,7 @@ dependencies:
   '@daily-co/daily-react-hooks': 0.2.6_5utn43nmo3hr7ydyxmmvafwe7u
   '@emotion/react': 11.9.3_szkdlbnthht4v3jvm76fn7u6na
   '@emotion/styled': 11.9.3_y2x62d5bbinncmisoeyv36jqse
+  '@formkit/auto-animate': 1.0.0-beta.1_react@18.2.0
   '@headlessui/react': 1.6.6_biqbaboplfbrettd7655fr4n2y
   '@heroicons/react': 1.0.6_react@18.2.0
   '@mui/icons-material': 5.8.4_firrc3iytazs66dglnpftflsmu
@@ -2170,6 +2172,20 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+
+  /@formkit/auto-animate/1.0.0-beta.1_react@18.2.0:
+    resolution: {integrity: sha512-I3OWOBaPZKSJL4bsooXI8kC3q7bcgibD2oML0P/Lir6MnbvUe/0/7EH8br024juvM/Ulm9C9xGx9CJUQYrOWSA==}
+    peerDependencies:
+      react: ^16.8.0
+      vue: ^3.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@graphql-codegen/cli/2.11.0_5fxxx3gxnhcrb55dkszaiy442a:
     resolution: {integrity: sha512-5twZs3PVSPg9mfaptoNFm1x0YQQsF4WPmgu0zbB4XSuIZ/gaAKA4LT1WEiuFSQNcgvbBbD9cpFdauyD4GS+Wwg==}
