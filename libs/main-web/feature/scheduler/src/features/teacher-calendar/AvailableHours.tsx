@@ -1,6 +1,6 @@
 import React, { useId, useMemo, useState } from 'react';
 import { PlusIcon } from '@heroicons/react/outline';
-import { hourList, getDefaultRange } from '../constants';
+import { hourList, getDefaultRange } from '../../constants';
 import { Hour, TimeRange } from '../../types/time-range';
 export const AvailableHours: React.FC = () => {
   return <WeekdaysTable />;

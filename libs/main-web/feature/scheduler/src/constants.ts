@@ -1,4 +1,4 @@
-import type { TimeRange } from '../types/time-range';
+import type { TimeRange } from './types/time-range';
 
 const hours = [
   '12',
