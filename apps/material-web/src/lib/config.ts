@@ -4,9 +4,6 @@ function getEnvVar(varName: string): string {
   throw new Error(`Couldn't find environment variable: ${varName}`);
 }
 
-const config: Record<EnvVarPolicy, string> = {
-  apiBaseUri: getEnvVar('NEXT_PUBLIC_API_BASE_URI'),
+export const config = {
+  apiBaseUrl: getEnvVar('API_BASE_URL'),
 };
-export default config;
-
-type EnvVarPolicy = 'apiBaseUri';
