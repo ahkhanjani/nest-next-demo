@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { MaterialCategoriesService } from '../material-categories.service';
 import { MaterialCategoriesResolver } from '../material-categories.resolver';
+
 import { materialCategoryStub } from './stubs/material-category.stub';
-import {
-  CreateMaterialCategoryInput,
-  CreateMaterialCategoryResponse,
-  MaterialCategoriesPaginateInput,
-  MaterialCategoriesPaginateResponse,
-  UpdateMaterialCategoryInput,
-  UpdateMaterialCategoryResponse,
-  MaterialCategory,
-} from 'fm/api-interfaces';
+import type { MaterialCategory } from '../interface/material-category.interface';
+import type { MaterialCategoriesPaginateResponse } from '../dto/material-categories-paginate-response.dto';
+import type { MaterialCategoriesPaginateInput } from '../dto/material-categories-paginate-input.dto';
+import type { CreateMaterialCategoryInput } from '../dto/create-material-category-input.dto';
+import type { CreateMaterialCategoryResponse } from '../dto/create-material-category-response.dto';
+import type { UpdateMaterialCategoryInput } from '../dto/update-material-category-input.dto';
+import type { UpdateMaterialCategoryResponse } from '../dto/update-material-category-response.dto';
 
 jest.mock('../material-categories.service.ts');
 
@@ -42,9 +42,7 @@ describe('MaterialCategoriesResolver', () => {
     });
   });
 
-  //
-  // ─── QUERY ──────────────────────────────────────────────────────────────────────
-  //
+  // ─── Query ──────────────────────────────────────────────────────────────────────
 
   describe('getMaterialCategory', () => {
     describe('when getMaterialCategory is called', () => {
@@ -195,9 +193,7 @@ describe('MaterialCategoriesResolver', () => {
     });
   });
 
-  //
-  // ─── MUTATION ───────────────────────────────────────────────────────────────────
-  //
+  // ─── Mutation ───────────────────────────────────────────────────────────────────
 
   describe('createMaterialCategory', () => {
     describe('when createMaterialCategory is called', () => {
@@ -205,13 +201,14 @@ describe('MaterialCategoriesResolver', () => {
       let createMaterialCategoryDto: CreateMaterialCategoryInput;
 
       beforeEach(async () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { title, parentId } = materialCategoryStub();
         createMaterialCategoryDto = {
           title,
           parentId,
         };
-        response = await resolver.createOne(createMaterialCategoryDto);
+        response = await resolver.createMaterialCategory(
+          createMaterialCategoryDto
+        );
       });
 
       it('should call materialCategoriesService', () => {
@@ -237,7 +234,9 @@ describe('MaterialCategoriesResolver', () => {
       beforeEach(async () => {
         const { id, title } = materialCategoryStub();
         updateMaterialCategoryDto = { id, title };
-        response = await resolver.updateCategory(updateMaterialCategoryDto);
+        response = await resolver.updateMaterialCategory(
+          updateMaterialCategoryDto
+        );
       });
 
       it('should call materialCategoriessService', () => {

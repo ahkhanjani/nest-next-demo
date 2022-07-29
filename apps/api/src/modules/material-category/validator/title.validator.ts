@@ -18,9 +18,9 @@ export function IsMaterialCategoryTitle(validationOptions?: ValidationOptions) {
       options: validationOptions,
       validator: {
         validate(value: string) {
-          if (isNotEmpty(value) === false) return false;
-          if (isString(value) === false) return false;
-          if (minLength(value, 3) === false) return false;
+          if (!(isNotEmpty(value) || isString(value) || minLength(value, 3)))
+            return false;
+
           return true;
         },
         defaultMessage(args: ValidationArguments) {
