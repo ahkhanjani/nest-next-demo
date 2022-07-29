@@ -1,9 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { UsersService } from '../users.service';
 import { UsersResolver } from '../users.resolver';
+
 import { userStub } from './stubs/user.stub';
-import { User } from '../interface/user.interface';
-import { CreateUserInput, CreateUserResponse } from '../dto';
+import type { User } from '../interface/user.interface';
+import type { CreateUserInput, CreateUserResponse } from '../dto';
 
 jest.mock('../users.service.ts');
 
@@ -33,9 +35,7 @@ describe('UsersResolver', () => {
     });
   });
 
-  //
-  // ─── QUERY ──────────────────────────────────────────────────────────────────────
-  //
+  // ─── Query ──────────────────────────────────────────────────────────────────────
 
   describe('getUser', () => {
     describe('when getUser is called', () => {
@@ -113,9 +113,7 @@ describe('UsersResolver', () => {
     });
   });
 
-  //
-  // ─── MUTATION ───────────────────────────────────────────────────────────────────
-  //
+  // ─── Mutation ───────────────────────────────────────────────────────────────────
 
   describe('createUser', () => {
     describe('when createUser is called', () => {
