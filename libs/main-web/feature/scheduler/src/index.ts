@@ -1,1 +1,1 @@
-export * from './features/teacher-calendar/AvailableHours';
+export * from './features/teacher-calendar/components/AvailableHours';

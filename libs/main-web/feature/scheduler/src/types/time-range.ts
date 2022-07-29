@@ -1,4 +1,4 @@
-type h =
+export type h =
   | '1'
   | '2'
   | '3'
@@ -12,9 +12,9 @@ type h =
   | '11'
   | '12';
 
-type m = '00' | '15' | '30' | '45';
+export type m = '00' | '15' | '30' | '45';
 
-type p = 'AM' | 'PM';
+export type p = 'AM' | 'PM';
 
 export type Hour = `${h}:${m} ${p}`;
 
