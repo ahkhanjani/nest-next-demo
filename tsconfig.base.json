@@ -17,14 +17,17 @@
     "baseUrl": ".",
     "paths": {
       "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"],
-      "fm/main-web-daily-co": ["libs/main-web/daily-co/src/index.ts"],
       "fm/main-web-feature-auth": ["libs/main-web/feature/auth/src/index.ts"],
+      "fm/main-web-feature-daily-co": [
+        "libs/main-web/feature/daily-co/src/index.ts"
+      ],
       "fm/main-web-feature-network": [
         "libs/main-web/feature/network/src/index.ts"
       ],
       "fm/main-web-feature-prereg": [
         "libs/main-web/feature/prereg/src/index.ts"
       ],
+      "fm/main-web-scheduler": ["libs/main-web/feature/scheduler/src/index.ts"],
       "fm/main-web-ui-form": ["libs/main-web/ui/form/src/index.ts"],
       "fm/main-web/types": ["libs/main-web/types/src/index.ts"],
       "fm/material-web-feature-auth": [
@@ -36,11 +39,11 @@
       "fm/material-web-feature-network": [
         "libs/material-web/feature/network/src/index.ts"
       ],
-      "fm/material-web-state": ["libs/material-web/state/src/index.ts"],
-      "fm/material-web-types": ["libs/material-web/types/src/index.ts"],
       "fm/material-web-feature-schemagen": [
         "libs/material-web/feature/material-form-schema-generator/src/index.ts"
       ],
+      "fm/material-web-state": ["libs/material-web/state/src/index.ts"],
+      "fm/material-web-types": ["libs/material-web/types/src/index.ts"],
       "fm/material-web-ui": ["libs/material-web/ui/src/index.ts"],
       "fm/shared-feature-auth": ["libs/shared/feature/auth/src/index.ts"],
       "fm/shared-feature-network": ["libs/shared/feature/network/src/index.ts"],

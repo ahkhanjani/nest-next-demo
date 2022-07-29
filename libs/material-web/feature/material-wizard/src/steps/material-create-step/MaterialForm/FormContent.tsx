@@ -3,8 +3,7 @@ import { Form, useFormikContext } from 'formik';
 // mui
 import Typography from '@mui/material/Typography';
 // cmp
-import CheckboxField from '';
-import SubmitButton from '../../../../../components/form/SubmitButton';
+import { CheckboxField, SubmitButton } from 'fm/material-web-ui';
 import TitleInputField from './TitleInputField';
 import TypeSelectField from './TypeSelectField';
 import DynamicForm from './DynamicForm';
@@ -22,16 +21,7 @@ import {
 import { MaterialFormSchema } from 'fm/material-web-types';
 
 const FormContent: React.FC<FormContentProps> = ({ materialFormSchemas }) => {
-  const {
-    values,
-    setSubmitting,
-    isValid,
-    resetForm: formikReset,
-  } = useFormikContext<FormikValues>();
-
-  //
-  // ─── STORE ───────────────────────────────────────────────────────
-  //
+  // ─── State ──────────────────────────────────────────────────────────────────────
 
   const { selectedMaterialIndex } = useAppSelector(
     (state) => state.creatingMaterials
@@ -40,30 +30,33 @@ const FormContent: React.FC<FormContentProps> = ({ materialFormSchemas }) => {
 
   const dispatch = useAppDispatch();
 
-  //
-  // ─── STATE ──────────────────────────────────────────────────────────────────────
-  //
-
   const [dynamicFormSchema, setDynamicFormSchema] = useState<JSONSchema7>({});
-  const [dynamicFormData, setDynamicFormData] = useState<unknown>(undefined);
+  const [dynamicFormData, setDynamicFormData] = useState<JSON>({});
   // TODO handle tags
   const [tagIdArray, setTagIdArray] = useState<string[]>([]);
 
-  //
-  // ─── HELPERS ────────────────────────────────────────────────────────────────────
-  //
+  // ─── Formik ─────────────────────────────────────────────────────────────────────
+
+  const {
+    values,
+    setSubmitting,
+    isValid,
+    resetForm: formikReset,
+  } = useFormikContext<FormikValues>();
+
+  // ─── Helpers ────────────────────────────────────────────────────────────────────
 
   /**
    * Creates a material data object using the data in the current state.
    * @returns The current material data object.
    */
-  const createMaterialDataObject = useCallback(() => {
-    const materialData = {
+  const createMaterialDataObject = useCallback(
+    () => ({
       ...values,
       data: dynamicFormData,
-    };
-    return materialData;
-  }, [dynamicFormData, values]);
+    }),
+    [dynamicFormData, values]
+  );
 
   function clearForm() {
     setDynamicFormSchema({});
@@ -72,16 +65,21 @@ const FormContent: React.FC<FormContentProps> = ({ materialFormSchemas }) => {
     formikReset();
   }
 
-  //
-  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
-  //
+  // ─── Handlers ───────────────────────────────────────────────────────────────────
 
   /**
    * Adds current material to local list.
    */
   function handleCreateMaterial() {
-    const materialData = createMaterialDataObject();
-    dispatch(addMaterialData(materialData));
+    const { data, publish, title, type } = createMaterialDataObject();
+    dispatch(
+      addMaterialData({
+        formData: data,
+        status: publish ? 'published' : 'unpublished',
+        title,
+        type,
+      })
+    );
     clearForm();
     // TODO show success message
     // setSuccessMessage('Changes saved successfully.');

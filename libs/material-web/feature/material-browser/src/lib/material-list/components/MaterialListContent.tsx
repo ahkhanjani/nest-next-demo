@@ -24,7 +24,7 @@ export const MaterialListContent: React.FC<MaterialListContentProps> = ({
 
   // ─── Store ──────────────────────────────────────────────────────────────────────
 
-  const { endId: parentId } = useAppSelector((state) => state.categoryPath);
+  const { lastId: parentId } = useAppSelector((state) => state.categoryPath);
   const dispatch = useAppDispatch();
 
   // ─── Effect ─────────────────────────────────────────────────────────────────────
@@ -51,7 +51,7 @@ export const MaterialListContent: React.FC<MaterialListContentProps> = ({
         <CreateMaterialButton />
         {data?.materialsPaginate.materials.map(({ id, title }) => {
           return (
-            <Link key={`${domId}-${id}`} href={'' /* ROUTES.WIZARD */}>
+            <Link key={domId + id} href={`wizard/${id}`}>
               <ListItemButton
                 onClick={() => {
                   dispatch(setEditingMaterialId(id));

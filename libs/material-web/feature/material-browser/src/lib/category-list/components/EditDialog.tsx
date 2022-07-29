@@ -15,9 +15,9 @@ import type {
   CreateCategoryServiceValues,
 } from '../types/CreateCategoryValues.interface';
 import type { UpdateCategoryFormikValues as UpdateValues } from '../types/UpdateCategoryValues.interface';
-import { useCreateMaterialCategoryService } from '../service/CreateCategoryServiceProvider';
-import { useUpdateMaterialCategoryService } from '../service/UpdateCategoryServiceProvider';
-import { useCategoryListService } from '../service/CategoryListServiceProvider';
+import { useCreateMaterialCategoryService } from '../services/CreateCategoryServiceProvider';
+import { useUpdateMaterialCategoryService } from '../services/UpdateCategoryServiceProvider';
+import { useCategoryListService } from '../services/CategoryListServiceProvider';
 import { useAppSelector } from 'fm/material-web-state';
 
 const validationSchema = yup.object({
@@ -38,7 +38,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
 
   // ─── Store ──────────────────────────────────────────────────────────────────────
 
-  const { path: categoryPath, endId: parentId } = useAppSelector(
+  const { path: categoryPath, lastId: parentId } = useAppSelector(
     (state) => state.categoryPath
   );
 

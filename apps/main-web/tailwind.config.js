@@ -4,7 +4,10 @@ const { createGlobPatternsForDependencies } = require('@nrwl/next/tailwind');
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  content: ['**/*.{jsx,tsx}', ...createGlobPatternsForDependencies(__dirname)],
+  content: [
+    '**/*.{jsx,tsx}',
+    ...createGlobPatternsForDependencies(__dirname, '**/*.{jsx,tsx}'),
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -18,7 +21,7 @@ module.exports = {
   // See https://daisyui.com/docs/config/
   daisyui: {
     styled: true,
-    themes: ['light', 'dark'],
+    themes: ['dark'],
     base: true,
     utils: true,
     logs: true,
