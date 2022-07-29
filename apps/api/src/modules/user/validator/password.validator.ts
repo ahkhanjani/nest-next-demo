@@ -6,7 +6,7 @@ import {
   isNotEmpty,
   matches,
 } from 'class-validator';
-import { passwordRegExp } from '../constant';
+import { passwordRegExp } from '../constants';
 
 export function IsPassword(validationOptions?: ValidationOptions) {
   // eslint-disable-next-line @typescript-eslint/ban-types
