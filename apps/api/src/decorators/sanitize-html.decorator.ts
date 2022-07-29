@@ -1,4 +1,6 @@
-import { SetMetadata } from '@nestjs/common';
+import { applyDecorators } from '@nestjs/common';
+import { Transform } from 'class-transformer';
+import * as sanitizeHtml from 'sanitize-html';
 
-export const SanitizeHtml = (...args: string[]) =>
-  SetMetadata('sanitize-html', args);
+export const SanitizeHtml = (input: string) =>
+  applyDecorators(Transform(() => sanitizeHtml(input)));
