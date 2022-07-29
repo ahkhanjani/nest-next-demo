@@ -31,19 +31,20 @@ const WeekdaysList: React.FC = () => {
 const WeekdayRow: React.FC<{ weekday: string }> = ({ weekday }) => {
   const [checked, setChecked] = useState<boolean>(false);
 
+  function handleToggle() {
+    setChecked((prevChecked) => !prevChecked);
+  }
+
   return (
     <div>
       <label>
         <input
           type="checkbox"
-          className="tw-daisy-toggle"
-          onChange={() => {
-            setChecked((prevChecked) => !prevChecked);
-          }}
+          className="tw-daisy-toggle tw-mr-3"
+          onChange={handleToggle}
         />
         <span className="tw-uppercase">{weekday}</span>
       </label>
-
       {checked ? <TimeRangeList /> : 'Unavailable'}
     </div>
   );
