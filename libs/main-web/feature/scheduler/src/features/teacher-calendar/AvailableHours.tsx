@@ -1,4 +1,5 @@
-import React, { useId, useMemo, useState } from 'react';
+import React, { useCallback, useId, useMemo, useState } from 'react';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { PlusIcon } from '@heroicons/react/outline';
 import { hourList, getDefaultRange } from '../../constants';
 import { Hour, TimeRange } from '../../types/time-range';
@@ -21,13 +22,11 @@ const WeekdaysTable: React.FC = () => {
   const domId = useId();
 
   return (
-    <table className="tw-daisy-table tw-w-full">
-      <tbody>
-        {weekdays.map((d) => (
-          <WeekdayRow key={domId + d} weekday={d} />
-        ))}
-      </tbody>
-    </table>
+    <>
+      {weekdays.map((d) => (
+        <WeekdayRow key={domId + d} weekday={d} />
+      ))}
+    </>
   );
 };
 
@@ -35,8 +34,8 @@ const WeekdayRow: React.FC<{ weekday: string }> = ({ weekday }) => {
   const [checked, setChecked] = useState<boolean>(false);
 
   return (
-    <tr>
-      <td>
+    <>
+      <label className="tw-daisy-label tw-cursor-pointer">
         <input
           type="checkbox"
           className="tw-daisy-toggle"
@@ -44,33 +43,40 @@ const WeekdayRow: React.FC<{ weekday: string }> = ({ weekday }) => {
             setChecked((prevChecked) => !prevChecked);
           }}
         />
-      </td>
-      <td className="tw-uppercase">{weekday}</td>
-      <td>{checked ? <TimeRangePickerList /> : 'Unavailable'}</td>
-    </tr>
+        <span className="tw-uppercase">{weekday}</span>
+      </label>
+
+      {checked ? <TimeRangePickerList /> : 'Unavailable'}
+    </>
   );
 };
 
 const TimeRangePickerList: React.FC = () => {
   const [ranges, setRanges] = useState<TimeRange[]>([getDefaultRange()]);
+  const [parent] = useAutoAnimate<HTMLDivElement>();
 
   const domId = useId();
 
   return (
     <>
       {ranges.map((range, index) => (
-        <React.Fragment key={domId + index}>
+        <div ref={parent} key={domId + index}>
           <TimeSelect
             type="from"
             value={range.from}
             {...{ setRanges, index }}
           />
           <span>to</span>
-          <TimeSelect type="to" value={range.to} {...{ setRanges, index }} />
-        </React.Fragment>
+          <TimeSelect
+            type="to"
+            value={range.to}
+            selectedFromIndex={hourList.indexOf(range.from)}
+            {...{ setRanges, index }}
+          />
+        </div>
       ))}
       <button
-        className="tw-daisy-btn tw-daisy-btn-square tw-daisy-btn-sm"
+        className="tw-daisy-btn tw-daisy-btn-ghost tw-daisy-btn-sm"
         onClick={() => {
           setRanges((prevRanges) => [...prevRanges, getDefaultRange()]);
         }}
@@ -86,10 +92,34 @@ const TimeSelect: React.FC<{
   index: number;
   value: Hour;
   setRanges: (value: React.SetStateAction<TimeRange[]>) => void;
-}> = React.memo(({ index, type, value, setRanges }) => {
+  selectedFromIndex?: number;
+}> = React.memo(({ index, type, value, setRanges, selectedFromIndex }) => {
+  const getDisabled = useCallback(
+    (index: number): boolean => {
+      if (!selectedFromIndex) return false;
+
+      switch (selectedFromIndex) {
+        case hourList.length - 2:
+          return false;
+        case hourList.length - 1:
+          if (index === 0) return true;
+          return false;
+        default:
+          if (index <= selectedFromIndex) return true;
+          return false;
+      }
+    },
+    [selectedFromIndex]
+  );
+
   const selectOptions = useMemo(
-    () => hourList.map((hour) => <option key={hour}>{hour}</option>),
-    []
+    () =>
+      hourList.map((hour, index) => (
+        <option key={hour} disabled={getDisabled(index)}>
+          {hour}
+        </option>
+      )),
+    [getDisabled]
   );
 
   return (
