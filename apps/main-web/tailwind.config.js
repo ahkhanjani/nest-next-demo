@@ -19,7 +19,10 @@ module.exports = {
       borderColor: '#00000038',
       field: '#f1f1f1',
       gray:'#4F5B62',
-      lightGray:'#93999D'
+      lightGray:'#93999D',
+      white:"#ffffff",
+      dark:"#263238",
+      bgColor:"#FAFAFA"
     },
     screens: {
       'sm': '640px',

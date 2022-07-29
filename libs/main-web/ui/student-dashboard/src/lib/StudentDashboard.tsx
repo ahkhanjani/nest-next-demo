@@ -4,23 +4,37 @@ import {
   Icon2User,
   IconArrow,
   IconCahrt,
-  IconCalendar,
+  IconCalendarOutline,
   IconCategory,
   IconEditSquare,
   IconHorizontalLogo,
   IconInfoCircle,
   IconMessage,
   IconNotificatin,
+  IconPaperPlus,
   IconSetting,
   IconVerticalLogo,
 } from 'fm/icons';
 import { ImageAvatarTest } from 'fm/images';
+import { Sidebar } from './Layout/Sidebar';
+import Dashboard from './Pages/Dashboard';
+import Classroom from './Pages/Classroom';
 
 export type IStudentDashboardProps = {};
 
 const StudentDashboard: React.FC<IStudentDashboardProps> = ({}) => {
   const [isActive, setActive] = useState(2);
-  const [isActiveDesk, setActiveDesk] = useState(0);
+  const [isActiveDesk, setActiveDesk] = useState('Dashboard');
+
+  const renderContent = () => {
+    if (isActiveDesk === 'Dashboard') {
+      return <Dashboard />;
+    } else if (isActiveDesk === 'Classroom') {
+      return <Classroom />;
+    } else {
+      return <div></div>;
+    }
+  };
 
   return (
     <div>
@@ -60,7 +74,7 @@ const StudentDashboard: React.FC<IStudentDashboardProps> = ({}) => {
             }`}
             onClick={() => setActive(1)}
           >
-            <Image src={IconCalendar} alt="calendar" />
+            <Image src={IconCalendarOutline} alt="calendar" />
           </button>
           <button
             className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center  ${
@@ -94,120 +108,12 @@ const StudentDashboard: React.FC<IStudentDashboardProps> = ({}) => {
           </button>
         </div>
       </div>
-      <div className="tw-hidden md:tw-flex ">
-        <div className="tw-h-screen tw-px-4 tw-flex tw-flex-col tw-items-center tw-shadow-[2px_0px_1px_rgba(0,0,0,0.1)]">
-          <div className="tw-mt-8 tw-block 2xl:tw-hidden">
-            <Image src={IconVerticalLogo} alt="logo" />
-          </div>
-          <div className="tw-mt-8 tw-hidden 2xl:tw-block">
-            <Image src={IconHorizontalLogo} alt="logo" />
-          </div>
-          <div className="tw-flex tw-flex-col tw-items-center tw-my-12 tw-border-t-4 tw-border-field tw-py-4 2xl:tw-w-40">
-            <button
-              onClick={() => setActiveDesk(0)}
-              className="tw-flex tw-flex-row tw-items-center tw-min-w-full"
-            >
-              <div
-                className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center		  ${
-                  isActiveDesk === 0 ? 'tw-bg-blue white-svg ' : ' gray-svg'
-                }`}
-              >
-                <Image src={IconCategory} alt="category" />
-              </div>
-              <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
-                Dashboard
-              </label>
-            </button>
-            <button
-              className="tw-flex tw-flex-row tw-items-center tw-py-2 tw-min-w-full"
-              onClick={() => setActiveDesk(1)}
-            >
-              <div
-                className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center		  ${
-                  isActiveDesk === 1 ? 'tw-bg-blue white-svg ' : ' gray-svg'
-                }`}
-              >
-                <Image src={Icon2User} alt="2user" />
-              </div>
-              <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
-                Classroom
-              </label>
-            </button>
-            <button
-              className="tw-flex tw-flex-row tw-items-center tw-py-2 tw-min-w-full"
-              onClick={() => setActiveDesk(2)}
-            >
-              <div
-                className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center		  ${
-                  isActiveDesk === 2 ? 'tw-bg-blue white-svg ' : ' gray-svg'
-                }`}
-              >
-                <Image src={IconCalendar} alt="calendar" />
-              </div>
-              <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
-                Calendar
-              </label>
-            </button>
-            <button
-              className="tw-flex tw-flex-row tw-items-center tw-py-2 tw-min-w-full"
-              onClick={() => setActiveDesk(3)}
-            >
-              <div
-                className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center		  ${
-                  isActiveDesk === 3 ? 'tw-bg-blue white-svg ' : ' gray-svg'
-                }`}
-              >
-                <Image src={IconEditSquare} alt="edit" />
-              </div>
-              <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
-                Home-Work
-              </label>
-            </button>
-            <button
-              className="tw-flex tw-flex-row tw-items-center tw-py-2 tw-min-w-full"
-              onClick={() => setActiveDesk(4)}
-            >
-              <div
-                className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center		  ${
-                  isActiveDesk === 4 ? 'tw-bg-blue white-svg ' : ' gray-svg'
-                }`}
-              >
-                <Image src={IconCahrt} alt="chart" />
-              </div>
-              <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
-                Payments
-              </label>
-            </button>
-            <button
-              className="tw-flex tw-flex-row tw-items-center tw-py-2 tw-min-w-full"
-              onClick={() => setActiveDesk(5)}
-            >
-              <div
-                className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center		  ${
-                  isActiveDesk === 5 ? 'tw-bg-blue white-svg ' : ' gray-svg'
-                }`}
-              >
-                <Image src={IconSetting} alt="setting" />
-              </div>
-              <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
-                Settings
-              </label>
-            </button>
-          </div>
-          <div className="tw-border-[3px] tw-border-blue tw-rounded-full tw-flex tw-items-center tw-justify-center tw-w-[42px] tw-h-[42px] ">
-            <Image
-              src={ImageAvatarTest}
-              alt="avatar"
-              width={42}
-              height={42}
-              className="tw-rounded-full tw-object-cover"
-            />
-          </div>
-        </div>
+      <div className="tw-hidden tw-bg-bgColor md:tw-flex ">
+        <Sidebar isActiveDesk={isActiveDesk} setActiveDesk={setActiveDesk} />
         <div className="tw-w-full">
-          <div className=" tw-min-w-full tw-py-6 tw-flex tw-flex-row tw-items-center tw-justify-around tw-shadow-md 2xl:tw-justify-between 2xl:tw-pr-9">
+          <div className="tw-bg-white tw-min-w-full tw-max-h-[90px] tw-py-6 tw-flex tw-flex-row tw-items-center tw-justify-around tw-shadow-md 2xl:tw-justify-between 2xl:tw-pr-9">
             <span className="tw-text-2xl tw-text-lightGray tw-font-normal tw-px-6 tw-border-r-4 tw-border-r-field 2xl:tw-border-none 2xl:tw-hidden">
-              Dashboard
+              {isActiveDesk}
             </span>
             <div className="tw-px-9  ">
               <div className="tw-flex tw-flex-row tw-items-center tw-justify-around tw-rounded-2xl tw-py-2 tw-px-5 tw-shadow-md ">
@@ -235,6 +141,7 @@ const StudentDashboard: React.FC<IStudentDashboardProps> = ({}) => {
               </button>
             </div>
           </div>
+          <div className="tw-px-6 tw-py-10">{renderContent()}</div>
         </div>
       </div>
     </div>
