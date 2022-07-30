@@ -3,6 +3,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import type { RedisClientOptions } from 'redis';
+import * as redisStore from 'cache-manager-redis-store';
 // controllers, providers
 import { AppController } from './app.controller';
 // modules
@@ -16,7 +18,10 @@ import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.modul
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
 
-    CacheModule.register({ isGlobal: true }),
+    CacheModule.register<RedisClientOptions>({
+      store: redisStore,
+      socket: { host: 'localhost', port: 6379 },
+    }),
 
     // used code first approach: https://docs.nestjs.com/graphql/quick-start#code-first
     // will auto-generate schema file
