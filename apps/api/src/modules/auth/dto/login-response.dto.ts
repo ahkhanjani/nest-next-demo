@@ -3,8 +3,8 @@ import { FieldError } from 'fm/shared-types';
 
 @ObjectType()
 export class LoginResponse {
-  @Field({ nullable: true })
-  userId?: string;
+  @Field({ defaultValue: false })
+  success?: boolean;
 
   @Field(() => [FieldError], { nullable: true })
   errors?: FieldError[];

@@ -2,9 +2,9 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { FieldError } from 'fm/shared-types';
 
 @ObjectType()
-export class TokenResponse {
+export class ValidateResponse {
   @Field({ nullable: true })
-  token?: string;
+  userId?: string;
 
   @Field(() => [FieldError], { nullable: true })
   errors?: FieldError[];

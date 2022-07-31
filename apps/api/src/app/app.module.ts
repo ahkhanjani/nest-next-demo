@@ -1,5 +1,6 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
@@ -20,6 +21,8 @@ import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.modul
 
     CacheModule.register<RedisClientOptions>({
       store: redisStore,
+      name: 'uid',
+      ttl: 3600,
       socket: { host: 'localhost', port: 6379 },
     }),
 
@@ -30,6 +33,8 @@ import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.modul
       installSubscriptionHandlers: true,
       autoSchemaFile: true,
       sortSchema: true,
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
 
     // link server to database
