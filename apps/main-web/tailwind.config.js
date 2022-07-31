@@ -22,7 +22,8 @@ module.exports = {
       lightGray:'#93999D',
       white:"#ffffff",
       dark:"#263238",
-      bgColor:"#FAFAFA"
+      bgColor:"#FAFAFA",
+      grayText:"#6F777C"
     },
     screens: {
       'sm': '640px',

@@ -43,7 +43,6 @@
       "fm/material-web/material-form-schema-generator": [
         "libs/material-web/feature/material-form-schema-generator/src/index.ts"
       ],
-      "fm/sessions": ["libs/main-web/feature/sessions/src/index.ts"],
       "fm/shared-feature-auth": ["libs/shared/feature/auth/src/index.ts"],
       "fm/shared-feature-network": ["libs/shared/feature/network/src/index.ts"],
       "fm/shared-graphql": ["libs/shared/graphql/src/index.ts"],

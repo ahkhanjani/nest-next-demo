@@ -16,3 +16,5 @@ export { default as IconTimeCircle} from './lib/time-circle.svg';
 export { default as IconEdit} from './lib/edit.svg';
 export { default as IconBlueCalendar} from './lib/blue-calendar.svg';
 export { default as IconPaperPlus} from './lib/paper-plus.svg';
+export { default as IconSun} from './lib/sun.svg';
+export { default as IconMoon} from './lib/moon.svg';

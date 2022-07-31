@@ -7,13 +7,12 @@ import {
   IconCalendarOutline,
   IconCategory,
   IconEditSquare,
-  IconHorizontalLogo,
   IconInfoCircle,
   IconMessage,
+  IconMoon,
   IconNotificatin,
-  IconPaperPlus,
   IconSetting,
-  IconVerticalLogo,
+  IconSun,
 } from 'fm/icons';
 import { ImageAvatarTest } from 'fm/images';
 import { Sidebar } from './Layout/Sidebar';
@@ -25,6 +24,7 @@ export type IStudentDashboardProps = {};
 const StudentDashboard: React.FC<IStudentDashboardProps> = ({}) => {
   const [isActive, setActive] = useState(2);
   const [isActiveDesk, setActiveDesk] = useState('Dashboard');
+  const [isDark, setDark] = useState(false);
 
   const renderContent = () => {
     if (isActiveDesk === 'Dashboard') {
@@ -111,25 +111,53 @@ const StudentDashboard: React.FC<IStudentDashboardProps> = ({}) => {
       <div className="tw-hidden tw-bg-bgColor md:tw-flex ">
         <Sidebar isActiveDesk={isActiveDesk} setActiveDesk={setActiveDesk} />
         <div className="tw-w-full">
-          <div className="tw-bg-white tw-min-w-full tw-max-h-[90px] tw-py-6 tw-flex tw-flex-row tw-items-center tw-justify-around tw-shadow-md 2xl:tw-justify-between 2xl:tw-pr-9">
+          <div className="tw-bg-white tw-min-w-full  tw-py-6 tw-flex tw-flex-row tw-items-center tw-justify-around tw-shadow-md 2xl:tw-justify-between 2xl:tw-pr-9">
             <span className="tw-text-2xl tw-text-lightGray tw-font-normal tw-px-6 tw-border-r-4 tw-border-r-field 2xl:tw-border-none 2xl:tw-hidden">
               {isActiveDesk}
             </span>
             <div className="tw-px-9  ">
-              <div className="tw-flex tw-flex-row tw-items-center tw-justify-around tw-rounded-2xl tw-py-2 tw-px-5 tw-shadow-md ">
-                <Image src={IconInfoCircle} alt="info" />
-                <div className="tw-pl-3 tw-pr-7">
-                  <span className="tw-text-sm tw-font-medium">
+              <div
+                tabIndex={0}
+                className="tw-daisy-collapse tw-daisy-collapse-arrow tw-shadow-md tw-bg-white tw-rounded-box"
+              >
+                <input type="checkbox" />
+                <div className="tw-daisy-collapse-title tw-flex tw-flex-row tw-items-center">
+                  <Image src={IconInfoCircle} alt="info" />
+                  <span className="tw-text-sm tw-font-medium tw-pl-2">
                     Daily idiom:
                   </span>
                   <span className="tw-text-sm tw-font-normal">
                     Sweep (someone) off (someone's) feet
                   </span>
                 </div>
-                <Image src={IconArrow} alt="arrow" />
+                <div className="tw-daisy-collapse-content">
+                  <p className="tw-text-sm tw-font-normal tw-text-grayText">
+                    A feeling when you fall in love instantly with someone.
+                    <br />A feeling when you fall in love instantly with
+                    someone.
+                  </p>
+                </div>
               </div>
             </div>
-            <div>
+            <div className="tw-flex tw-flex-row tw-items-center ">
+              <div
+                className={`tw-border-field tw-border-2 tw-rounded-xl tw-mr-6 tw-w-11 tw-h-6 tw-px-1  tw-transition-all tw-duration-300 tw-flex tw-flex-row tw-items-center tw-justify-between tw-relative ${
+                  isDark ? 'tw-bg-gray' : 'tw-bg-white'
+                }`}
+              >
+                <span className="tw-p-1 tw-flex tw-items-center tw-justify-center">
+                  <Image src={IconSun} alt="sun" />
+                </span>
+                <span className="tw-p-1 tw-flex tw-items-center tw-justify-center">
+                  <Image src={IconMoon} alt="moon" />
+                </span>
+                <div
+                  className={`tw-h-[17px] tw-w-[17px] tw-absolute tw-rounded-full tw-cursor-pointer tw-transition-all tw-duration-300 ${
+                    isDark ? 'tw-translate-x-4 tw-bg-white' : 'tw-bg-gray'
+                  }`}
+                  onClick={() => setDark(!isDark)}
+                ></div>
+              </div>
               <button>
                 <Image src={IconSetting} alt="setting" />
               </button>
