@@ -4,14 +4,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as argon2 from 'argon2';
 import * as bcrypt from 'bcrypt';
 import { User, UserModel } from './interface/user.interface';
-import { CreateUserInput, CreateUserResponse } from './dto';
+import type { CreateUserInput, CreateUserResponse } from './dto';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<UserModel>
-  ) {}
+  ) { }
 
   //
   // ─── QUERY ──────────────────────────────────────────────────────────────────────

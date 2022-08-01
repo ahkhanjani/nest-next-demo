@@ -1,4 +1,4 @@
-import { MaterialCategory } from '../../interface/material-category.interface';
+import type { MaterialCategory } from '../../interface/material-category.interface';
 
 export const materialCategoryStub = (): MaterialCategory => ({
   id: '6293745c1d4f29749d32c4b4',

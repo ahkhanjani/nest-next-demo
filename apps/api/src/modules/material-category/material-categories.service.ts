@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateMaterialCategoryInput } from './dto/create-material-category-input.dto';
-import { CreateMaterialCategoryResponse } from './dto/create-material-category-response.dto';
-import { MaterialCategoriesPaginateInput } from './dto/material-categories-paginate-input.dto';
-import { MaterialCategoriesPaginateResponse } from './dto/material-categories-paginate-response.dto';
-import { UpdateMaterialCategoryInput } from './dto/update-material-category-input.dto';
-import { UpdateMaterialCategoryResponse } from './dto/update-material-category-response.dto';
+import type { CreateMaterialCategoryInput } from './dto/create-material-category-input.dto';
+import type { CreateMaterialCategoryResponse } from './dto/create-material-category-response.dto';
+import type { MaterialCategoriesPaginateInput } from './dto/material-categories-paginate-input.dto';
+import type { MaterialCategoriesPaginateResponse } from './dto/material-categories-paginate-response.dto';
+import type { UpdateMaterialCategoryInput } from './dto/update-material-category-input.dto';
+import type { UpdateMaterialCategoryResponse } from './dto/update-material-category-response.dto';
 import {
   MaterialCategory,
   MaterialCategoryModel,
@@ -17,7 +17,7 @@ export class MaterialCategoriesService {
   constructor(
     @InjectModel(MaterialCategory.name)
     private readonly materialCategoryModel: Model<MaterialCategoryModel>
-  ) {}
+  ) { }
 
   //
   // ─── QUERY ──────────────────────────────────────────────────────────────────────
@@ -107,7 +107,7 @@ export class MaterialCategoriesService {
 
       return { success: true };
     } catch (error) {
-      return { error };
+      return { error: error as string };
     }
   }
 }
