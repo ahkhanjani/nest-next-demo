@@ -1,28 +1,26 @@
-import { CacheModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import type { RedisClientOptions } from 'redis';
-import * as redisStore from 'cache-manager-redis-store';
-// controllers, providers
+
 import { AppController } from './app.controller';
-// modules
+
 import { MaterialsModule } from '../modules/material/materials.module';
 import { MaterialCategoriesModule } from '../modules/material-category/material-categories.module';
 import { UsersModule } from '../modules/user/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.module';
 
+import configuration from '../config/configuration';
+
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-
-    CacheModule.register<RedisClientOptions>({
-      store: redisStore,
-      name: 'uid',
-      ttl: 3600,
-      socket: { host: 'localhost', port: 6379 },
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration],
+      expandVariables: true,
+      cache: true,
     }),
 
     // used code first approach: https://docs.nestjs.com/graphql/quick-start#code-first
@@ -40,7 +38,7 @@ import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.modul
     }),
 
     // link server to database
-    MongooseModule.forRoot(process.env.DATABASE_URI, {
+    MongooseModule.forRoot('mongodb://127.0.0.1:27017/fm-db', {
       useNewUrlParser: true,
       // authSource: 'admin',
     }),

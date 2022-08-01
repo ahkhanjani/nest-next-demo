@@ -1,19 +1,25 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
 import { useContainer } from 'class-validator';
 import session from 'express-session';
 import Redis from 'ioredis';
 import connectRedis from 'connect-redis';
-// modules
+
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: {
-      allowedHeaders: ['Content-Type'],
-      origin: ['http://localhost:4200'],
-      credentials: true,
-    },
+  await ConfigModule.envVariablesLoaded;
+
+  const app = await NestFactory.create(AppModule);
+
+  const configService = app.get(ConfigService);
+  console.log();
+  app.enableCors({
+    allowedHeaders: configService.get<string[]>('cors.appHeaders'),
+    origin: configService.get<string[]>('cors.appOrigins'),
+    credentials: true,
   });
 
   const RedisStore = connectRedis(session);
@@ -26,18 +32,19 @@ async function bootstrap() {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         client: redisClient,
-        // 30 minutes
-        ttl: 30 * 60,
+        ttl: configService.get<number>('session.ttl'),
       }),
-      secret: process.env.SESSION_SECRET,
+      secret: configService.get<string>('session.secret'),
       resave: false,
       saveUninitialized: false,
       cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure:
+          configService.get<'development' | 'production'>('env') ===
+          'production',
         httpOnly: true,
         sameSite: 'strict',
         // 30 minutes
-        maxAge: 30 * 60 * 1000,
+        maxAge: configService.get<number>('session.ttl') * 1000,
       },
     })
   );
@@ -50,18 +57,16 @@ async function bootstrap() {
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-  await app.listen(4000);
+  await app.listen(configService.get<number>('port'));
 
-  switch (process.env.NODE_ENV) {
+  switch (configService.get<'development' | 'production'>('env')) {
     case 'development':
-    case 'dev':
       console.log(
         `'api' is running on '${await app.getUrl()}'.\nGraphQL Playground: ${await app.getUrl()}/graphql`
       );
       break;
 
     case 'production':
-    case 'prod':
       console.log('The main API started.');
       break;
 
