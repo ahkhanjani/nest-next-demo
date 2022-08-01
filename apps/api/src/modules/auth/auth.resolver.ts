@@ -1,7 +1,7 @@
-import { Session } from '@nestjs/common';
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
 
 import { AuthService } from './auth.service';
+import { User } from './decorator/user.decorator';
 
 import { LoginInput } from './dto/login-input.dto';
 import { LoginResponse } from './dto/login-response.dto';
@@ -12,7 +12,7 @@ export class AuthResolver {
 
   @Mutation(() => LoginResponse)
   async login(
-    @Session() session: Record<string, string>,
+    @User() uid: string,
     @Args('dto') { username, password }: LoginInput
   ): Promise<LoginResponse> {
     const { userId, errors } = await this.authService.validate(
@@ -22,8 +22,8 @@ export class AuthResolver {
 
     if (errors) return { errors };
 
-    session.userId = userId;
+    uid = userId;
 
-    return { success: true };
+    return { accessToken: uid };
   }
 }

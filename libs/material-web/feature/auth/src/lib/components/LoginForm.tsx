@@ -6,6 +6,7 @@ import { InputField, SubmitButton } from 'fm/main-web-ui-form';
 import { useLoginService } from '../services/LoginServiceProvider';
 // types
 import type { LoginFormikValues as Values } from '../types/login-formik-values';
+import { useEffect } from 'react';
 
 const validationSchema = yup.object({
   username: yup.string().min(4),
@@ -16,7 +17,11 @@ const initialValues: Values = { username: '', password: '' };
 Object.freeze(initialValues);
 
 export const LoginForm: React.FC = () => {
-  const { errors, loading, handleSubmit } = useLoginService();
+  const { data, errors, loading, handleSubmit } = useLoginService();
+
+  useEffect(() => {
+    console.log();
+  }, [data]);
 
   // ────────────────────────────────────────────────────────────────────────────────
 

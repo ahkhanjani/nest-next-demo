@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { type FormikHelpers } from 'formik';
 // fm
-import { CreateUserMutation, useCreateUserMutation } from 'fm/shared-graphql';
+import { LoginMutation, useLoginMutation } from 'fm/shared-graphql';
 import { toErrorMap } from 'fm/shared-utils';
 import type { UnpredictedFormErrors } from 'fm/shared-types';
 import { setSnackbarMessage, useAppDispatch } from 'fm/material-web-state';
@@ -23,7 +23,7 @@ export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
 
   // ─── Gql ────────────────────────────────────────────────────────────────────────
 
-  const [createUser, { data, error, loading }] = useCreateUserMutation();
+  const [login, { data, error, loading }] = useLoginMutation();
 
   // ─── Handlers ───────────────────────────────────────────────────────────────────
 
@@ -31,7 +31,7 @@ export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
     resetErrors();
 
     try {
-      await createUser({ variables: values });
+      await login({ variables: values });
 
       if (error) {
         setErrors([error]);
@@ -46,10 +46,11 @@ export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
 
       if (!data) {
         setErrors(['Failed to fetch data.']);
+
         return;
       }
 
-      const formErrors = data.createUser.errors;
+      const formErrors = data.login.errors;
       if (formErrors) {
         actions.setErrors(toErrorMap(formErrors));
         return;
@@ -86,7 +87,7 @@ export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
 export const useLoginService = () => useContext(LoginServiceContext);
 
 export interface LoginServiceContextValue {
-  data: CreateUserMutation | null | undefined;
+  data: LoginMutation | null | undefined;
   errors: UnpredictedFormErrors;
   loading: boolean;
   handleSubmit: (

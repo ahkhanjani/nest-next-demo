@@ -1,6 +1,5 @@
 import { CacheModule, Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
@@ -33,8 +32,11 @@ import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.modul
       installSubscriptionHandlers: true,
       autoSchemaFile: true,
       sortSchema: true,
-      playground: false,
-      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      csrfPrevention: true,
+      cors: {
+        origin: ['http://localhost:4200', 'http://localhost:4000/graphql'],
+        credentials: true,
+      },
     }),
 
     // link server to database

@@ -1,3 +1,0 @@
-mutation DeleteMaterialFormSchema($id: ID!) {
-  deleteMaterialFormSchema(id: $id)
-}

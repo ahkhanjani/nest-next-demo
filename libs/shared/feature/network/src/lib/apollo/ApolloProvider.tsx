@@ -8,7 +8,6 @@ import {
 } from '@apollo/client';
 import { offsetLimitPagination } from '@apollo/client/utilities';
 import { onError } from '@apollo/client/link/error';
-import { setContext } from '@apollo/client/link/context';
 import crossFetch from 'cross-fetch';
 
 const httpLink = createHttpLink({
@@ -17,16 +16,7 @@ const httpLink = createHttpLink({
       ? process.env['API_URI']
       : 'http://localhost:4000/graphql',
   fetch: crossFetch,
-});
-
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('jwtToken');
-
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: { ...headers, authorization: token ? `Bearer ${token}` : null },
-  };
+  credentials: 'include',
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
@@ -40,7 +30,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 const client = new ApolloClient({
-  link: from([errorLink, authLink.concat(httpLink)]),
+  link: from([errorLink, httpLink]),
   cache: new InMemoryCache({
     typePolicies: {
       Query: {

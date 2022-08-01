@@ -6,11 +6,14 @@ import Redis from 'ioredis';
 import connectRedis from 'connect-redis';
 // modules
 import { AppModule } from './app/app.module';
-import { config } from './config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    cors: { origin: '*' },
+    cors: {
+      allowedHeaders: ['Content-Type'],
+      origin: ['http://localhost:4200'],
+      credentials: true,
+    },
   });
 
   const RedisStore = connectRedis(session);
@@ -26,12 +29,12 @@ async function bootstrap() {
         // 30 minutes
         ttl: 30 * 60,
       }),
-      secret: config.sessionSecret,
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
       cookie: {
-        secure: app.get('env') === 'production',
-        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: false,
         sameSite: 'lax',
         // 30 minutes
         maxAge: 30 * 60 * 1000,
@@ -49,7 +52,7 @@ async function bootstrap() {
 
   await app.listen(4000);
 
-  switch (app.get('env')) {
+  switch (process.env.NODE_ENV) {
     case 'development':
     case 'dev':
       console.log(

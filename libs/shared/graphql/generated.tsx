@@ -13,7 +13,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
   DateTime: any;
 };
 
@@ -72,6 +71,12 @@ export type LoginInput = {
   username: Scalars['String'];
 };
 
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  accessToken?: Maybe<Scalars['String']>;
+  errors?: Maybe<Array<FieldError>>;
+};
+
 export type Material = {
   __typename?: 'Material';
   category: Array<Scalars['ID']>;
@@ -110,15 +115,6 @@ export type MaterialDto = {
   type: Scalars['String'];
 };
 
-export type MaterialFormSchema = {
-  __typename?: 'MaterialFormSchema';
-  createdAt: Scalars['DateTime'];
-  id: Scalars['ID'];
-  strSchema: Scalars['String'];
-  title: Scalars['String'];
-  updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
 export type MaterialsPaginateInput = {
   categoryId: Scalars['ID'];
   limit: Scalars['Int'];
@@ -137,8 +133,7 @@ export type Mutation = {
   createMaterials: CreateMaterialsResponse;
   createPreReg: PreRegResponse;
   createUser: CreateUserResponse;
-  deleteMaterialFormSchema: Scalars['Boolean'];
-  login: TokenResponse;
+  login: LoginResponse;
   updateMaterial: UpdateMaterialResponse;
   updateMaterialCategory: UpdateMaterialCategoryResponse;
 };
@@ -161,11 +156,6 @@ export type MutationCreatePreRegArgs = {
 
 export type MutationCreateUserArgs = {
   dto: CreateUserInput;
-};
-
-
-export type MutationDeleteMaterialFormSchemaArgs = {
-  id: Scalars['ID'];
 };
 
 
@@ -203,8 +193,6 @@ export type Query = {
   materialCategoriesByParentId: Array<MaterialCategory>;
   materialCategoriesPaginate: MaterialCategoriesPaginateResponse;
   materialCategory: MaterialCategory;
-  materialFormSchema: MaterialFormSchema;
-  materialFormSchemas: Array<MaterialFormSchema>;
   materialTitleExists: Scalars['Boolean'];
   materials: Array<Material>;
   materialsByCategoryId: Array<Material>;
@@ -240,11 +228,6 @@ export type QueryMaterialCategoryArgs = {
 };
 
 
-export type QueryMaterialFormSchemaArgs = {
-  id: Scalars['ID'];
-};
-
-
 export type QueryMaterialTitleExistsArgs = {
   title: Scalars['String'];
 };
@@ -267,12 +250,6 @@ export type QueryUserArgs = {
 export type Subscription = {
   __typename?: 'Subscription';
   preRegCreated: PreRegEmail;
-};
-
-export type TokenResponse = {
-  __typename?: 'TokenResponse';
-  errors?: Maybe<Array<FieldError>>;
-  token?: Maybe<Scalars['String']>;
 };
 
 export type UpdateMaterialCategoryInput = {
@@ -314,7 +291,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'TokenResponse', token?: string | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken?: string | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
 export type CreateMaterialCategoryMutationVariables = Exact<{
   title: Scalars['String'];
@@ -359,30 +336,6 @@ export type GetMaterialCategoryQueryVariables = Exact<{
 
 
 export type GetMaterialCategoryQuery = { __typename?: 'Query', materialCategory: { __typename?: 'MaterialCategory', title: string, parentId?: string | null } };
-
-export type DeleteMaterialFormSchemaMutationVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type DeleteMaterialFormSchemaMutation = { __typename?: 'Mutation', deleteMaterialFormSchema: boolean };
-
-export type GetMaterialFormSchemaStringQueryVariables = Exact<{
-  id: Scalars['ID'];
-}>;
-
-
-export type GetMaterialFormSchemaStringQuery = { __typename?: 'Query', materialFormSchema: { __typename?: 'MaterialFormSchema', strSchema: string } };
-
-export type GetMaterialFormSchemasTableQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetMaterialFormSchemasTableQuery = { __typename?: 'Query', materialFormSchemas: Array<{ __typename?: 'MaterialFormSchema', id: string, createdAt: any, updatedAt?: any | null, title: string }> };
-
-export type GetMaterialFormSchemasQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetMaterialFormSchemasQuery = { __typename?: 'Query', materialFormSchemas: Array<{ __typename?: 'MaterialFormSchema', id: string, createdAt: any, updatedAt?: any | null, title: string, strSchema: string }> };
 
 export type CreateMaterialsMutationVariables = Exact<{
   materialDtoArray: Array<MaterialDto> | MaterialDto;
@@ -465,7 +418,7 @@ export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __type
 export const LoginDocument = gql`
     mutation Login($username: String!, $password: String!) {
   login(dto: {username: $username, password: $password}) {
-    token
+    accessToken
     errors {
       field
       message
@@ -725,147 +678,6 @@ export function useGetMaterialCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetMaterialCategoryQueryHookResult = ReturnType<typeof useGetMaterialCategoryQuery>;
 export type GetMaterialCategoryLazyQueryHookResult = ReturnType<typeof useGetMaterialCategoryLazyQuery>;
 export type GetMaterialCategoryQueryResult = Apollo.QueryResult<GetMaterialCategoryQuery, GetMaterialCategoryQueryVariables>;
-export const DeleteMaterialFormSchemaDocument = gql`
-    mutation DeleteMaterialFormSchema($id: ID!) {
-  deleteMaterialFormSchema(id: $id)
-}
-    `;
-export type DeleteMaterialFormSchemaMutationFn = Apollo.MutationFunction<DeleteMaterialFormSchemaMutation, DeleteMaterialFormSchemaMutationVariables>;
-
-/**
- * __useDeleteMaterialFormSchemaMutation__
- *
- * To run a mutation, you first call `useDeleteMaterialFormSchemaMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteMaterialFormSchemaMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteMaterialFormSchemaMutation, { data, loading, error }] = useDeleteMaterialFormSchemaMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useDeleteMaterialFormSchemaMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMaterialFormSchemaMutation, DeleteMaterialFormSchemaMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteMaterialFormSchemaMutation, DeleteMaterialFormSchemaMutationVariables>(DeleteMaterialFormSchemaDocument, options);
-      }
-export type DeleteMaterialFormSchemaMutationHookResult = ReturnType<typeof useDeleteMaterialFormSchemaMutation>;
-export type DeleteMaterialFormSchemaMutationResult = Apollo.MutationResult<DeleteMaterialFormSchemaMutation>;
-export type DeleteMaterialFormSchemaMutationOptions = Apollo.BaseMutationOptions<DeleteMaterialFormSchemaMutation, DeleteMaterialFormSchemaMutationVariables>;
-export const GetMaterialFormSchemaStringDocument = gql`
-    query GetMaterialFormSchemaString($id: ID!) {
-  materialFormSchema(id: $id) {
-    strSchema
-  }
-}
-    `;
-
-/**
- * __useGetMaterialFormSchemaStringQuery__
- *
- * To run a query within a React component, call `useGetMaterialFormSchemaStringQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMaterialFormSchemaStringQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMaterialFormSchemaStringQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetMaterialFormSchemaStringQuery(baseOptions: Apollo.QueryHookOptions<GetMaterialFormSchemaStringQuery, GetMaterialFormSchemaStringQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMaterialFormSchemaStringQuery, GetMaterialFormSchemaStringQueryVariables>(GetMaterialFormSchemaStringDocument, options);
-      }
-export function useGetMaterialFormSchemaStringLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialFormSchemaStringQuery, GetMaterialFormSchemaStringQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMaterialFormSchemaStringQuery, GetMaterialFormSchemaStringQueryVariables>(GetMaterialFormSchemaStringDocument, options);
-        }
-export type GetMaterialFormSchemaStringQueryHookResult = ReturnType<typeof useGetMaterialFormSchemaStringQuery>;
-export type GetMaterialFormSchemaStringLazyQueryHookResult = ReturnType<typeof useGetMaterialFormSchemaStringLazyQuery>;
-export type GetMaterialFormSchemaStringQueryResult = Apollo.QueryResult<GetMaterialFormSchemaStringQuery, GetMaterialFormSchemaStringQueryVariables>;
-export const GetMaterialFormSchemasTableDocument = gql`
-    query GetMaterialFormSchemasTable {
-  materialFormSchemas {
-    id
-    createdAt
-    updatedAt
-    title
-  }
-}
-    `;
-
-/**
- * __useGetMaterialFormSchemasTableQuery__
- *
- * To run a query within a React component, call `useGetMaterialFormSchemasTableQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMaterialFormSchemasTableQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMaterialFormSchemasTableQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetMaterialFormSchemasTableQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialFormSchemasTableQuery, GetMaterialFormSchemasTableQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMaterialFormSchemasTableQuery, GetMaterialFormSchemasTableQueryVariables>(GetMaterialFormSchemasTableDocument, options);
-      }
-export function useGetMaterialFormSchemasTableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialFormSchemasTableQuery, GetMaterialFormSchemasTableQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMaterialFormSchemasTableQuery, GetMaterialFormSchemasTableQueryVariables>(GetMaterialFormSchemasTableDocument, options);
-        }
-export type GetMaterialFormSchemasTableQueryHookResult = ReturnType<typeof useGetMaterialFormSchemasTableQuery>;
-export type GetMaterialFormSchemasTableLazyQueryHookResult = ReturnType<typeof useGetMaterialFormSchemasTableLazyQuery>;
-export type GetMaterialFormSchemasTableQueryResult = Apollo.QueryResult<GetMaterialFormSchemasTableQuery, GetMaterialFormSchemasTableQueryVariables>;
-export const GetMaterialFormSchemasDocument = gql`
-    query GetMaterialFormSchemas {
-  materialFormSchemas {
-    id
-    createdAt
-    updatedAt
-    title
-    strSchema
-  }
-}
-    `;
-
-/**
- * __useGetMaterialFormSchemasQuery__
- *
- * To run a query within a React component, call `useGetMaterialFormSchemasQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMaterialFormSchemasQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMaterialFormSchemasQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetMaterialFormSchemasQuery(baseOptions?: Apollo.QueryHookOptions<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>(GetMaterialFormSchemasDocument, options);
-      }
-export function useGetMaterialFormSchemasLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>(GetMaterialFormSchemasDocument, options);
-        }
-export type GetMaterialFormSchemasQueryHookResult = ReturnType<typeof useGetMaterialFormSchemasQuery>;
-export type GetMaterialFormSchemasLazyQueryHookResult = ReturnType<typeof useGetMaterialFormSchemasLazyQuery>;
-export type GetMaterialFormSchemasQueryResult = Apollo.QueryResult<GetMaterialFormSchemasQuery, GetMaterialFormSchemasQueryVariables>;
 export const CreateMaterialsDocument = gql`
     mutation createMaterials($materialDtoArray: [MaterialDto!]!, $category: [ID!]!) {
   createMaterials(dto: {materialDtoArray: $materialDtoArray, category: $category}) {

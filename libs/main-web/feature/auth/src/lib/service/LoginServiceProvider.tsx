@@ -23,6 +23,7 @@ export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
   // ─── Handlers ───────────────────────────────────────────────────────────────────
 
   async function handleSubmit(values: Values, actions: FormikHelpers<Values>) {
+    console.log('first');
     resetErrors();
 
     try {

@@ -47,7 +47,7 @@
       "fm/material-web-ui": ["libs/material-web/ui/src/index.ts"],
       "fm/shared-feature-auth": ["libs/shared/feature/auth/src/index.ts"],
       "fm/shared-feature-network": ["libs/shared/feature/network/src/index.ts"],
-      "fm/shared-graphql": ["libs/shared/graphql/src/index.ts"],
+      "fm/shared-graphql": ["libs/shared/graphql/generated.tsx"],
       "fm/shared-types": ["libs/shared/types/src/index.ts"],
       "fm/shared-ui-form": ["libs/shared/ui/form/src/index.ts"],
       "fm/shared-ui-mui": ["libs/shared/ui/mui/src/index.ts"],
