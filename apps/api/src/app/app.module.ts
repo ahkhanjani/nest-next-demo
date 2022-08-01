@@ -34,7 +34,7 @@ import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.modul
       sortSchema: true,
       csrfPrevention: true,
       cors: {
-        origin: ['http://localhost:4200', 'http://localhost:4000/graphql'],
+        origin: ['http://localhost:4200'],
         credentials: true,
       },
     }),
