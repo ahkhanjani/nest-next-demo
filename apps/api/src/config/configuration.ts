@@ -3,8 +3,7 @@ export default () => ({
   port: process.env['API_PORT'] || 3333,
 
   mongodb: {
-    host: process.env['API_MONGODB_HOST'],
-    port: process.env['API_MONGODB_PORT'] || 27017,
+    uri: process.env['API_MONGODB_URI'],
   },
 
   redis: {
@@ -15,18 +14,25 @@ export default () => ({
   session: {
     ttl: parseInt(process.env['API_SESSION_TTL']) || 1800,
     secret: process.env['API_SESSION_SECRET'],
+    name: process.env['API_SESSION_NAME'],
   },
 
   cors: {
-    // e.g. API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_ORIGINGS=origin1 origin2 origin3
-    apolloOrigins:
-      process.env['API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_ORIGINGS'].split(' '),
+    apollo: {
+      // e.g. API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_ORIGINGS=origin1 origin2 origin3
+      origins:
+        process.env['API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_ORIGINGS'].split(
+          ' '
+        ),
+      headers:
+        process.env['API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_HEADERS'].split(
+          ' '
+        ),
+    },
 
-    apolloHeaders:
-      process.env['API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_HEADERS'].split(' '),
-
-    appOrigins: process.env['API_APP_ACCESS_CONTROL_ALLOW_ORIGINGS'].split(' '),
-
-    appHeaders: process.env['API_APP_ACCESS_CONTROL_ALLOW_HEADERS'].split(' '),
+    app: {
+      origins: process.env['API_APP_ACCESS_CONTROL_ALLOW_ORIGINGS'].split(' '),
+      headers: process.env['API_APP_ACCESS_CONTROL_ALLOW_HEADERS'].split(' '),
+    },
   },
 });

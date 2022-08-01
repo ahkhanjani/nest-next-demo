@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
 
@@ -25,22 +25,30 @@ import configuration from '../config/configuration';
 
     // used code first approach: https://docs.nestjs.com/graphql/quick-start#code-first
     // will auto-generate schema file
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      imports: [ConfigModule],
       driver: ApolloDriver,
-      installSubscriptionHandlers: true,
-      autoSchemaFile: true,
-      sortSchema: true,
-      csrfPrevention: true,
-      cors: {
-        origin: ['http://localhost:4200'],
-        credentials: true,
-      },
+      useFactory: async (configService: ConfigService) => ({
+        installSubscriptionHandlers: true,
+        autoSchemaFile: true,
+        sortSchema: true,
+        csrfPrevention: true,
+        cors: {
+          origin: configService.get<string[]>('cors.apollo.origins'),
+          allowedHeaders: configService.get<string[]>('cors.apollo.headers'),
+          credentials: true,
+        },
+      }),
+      inject: [ConfigService],
     }),
 
-    // link server to database
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/fm-db', {
-      useNewUrlParser: true,
-      // authSource: 'admin',
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('mongodb.uri'),
+        useNewUrlParser: true,
+      }),
+      inject: [ConfigService],
     }),
 
     // ____ custom ____

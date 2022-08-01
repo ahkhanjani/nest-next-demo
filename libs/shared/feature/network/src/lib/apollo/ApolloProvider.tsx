@@ -13,8 +13,8 @@ import crossFetch from 'cross-fetch';
 const httpLink = createHttpLink({
   uri:
     process.env['NODE_ENV'] === 'production'
-      ? process.env['API_URI']
-      : 'http://localhost:4000/graphql',
+      ? process.env['API_URL']
+      : 'http://localhost:3333/graphql',
   fetch: crossFetch,
   credentials: 'include',
 });

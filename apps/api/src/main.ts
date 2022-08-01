@@ -17,8 +17,8 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   console.log();
   app.enableCors({
-    allowedHeaders: configService.get<string[]>('cors.appHeaders'),
-    origin: configService.get<string[]>('cors.appOrigins'),
+    allowedHeaders: configService.get<string[]>('cors.app.headers'),
+    origin: configService.get<string[]>('cors.app.origins'),
     credentials: true,
   });
 
@@ -27,7 +27,7 @@ async function bootstrap() {
 
   app.use(
     session({
-      name: 'uid',
+      name: configService.get<string>('session.name'),
       store: new RedisStore({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
