@@ -47,8 +47,8 @@ describe('AuthResolver', () => {
       });
 
       it('should call AuthService', () => {
-        expect(service.validate).toHaveBeenCalledWith(loginDto);
-        expect(service.validate).toHaveBeenCalledTimes(1);
+        expect(service.validateUser).toHaveBeenCalledWith(loginDto);
+        expect(service.validateUser).toHaveBeenCalledTimes(1);
       });
 
       it('should return response', () => {

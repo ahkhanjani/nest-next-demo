@@ -33,12 +33,12 @@ describe('authService', () => {
     const { id, username, password } = userStub();
 
     it('with correct credentials, should approve the user', async () => {
-      const validationResponse = await service.validate(username, password);
+      const validationResponse = await service.validateUser(username, password);
       expect(validationResponse).toBe<ValidateResponse>({ userId: id });
     });
 
     it('with wrong username, should return error', async () => {
-      const validationResponse = await service.validate(
+      const validationResponse = await service.validateUser(
         'wrong_username',
         password
       );
@@ -49,7 +49,7 @@ describe('authService', () => {
     });
 
     it('with wrong password, should return error', async () => {
-      const validationResponse = await service.validate(
+      const validationResponse = await service.validateUser(
         username,
         'wr0ngPa$$w0rd'
       );

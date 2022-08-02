@@ -13,23 +13,22 @@ export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
   @Mutation(() => LoginResponse)
-  @UseGuards(GqlAuthGuard)
   async login(
-    @CurrentUser() uid: string,
-    @Context() ctx: any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    @Context() context: any,
     @Args('dto') { username, password }: LoginInput
   ): Promise<LoginResponse> {
-    if (uid)
+    if (context.req.session.userId)
       return { errors: [{ field: 'username', message: 'Already logged in.' }] };
 
-    const { userId, errors } = await this.authService.validate(
+    const { userId, errors } = await this.authService.validateUser(
       username,
       password
     );
 
     if (errors) return { errors };
 
-    ctx.req.session.userId = userId;
+    context.req.session.userId = userId;
 
     return { accessToken: userId };
   }

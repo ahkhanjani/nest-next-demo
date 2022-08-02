@@ -10,7 +10,7 @@ import type { ValidateResponse } from './dto/validate-response.dto';
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async validate(
+  async validateUser(
     username: string,
     password: string
   ): Promise<ValidateResponse> {
