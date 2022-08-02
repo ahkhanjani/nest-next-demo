@@ -8,9 +8,7 @@ import type { ValidateResponse } from './dto/validate-response.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly usersService: UsersService // private readonly jwtService: JwtService
-  ) {}
+  constructor(private readonly usersService: UsersService) {}
 
   async validate(
     username: string,
