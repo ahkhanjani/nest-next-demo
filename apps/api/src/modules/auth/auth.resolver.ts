@@ -24,8 +24,6 @@ export class AuthResolver {
 
     ctx.req.session.userId = userId;
 
-    console.log(ctx.req.session);
-
     return { accessToken: userId };
   }
 }

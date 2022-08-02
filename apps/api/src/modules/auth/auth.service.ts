@@ -10,7 +10,7 @@ import type { ValidateResponse } from './dto/validate-response.dto';
 export class AuthService {
   constructor(
     private readonly usersService: UsersService // private readonly jwtService: JwtService
-  ) { }
+  ) {}
 
   async validate(
     username: string,
