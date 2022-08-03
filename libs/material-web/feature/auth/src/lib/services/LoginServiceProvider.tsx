@@ -52,6 +52,7 @@ export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
 
       const formErrors = data.login.errors;
       if (formErrors) {
+        console.log(formErrors);
         actions.setErrors(toErrorMap(formErrors));
         return;
       }

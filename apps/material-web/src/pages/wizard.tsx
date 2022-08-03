@@ -1,6 +1,7 @@
 import { GetStaticPropsResult, NextPage } from 'next';
 // fm
 import { DashboardLayout } from 'fm/material-web-ui';
+import { MaterialWizard } from 'fm/material-web-feature-material-wizard';
 import { generateMaterialFormSchemas } from 'fm/material-web-feature-schemagen';
 import type { MaterialFormSchema } from 'fm/material-web-types';
 
@@ -9,7 +10,7 @@ const WizardPage: NextPage<WizardPageStaticProps> = ({
 }) => {
   return (
     <DashboardLayout>
-      <WizardContainer {...{ materialFormSchemas }} />
+      <MaterialWizard {...{ materialFormSchemas }} />
     </DashboardLayout>
   );
 };

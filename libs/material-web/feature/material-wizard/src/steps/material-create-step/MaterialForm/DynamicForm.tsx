@@ -12,9 +12,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
   formData,
   setFormData,
 }) => {
-  //
-  // ─── STORE ───────────────────────────────────────────────────────
-  //
+  // ─── Store ──────────────────────────────────────────────────────────────────────
 
   const { materialDataArray, selectedMaterialIndex } = useAppSelector(
     (state) => state.creatingMaterials
@@ -23,15 +21,13 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
     (state) => state.editingMaterial
   );
 
-  //
-  // ─── DATA ───────────────────────────────────────────────────────────────────────
-  //
+  // ─── Data ───────────────────────────────────────────────────────────────────────
 
   // in edit mode, set initial data
   useEffect(() => {
     function handleSetInitialData() {
       if (!editMode) return;
-      const data = { ...editingMaterialData }.data;
+      const data = { ...editingMaterialData }.formData;
       setFormData(data);
     }
     handleSetInitialData();
@@ -51,7 +47,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
 
       //* a locally created material material
       // set form data to the selected material
-      const data = { ...materialDataArray[selectedMaterialIndex] }.data;
+      const data = { ...materialDataArray[selectedMaterialIndex] }.formData;
       setFormData(data);
     }
 
