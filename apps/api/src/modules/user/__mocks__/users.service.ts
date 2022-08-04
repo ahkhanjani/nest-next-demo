@@ -1,4 +1,4 @@
-import { userStub } from '../__tests__/stubs/user.stub';
+import { userStub } from '../../../../test/stubs/user.stub';
 import type { UsersService as ServiceType } from '../users.service';
 import type { User } from '../interface/user.interface';
 import type { MockType } from 'fm/shared-types';

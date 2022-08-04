@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from '../users.service';
 import { UsersResolver } from '../users.resolver';
 
-import { userStub } from './stubs/user.stub';
+import { userStub } from '../../../../test/stubs/user.stub';
 import type { User } from '../interface/user.interface';
 import type { CreateUserInput, CreateUserResponse } from '../dto';
 

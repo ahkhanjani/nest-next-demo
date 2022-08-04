@@ -1,6 +1,6 @@
-import type { User } from '../../../user/interface/user.interface';
+import type { User } from '../../src/modules/user/interface/user.interface';
 
-export const materialStub = (): User => ({
+export const userStub = (): User => ({
   id: '6293745c1d4f29749d32c4b4',
   createdAt: new Date('2012-01-29T13:26:38.293Z'),
   username: 'john.dee',
