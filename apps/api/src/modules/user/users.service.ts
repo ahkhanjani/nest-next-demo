@@ -2,7 +2,6 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as argon2 from 'argon2';
-import * as bcrypt from 'bcrypt';
 import { User, UserModel } from './interface/user.interface';
 import type { CreateUserInput, CreateUserResponse } from './dto';
 
@@ -11,7 +10,7 @@ export class UsersService {
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<UserModel>
-  ) { }
+  ) {}
 
   //
   // ─── QUERY ──────────────────────────────────────────────────────────────────────
@@ -50,10 +49,9 @@ export class UsersService {
     password,
   }: CreateUserInput): Promise<CreateUserResponse> {
     try {
-      const salt: string = await bcrypt.genSalt(12);
       const hashedPassword = await argon2.hash(password, {
         type: argon2.argon2id,
-        salt: Buffer.from(salt),
+        hashLength: 40,
       });
 
       const user = await this.userModel.create({

@@ -8,9 +8,23 @@ export const AuthService = jest.fn(
     validateUser: jest.fn<ValidateResponse, [string, string]>(
       (username, password) =>
         username !== userStub().username
-          ? { errors: [expect.any(String)] }
+          ? {
+              errors: [
+                {
+                  field: 'username',
+                  message: expect.stringMatching(/username/i),
+                },
+              ],
+            }
           : password !== userStub().password
-          ? { errors: [expect.any(String)] }
+          ? {
+              errors: [
+                {
+                  field: 'password',
+                  message: expect.stringMatching(/password/i),
+                },
+              ],
+            }
           : { userId: userStub().id }
     ),
   })
