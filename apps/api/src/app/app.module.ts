@@ -14,6 +14,7 @@ import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.modul
 import { SessionsModule } from '../modules/session/sessions.module';
 
 import configuration from '../config/configuration';
+import { EnumsModule } from '../modules/enum/enums.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import configuration from '../config/configuration';
     AuthModule,
     PreRegEmailsModule,
     SessionsModule,
+    EnumsModule,
   ],
   controllers: [AppController],
 })
