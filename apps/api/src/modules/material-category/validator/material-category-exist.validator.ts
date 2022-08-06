@@ -6,18 +6,17 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { MaterialCategory } from '../interface/material-category.interface';
+import type { MaterialCategory } from '../interface/material-category.interface';
 // module
 import { MaterialCategoriesService } from '../material-categories.service';
 
 @Injectable()
 @ValidatorConstraint({ async: true })
 export class IsMaterialCategoryAlreadyExistingConstraint
-  implements ValidatorConstraintInterface
-{
+  implements ValidatorConstraintInterface {
   constructor(
     private readonly materialCategoriesService: MaterialCategoriesService
-  ) {}
+  ) { }
   async validate(title: string, args: ValidationArguments) {
     const [props]: Props[] = args.constraints;
     const updating = props.updating;

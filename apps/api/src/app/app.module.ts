@@ -1,36 +1,54 @@
-import { CacheModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '@nestjs/config';
-// controllers, providers
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
 import { AppController } from './app.controller';
-// modules
+
 import { MaterialsModule } from '../modules/material/materials.module';
 import { MaterialCategoriesModule } from '../modules/material-category/material-categories.module';
 import { UsersModule } from '../modules/user/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.module';
 
+import configuration from '../config/configuration';
+
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-
-    CacheModule.register({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration],
+      expandVariables: true,
+      cache: true,
+    }),
 
     // used code first approach: https://docs.nestjs.com/graphql/quick-start#code-first
     // will auto-generate schema file
-    GraphQLModule.forRoot<ApolloDriverConfig>({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
+      imports: [ConfigModule],
       driver: ApolloDriver,
-      installSubscriptionHandlers: true,
-      autoSchemaFile: true,
-      sortSchema: true,
+      useFactory: async (configService: ConfigService) => ({
+        installSubscriptionHandlers: true,
+        autoSchemaFile: true,
+        sortSchema: true,
+        csrfPrevention: true,
+        cors: {
+          origin: configService.get<string[]>('cors.apollo.origins'),
+          allowedHeaders: configService.get<string[]>('cors.apollo.headers'),
+          credentials: true,
+        },
+      }),
+      inject: [ConfigService],
     }),
 
-    // link server to database
-    MongooseModule.forRoot(process.env.DATABASE_URI, {
-      useNewUrlParser: true,
-      // authSource: 'admin',
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('mongodb.uri'),
+        useNewUrlParser: true,
+      }),
+      inject: [ConfigService],
     }),
 
     // ____ custom ____

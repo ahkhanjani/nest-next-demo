@@ -1,5 +1,0 @@
-query GetMaterialFormSchemaString($id: ID!) {
-  materialFormSchema(id: $id) {
-    strSchema
-  }
-}

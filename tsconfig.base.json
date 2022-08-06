@@ -10,14 +10,21 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"],
-      "fm/main-web-feature-auth": ["libs/main-web/feature/auth/src/index.ts"],
+      "@rjsf/material-ui/*": [
+        "node_modules/@rjsf/material-ui/dist/*"
+      ],
+      "fm/main-web-feature-auth": [
+        "libs/main-web/feature/auth/src/index.ts"
+      ],
       "fm/main-web-feature-daily-co": [
         "libs/main-web/feature/daily-co/src/index.ts"
       ],
@@ -27,14 +34,23 @@
       "fm/main-web-feature-prereg": [
         "libs/main-web/feature/prereg/src/index.ts"
       ],
-      "fm/main-web-scheduler": ["libs/main-web/feature/scheduler/src/index.ts"],
-      "fm/main-web-ui-form": ["libs/main-web/ui/form/src/index.ts"],
-      "fm/main-web/types": ["libs/main-web/types/src/index.ts"],
+      "fm/main-web-scheduler": [
+        "libs/main-web/feature/scheduler/src/index.ts"
+      ],
+      "fm/main-web-ui-form": [
+        "libs/main-web/ui/form/src/index.ts"
+      ],
+      "fm/main-web/types": [
+        "libs/main-web/types/src/index.ts"
+      ],
       "fm/material-web-feature-auth": [
         "libs/material-web/feature/auth/src/index.ts"
       ],
       "fm/material-web-feature-material-browser": [
         "libs/material-web/feature/material-browser/src/index.ts"
+      ],
+      "fm/material-web-feature-material-wizard": [
+        "libs/material-web/feature/material-wizard/src/index.ts"
       ],
       "fm/material-web-feature-network": [
         "libs/material-web/feature/network/src/index.ts"
@@ -42,17 +58,40 @@
       "fm/material-web-feature-schemagen": [
         "libs/material-web/feature/material-form-schema-generator/src/index.ts"
       ],
-      "fm/material-web-state": ["libs/material-web/state/src/index.ts"],
-      "fm/material-web-types": ["libs/material-web/types/src/index.ts"],
-      "fm/material-web-ui": ["libs/material-web/ui/src/index.ts"],
-      "fm/shared-feature-auth": ["libs/shared/feature/auth/src/index.ts"],
-      "fm/shared-feature-network": ["libs/shared/feature/network/src/index.ts"],
-      "fm/shared-graphql": ["libs/shared/graphql/src/index.ts"],
-      "fm/shared-types": ["libs/shared/types/src/index.ts"],
-      "fm/shared-ui-form": ["libs/shared/ui/form/src/index.ts"],
-      "fm/shared-ui-mui": ["libs/shared/ui/mui/src/index.ts"],
-      "fm/shared-utils": ["libs/shared/utils/src/index.ts"]
+      "fm/material-web-state": [
+        "libs/material-web/state/src/index.ts"
+      ],
+      "fm/material-web-types": [
+        "libs/material-web/types/src/index.ts"
+      ],
+      "fm/material-web-ui": [
+        "libs/material-web/ui/src/index.ts"
+      ],
+      "fm/shared-feature-auth": [
+        "libs/shared/feature/auth/src/index.ts"
+      ],
+      "fm/shared-feature-network": [
+        "libs/shared/feature/network/src/index.ts"
+      ],
+      "fm/shared-graphql": [
+        "libs/shared/graphql/generated.tsx"
+      ],
+      "fm/shared-types": [
+        "libs/shared/types/src/index.ts"
+      ],
+      "fm/shared-ui-form": [
+        "libs/shared/ui/form/src/index.ts"
+      ],
+      "fm/shared-ui-mui": [
+        "libs/shared/ui/mui/src/index.ts"
+      ],
+      "fm/shared-utils": [
+        "libs/shared/utils/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

@@ -4,7 +4,7 @@ import { FieldError } from 'fm/shared-types';
 @ObjectType()
 export class LoginResponse {
   @Field({ nullable: true })
-  userId?: string;
+  accessToken?: string;
 
   @Field(() => [FieldError], { nullable: true })
   errors?: FieldError[];

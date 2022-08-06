@@ -2,7 +2,7 @@ import { parseYamlSchema } from './parse-yaml-schema';
 import { readYamlFile } from './read-yaml-file';
 import { processSchema } from './process-schema';
 // types
-import type { MaterialFormSchema } from 'fm/material-web/types';
+import type { MaterialFormSchema } from 'fm/material-web-types';
 
 export function generateSchema(
   dirname: string,

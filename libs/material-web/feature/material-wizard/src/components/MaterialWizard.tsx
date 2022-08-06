@@ -44,18 +44,14 @@ export const MaterialWizard: React.FC<WizardPageProps> = ({
   const [activeStep, setActiveStep] = useState<number>(0);
   const [isNextBtnActive, setIsNextBtnActive] = useState<boolean>(false);
 
-  //
-  // ─── GQL ────────────────────────────────────────────────────────────────────────
-  //
+  // ─── Gql ────────────────────────────────────────────────────────────────────────
 
   // get material in edit mode
   const [getMaterial] = useGetMaterialLazyQuery();
   const [createMaterials] = useCreateMaterialsMutation();
   const [updateMaterial] = useUpdateMaterialMutation();
 
-  //
-  // ─── DATA ───────────────────────────────────────────────────────────────────────
-  //
+  // ─── Data ───────────────────────────────────────────────────────────────────────
 
   const [categoryIdArray, setCategoryIdArray] = useState<string[]>([]);
 
@@ -74,11 +70,11 @@ export const MaterialWizard: React.FC<WizardPageProps> = ({
             formData: strFormData,
             category,
           } = data.material;
-          const formData: unknown = JSON.parse(strFormData);
+          const formData: JSON = JSON.parse(strFormData);
           dispatch(
             setEditingMaterialData({
-              data: formData,
-              publish: false,
+              formData,
+              status: 'published',
               title,
               type,
             })
@@ -109,21 +105,15 @@ export const MaterialWizard: React.FC<WizardPageProps> = ({
     }
   }, [categoryIdArray, materialDataArray, activeStep]);
 
-  //
-  // ──────────────────────────────────────────────────────────── DATA HANDLERS ─────
-  //
+  // ──────────────────────────────────────────────────────────── Data Handlers ─────
 
   /**
    * Creates all material in the material data array.
    */
   async function handleCreateMany(): Promise<SubmitResponse> {
     // stringify each material object
-    const dataArray = materialDataArray.map(({ data, publish, ...rest }) => {
-      // stringify form data object
-      const formData: string = JSON.stringify(data);
-      const status: 'published' | 'unpublished' =
-        publish === true ? 'published' : 'unpublished';
-      return { formData, status, ...rest };
+    const dataArray = materialDataArray.map(({ formData, status, ...rest }) => {
+      return { formData: JSON.stringify(formData), status, ...rest };
     });
 
     const res = await createMaterials({
@@ -147,7 +137,7 @@ export const MaterialWizard: React.FC<WizardPageProps> = ({
   async function handleUpdateOne(): Promise<SubmitResponse | undefined> {
     if (!editingMaterialId) return;
 
-    const { title, type, data } = materialDataArray[0];
+    const { title, type, formData } = materialDataArray[0];
 
     // updating existing material
     const res = await updateMaterial({
@@ -156,8 +146,8 @@ export const MaterialWizard: React.FC<WizardPageProps> = ({
         category: categoryIdArray,
         title,
         type,
-        status: 'any',
-        formData: data,
+        status: 'published',
+        formData: JSON.stringify(formData),
       },
     });
 
@@ -167,9 +157,7 @@ export const MaterialWizard: React.FC<WizardPageProps> = ({
     return { errors: 'Unknown response.' };
   }
 
-  //
-  // ─── HANDLERS ───────────────────────────────────────────────────────────────────
-  //
+  // ─── Handlers ───────────────────────────────────────────────────────────────────
 
   /**
    * Handles sumbitting material data array. Either creates or updates materials

@@ -1,12 +1,9 @@
 import { Controller, Get, UseGuards, HttpStatus, Req } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { Request } from 'express';
-import { AuthService } from './auth.service';
+import type { Request } from 'express';
 
 @Controller()
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
-
   @Get('/facebook')
   @UseGuards(AuthGuard('facebook'))
   async facebookLogin(): Promise<unknown> {

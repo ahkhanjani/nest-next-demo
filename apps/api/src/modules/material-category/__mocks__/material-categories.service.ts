@@ -1,11 +1,12 @@
-import { MockType } from 'fm/types';
-import { CreateMaterialCategoryInput } from '../dto/create-material-category-input.dto';
-import { CreateMaterialCategoryResponse } from '../dto/create-material-category-response.dto';
-import { MaterialCategoriesPaginateResponse } from '../dto/material-categories-paginate-response.dto';
-import { UpdateMaterialCategoryResponse } from '../dto/update-material-category-response.dto';
-import { MaterialCategory } from '../interface/material-category.interface';
-import { MaterialCategoriesService as ServiceType } from '../material-categories.service';
-import { materialCategoryStub } from '../test/stubs/material-category.stub';
+import { materialCategoryStub } from '../__tests__/stubs/material-category.stub';
+import type { MaterialCategoriesService as ServiceType } from '../material-categories.service';
+import type { MaterialCategory } from '../interface/material-category.interface';
+import type { MockType } from 'fm/shared-types';
+
+import type { CreateMaterialCategoryInput } from '../dto/create-material-category-input.dto';
+import type { CreateMaterialCategoryResponse } from '../dto/create-material-category-response.dto';
+import type { MaterialCategoriesPaginateResponse } from '../dto/material-categories-paginate-response.dto';
+import type { UpdateMaterialCategoryResponse } from '../dto/update-material-category-response.dto';
 
 export const MaterialCategoriesService = jest.fn(
   (): MockType<ServiceType> => ({

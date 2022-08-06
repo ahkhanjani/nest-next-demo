@@ -4,8 +4,11 @@ import * as yup from 'yup';
 // types
 import type { FormikValues } from './types/formik';
 // store
-import { useAppDispatch, useAppSelector } from '../../../../../hooks';
-import { setSelectedMaterialIndex } from '../../../../../store/creating-materials';
+import {
+  useAppDispatch,
+  useAppSelector,
+  setSelectedMaterialIndex,
+} from 'fm/material-web-state';
 
 /**
  * Validation schema used by Formik to validate fields.
@@ -53,8 +56,8 @@ const FormikContainer: React.FC<PropsWithChildren<unknown>> = ({
     function handleSetInitialData() {
       if (!editMode) return;
 
-      const { data, ...formikValues } = { ...editingMaterialData };
-      setFormikInitialValues(formikValues);
+      const { formData, ...formikValues } = { ...editingMaterialData };
+      setFormikInitialValues({ publish, title, type });
     }
 
     handleSetInitialData();

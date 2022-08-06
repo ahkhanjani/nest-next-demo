@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Document } from 'mongoose';
+import type { Document } from 'mongoose';
 
 @ObjectType()
 export class Material {

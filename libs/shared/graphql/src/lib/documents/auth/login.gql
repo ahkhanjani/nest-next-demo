@@ -1,9 +1,0 @@
-mutation Login($username: String!, $password: String!) {
-  login(dto: { username: $username, password: $password }) {
-    token
-    errors {
-      field
-      message
-    }
-  }
-}

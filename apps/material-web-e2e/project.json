@@ -6,8 +6,9 @@
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/material-web-e2e/cypress.json",
-        "devServerTarget": "material-web:serve:development"
+        "cypressConfig": "apps/material-web-e2e/cypress.config.ts",
+        "devServerTarget": "material-web:serve:development",
+        "testingType": "e2e"
       },
       "configurations": {
         "production": {
