@@ -11,6 +11,7 @@ import { MaterialCategoriesModule } from '../modules/material-category/material-
 import { UsersModule } from '../modules/user/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.module';
+import { SessionsModule } from '../modules/session/sessions.module';
 
 import configuration from '../config/configuration';
 
@@ -57,6 +58,7 @@ import configuration from '../config/configuration';
     UsersModule,
     AuthModule,
     PreRegEmailsModule,
+    SessionsModule,
   ],
   controllers: [AppController],
 })
