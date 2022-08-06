@@ -1,11 +1,8 @@
-import { IconPaperPlus } from 'fm/icons';
 import Image from 'next/image';
-import React from 'react';
-import Sessions from '../Components/Sessions';
+import Sessions from '../components/Sessions';
+import { IconPaperPlus } from 'fm/main-web-assets/icons';
 
-export type DashboardProps = {};
-
-const Dashboard: React.FC<DashboardProps> = ({}) => {
+const Dashboard: React.FC = () => {
   const fakeList = [
     {
       dueTime: 'In 2 hours',
@@ -22,6 +19,9 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
       today: false,
     },
   ];
+
+  // ────────────────────────────────────────────────────────────────────────────────
+
   return (
     <>
       <span className="tw-text-gray tw-text-xl tw-font-medium tw-p-4 ">
@@ -39,5 +39,4 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
     </>
   );
 };
-
 export default Dashboard;

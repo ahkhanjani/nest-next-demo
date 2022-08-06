@@ -1,18 +1,14 @@
+import Image from 'next/image';
+
 import {
   Icon3User,
   IconBlueCalendar,
   IconCalendar,
   IconEdit,
   IconTimeCircle,
-} from 'fm/icons';
-import Image from 'next/image';
-import React from 'react';
+} from 'fm/main-web-assets/icons';
 
-interface SessionsProps {
-  list: any;
-}
-
-const Sessions: React.FC<SessionsProps> = ({ list }) => {
+const Sessions: React.FC<{ list: any }> = ({ list }) => {
   return (
     <div
       className={`tw-p-6 tw-h-48 tw-w-64 tw-mr-5 tw-rounded-2xl ${
@@ -79,5 +75,4 @@ const Sessions: React.FC<SessionsProps> = ({ list }) => {
     </div>
   );
 };
-
 export default Sessions;

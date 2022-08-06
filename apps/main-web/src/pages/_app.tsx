@@ -3,16 +3,12 @@ import type { AppProps } from 'next/app';
 import { ApolloProvider } from 'fm/shared-feature-network';
 // styles
 import '../styles/index.css';
-import StudentDashboard from 'libs/main-web/ui/student-dashboard/src/lib/StudentDashboard';
-
-// import StudentDashboard from 'fm/student-dashboard';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    // <ApolloProvider>
-    //   <Component {...pageProps} />
-    // </ApolloProvider>
-    <StudentDashboard />
+    <ApolloProvider>
+      <Component {...pageProps} />
+    </ApolloProvider>
   );
 }
 export default MyApp;

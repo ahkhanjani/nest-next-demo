@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
+
+import Sidebar from '../layout/Sidebar';
+import Dashboard from '../pages/Dashboard';
+import Classroom from '../pages/Classroom';
+
 import {
   Icon2User,
-  IconArrow,
   IconCahrt,
   IconCalendarOutline,
   IconCategory,
@@ -13,23 +17,20 @@ import {
   IconNotificatin,
   IconSetting,
   IconSun,
-} from 'fm/icons';
-import { ImageAvatarTest } from 'fm/images';
-import { Sidebar } from './Layout/Sidebar';
-import Dashboard from './Pages/Dashboard';
-import Classroom from './Pages/Classroom';
+} from 'fm/main-web-assets/icons';
+import { ImageAvatarTest } from 'fm/main-web-assets/images';
 
-export type IStudentDashboardProps = {};
+import type { ActiveDeskPolicy } from '../types';
 
-const StudentDashboard: React.FC<IStudentDashboardProps> = ({}) => {
+export const StudentDashboard: React.FC = () => {
   const [isActive, setActive] = useState(2);
-  const [isActiveDesk, setActiveDesk] = useState('Dashboard');
+  const [activeDesk, setActiveDesk] = useState<ActiveDeskPolicy>('dashboard');
   const [isDark, setDark] = useState(false);
 
   const renderContent = () => {
-    if (isActiveDesk === 'Dashboard') {
+    if (activeDesk === 'dashboard') {
       return <Dashboard />;
-    } else if (isActiveDesk === 'Classroom') {
+    } else if (activeDesk === 'classroom') {
       return <Classroom />;
     } else {
       return <div></div>;
@@ -109,11 +110,11 @@ const StudentDashboard: React.FC<IStudentDashboardProps> = ({}) => {
         </div>
       </div>
       <div className="tw-hidden tw-bg-bgColor md:tw-flex ">
-        <Sidebar isActiveDesk={isActiveDesk} setActiveDesk={setActiveDesk} />
+        <Sidebar {...{ activeDesk, setActiveDesk }} />
         <div className="tw-w-full">
           <div className="tw-bg-white tw-min-w-full  tw-py-6 tw-flex tw-flex-row tw-items-center tw-justify-around tw-shadow-md 2xl:tw-justify-between 2xl:tw-pr-9">
             <span className="tw-text-2xl tw-text-lightGray tw-font-normal tw-px-6 tw-border-r-4 tw-border-r-field 2xl:tw-border-none 2xl:tw-hidden">
-              {isActiveDesk}
+              {activeDesk}
             </span>
             <div className="tw-px-9  ">
               <div
@@ -175,5 +176,4 @@ const StudentDashboard: React.FC<IStudentDashboardProps> = ({}) => {
     </div>
   );
 };
-
 export default StudentDashboard;

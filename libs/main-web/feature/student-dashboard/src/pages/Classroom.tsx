@@ -1,8 +1,4 @@
-import React from 'react';
-
-export type ClassroomProps = {};
-
-const Classroom: React.FC<ClassroomProps> = ({}) => {
+const Classroom: React.FC = () => {
   return (
     <div className="tw-grid tw-grid-cols-3 tw-grid-rows-2 tw-gap-5 tw-w-full">
       <div className="tw-bg-field tw-col-span-2 tw-row-span-2 tw-h-[80vh] tw-flex tw-items-center tw-justify-center ">
@@ -17,5 +13,4 @@ const Classroom: React.FC<ClassroomProps> = ({}) => {
     </div>
   );
 };
-
 export default Classroom;
