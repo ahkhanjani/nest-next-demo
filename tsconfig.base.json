@@ -19,15 +19,13 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@rjsf/material-ui/*": [
-        "node_modules/@rjsf/material-ui/dist/*"
-      ],
-      "fm/main-web-feature-auth": [
-        "libs/main-web/feature/auth/src/index.ts"
-      ],
-      "fm/main-web-feature-daily-co": [
-        "libs/main-web/feature/daily-co/src/index.ts"
-      ],
+
+      "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"],
+      "fm/icons": ["libs/shared/icons/src/index.ts"],
+      "fm/images": ["libs/shared/images/src/index.ts"],
+      "fm/main-web-daily-co": ["libs/main-web/daily-co/src/index.ts"],
+      "fm/main-web-feature-auth": ["libs/main-web/feature/auth/src/index.ts"],
+
       "fm/main-web-feature-network": [
         "libs/main-web/feature/network/src/index.ts"
       ],
@@ -58,6 +56,8 @@
       "fm/material-web-feature-schemagen": [
         "libs/material-web/feature/material-form-schema-generator/src/index.ts"
       ],
+      "fm/student-dashboard": [
+        "libs/main-web/ui/student-dashboard/src/index.ts"
       "fm/material-web-state": [
         "libs/material-web/state/src/index.ts"
       ],
