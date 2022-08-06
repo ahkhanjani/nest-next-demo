@@ -1,8 +1,8 @@
-import { User } from '../interface/user.interface';
-import { MockType } from 'fm/types';
-import { UsersService as ServiceType } from '../users.service';
-import { userStub } from '../test/stubs/user.stub';
-import { CreateUserResponse } from '../dto/create-user-response.dto';
+import { userStub } from '../../../../test/stubs/user.stub';
+import type { UsersService as ServiceType } from '../users.service';
+import type { User } from '../interface/user.interface';
+import type { MockType } from 'fm/shared-types';
+import type { CreateUserResponse } from '../dto/create-user-response.dto';
 
 export const UsersService = jest.fn(
   (): MockType<ServiceType> => ({

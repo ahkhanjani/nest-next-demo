@@ -2,9 +2,8 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as argon2 from 'argon2';
-import * as bcrypt from 'bcrypt';
 import { User, UserModel } from './interface/user.interface';
-import { CreateUserInput, CreateUserResponse } from './dto';
+import type { CreateUserInput, CreateUserResponse } from './dto';
 
 @Injectable()
 export class UsersService {
@@ -50,10 +49,9 @@ export class UsersService {
     password,
   }: CreateUserInput): Promise<CreateUserResponse> {
     try {
-      const salt: string = await bcrypt.genSalt(12);
       const hashedPassword = await argon2.hash(password, {
         type: argon2.argon2id,
-        salt: Buffer.from(salt),
+        hashLength: 40,
       });
 
       const user = await this.userModel.create({

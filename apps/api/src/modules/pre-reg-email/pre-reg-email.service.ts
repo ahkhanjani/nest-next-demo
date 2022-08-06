@@ -5,15 +5,15 @@ import {
   PreRegEmail,
   PreRegEmailModel,
 } from './interface/pre-reg-email.interface';
-import { CreatePreRegInput } from './dto/create-pre-reg-input.dto';
-import { PreRegResponse } from './dto/pre-reg-response.dto';
+import type { CreatePreRegInput } from './dto/create-pre-reg-input.dto';
+import type { PreRegResponse } from './dto/pre-reg-response.dto';
 
 @Injectable()
 export class PreRegEmailsService {
   constructor(
     @InjectModel(PreRegEmail.name)
     private readonly preRegModel: Model<PreRegEmailModel>
-  ) {}
+  ) { }
 
   async checkExisting(email: string): Promise<boolean> {
     const preReg = await this.preRegModel.findById({ email }).exec();

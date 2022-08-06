@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/main-web/state/src",
+  "projectType": "library",
+  "tags": ["react", "redux"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/main-web/state/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/main-web/state"],
+      "options": {
+        "jestConfig": "libs/main-web/state/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import type { Document } from 'mongoose';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()

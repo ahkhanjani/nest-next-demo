@@ -20,11 +20,11 @@ import {
   useAppSelector,
 } from 'fm/material-web-state';
 // service
-import { useCategoryListService } from '../service/CategoryListServiceProvider';
-import { UpdateMaterialCategoryServiceProvider } from '../service/UpdateCategoryServiceProvider';
-import { CreateMaterialCategoryServiceProvider } from '../service/CreateCategoryServiceProvider';
+import { useCategoryListService } from '../services/CategoryListServiceProvider';
+import { UpdateMaterialCategoryServiceProvider } from '../services/UpdateCategoryServiceProvider';
+import { CreateMaterialCategoryServiceProvider } from '../services/CreateCategoryServiceProvider';
 
-export const CategoryListContent: React.FC<CategoryListContentProps> = ({
+const CategoryListContent: React.FC<CategoryListContentProps> = ({
   page,
   setPage,
 }) => {
@@ -32,7 +32,7 @@ export const CategoryListContent: React.FC<CategoryListContentProps> = ({
 
   // ─── Store ──────────────────────────────────────────────────────────────────────
 
-  const { endId: parentId } = useAppSelector((state) => state.categoryPath);
+  const { lastId: parentId } = useAppSelector((state) => state.categoryPath);
   const dispatch = useAppDispatch();
 
   // ─── State ──────────────────────────────────────────────────────────────────────

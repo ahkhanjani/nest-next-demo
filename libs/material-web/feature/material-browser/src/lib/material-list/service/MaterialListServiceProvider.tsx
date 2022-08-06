@@ -21,7 +21,7 @@ export const MaterialListServiceProvider: React.FC<
 > = ({ page, children }) => {
   // ─── Store ──────────────────────────────────────────────────────────────────────
 
-  const { endId: categoryId } = useAppSelector((state) => state.categoryPath);
+  const { lastId: categoryId } = useAppSelector((state) => state.categoryPath);
 
   // ─── Gql ────────────────────────────────────────────────────────────────────────
 

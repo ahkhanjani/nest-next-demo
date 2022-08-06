@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 // providers
-import { ApolloProvider } from 'fm/network';
+import { ApolloProvider } from 'fm/shared-feature-network';
 // styles
 import '../styles/index.css';
 import StudentDashboard from 'libs/main-web/ui/student-dashboard/src/lib/StudentDashboard';

@@ -1,10 +1,10 @@
-import { MockType } from 'fm/types';
+import { MockType } from 'fm/shared-types';
 import { CreateMaterialsResponse } from '../dto/create-materials-response.dto';
 import { MaterialsPaginateResponse } from '../dto/paginate-response.dto';
 import { UpdateMaterialResponse } from '../dto/update-material-response.dto';
 import { Material } from '../interface/material.interface';
 import { MaterialsService as ServiceType } from '../materials.service';
-import { materialStub } from '../test/stubs/material.stub';
+import { materialStub } from '../__tests__/stubs/material.stub';
 
 export const MaterialsService = jest.fn(
   (): MockType<ServiceType> => ({

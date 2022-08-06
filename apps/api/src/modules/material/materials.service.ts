@@ -4,20 +4,20 @@ import { Model } from 'mongoose';
 // interface
 import { Material, MaterialModel } from './interface/material.interface';
 // dto
-import { CreateMaterialsInput } from './dto/create-materials-input.dto';
-import { CreateMaterialsResponse } from './dto/create-materials-response.dto';
-import { FailedMaterialResponse } from './dto/failed-material-response.dto';
-import { MaterialsPaginateInput } from './dto/paginate-input.dto';
-import { MaterialsPaginateResponse } from './dto/paginate-response.dto';
-import { UpdateMaterialInput } from './dto/update-material-input.dto';
-import { UpdateMaterialResponse } from './dto/update-material-response.dto';
+import type { CreateMaterialsInput } from './dto/create-materials-input.dto';
+import type { CreateMaterialsResponse } from './dto/create-materials-response.dto';
+import type { FailedMaterialResponse } from './dto/failed-material-response.dto';
+import type { MaterialsPaginateInput } from './dto/paginate-input.dto';
+import type { MaterialsPaginateResponse } from './dto/paginate-response.dto';
+import type { UpdateMaterialInput } from './dto/update-material-input.dto';
+import type { UpdateMaterialResponse } from './dto/update-material-response.dto';
 
 @Injectable()
 export class MaterialsService {
   constructor(
     @InjectModel(Material.name)
     private readonly materialModel: Model<MaterialModel>
-  ) {}
+  ) { }
 
   //
   // ─── QUERY ──────────────────────────────────────────────────────────────────────

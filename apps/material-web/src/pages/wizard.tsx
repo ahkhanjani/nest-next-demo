@@ -1,44 +1,28 @@
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  NextPage,
-} from 'next';
-// containers
-import DashboardLayout from '../layouts/DashboardLayout';
-import WizardContainer from '../page-containers/WizardPage';
-// utils
-import { generateMaterialFormSchemas } from 'fm/material-web/material-form-schema-generator';
-// types
+import { GetStaticPropsResult, NextPage } from 'next';
+// fm
+import { DashboardLayout } from 'fm/material-web-ui';
+import { MaterialWizard } from 'fm/material-web-feature-material-wizard';
+import { generateMaterialFormSchemas } from 'fm/material-web-feature-schemagen';
 import type { MaterialFormSchema } from 'fm/material-web-types';
 
-const CreateMaterialsPage: NextPage<CreateMaterialsPageServerSideProps> = ({
+const WizardPage: NextPage<WizardPageStaticProps> = ({
   materialFormSchemas,
 }) => {
   return (
     <DashboardLayout>
-      <WizardContainer {...{ materialFormSchemas }} />
+      <MaterialWizard {...{ materialFormSchemas }} />
     </DashboardLayout>
   );
 };
-export default CreateMaterialsPage;
+export default WizardPage;
 
-export async function getServerSideProps({
-  res,
-}: GetServerSidePropsContext): Promise<
-  GetServerSidePropsResult<CreateMaterialsPageServerSideProps>
+export async function getStaticProps(): Promise<
+  GetStaticPropsResult<WizardPageStaticProps>
 > {
-  // cache the value
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=1200, stale-while-revalidate=1259'
-  );
-
-  const materialFormSchemas: MaterialFormSchema[] =
-    generateMaterialFormSchemas();
-
+  const materialFormSchemas = generateMaterialFormSchemas();
   return { props: { materialFormSchemas } };
 }
 
-interface CreateMaterialsPageServerSideProps {
+interface WizardPageStaticProps {
   materialFormSchemas: MaterialFormSchema[];
 }

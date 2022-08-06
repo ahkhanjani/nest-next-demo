@@ -1,9 +1,0 @@
-query GetMaterialFormSchemas {
-  materialFormSchemas {
-    id
-    createdAt
-    updatedAt
-    title
-    strSchema
-  }
-}

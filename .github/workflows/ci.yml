@@ -1,62 +1,31 @@
-name: CI
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-
-env:
-  NX_CLOUD_DISTRIBUTED_EXECUTION: true
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
-  cancel-in-progress: true
-
-jobs:
-  build:
-    name: Build w/ Nx Cloud
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.3
-    with:
-      parallel-commands: |
-        pnpm nx-cloud record -- pnpm nx workspace-lint
-        pnpm nx-cloud record -- pnpm nx format:check
-      parallel-commands-on-agents: |
-        pnpm nx affected --target=lint --parallel=3
-        pnpm nx affected --target=test --parallel=3 --ci --code-coverage
-        pnpm nx affected --target=build --parallel=3 --configuration=production
-
-  agents:
-    name: Nx Cloud Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.3
-    with:
-      number-of-agents: 3
-
-  dockerize:
-    name: Docker build
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - uses: pnpm/action-setup@v2.2.2
-
-      - name: Build Docker image
-        run: pnpm nx affected --target=docker
-
-  compose:
-    name: Docker Compose
-    runs-on: ubuntu-latest
-    needs: dockerize
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Build the stack
-        run: docker-compose up -d
+# name: CI
+#
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+#   cancel-in-progress: true
+#
+# jobs:
+#   main:
+#     name: Nx Cloud - Main Job
+#     uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.6
+#     with:
+#       number-of-agents: 3
+#       parallel-commands: |
+#         pnpm exec nx-cloud record -- pnpm exec nx workspace-lint
+#         pnpm exec nx-cloud record -- pnpm exec nx format:check
+#       parallel-commands-on-agents: |
+#         pnpm exec nx affected --target=lint --parallel=3
+#         pnpm exec nx affected --target=test --parallel=3 --ci --code-coverage
+#         pnpm exec nx affected --target=build --exclude=[main-web, material-web]
+#
+#   agents:
+#     name: Nx Cloud - Agents
+#     uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.6
+#     with:
+#       number-of-agents: 3
