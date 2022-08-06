@@ -1,7 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const withNx = require('@nrwl/next/plugins/with-nx');
-const withPWA = require('next-pwa');
-const runtimeCaching = require('next-pwa/cache');
 
 /**
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
@@ -12,13 +10,9 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
-  pwa: {
-    dest: 'public',
-    runtimeCaching,
-  },
 };
 
-module.exports = withNx(withPWA(nextConfig));
+module.exports = withNx(nextConfig);
 
 // const ContentSecurityPolicy = `
 //   default-src 'self';
