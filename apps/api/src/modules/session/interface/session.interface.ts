@@ -1,6 +1,7 @@
 import type { Document } from 'mongoose';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { User } from '../../user/interface/user.interface';
+import { Enum } from '../../enum/interface/enum.interface';
 
 @ObjectType()
 export class Session {
@@ -27,6 +28,12 @@ export class Session {
 
   @Field()
   readonly date: Date;
+
+  @Field(() => ID)
+  readonly statusId: string;
+
+  @Field(() => Enum)
+  readonly status: Enum;
 }
 
 export type SessionModel = Session & Document;

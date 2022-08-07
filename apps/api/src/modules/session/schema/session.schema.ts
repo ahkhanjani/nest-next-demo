@@ -1,6 +1,8 @@
 import { ID } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
+import { Enum } from '../../enum/interface/enum.interface';
+
 @Schema()
 class Session {
   @Prop({ default: Date.now })
@@ -17,6 +19,12 @@ class Session {
 
   @Prop()
   date: Date;
+
+  @Prop({ type: () => ID })
+  statusId: string;
+
+  @Prop({ type: () => Enum })
+  status: Enum;
 }
 
 export const SessionSchema = SchemaFactory.createForClass(Session);

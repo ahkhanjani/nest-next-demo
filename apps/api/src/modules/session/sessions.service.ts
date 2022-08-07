@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Session, SessionModel } from './interface/session.interface';
 import { CreateSessionDto } from './dto/create-session.dto';
+import { UpdateSessionDto } from './dto/update-session.dto';
 
 @Injectable()
 export class SessionsService {
@@ -25,6 +26,11 @@ export class SessionsService {
 
   async createOne(dto: CreateSessionDto): Promise<Session> {
     const session = await this.sessionModel.create(dto);
+    return session;
+  }
+
+  async updateOne(sessionId: string, dto: UpdateSessionDto): Promise<Session> {
+    const session = await this.sessionModel.findByIdAndUpdate(sessionId, dto);
     return session;
   }
 }
