@@ -1,3 +1,4 @@
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -8,6 +9,7 @@ import type { RedisClientOptions } from 'redis';
 import Keyv from 'keyv';
 import { KeyvAdapter } from '@apollo/utils.keyvadapter';
 import responseCachePlugin from 'apollo-server-plugin-response-cache';
+import { ApolloServerPluginCacheControl } from 'apollo-server-core/dist/plugin/cacheControl';
 
 import configuration, { type Config } from '../config/configuration';
 
@@ -20,7 +22,6 @@ import { AuthModule } from '../modules/auth/auth.module';
 import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.module';
 import { SessionsModule } from '../modules/session/sessions.module';
 import { EnumsModule } from '../modules/enum/enums.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -63,7 +64,10 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
             )
           ),
 
-          plugins: [responseCachePlugin()],
+          plugins: [
+            ApolloServerPluginCacheControl({ defaultMaxAge: 30 }),
+            responseCachePlugin(),
+          ],
         };
       },
       inject: [ConfigService],
