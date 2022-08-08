@@ -19,6 +19,8 @@ export default () => ({
     name: process.env['API_SESSION_NAME'],
   },
 
+  cache: { ttl: parseInt(process.env['API_CACHE_TTL']) || 1800 },
+
   cors: {
     apollo: {
       // e.g. API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_ORIGINGS=origin1 origin2 origin3

@@ -59,6 +59,7 @@ import { EnumsModule } from '../modules/enum/enums.module';
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         store: redisStore,
+        ttl: configService.get('cache.ttl'),
         socket: {
           host: configService.get('redis.host'),
           port: configService.get('redis.port'),
