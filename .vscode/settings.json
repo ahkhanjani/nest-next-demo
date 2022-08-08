@@ -1,16 +1,7 @@
 {
-  "gitProjectManager.ignoredFolders": [],
   "search.exclude": {
     ".swc": true,
     "dist": true,
-    "**/yarn*.lock": true
-  },
-  "explorer.fileNesting.patterns": {
-    "*.jsx": "${capture}.js, ${capture}.module.css, ${capture}.module.scss, ${capture}.spec.jsx",
-    "*.tsx": "${capture}.ts, ${capture}.module.css, ${capture}.module.scss, ${capture}.spec.tsx",
-    "*.js": "${capture}.spec.js",
-    "*.ts": "${capture}.spec.ts"
-  },
-  "explorer.fileNesting.enabled": true,
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+    "**/pnpm-lock.yaml": true
+  }
 }
