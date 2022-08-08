@@ -1,5 +1,7 @@
+const env = process.env['NODE_ENV'] || 'development';
+
 export default () => ({
-  env: process.env['NODE_ENV'] || 'development',
+  env,
   port: process.env['API_PORT'] || 3333,
 
   mongodb: {
@@ -7,7 +9,7 @@ export default () => ({
   },
 
   redis: {
-    host: process.env['API_REDIS_HOST'],
+    host: env === 'development' ? 'localhost' : process.env['API_REDIS_HOST'],
     port: process.env['API_REDIS_PORT'] || 6379,
   },
 

@@ -1,8 +1,13 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+
+import * as redisStore from 'cache-manager-redis-store';
+import type { RedisClientOptions } from 'redis';
+
+import configuration from '../config/configuration';
 
 import { AppController } from './app.controller';
 
@@ -12,8 +17,6 @@ import { UsersModule } from '../modules/user/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.module';
 import { SessionsModule } from '../modules/session/sessions.module';
-
-import configuration from '../config/configuration';
 import { EnumsModule } from '../modules/enum/enums.module';
 
 @Module({
@@ -25,8 +28,6 @@ import { EnumsModule } from '../modules/enum/enums.module';
       cache: true,
     }),
 
-    // used code first approach: https://docs.nestjs.com/graphql/quick-start#code-first
-    // will auto-generate schema file
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       imports: [ConfigModule],
       driver: ApolloDriver,
@@ -53,7 +54,19 @@ import { EnumsModule } from '../modules/enum/enums.module';
       inject: [ConfigService],
     }),
 
-    // ____ custom ____
+    CacheModule.registerAsync<RedisClientOptions>({
+      isGlobal: true,
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        store: redisStore,
+        socket: {
+          host: configService.get('redis.host'),
+          port: configService.get('redis.port'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
+
     MaterialsModule,
     MaterialCategoriesModule,
     UsersModule,
