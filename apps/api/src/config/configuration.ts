@@ -1,16 +1,20 @@
 const env = process.env['NODE_ENV'] || 'development';
 
-export default () => ({
+const config = () => ({
   env,
-  port: process.env['API_PORT'] || 3333,
+  port: parseInt(process.env['API_PORT']) || 3333,
 
-  mongodb: {
-    uri: process.env['API_MONGODB_URI'],
+  mongo: {
+    uri: process.env['API_MONGO_URI'],
+    username: process.env['API_MONGO_USERNAME'],
+    password: process.env['API_MONGO_PWD'],
   },
 
   redis: {
     host: env === 'development' ? 'localhost' : process.env['API_REDIS_HOST'],
-    port: process.env['API_REDIS_PORT'] || 6379,
+    port: parseInt(process.env['API_REDIS_PORT']) || 6379,
+    username: process.env['API_REDIS_USERNAME'],
+    password: process.env['API_REDIS_PWD'],
   },
 
   session: {
@@ -19,7 +23,14 @@ export default () => ({
     name: process.env['API_SESSION_NAME'],
   },
 
-  cache: { ttl: parseInt(process.env['API_CACHE_TTL']) || 1800 },
+  cache: {
+    ttl:
+      parseInt(process.env['API_CACHE_TTL']) ||
+      // 5 minutes (in milliseconds)
+      300_000,
+
+    namespace: process.env['API_CACHE_NAMESPACE'] || 'cache',
+  },
 
   cors: {
     apollo: {
@@ -40,3 +51,7 @@ export default () => ({
     },
   },
 });
+
+export default config;
+
+export type Config = ReturnType<typeof config>;
