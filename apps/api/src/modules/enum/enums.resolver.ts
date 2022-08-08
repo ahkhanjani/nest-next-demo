@@ -1,3 +1,4 @@
+import { UseGuards } from '@nestjs/common';
 import {
   Args,
   ID,
@@ -7,6 +8,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+
 import { User } from '../user/interface/user.interface';
 import { UsersService } from '../user/users.service';
 import { Enum } from './interface/enum.interface';
@@ -15,7 +17,6 @@ import { GetEnumsDto } from './dto/get-enums.dto';
 import { CreateEnumDto } from './dto/create-enum.dto';
 import { UpdateEnumDto } from './dto/update-enum.dto';
 import { GqlAuthGuard } from '../auth/guard/gql-auth.guard';
-import { UseGuards } from '@nestjs/common';
 
 // TODO Protect with better guards
 @UseGuards(GqlAuthGuard)
