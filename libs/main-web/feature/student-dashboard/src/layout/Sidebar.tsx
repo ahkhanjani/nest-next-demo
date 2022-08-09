@@ -1,16 +1,13 @@
 import Image from 'next/image';
 
 import {
-  Icon2User,
-  IconCahrt,
-  IconCalendarOutline,
-  IconCategory,
-  IconEditSquare,
-  IconHorizontalLogo,
-  IconSetting,
-  IconVerticalLogo,
-} from 'fm/main-web-assets/icons';
-import { ImageAvatarTest } from 'fm/main-web-assets/images';
+  CogIcon,
+  ChartSquareBarIcon,
+  PencilAltIcon,
+  CalendarIcon,
+  UsersIcon,
+  CollectionIcon,
+} from '@heroicons/react/outline';
 
 import type { ActiveDeskPolicy } from '../types';
 
@@ -21,10 +18,10 @@ const Sidebar: React.FC<{
   return (
     <div className="tw-h-screen tw-bg-white tw-px-4 tw-flex tw-flex-col tw-items-center tw-shadow-[2px_0px_1px_rgba(0,0,0,0.1)]">
       <div className="tw-mt-8 tw-block 2xl:tw-hidden">
-        <Image src={IconVerticalLogo} alt="logo" />
+        <Image src="/svg/vertical-logo.svg" alt="logo" layout="fill" />
       </div>
       <div className="tw-mt-8 tw-hidden 2xl:tw-block">
-        <Image src={IconHorizontalLogo} alt="logo" />
+        <Image src="/svg/horizontal-logo.svg" alt="logo" layout="fill" />
       </div>
       <div className="tw-flex tw-flex-col tw-items-center tw-my-12 tw-border-t-4 tw-border-field tw-py-4 2xl:tw-w-40">
         <button
@@ -36,7 +33,7 @@ const Sidebar: React.FC<{
               activeDesk === 'dashboard' ? 'tw-bg-blue white-svg ' : ' gray-svg'
             }`}
           >
-            <Image src={IconCategory} alt="category" />
+            <CollectionIcon />
           </div>
           <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
             Dashboard
@@ -51,7 +48,7 @@ const Sidebar: React.FC<{
               activeDesk === 'classroom' ? 'tw-bg-blue white-svg ' : ' gray-svg'
             }`}
           >
-            <Image src={Icon2User} alt="2user" />
+            <UsersIcon />
           </div>
           <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
             Classroom
@@ -66,7 +63,7 @@ const Sidebar: React.FC<{
               activeDesk === 'calendar' ? 'tw-bg-blue white-svg ' : ' gray-svg'
             }`}
           >
-            <Image src={IconCalendarOutline} alt="calendar" />
+            <CalendarIcon />
           </div>
           <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
             Calendar
@@ -81,7 +78,7 @@ const Sidebar: React.FC<{
               activeDesk === 'homework' ? 'tw-bg-blue white-svg ' : ' gray-svg'
             }`}
           >
-            <Image src={IconEditSquare} alt="edit" />
+            <PencilAltIcon />
           </div>
           <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
             Homework
@@ -96,7 +93,7 @@ const Sidebar: React.FC<{
               activeDesk === 'payments' ? 'tw-bg-blue white-svg ' : ' gray-svg'
             }`}
           >
-            <Image src={IconCahrt} alt="chart" />
+            <ChartSquareBarIcon />
           </div>
           <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
             Payments
@@ -111,7 +108,7 @@ const Sidebar: React.FC<{
               activeDesk === 'settings' ? 'tw-bg-blue white-svg ' : ' gray-svg'
             }`}
           >
-            <Image src={IconSetting} alt="setting" />
+            <CogIcon />
           </div>
           <label className="tw-px-2 tw-text-sm tw-font-medium tw-text-gray tw-cursor-pointer tw-hidden 2xl:tw-block">
             Settings
@@ -120,7 +117,7 @@ const Sidebar: React.FC<{
       </div>
       <div className="tw-border-[3px] tw-border-blue tw-rounded-full tw-flex tw-items-center tw-justify-center tw-w-[42px] tw-h-[42px] ">
         <Image
-          src={ImageAvatarTest}
+          src="/jpg/avatar-test.jpg"
           alt="avatar"
           width={42}
           height={42}
