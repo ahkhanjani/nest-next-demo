@@ -1,13 +1,11 @@
-import Image from 'next/image';
-
 import {
-  Icon3User,
-  IconBlueCalendar,
-  IconCalendar,
-  IconEdit,
-  IconTimeCircle,
-} from 'fm/main-web-assets/icons';
+  CalendarIcon,
+  ClockIcon,
+  PencilAltIcon,
+  UserGroupIcon,
+} from '@heroicons/react/outline';
 
+// TODO provide type for list
 const Sessions: React.FC<{ list: any }> = ({ list }) => {
   return (
     <div
@@ -16,11 +14,7 @@ const Sessions: React.FC<{ list: any }> = ({ list }) => {
       } `}
     >
       <div className="tw-flex  tw-flex-row tw-items-center">
-        <Image
-          src={list.today ? IconCalendar : IconBlueCalendar}
-          alt="calendar"
-          className={list.today ? 'yellow-svg' : ''}
-        />
+        <CalendarIcon className={list.today ? 'tw-text-gray' : ''} />
         <span
           className={`tw-text-2xl tw-font-normal tw-pl-2 ${
             list.today ? 'tw-text-white' : 'tw-text-dark'
@@ -30,35 +24,27 @@ const Sessions: React.FC<{ list: any }> = ({ list }) => {
         </span>
       </div>
       <hr className="tw-border-t-4 tw-border-field tw-my-4" />
-      <div className="tw-flex  tw-flex-row tw-items-center">
-        <Image
-          src={IconTimeCircle}
-          alt="clock"
-          className={list.today ? 'light-yellow-svg' : 'light-blue-svg'}
-        />
+      <div className="tw-flex tw-flex-row tw-items-center">
+        <ClockIcon />
         <span
-          className={`tw-text-sm tw-font-normal  tw-pl-4 ${
+          className={`tw-text-sm tw-font-normal tw-pl-4 ${
             list.today ? 'tw-text-white' : 'tw-text-gray'
           }`}
         >
           {list.time} - {list.location}
         </span>
       </div>
-      <div className="tw-py-2 tw-flex  tw-flex-row tw-items-center">
-        <Image
-          src={Icon3User}
-          alt="user"
-          className={list.today ? 'light-yellow-svg' : 'light-blue-svg'}
-        />
+      <div className="tw-py-2 tw-flex tw-flex-row tw-items-center">
+        <UserGroupIcon />
         <span
-          className={`tw-text-sm tw-font-normal  tw-pl-4 ${
+          className={`tw-text-sm tw-font-normal tw-pl-4 ${
             list.today ? 'tw-text-white' : 'tw-text-gray'
           }`}
         >
           {list.users}
         </span>
       </div>
-      <div className="tw-ml-[137px] tw-flex  tw-flex-row tw-items-center tw-py-2">
+      <div className="tw-ml-[137px] tw-flex tw-flex-row tw-items-center tw-py-2">
         <span
           className={`tw-text-xs tw-font-normal tw-pr-1 ${
             list.today ? 'tw-text-white' : 'tw-text-lightGray'
@@ -66,11 +52,7 @@ const Sessions: React.FC<{ list: any }> = ({ list }) => {
         >
           reschedule
         </span>
-        <Image
-          src={IconEdit}
-          alt="edit"
-          className={list.today ? '' : 'gray-svg'}
-        />
+        <PencilAltIcon />
       </div>
     </div>
   );

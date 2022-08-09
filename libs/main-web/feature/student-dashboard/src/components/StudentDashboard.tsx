@@ -5,45 +5,36 @@ import Sidebar from '../layout/Sidebar';
 import Dashboard from '../pages/Dashboard';
 import Classroom from '../pages/Classroom';
 
-import {
-  Icon2User,
-  IconCahrt,
-  IconCalendarOutline,
-  IconCategory,
-  IconEditSquare,
-  IconInfoCircle,
-  IconMessage,
-  IconMoon,
-  IconNotificatin,
-  IconSetting,
-  IconSun,
-} from 'fm/main-web-assets/icons';
-import { ImageAvatarTest } from 'fm/main-web-assets/images';
-
 import type { ActiveDeskPolicy } from '../types';
 
-export const StudentDashboard: React.FC = () => {
-  const [isActive, setActive] = useState(2);
-  const [activeDesk, setActiveDesk] = useState<ActiveDeskPolicy>('dashboard');
-  const [isDark, setDark] = useState(false);
+import {
+  BellIcon,
+  CalendarIcon,
+  ChartSquareBarIcon,
+  CogIcon,
+  CollectionIcon,
+  InboxIcon,
+  InformationCircleIcon,
+  MoonIcon,
+  PencilAltIcon,
+  SunIcon,
+  UsersIcon,
+} from '@heroicons/react/outline';
 
-  const renderContent = () => {
-    if (activeDesk === 'dashboard') {
-      return <Dashboard />;
-    } else if (activeDesk === 'classroom') {
-      return <Classroom />;
-    } else {
-      return <div></div>;
-    }
-  };
+export const StudentDashboard: React.FC = () => {
+  const [isActive, setActive] = useState<number>(2);
+  const [activeDesk, setActiveDesk] = useState<ActiveDeskPolicy>('dashboard');
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+
+  // ────────────────────────────────────────────────────────────────────────────────
 
   return (
-    <div>
+    <>
       <div className="tw-flex tw-flex-col tw-items-center tw-justify-between tw-h-screen tw-w-screen tw-px-5 tw-py-1 md:tw-hidden">
-        <div className="tw-w-full tw-flex tw-items-center tw-justify-between  ">
-          <div className=" tw-border-[3px] tw-border-blue tw-rounded-full tw-flex tw-items-center tw-justify-center tw-w-[42px] tw-h-[42px] ">
+        <div className="tw-w-full tw-flex tw-items-center tw-justify-between">
+          <div className=" tw-border-[3px] tw-border-blue tw-rounded-full tw-flex tw-items-center tw-justify-center tw-w-[42px] tw-h-[42px]">
             <Image
-              src={ImageAvatarTest}
+              src={'/jpg/avatar-test.jpg'}
               alt="avatar"
               width={42}
               height={42}
@@ -52,20 +43,20 @@ export const StudentDashboard: React.FC = () => {
           </div>
           <span>title</span>
           <button className="tw-border tw-border-borderColor tw-rounded-18 tw-p-3 tw-flex tw-items-center">
-            <Image src={IconSetting} alt="setting" />
+            <CogIcon />
           </button>
         </div>
         <div className="tw-w-full">Content</div>
         <div className="tw-w-full  tw-flex tw-flex-row tw-items-center tw-justify-between">
           <button
-            className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center		  ${
+            className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center	${
               isActive === 0
                 ? 'tw-bg-blue white-svg '
                 : 'tw-border tw-border-borderColor'
             }`}
             onClick={() => setActive(0)}
           >
-            <Image src={Icon2User} alt="2user" />
+            <UsersIcon />
           </button>
           <button
             className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center ${
@@ -75,17 +66,17 @@ export const StudentDashboard: React.FC = () => {
             }`}
             onClick={() => setActive(1)}
           >
-            <Image src={IconCalendarOutline} alt="calendar" />
+            <CalendarIcon />
           </button>
           <button
-            className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center  ${
+            className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center ${
               isActive === 2
                 ? 'tw-bg-blue white-svg '
                 : 'tw-border tw-border-borderColor gray-svg'
             }`}
             onClick={() => setActive(2)}
           >
-            <Image src={IconCategory} alt="category" />
+            <CollectionIcon />
           </button>
           <button
             className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center  ${
@@ -95,7 +86,7 @@ export const StudentDashboard: React.FC = () => {
             }`}
             onClick={() => setActive(3)}
           >
-            <Image src={IconEditSquare} alt="edit" />
+            <PencilAltIcon />
           </button>
           <button
             className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center  ${
@@ -105,7 +96,7 @@ export const StudentDashboard: React.FC = () => {
             }`}
             onClick={() => setActive(4)}
           >
-            <Image src={IconCahrt} alt="chart" />
+            <ChartSquareBarIcon />
           </button>
         </div>
       </div>
@@ -123,7 +114,7 @@ export const StudentDashboard: React.FC = () => {
               >
                 <input type="checkbox" />
                 <div className="tw-daisy-collapse-title tw-flex tw-flex-row tw-items-center">
-                  <Image src={IconInfoCircle} alt="info" />
+                  <InformationCircleIcon />
                   <span className="tw-text-sm tw-font-medium tw-pl-2">
                     Daily idiom:
                   </span>
@@ -143,37 +134,45 @@ export const StudentDashboard: React.FC = () => {
             <div className="tw-flex tw-flex-row tw-items-center ">
               <div
                 className={`tw-border-field tw-border-2 tw-rounded-xl tw-mr-6 tw-w-11 tw-h-6 tw-px-1  tw-transition-all tw-duration-300 tw-flex tw-flex-row tw-items-center tw-justify-between tw-relative ${
-                  isDark ? 'tw-bg-gray' : 'tw-bg-white'
+                  isDarkMode ? 'tw-bg-gray' : 'tw-bg-white'
                 }`}
               >
                 <span className="tw-p-1 tw-flex tw-items-center tw-justify-center">
-                  <Image src={IconSun} alt="sun" />
+                  <SunIcon />
                 </span>
                 <span className="tw-p-1 tw-flex tw-items-center tw-justify-center">
-                  <Image src={IconMoon} alt="moon" />
+                  <MoonIcon />
                 </span>
                 <div
                   className={`tw-h-[17px] tw-w-[17px] tw-absolute tw-rounded-full tw-cursor-pointer tw-transition-all tw-duration-300 ${
-                    isDark ? 'tw-translate-x-4 tw-bg-white' : 'tw-bg-gray'
+                    isDarkMode ? 'tw-translate-x-4 tw-bg-white' : 'tw-bg-gray'
                   }`}
-                  onClick={() => setDark(!isDark)}
+                  onClick={() =>
+                    setIsDarkMode((prevIsDarkMode) => !prevIsDarkMode)
+                  }
                 ></div>
               </div>
               <button>
-                <Image src={IconSetting} alt="setting" />
+                <CogIcon />
               </button>
               <button className="tw-px-9 ">
-                <Image src={IconNotificatin} alt="notification" />
+                <BellIcon />
               </button>
               <button>
-                <Image src={IconMessage} alt="message" />
+                <InboxIcon />
               </button>
             </div>
           </div>
-          <div className="tw-px-6 tw-py-10">{renderContent()}</div>
+          <div className="tw-px-6 tw-py-10">
+            {activeDesk === 'dashboard' ? (
+              <Dashboard />
+            ) : activeDesk === 'classroom' ? (
+              <Classroom />
+            ) : null}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default StudentDashboard;
