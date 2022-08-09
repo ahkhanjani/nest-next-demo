@@ -20,9 +20,6 @@
       "fm/main-web-daily-co": ["libs/main-web/daily-co/src/index.ts"],
       "fm/main-web-assets/*": ["libs/main-web/assets/*"],
       "fm/main-web-feature-auth": ["libs/main-web/feature/auth/src/index.ts"],
-      "fm/main-web-feature-network": [
-        "libs/main-web/feature/network/src/index.ts"
-      ],
       "fm/main-web-feature-prereg": [
         "libs/main-web/feature/prereg/src/index.ts"
       ],
@@ -37,9 +34,6 @@
       ],
       "fm/material-web-feature-material-wizard": [
         "libs/material-web/feature/material-wizard/src/index.ts"
-      ],
-      "fm/material-web-feature-network": [
-        "libs/material-web/feature/network/src/index.ts"
       ],
       "fm/material-web-feature-schemagen": [
         "libs/material-web/feature/material-form-schema-generator/src/index.ts"
