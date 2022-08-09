@@ -10,7 +10,7 @@ import { UpdateEnumDto } from './dto/update-enum.dto';
 export class EnumsService {
   constructor(
     @InjectModel(Enum.name)
-    private readonly enumModel: Model<EnumModel>
+    private readonly enumModel: Model<EnumModel>,
   ) {}
 
   // ─── Query ──────────────────────────────────────────────────────────────────────

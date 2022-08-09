@@ -7,7 +7,7 @@ import type { UnpredictedFormErrors } from 'fm/shared-types';
 import type { SignupFormikValues as Values } from '../types/signup-formik-values';
 
 export const SignupServiceContext = createContext<SignupServiceContextValue>(
-  {} as SignupServiceContextValue
+  {} as SignupServiceContextValue,
 );
 
 export const SignupServiceProvider: React.FC<PropsWithChildren> = ({
@@ -80,7 +80,7 @@ export interface SignupServiceContextValue {
   loading: boolean;
   handleSubmit: (
     values: Values,
-    actions: FormikHelpers<Values>
+    actions: FormikHelpers<Values>,
   ) => Promise<void>;
   success: boolean;
 }

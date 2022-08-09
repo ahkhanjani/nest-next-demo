@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
-// cmp
-import { ApolloProvider } from '../../lib/apollo/ApolloProvider';
+import { ApolloProvider } from './ApolloProvider';
 
 describe('ApolloProvider', () => {
   it('should render successfully', () => {
