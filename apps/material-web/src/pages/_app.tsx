@@ -2,7 +2,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Provider as StoreProvider } from 'react-redux';
 // fm
-import { ApolloProvider } from 'fm/material-web-feature-network';
+import { ApolloProvider } from 'fm/shared-feature-network';
 import {
   ThemeProvider,
   ColorModeProvider,
