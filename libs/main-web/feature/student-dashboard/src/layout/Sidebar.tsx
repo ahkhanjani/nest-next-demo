@@ -18,10 +18,10 @@ const Sidebar: React.FC<{
   return (
     <div className="tw-h-screen tw-bg-white tw-px-4 tw-flex tw-flex-col tw-items-center tw-shadow-[2px_0px_1px_rgba(0,0,0,0.1)]">
       <div className="tw-mt-8 tw-block 2xl:tw-hidden">
-        <Image src="/icons/vertical-logo.svg" alt="logo" layout="fill" />
+        <Image src="/svg/vertical-logo.svg" alt="logo" layout="fill" />
       </div>
       <div className="tw-mt-8 tw-hidden 2xl:tw-block">
-        <Image src="/icons/horizontal-logo.svg" alt="logo" layout="fill" />
+        <Image src="/svg/horizontal-logo.svg" alt="logo" layout="fill" />
       </div>
       <div className="tw-flex tw-flex-col tw-items-center tw-my-12 tw-border-t-4 tw-border-field tw-py-4 2xl:tw-w-40">
         <button
@@ -117,7 +117,7 @@ const Sidebar: React.FC<{
       </div>
       <div className="tw-border-[3px] tw-border-blue tw-rounded-full tw-flex tw-items-center tw-justify-center tw-w-[42px] tw-h-[42px] ">
         <Image
-          src="/images/avatar-test.jpg"
+          src="/jpg/avatar-test.jpg"
           alt="avatar"
           width={42}
           height={42}
