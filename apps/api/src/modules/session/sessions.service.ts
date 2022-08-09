@@ -1,0 +1,36 @@
+import { FilterQuery, Model } from 'mongoose';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Session, SessionModel } from './interface/session.interface';
+import { CreateSessionDto } from './dto/create-session.dto';
+import { UpdateSessionDto } from './dto/update-session.dto';
+
+@Injectable()
+export class SessionsService {
+  constructor(
+    @InjectModel(Session.name)
+    private readonly sessionModel: Model<SessionModel>
+  ) {}
+
+  // ─── Query ──────────────────────────────────────────────────────────────────────
+
+  async findOne(id: string): Promise<Session> {
+    return await this.sessionModel.findOne({ _id: id });
+  }
+
+  async findAll(filter?: FilterQuery<SessionModel>): Promise<Session[]> {
+    return await this.sessionModel.find(filter);
+  }
+
+  // ─── Mutation ───────────────────────────────────────────────────────────────────
+
+  async createOne(dto: CreateSessionDto): Promise<Session> {
+    const session = await this.sessionModel.create(dto);
+    return session;
+  }
+
+  async updateOne(sessionId: string, dto: UpdateSessionDto): Promise<Session> {
+    const session = await this.sessionModel.findByIdAndUpdate(sessionId, dto);
+    return session;
+  }
+}

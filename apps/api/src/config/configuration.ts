@@ -1,20 +1,35 @@
-export default () => ({
-  env: process.env['NODE_ENV'] || 'development',
-  port: process.env['API_PORT'] || 3333,
+const env = process.env['NODE_ENV'] || 'development';
 
-  mongodb: {
-    uri: process.env['API_MONGODB_URI'],
+const config = () => ({
+  env,
+  port: parseInt(process.env['API_PORT']) || 3333,
+
+  mongo: {
+    uri: process.env['API_MONGO_URI'],
+    username: process.env['API_MONGO_USERNAME'],
+    password: process.env['API_MONGO_PWD'],
   },
 
   redis: {
-    host: process.env['API_REDIS_HOST'],
-    port: process.env['API_REDIS_PORT'] || 6379,
+    host: env === 'development' ? 'localhost' : process.env['API_REDIS_HOST'],
+    port: parseInt(process.env['API_REDIS_PORT']) || 6379,
+    username: process.env['API_REDIS_USERNAME'],
+    password: process.env['API_REDIS_PWD'],
   },
 
   session: {
     ttl: parseInt(process.env['API_SESSION_TTL']) || 1800,
     secret: process.env['API_SESSION_SECRET'],
     name: process.env['API_SESSION_NAME'],
+  },
+
+  cache: {
+    ttl:
+      parseInt(process.env['API_CACHE_TTL']) ||
+      // 5 minutes (in milliseconds)
+      300_000,
+
+    namespace: process.env['API_CACHE_NAMESPACE'] || 'cache',
   },
 
   cors: {
@@ -36,3 +51,7 @@ export default () => ({
     },
   },
 });
+
+export default config;
+
+export type Config = ReturnType<typeof config>;

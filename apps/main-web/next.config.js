@@ -8,7 +8,6 @@ const nextConfig = {
   nx: {
     svgr: false,
   },
-  swcMinify: true,
 };
 
 module.exports = withNx(nextConfig);

@@ -1,8 +1,16 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as redisStore from 'cache-manager-redis-store';
+import type { RedisClientOptions } from 'redis';
+import Keyv from 'keyv';
+import { KeyvAdapter } from '@apollo/utils.keyvadapter';
+// import responseCachePlugin from 'apollo-server-plugin-response-cache';
+import { ApolloServerPluginCacheControl } from 'apollo-server-core/dist/plugin/cacheControl';
+
+import configuration, { type Config } from '../config/configuration';
 
 import { AppController } from './app.controller';
 
@@ -11,8 +19,8 @@ import { MaterialCategoriesModule } from '../modules/material-category/material-
 import { UsersModule } from '../modules/user/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.module';
-
-import configuration from '../config/configuration';
+import { SessionsModule } from '../modules/session/sessions.module';
+import { EnumsModule } from '../modules/enum/enums.module';
 
 @Module({
   imports: [
@@ -23,40 +31,86 @@ import configuration from '../config/configuration';
       cache: true,
     }),
 
-    // used code first approach: https://docs.nestjs.com/graphql/quick-start#code-first
-    // will auto-generate schema file
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       imports: [ConfigModule],
       driver: ApolloDriver,
-      useFactory: async (configService: ConfigService) => ({
-        installSubscriptionHandlers: true,
-        autoSchemaFile: true,
-        sortSchema: true,
-        csrfPrevention: true,
-        cors: {
-          origin: configService.get<string[]>('cors.apollo.origins'),
-          allowedHeaders: configService.get<string[]>('cors.apollo.headers'),
-          credentials: true,
-        },
-      }),
+      useFactory: async (configService: ConfigService) => {
+        const corsApolloConfig =
+          configService.get<Config['cors']['apollo']>('cors.apollo');
+        const redisConfig = configService.get<Config['redis']>('redis');
+        const cacheConfig = configService.get<Config['cache']>('cache');
+
+        return {
+          installSubscriptionHandlers: true,
+          autoSchemaFile: true,
+          sortSchema: true,
+          csrfPrevention: true,
+
+          cors: {
+            origin: corsApolloConfig.origins,
+            allowedHeaders: corsApolloConfig.headers,
+            credentials: true,
+          },
+
+          cache: new KeyvAdapter(
+            new Keyv(
+              `redis://${redisConfig.username}:${redisConfig.password}@${redisConfig.host}:${redisConfig.port}`,
+              {
+                adapter: 'redis',
+                namespace: cacheConfig.namespace,
+                ttl: cacheConfig.ttl,
+              },
+            ),
+          ),
+
+          plugins: [
+            ApolloServerPluginCacheControl() /* responseCachePlugin() */,
+          ],
+        };
+      },
       inject: [ConfigService],
     }),
 
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('mongodb.uri'),
-        useNewUrlParser: true,
-      }),
+      useFactory: async (configService: ConfigService) => {
+        const mongoConfig = configService.get<Config['mongo']>('mongo');
+
+        return {
+          uri: mongoConfig.uri,
+          useNewUrlParser: true,
+        };
+      },
       inject: [ConfigService],
     }),
 
-    // ____ custom ____
+    CacheModule.registerAsync<RedisClientOptions>({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const redisConfig = configService.get<Config['redis']>('redis');
+        const cacheConfig = configService.get<Config['cache']>('cache');
+
+        return {
+          isGlobal: true,
+          name: cacheConfig.namespace,
+          store: redisStore,
+          ttl: cacheConfig.ttl,
+          socket: {
+            host: redisConfig.host,
+            port: redisConfig.port,
+          },
+        };
+      },
+      inject: [ConfigService],
+    }),
+
     MaterialsModule,
     MaterialCategoriesModule,
     UsersModule,
     AuthModule,
     PreRegEmailsModule,
+    SessionsModule,
+    EnumsModule,
   ],
   controllers: [AppController],
 })

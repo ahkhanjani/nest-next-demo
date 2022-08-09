@@ -5,34 +5,32 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { UsersService } from '../users.service';
+import { EnumsService } from '../enums.service';
 
 @Injectable()
 @ValidatorConstraint({ async: true })
-export class IsUserAlreadyExistingConstraint
-  implements ValidatorConstraintInterface
-{
-  constructor(private readonly usersService: UsersService) {}
-  async validate(username: string) {
-    const user = await this.usersService.findOneByUsername(username);
-    if (user) return false;
+export class IsEnumExistConstraint implements ValidatorConstraintInterface {
+  constructor(private readonly enumsService: EnumsService) {}
+  async validate(id: string) {
+    const enumValue = await this.enumsService.findOne(id);
+    if (!enumValue) return false;
     return true;
   }
   defaultMessage() {
-    return 'This username is already taken.';
+    return 'The selected session status does not exist.';
   }
 }
 
-export function IsUserAlreadyExisting(validationOptions?: ValidationOptions) {
+export function IsEnumExist(validationOptions?: ValidationOptions) {
   // eslint-disable-next-line @typescript-eslint/ban-types
   return function (object: Object, propertyName: string) {
     registerDecorator({
-      name: 'isUserAlreadyExisting',
+      name: 'isEnumExist',
       target: object.constructor,
       propertyName,
       constraints: [],
       options: validationOptions,
-      validator: IsUserAlreadyExistingConstraint,
+      validator: IsEnumExistConstraint,
     });
   };
 }
