@@ -185,5 +185,10 @@
     "typescript": "~4.7.4",
     "typescript-plugin-css-modules": "^3.4.0",
     "url-loader": "^4.1.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss@<7.0.36": ">=7.0.36"
+    }
   }
 }
