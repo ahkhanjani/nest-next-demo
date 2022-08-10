@@ -5,25 +5,22 @@ import Sidebar from '../layout/Sidebar';
 import Dashboard from '../pages/Dashboard';
 import Classroom from '../pages/Classroom';
 
-import type { ActiveDeskPolicy } from '../types';
-
 import {
   BellIcon,
-  CalendarIcon,
-  ChartSquareBarIcon,
   CogIcon,
-  CollectionIcon,
   InboxIcon,
   InformationCircleIcon,
   MoonIcon,
-  PencilAltIcon,
   SunIcon,
-  UsersIcon,
 } from '@heroicons/react/outline';
 
+import { TabBar, TabName } from './TabBar';
+import { useRouter } from 'next/router';
+
 export const StudentDashboard: React.FC = () => {
-  const [isActive, setActive] = useState<number>(2);
-  const [activeDesk, setActiveDesk] = useState<ActiveDeskPolicy>('dashboard');
+  const router = useRouter();
+  const activeTab = router.query['tab'] as TabName;
+
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   // ────────────────────────────────────────────────────────────────────────────────
@@ -47,65 +44,14 @@ export const StudentDashboard: React.FC = () => {
           </button>
         </div>
         <div className="tw-w-full">Content</div>
-        <div className="tw-w-full  tw-flex tw-flex-row tw-items-center tw-justify-between">
-          <button
-            className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center	${
-              isActive === 0
-                ? 'tw-bg-blue white-svg '
-                : 'tw-border tw-border-borderColor'
-            }`}
-            onClick={() => setActive(0)}
-          >
-            <UsersIcon />
-          </button>
-          <button
-            className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center ${
-              isActive === 1
-                ? 'tw-bg-blue white-svg '
-                : 'tw-border tw-border-borderColor'
-            }`}
-            onClick={() => setActive(1)}
-          >
-            <CalendarIcon />
-          </button>
-          <button
-            className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center ${
-              isActive === 2
-                ? 'tw-bg-blue white-svg '
-                : 'tw-border tw-border-borderColor gray-svg'
-            }`}
-            onClick={() => setActive(2)}
-          >
-            <CollectionIcon />
-          </button>
-          <button
-            className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center  ${
-              isActive === 3
-                ? 'tw-bg-blue white-svg '
-                : 'tw-border tw-border-borderColor'
-            }`}
-            onClick={() => setActive(3)}
-          >
-            <PencilAltIcon />
-          </button>
-          <button
-            className={` tw-rounded-18 tw-p-[13px] tw-flex tw-items-center  ${
-              isActive === 4
-                ? 'tw-bg-blue white-svg '
-                : 'tw-border tw-border-borderColor'
-            }`}
-            onClick={() => setActive(4)}
-          >
-            <ChartSquareBarIcon />
-          </button>
-        </div>
+        <TabBar />
       </div>
       <div className="tw-hidden tw-bg-bgColor md:tw-flex ">
-        <Sidebar {...{ activeDesk, setActiveDesk }} />
+        <Sidebar />
         <div className="tw-w-full">
           <div className="tw-bg-white tw-min-w-full  tw-py-6 tw-flex tw-flex-row tw-items-center tw-justify-around tw-shadow-md 2xl:tw-justify-between 2xl:tw-pr-9">
             <span className="tw-text-2xl tw-text-lightGray tw-font-normal tw-px-6 tw-border-r-4 tw-border-r-field 2xl:tw-border-none 2xl:tw-hidden">
-              {activeDesk}
+              {activeTab}
             </span>
             <div className="tw-px-9  ">
               <div
@@ -164,9 +110,9 @@ export const StudentDashboard: React.FC = () => {
             </div>
           </div>
           <div className="tw-px-6 tw-py-10">
-            {activeDesk === 'dashboard' ? (
+            {activeTab === 'dashboard' ? (
               <Dashboard />
-            ) : activeDesk === 'classroom' ? (
+            ) : activeTab === 'classroom' ? (
               <Classroom />
             ) : null}
           </div>
