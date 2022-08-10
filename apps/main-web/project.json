@@ -10,7 +10,14 @@
       "options": {
         "root": "apps/main-web",
         "outputPath": "dist/apps/main-web",
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "assets": [
+          {
+            "input": "libs/main-web/feature/student-dashboard/src/assets",
+            "glob": "**/*.svg",
+            "output": "assets"
+          }
+        ]
       },
       "configurations": {
         "development": {},
