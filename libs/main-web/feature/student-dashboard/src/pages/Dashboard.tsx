@@ -1,31 +1,24 @@
 import { DocumentAddIcon } from '@heroicons/react/outline';
-import { useId } from 'react';
 // cmp
-import Sessions from '../components/Sessions';
+import Sessions, { type Session } from '../components/Sessions';
 
 const Dashboard: React.FC = () => {
-  const fakeList = [
+  const fakeList: Session[] = [
     {
       id: 'A1B2',
-      dueTime: 'In 2 hours',
-      time: '13:45',
-      location: 'New York city',
-      users: 'Mohammad & you',
-      today: true,
+      date: new Date(),
+      timeZone: 'New York city',
+      participants: 'Mohammad & you',
     },
     {
       id: 'C3D4',
-      dueTime: 'Tomorrow',
-      time: '13:45',
-      location: 'New York city',
-      users: 'Mohammad & you',
-      today: false,
+      date: new Date(),
+      timeZone: 'New York city',
+      participants: 'Mohammad & you',
     },
   ];
 
   // ────────────────────────────────────────────────────────────────────────────────
-
-  const domId = useId();
 
   return (
     <>
@@ -33,9 +26,7 @@ const Dashboard: React.FC = () => {
         Upcoming sessions
       </span>
       <div className="tw-w-fit tw-flex tw-flex-row tw-items-center tw-bg-white tw-mt-4 tw-p-4 tw-rounded-2xl tw-shadow-sm">
-        {fakeList.map((item) => (
-          <Sessions key={domId + item.id} list={item} />
-        ))}
+        <Sessions sessionList={fakeList} />
         <button className="tw-h-[74px] tw-w-[74px] tw-rounded-full tw-mr-3 tw-bg-field tw-flex tw-flex-col tw-items-center tw-justify-center">
           <DocumentAddIcon />
           <span className="tw-text-xs tw-font-normal tw-text-gray">Add</span>
