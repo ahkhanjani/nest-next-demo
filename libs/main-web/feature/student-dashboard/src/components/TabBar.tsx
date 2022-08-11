@@ -4,22 +4,22 @@ import { useRouter } from 'next/router';
 
 import {
   CalendarIcon,
-  ChartSquareBarIcon,
-  CogIcon,
-  CollectionIcon,
-  PencilAltIcon,
-  UsersIcon,
-} from '@heroicons/react/outline';
+  ChartIcon,
+  SettingsIcon,
+  CategoryIcon,
+  EditIcon,
+  TwoUsersIcon,
+} from '../assets/icons';
 
 import { capitalizeFirstLetter } from 'fm/shared-utils';
 
 export const tabs = [
-  { name: 'dashboard', icon: <UsersIcon /> },
-  { name: 'classroom', icon: <CollectionIcon /> },
+  { name: 'dashboard', icon: <TwoUsersIcon /> },
+  { name: 'classroom', icon: <CategoryIcon /> },
   { name: 'calendar', icon: <CalendarIcon /> },
-  { name: 'homework', icon: <PencilAltIcon /> },
-  { name: 'payments', icon: <ChartSquareBarIcon /> },
-  { name: 'settings', icon: <CogIcon /> },
+  { name: 'homework', icon: <EditIcon /> },
+  { name: 'payments', icon: <ChartIcon /> },
+  { name: 'settings', icon: <SettingsIcon /> },
 ] as const;
 export type TabName = typeof tabs[number]['name'];
 
