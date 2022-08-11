@@ -43,7 +43,7 @@ const TabButton: React.FC<{
   icon: JSX.Element;
 }> = ({ icon, name }) => {
   const router = useRouter();
-  const activeTab = router.query['tab'];
+  const activeTab = router.query['desk'];
 
   const title = capitalizeFirstLetter(name);
 

@@ -1,4 +1,4 @@
-import { DocumentAddIcon } from '@heroicons/react/outline';
+import { PaperPlusIcon } from '../../assets/icons';
 import Sessions, { type Session } from '../Sessions';
 
 export const DashboardDesk: React.FC = () => {
@@ -27,7 +27,7 @@ export const DashboardDesk: React.FC = () => {
       <div className="tw-w-fit tw-flex tw-flex-row tw-items-center tw-bg-white tw-mt-4 tw-p-4 tw-rounded-2xl tw-shadow-sm">
         <Sessions sessionList={fakeList} />
         <button className="tw-h-[74px] tw-w-[74px] tw-rounded-full tw-mr-3 tw-bg-field tw-flex tw-flex-col tw-items-center tw-justify-center">
-          <DocumentAddIcon />
+          <PaperPlusIcon />
           <span className="tw-text-xs tw-font-normal tw-text-gray">Add</span>
         </button>
       </div>

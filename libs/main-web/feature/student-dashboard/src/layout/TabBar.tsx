@@ -7,7 +7,6 @@ import {
   ChartIcon,
   CogIcon,
   CategoryIcon,
-  EditIcon,
   TwoUsersIcon,
   EditSquareIcon,
 } from '../assets/icons';
@@ -42,7 +41,7 @@ const TabButton: React.FC<{
   icon: JSX.Element;
 }> = ({ icon, name }) => {
   const router = useRouter();
-  const activeTab = router.query['tab'];
+  const activeTab = router.query['desk'];
 
   return (
     <Link href={`/dashboard/${name}`}>
