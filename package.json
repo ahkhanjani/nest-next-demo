@@ -11,7 +11,7 @@
     "gen": "graphql-codegen --config libs/shared/graphql/codegen.yml",
     "format": "prettier --write",
     "format-all": "prettier --write .",
-    "format-ckeck": "prettier --check ."
+    "format-check": "prettier --check ."
   },
   "private": true,
   "dependencies": {
