@@ -9,6 +9,7 @@ import {
   CategoryIcon,
   EditIcon,
   TwoUsersIcon,
+  EditSquareIcon,
 } from '../assets/icons';
 
 import { capitalizeFirstLetter } from 'fm/shared-utils';
@@ -17,7 +18,7 @@ export const tabs = [
   { name: 'dashboard', icon: <TwoUsersIcon /> },
   { name: 'classroom', icon: <CategoryIcon /> },
   { name: 'calendar', icon: <CalendarIcon /> },
-  { name: 'homework', icon: <EditIcon /> },
+  { name: 'homework', icon: <EditSquareIcon /> },
   { name: 'payments', icon: <ChartIcon /> },
   { name: 'settings', icon: <CogIcon /> },
 ] as const;
