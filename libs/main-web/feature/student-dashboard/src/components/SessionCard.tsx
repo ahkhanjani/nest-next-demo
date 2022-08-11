@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+
 import {
   CalendarIcon,
   ClockIcon,
-  PencilAltIcon,
-  UserGroupIcon,
-} from '@heroicons/react/outline';
+  EditIcon,
+  ThreeUsersIcon,
+} from '../assets/icons';
 
 import type { Session } from './Sessions';
 
@@ -69,7 +70,7 @@ const SessionCard: React.FC<{
       />
 
       <InformationItem
-        icon={<UserGroupIcon />}
+        icon={<ThreeUsersIcon />}
         text={participants}
         isToday={isToday}
       />
@@ -82,7 +83,7 @@ const SessionCard: React.FC<{
         >
           reschedule
         </span>
-        <PencilAltIcon />
+        <EditIcon />
       </div>
     </div>
   );
