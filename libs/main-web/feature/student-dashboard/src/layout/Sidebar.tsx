@@ -6,8 +6,7 @@ import { useRouter } from 'next/router';
 import { capitalizeFirstLetter } from 'fm/shared-utils';
 import { tabs } from '../components/TabBar';
 
-import { ReactComponent as HorizontalLogo } from '../assets/svg/horizontal-logo.svg';
-import { ReactComponent as VerticalLogo } from '../assets/svg/vertical-logo.svg';
+import { HorizontalLogo, VerticalLogo } from '../assets/icons';
 
 const Sidebar: React.FC = () => {
   const domId = useId();

@@ -10,14 +10,7 @@
       "options": {
         "root": "apps/main-web",
         "outputPath": "dist/apps/main-web",
-        "generatePackageJson": true,
-        "assets": [
-          {
-            "input": "libs/main-web/feature/student-dashboard/src/assets",
-            "glob": "**/*.svg",
-            "output": "assets"
-          }
-        ]
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -61,37 +54,6 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/main-web/**/*.{ts,tsx,js,jsx}"]
-      }
-    },
-    "storybook": {
-      "executor": "@nrwl/storybook:storybook",
-      "options": {
-        "uiFramework": "@storybook/react",
-        "port": 4400,
-        "config": {
-          "configFolder": "apps/main-web/.storybook"
-        }
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@nrwl/storybook:build",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "uiFramework": "@storybook/react",
-        "outputPath": "dist/storybook/main-web",
-        "config": {
-          "configFolder": "apps/main-web/.storybook"
-        }
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
       }
     }
   },
