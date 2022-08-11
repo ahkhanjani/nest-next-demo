@@ -1,11 +1,6 @@
 import { useEffect, useId, useState } from 'react';
 
-import {
-  CalendarIcon,
-  ClockIcon,
-  EditIcon,
-  ThreeUsersIcon,
-} from '../assets/icons';
+import { CalendarIcon, ClockIcon, EditIcon, ThreeUsersIcon } from '';
 
 import dayjs from 'dayjs';
 import dayjs_isToday from 'dayjs/plugin/isToday';

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import Image from 'next/image';
 
 import Sidebar from '../layout/Sidebar';
@@ -16,12 +16,13 @@ import {
 
 import { TabBar, TabName } from './TabBar';
 import { useRouter } from 'next/router';
+import { ColorModeContext } from 'fm/main-web-ui';
 
 export const StudentDashboard: React.FC = () => {
   const router = useRouter();
   const activeTab = router.query['tab'] as TabName;
 
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const colorMode = useContext(ColorModeContext);
 
   // ────────────────────────────────────────────────────────────────────────────────
 
@@ -80,7 +81,7 @@ export const StudentDashboard: React.FC = () => {
             <div className="tw-flex tw-flex-row tw-items-center ">
               <div
                 className={`tw-border-field tw-border-2 tw-rounded-xl tw-mr-6 tw-w-11 tw-h-6 tw-px-1  tw-transition-all tw-duration-300 tw-flex tw-flex-row tw-items-center tw-justify-between tw-relative ${
-                  isDarkMode ? 'tw-bg-gray' : 'tw-bg-white'
+                  colorMode.mode === 'dark' ? 'tw-bg-gray' : 'tw-bg-white'
                 }`}
               >
                 <span className="tw-p-1 tw-flex tw-items-center tw-justify-center">
@@ -91,11 +92,11 @@ export const StudentDashboard: React.FC = () => {
                 </span>
                 <div
                   className={`tw-h-[17px] tw-w-[17px] tw-absolute tw-rounded-full tw-cursor-pointer tw-transition-all tw-duration-300 ${
-                    isDarkMode ? 'tw-translate-x-4 tw-bg-white' : 'tw-bg-gray'
+                    colorMode.mode
+                      ? 'tw-translate-x-4 tw-bg-white'
+                      : 'tw-bg-gray'
                   }`}
-                  onClick={() =>
-                    setIsDarkMode((prevIsDarkMode) => !prevIsDarkMode)
-                  }
+                  onClick={() => colorMode.toggleColorMode()}
                 ></div>
               </div>
               <button>

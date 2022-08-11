@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'main-web-ui-form',
+  displayName: 'main-web-ui',
   preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ export default {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/main-web/ui/form',
+  coverageDirectory: '../../../../coverage/libs/main-web/ui',
 };
