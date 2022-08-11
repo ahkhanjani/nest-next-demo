@@ -46,13 +46,13 @@ async function bootstrap() {
         // 30 minutes
         maxAge: configService.get<number>('session.ttl') * 1000,
       },
-    })
+    }),
   );
 
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-    })
+    }),
   );
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
@@ -62,7 +62,7 @@ async function bootstrap() {
   switch (configService.get<'development' | 'production'>('env')) {
     case 'development':
       console.log(
-        `'api' is running on '${await app.getUrl()}'.\nGraphQL Playground: ${await app.getUrl()}/graphql`
+        `'api' is running on '${await app.getUrl()}'.\nGraphQL Playground: ${await app.getUrl()}/graphql`,
       );
       break;
 

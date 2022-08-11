@@ -31,7 +31,7 @@ export const TranscriptionProvider = ({ children }) => {
 
       setHasNewMessages(true);
     },
-    [daily]
+    [daily],
   );
 
   const handleTranscriptionStarted = useCallback(() => {

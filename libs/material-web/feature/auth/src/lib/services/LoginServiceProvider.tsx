@@ -8,7 +8,7 @@ import { setSnackbarMessage, useAppDispatch } from 'fm/material-web-state';
 import type { LoginFormikValues as Values } from '../types/login-formik-values';
 
 export const LoginServiceContext = createContext<LoginServiceContextValue>(
-  {} as LoginServiceContextValue
+  {} as LoginServiceContextValue,
 );
 
 export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
@@ -39,7 +39,7 @@ export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
           setSnackbarMessage({
             message: 'Logged in successfully.',
             severity: 'success',
-          })
+          }),
         );
         return;
       }
@@ -93,7 +93,7 @@ export interface LoginServiceContextValue {
   loading: boolean;
   handleSubmit: (
     values: Values,
-    actions: FormikHelpers<Values>
+    actions: FormikHelpers<Values>,
   ) => Promise<void>;
   success: boolean;
 }

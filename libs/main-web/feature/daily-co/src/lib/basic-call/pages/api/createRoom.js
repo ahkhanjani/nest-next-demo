@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
     const dailyRes = await fetch(
       `${process.env.DAILY_REST_DOMAIN || 'https://api.daily.co/v1'}/rooms`,
-      options
+      options,
     );
 
     const { name, url, error } = await dailyRes.json();

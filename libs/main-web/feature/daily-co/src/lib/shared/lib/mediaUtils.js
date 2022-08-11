@@ -12,7 +12,7 @@ export const asyncGetUserDevices = async (useLocal = true) => {
   const defaultCamDevice = devices.filter((d) => d.deviceId === defaultCam);
   const defaultMicDevice = devices.filter((d) => d.deviceId === defaultMic);
   const defaultSpeakersDevice = devices.filter(
-    (d) => d.deviceId === defaultSpeakers
+    (d) => d.deviceId === defaultSpeakers,
   );
 
   const currentCam = defaultCamDevice.length ? defaultCamDevice[0] : cams[0];

@@ -32,10 +32,10 @@ const FormikContainer: React.FC<PropsWithChildren<unknown>> = ({
   //
 
   const { materialDataArray, selectedMaterialIndex } = useAppSelector(
-    (state) => state.creatingMaterials
+    (state) => state.creatingMaterials,
   );
   const { editMode, editingMaterialData } = useAppSelector(
-    (state) => state.editingMaterial
+    (state) => state.editingMaterial,
   );
 
   const dispatch = useAppDispatch();

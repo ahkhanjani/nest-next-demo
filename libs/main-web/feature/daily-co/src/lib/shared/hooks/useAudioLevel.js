@@ -24,7 +24,7 @@ export const useAudioLevel = (stream) => {
     const startProcessing = async () => {
       try {
         await audioContext.audioWorklet.addModule(
-          `${assetPrefix}/audiolevel-processor.js`
+          `${assetPrefix}/audiolevel-processor.js`,
         );
 
         node = new AudioWorkletNode(audioContext, 'audiolevel');

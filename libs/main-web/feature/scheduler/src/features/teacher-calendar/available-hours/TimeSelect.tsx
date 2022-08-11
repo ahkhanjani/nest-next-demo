@@ -19,7 +19,7 @@ const TimeSelect: React.FC<TimeSelectProps> = memo(
             return false;
         }
       },
-      [selectedFromIndex]
+      [selectedFromIndex],
     );
 
     const selectOptions = useMemo(
@@ -29,7 +29,7 @@ const TimeSelect: React.FC<TimeSelectProps> = memo(
             {hour}
           </option>
         )),
-      [getDisabled]
+      [getDisabled],
     );
 
     return (
@@ -47,7 +47,7 @@ const TimeSelect: React.FC<TimeSelectProps> = memo(
         {selectOptions}
       </select>
     );
-  }
+  },
 );
 export default TimeSelect;
 

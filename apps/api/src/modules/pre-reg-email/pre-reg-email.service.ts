@@ -12,8 +12,8 @@ import type { PreRegResponse } from './dto/pre-reg-response.dto';
 export class PreRegEmailsService {
   constructor(
     @InjectModel(PreRegEmail.name)
-    private readonly preRegModel: Model<PreRegEmailModel>
-  ) { }
+    private readonly preRegModel: Model<PreRegEmailModel>,
+  ) {}
 
   async checkExisting(email: string): Promise<boolean> {
     const preReg = await this.preRegModel.findById({ email }).exec();

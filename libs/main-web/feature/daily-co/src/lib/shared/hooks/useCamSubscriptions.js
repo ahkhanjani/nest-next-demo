@@ -10,7 +10,7 @@ import { useTracks } from '../contexts/TracksProvider';
 export const useCamSubscriptions = (
   subscribedIds,
   stagedIds = [],
-  throttle = 50
+  throttle = 50,
 ) => {
   const { updateCamSubscriptions } = useTracks();
 

@@ -29,7 +29,7 @@ export const ParticipantsProvider = ({ children }) => {
   } = useCallState();
   const [state, dispatch] = useReducer(
     participantsReducer,
-    initialParticipantsState
+    initialParticipantsState,
   );
   const [participantMarkedForRemoval, setParticipantMarkedForRemoval] =
     useState(null);
@@ -41,7 +41,7 @@ export const ParticipantsProvider = ({ children }) => {
    */
   const allParticipants = useMemo(
     () => [...state.participants, ...state.screens],
-    [state?.participants, state?.screens]
+    [state?.participants, state?.screens],
   );
 
   /**
@@ -60,7 +60,7 @@ export const ParticipantsProvider = ({ children }) => {
    */
   const participantCount = useMemo(
     () => participants.filter(({ isScreenshare }) => !isScreenshare).length,
-    [participants]
+    [participants],
   );
 
   /**
@@ -68,7 +68,7 @@ export const ParticipantsProvider = ({ children }) => {
    */
   const activeParticipant = useMemo(
     () => participants.find(({ isActiveSpeaker }) => isActiveSpeaker),
-    [participants]
+    [participants],
   );
 
   /**
@@ -77,14 +77,14 @@ export const ParticipantsProvider = ({ children }) => {
   const localParticipant = useMemo(
     () =>
       allParticipants.find(
-        ({ isLocal, isScreenshare }) => isLocal && !isScreenshare
+        ({ isLocal, isScreenshare }) => isLocal && !isScreenshare,
       ),
-    [allParticipants]
+    [allParticipants],
   );
 
   const isOwner = useMemo(
     () => !!localParticipant?.isOwner,
-    [localParticipant]
+    [localParticipant],
   );
 
   /**
@@ -102,7 +102,7 @@ export const ParticipantsProvider = ({ children }) => {
     if (pinned) return pinned;
 
     const displayableParticipants = participants.filter((p) =>
-      isMobile ? !p?.isLocal && !p?.isScreenshare : !p?.isLocal
+      isMobile ? !p?.isLocal && !p?.isScreenshare : !p?.isLocal,
     );
 
     if (
@@ -152,7 +152,7 @@ export const ParticipantsProvider = ({ children }) => {
     (name) => {
       daily.setUserName(name);
     },
-    [daily]
+    [daily],
   );
 
   const swapParticipantPosition = useCallback((id1, id2) => {
@@ -177,7 +177,7 @@ export const ParticipantsProvider = ({ children }) => {
       if (!localParticipant.isOwner) return;
       setMuteNewParticipants(muteFutureParticipants);
       const unmutedParticipants = participants.filter(
-        (p) => !p.isLocal && !p.isMicMuted
+        (p) => !p.isLocal && !p.isMicMuted,
       );
       if (!unmutedParticipants.length) return;
       daily.updateParticipants(
@@ -186,10 +186,10 @@ export const ParticipantsProvider = ({ children }) => {
             setAudio: false,
           };
           return o;
-        }, {})
+        }, {}),
       );
     },
-    [daily, localParticipant, participants]
+    [daily, localParticipant, participants],
   );
 
   const handleParticipantJoined = useCallback(() => {
@@ -227,7 +227,7 @@ export const ParticipantsProvider = ({ children }) => {
           break;
       }
     },
-    [daily, dispatch, muteNewParticipants]
+    [daily, dispatch, muteNewParticipants],
   );
 
   useEffect(() => {
@@ -248,7 +248,7 @@ export const ParticipantsProvider = ({ children }) => {
 
   const participantIds = useMemo(
     () => participants.map((p) => p.id).join(','),
-    [participants]
+    [participants],
   );
 
   const setBandWidthControls = useCallback(() => {

@@ -196,7 +196,7 @@ export const Tile = memo(
         `}</style>
       </div>
     );
-  }
+  },
 );
 
 Tile.propTypes = {

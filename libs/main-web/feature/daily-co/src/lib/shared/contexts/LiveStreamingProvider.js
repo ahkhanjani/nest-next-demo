@@ -25,7 +25,7 @@ export const LiveStreamingProvider = ({ children }) => {
       console.log('📺 Live stream error ' + e.errorMsg);
       setCustomCapsule(null);
     },
-    [setCustomCapsule]
+    [setCustomCapsule],
   );
 
   const {

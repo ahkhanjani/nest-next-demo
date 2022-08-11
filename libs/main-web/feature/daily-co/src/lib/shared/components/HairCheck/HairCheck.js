@@ -37,7 +37,7 @@ export const HairCheck = () => {
   const [joining, setJoining] = useState(false);
   const [denied, setDenied] = useState();
   const [userName, setUserName] = useState(
-    localStorage.getItem('PLUOT_PARTICIPANT_NAME') || ''
+    localStorage.getItem('PLUOT_PARTICIPANT_NAME') || '',
   );
 
   // Initialise devices (even though we're not yet in a call)
@@ -90,13 +90,13 @@ export const HairCheck = () => {
         showName={false}
       />
     ),
-    [localParticipant]
+    [localParticipant],
   );
 
   const isLoading = useMemo(
     () =>
       camState === DEVICE_STATE_PENDING || micState === DEVICE_STATE_PENDING,
-    [camState, micState]
+    [camState, micState],
   );
 
   const hasError = useMemo(() => camError || micError, [camError, micError]);

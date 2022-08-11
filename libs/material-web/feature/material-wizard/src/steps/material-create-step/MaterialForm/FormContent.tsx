@@ -24,7 +24,7 @@ const FormContent: React.FC<FormContentProps> = ({ materialFormSchemas }) => {
   // ─── State ──────────────────────────────────────────────────────────────────────
 
   const { selectedMaterialIndex } = useAppSelector(
-    (state) => state.creatingMaterials
+    (state) => state.creatingMaterials,
   );
   const { editMode } = useAppSelector((state) => state.editingMaterial);
 
@@ -55,7 +55,7 @@ const FormContent: React.FC<FormContentProps> = ({ materialFormSchemas }) => {
       ...values,
       data: dynamicFormData,
     }),
-    [dynamicFormData, values]
+    [dynamicFormData, values],
   );
 
   function clearForm() {
@@ -78,7 +78,7 @@ const FormContent: React.FC<FormContentProps> = ({ materialFormSchemas }) => {
         status: publish ? 'published' : 'unpublished',
         title,
         type,
-      })
+      }),
     );
     clearForm();
     // TODO show success message

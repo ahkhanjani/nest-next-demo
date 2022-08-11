@@ -13,14 +13,14 @@ export class AuthResolver {
   async login(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Context() context: any,
-    @Args('dto') { username, password }: LoginInput
+    @Args('dto') { username, password }: LoginInput,
   ): Promise<LoginResponse> {
     if (context.req.session.userId)
       return { errors: [{ field: 'username', message: 'Already logged in.' }] };
 
     const { userId, errors } = await this.authService.validateUser(
       username,
-      password
+      password,
     );
 
     if (errors) return { errors };

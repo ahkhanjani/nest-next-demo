@@ -13,7 +13,7 @@ type ParamNames<Pattern extends string> =
 type Params<Pattern extends string> = { [K in ParamNames<Pattern>]: string };
 
 export function path<Pattern extends string>(
-  pattern: Pattern
+  pattern: Pattern,
 ): Path<Params<Pattern>> {
   return 'shared-util-routing' as any;
 }

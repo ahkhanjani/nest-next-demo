@@ -88,14 +88,14 @@ export const CallProvider = ({
       if (supportsRecording) {
         setEnableRecording(recordingType);
         setStartCloudRecording(
-          roomConfig?.tokenConfig?.start_cloud_recording ?? false
+          roomConfig?.tokenConfig?.start_cloud_recording ?? false,
         );
       }
       setEnableScreenShare(
         fullUI &&
           (roomConfig?.tokenConfig?.enable_screenshare ??
             roomConfig?.config?.enable_screenshare) &&
-          DailyIframe.supportedBrowser().supportsScreenShare
+          DailyIframe.supportedBrowser().supportsScreenShare,
       );
     };
     updateRoomConfigState();
@@ -111,7 +111,7 @@ export const CallProvider = ({
     (quality) => {
       daily.setBandwidth(quality);
     },
-    [daily]
+    [daily],
   );
 
   useEffect(() => {

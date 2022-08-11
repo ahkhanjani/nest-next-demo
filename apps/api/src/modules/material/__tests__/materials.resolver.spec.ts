@@ -86,13 +86,13 @@ describe('MaterialsResolver', () => {
 
       beforeEach(async () => {
         materials = await resolver.getMaterialsByCategoryId(
-          materialStub().category[0]
+          materialStub().category[0],
         );
       });
 
       it('should call materialsService', () => {
         expect(service.findByCategoryId).toHaveBeenCalledWith(
-          materialStub().category[0]
+          materialStub().category[0],
         );
         expect(service.findByCategoryId).toHaveBeenCalledTimes(1);
       });
@@ -110,13 +110,13 @@ describe('MaterialsResolver', () => {
 
         beforeEach(async () => {
           exists = await resolver.checkMaterialTitleExists(
-            materialStub().title
+            materialStub().title,
           );
         });
 
         it('should call materialsService', () => {
           expect(service.checkTitleExists).toHaveBeenCalledWith(
-            materialStub().title
+            materialStub().title,
           );
           expect(service.checkTitleExists).toHaveBeenCalledTimes(1);
         });

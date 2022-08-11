@@ -12,16 +12,16 @@ export class AuthService {
 
   async validateUser(
     username: string,
-    password: string
+    password: string,
   ): Promise<ValidateResponse> {
     const user: User = await this.usersService.findOneByUsername_UNSAFE(
-      username
+      username,
     );
 
     if (user) {
       const passwordsMatch: boolean = await argon2.verify(
         user.password,
-        password
+        password,
       );
 
       if (passwordsMatch)

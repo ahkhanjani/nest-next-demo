@@ -19,7 +19,7 @@ export const SubmitButton: React.FC<PropsWithChildren<SubmitButtonProps>> = ({
     { [`tw-daisy-btn-${color}`]: color },
     { 'tw-daisy-btn-disabled': disabled },
     { 'tw-daisy-btn-loading': loading },
-    className
+    className,
   );
 
   return (

@@ -49,7 +49,7 @@ export const Header = () => {
         `}</style>
       </header>
     ),
-    [participantCount, customCapsule]
+    [participantCount, customCapsule],
   );
 };
 

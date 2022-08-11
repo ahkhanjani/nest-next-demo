@@ -14,7 +14,7 @@ const MaterialStack: React.FC = () => {
   //
 
   const { materialDataArray } = useAppSelector(
-    (state) => state.creatingMaterials
+    (state) => state.creatingMaterials,
   );
 
   // ────────────────────────────────────────────────────────────────────────────────

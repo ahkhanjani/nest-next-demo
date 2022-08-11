@@ -9,18 +9,18 @@ export const UsersService = jest.fn(
     count: jest.fn((): number => 2),
     findAll: jest.fn((): User[] => [userStub()]),
     findOne: jest.fn(
-      (id: string): User => (id === userStub().id ? userStub() : undefined)
+      (id: string): User => (id === userStub().id ? userStub() : undefined),
     ),
     findOneByUsername: jest.fn(
       (username: string): User =>
-        username === userStub().username ? userStub() : undefined
+        username === userStub().username ? userStub() : undefined,
     ),
     findOneByUsername_UNSAFE: jest.fn(
       (username: string): User =>
-        username === userStub().username ? userStub() : undefined
+        username === userStub().username ? userStub() : undefined,
     ),
     createOne: jest.fn(
-      (): CreateUserResponse => ({ success: true, errors: undefined })
+      (): CreateUserResponse => ({ success: true, errors: undefined }),
     ),
-  })
+  }),
 );

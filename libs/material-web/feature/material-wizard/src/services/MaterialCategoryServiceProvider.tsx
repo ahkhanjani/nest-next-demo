@@ -8,7 +8,7 @@ import {
 
 export const MaterialCategoryServiceContext =
   createContext<MaterialCategoryServiceContextValue>(
-    {} as MaterialCategoryServiceContextValue
+    {} as MaterialCategoryServiceContextValue,
   );
 
 export const MaterialCategoryServiceProvider: React.FC<

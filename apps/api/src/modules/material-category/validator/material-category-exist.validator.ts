@@ -13,10 +13,11 @@ import { MaterialCategoriesService } from '../material-categories.service';
 @Injectable()
 @ValidatorConstraint({ async: true })
 export class IsMaterialCategoryAlreadyExistingConstraint
-  implements ValidatorConstraintInterface {
+  implements ValidatorConstraintInterface
+{
   constructor(
-    private readonly materialCategoriesService: MaterialCategoriesService
-  ) { }
+    private readonly materialCategoriesService: MaterialCategoriesService,
+  ) {}
   async validate(title: string, args: ValidationArguments) {
     const [props]: Props[] = args.constraints;
     const updating = props.updating;
@@ -45,7 +46,7 @@ export class IsMaterialCategoryAlreadyExistingConstraint
 
 export function IsMaterialCategoryAlreadyExisting(
   props: Props = { updating: false },
-  validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ) {
   // eslint-disable-next-line @typescript-eslint/ban-types
   return function (object: Object, propertyName: string) {

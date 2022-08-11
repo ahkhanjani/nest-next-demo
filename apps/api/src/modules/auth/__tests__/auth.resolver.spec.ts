@@ -48,7 +48,7 @@ describe('AuthResolver', () => {
         expect(authService.validateUser).toHaveBeenCalled();
         expect(authService.validateUser).toHaveBeenCalledWith<[string, string]>(
           username,
-          password
+          password,
         );
       });
 
@@ -67,7 +67,7 @@ describe('AuthResolver', () => {
       beforeEach(async () => {
         validationResponse = await authService.validateUser(
           wrongUsernameMock,
-          password
+          password,
         );
       });
 
@@ -75,7 +75,7 @@ describe('AuthResolver', () => {
         expect(authService.validateUser).toHaveBeenCalled();
         expect(authService.validateUser).toHaveBeenCalledWith<[string, string]>(
           wrongUsernameMock,
-          password
+          password,
         );
       });
 
@@ -96,7 +96,7 @@ describe('AuthResolver', () => {
       beforeEach(async () => {
         validationResponse = await authService.validateUser(
           username,
-          wrongPasswordMock
+          wrongPasswordMock,
         );
       });
 
@@ -104,7 +104,7 @@ describe('AuthResolver', () => {
         expect(authService.validateUser).toHaveBeenCalled();
         expect(authService.validateUser).toHaveBeenCalledWith<[string, string]>(
           username,
-          wrongPasswordMock
+          wrongPasswordMock,
         );
       });
 

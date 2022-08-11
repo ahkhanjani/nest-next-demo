@@ -9,7 +9,7 @@ import { UpdateSessionDto } from './dto/update-session.dto';
 export class SessionsService {
   constructor(
     @InjectModel(Session.name)
-    private readonly sessionModel: Model<SessionModel>
+    private readonly sessionModel: Model<SessionModel>,
   ) {}
 
   // ─── Query ──────────────────────────────────────────────────────────────────────

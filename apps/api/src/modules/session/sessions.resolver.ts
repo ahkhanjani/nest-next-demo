@@ -18,7 +18,7 @@ export class SessionsResolver {
   constructor(
     private readonly sessionsService: SessionsService,
     private readonly usersService: UsersService,
-    private readonly enumsService: EnumsService
+    private readonly enumsService: EnumsService,
   ) {}
 
   // ─── Resolve Field ──────────────────────────────────────────────────────────────
@@ -42,7 +42,7 @@ export class SessionsResolver {
 
   @Query(() => Session, { name: 'session' })
   async getSession(
-    @Args('id', { type: () => ID }) id: string
+    @Args('id', { type: () => ID }) id: string,
   ): Promise<Session> {
     return await this.sessionsService.findOne(id);
   }

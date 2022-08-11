@@ -135,6 +135,6 @@ export const Video = forwardRef(
         `}</style>
       </>
     );
-  }
+  },
 );
 Video.displayName = 'Video';

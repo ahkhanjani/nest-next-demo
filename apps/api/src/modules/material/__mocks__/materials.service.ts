@@ -13,17 +13,17 @@ export const MaterialsService = jest.fn(
     createMany: jest.fn(
       (): CreateMaterialsResponse => ({
         createdMaterials: [materialStub(), materialStub()],
-      })
+      }),
     ),
     updateOne: jest.fn(
       (): UpdateMaterialResponse => ({
         message: JSON.stringify(materialStub()),
-      })
+      }),
     ),
 
     findByCategoryId: jest.fn((): Material[] => [materialStub()]),
     checkTitleExists: jest.fn(
-      (title: string): boolean => title === materialStub().title
+      (title: string): boolean => title === materialStub().title,
     ),
     paginate: jest.fn(
       ({ page }: { page: number }): MaterialsPaginateResponse => {
@@ -37,7 +37,7 @@ export const MaterialsService = jest.fn(
               ]
             : [{ ...restData, id: 'someId1' }];
         return { materials, pagesCount: 2 };
-      }
+      },
     ),
-  })
+  }),
 );

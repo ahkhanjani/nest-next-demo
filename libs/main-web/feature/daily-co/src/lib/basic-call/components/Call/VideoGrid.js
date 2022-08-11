@@ -33,7 +33,7 @@ export const VideoGrid = React.memo(
           setDimensions({
             width: containerRef.current?.clientWidth,
             height: containerRef.current?.clientHeight,
-          })
+          }),
         );
       };
       handleResize();
@@ -100,7 +100,7 @@ export const VideoGrid = React.memo(
             style={{ maxWidth: layout.width, maxHeight: layout.height }}
           />
         )),
-      [layout, participants]
+      [layout, participants],
     );
 
     if (!participants.length) {
@@ -134,7 +134,7 @@ export const VideoGrid = React.memo(
       </div>
     );
   },
-  () => true
+  () => true,
 );
 
 export default VideoGrid;

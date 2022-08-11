@@ -24,7 +24,7 @@ import { GqlAuthGuard } from '../auth/guard/gql-auth.guard';
 export class EnumsResolver {
   constructor(
     private readonly enumsService: EnumsService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
   ) {}
 
   // ─── Resolve Field ──────────────────────────────────────────────────────────────
@@ -43,7 +43,7 @@ export class EnumsResolver {
 
   @Query(() => [Enum], { name: 'enums' })
   async getEnums(
-    @Args('dto') { enumTitle, creatorId }: GetEnumsDto
+    @Args('dto') { enumTitle, creatorId }: GetEnumsDto,
   ): Promise<Enum[]> {
     if (enumTitle) return await this.enumsService.findAll({ enumTitle });
     if (creatorId) return await this.enumsService.findAll({ creatorId });
@@ -60,7 +60,7 @@ export class EnumsResolver {
   @Mutation(() => Enum, { name: 'createEnum' })
   async updateEnum(
     @Args('id', { type: () => String }) id: string,
-    @Args('dto', { type: () => UpdateEnumDto }) dto: UpdateEnumDto
+    @Args('dto', { type: () => UpdateEnumDto }) dto: UpdateEnumDto,
   ): Promise<Enum> {
     return await this.enumsService.updateOne(id, dto);
   }

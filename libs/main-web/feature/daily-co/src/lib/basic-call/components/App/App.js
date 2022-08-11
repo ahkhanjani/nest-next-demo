@@ -40,7 +40,7 @@ export const App = ({ customComponentForState }) => {
         </div>
       </>
     ),
-    [componentForState, roomExp]
+    [componentForState, roomExp],
   );
 };
 

@@ -91,7 +91,7 @@ export const Modal = ({
                     close();
                   }
                 },
-              })
+              }),
             )}
           </CardFooter>
         )}
@@ -142,7 +142,7 @@ export const Modal = ({
         }
       `}</style>
     </div>,
-    document.body
+    document.body,
   );
 };
 

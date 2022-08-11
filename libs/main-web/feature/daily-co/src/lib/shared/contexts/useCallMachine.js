@@ -43,7 +43,7 @@ export const useCallMachine = ({
 
   const url = useMemo(
     () => (domain && room ? `https://${domain}.daily.co/${room}` : null),
-    [domain, room]
+    [domain, room],
   );
 
   /**
@@ -89,7 +89,7 @@ export const useCallMachine = ({
       await callObject.join({ subscribeToTracksAutomatically, token, url });
       setState(CALL_STATE_JOINED);
     },
-    [room, token, subscribeToTracksAutomatically, url]
+    [room, token, subscribeToTracksAutomatically, url],
   );
 
   /**
@@ -123,7 +123,7 @@ export const useCallMachine = ({
       // Public room or private room with passed `token` and `enable_prejoin_ui` is `false`
       join(co);
     },
-    [join, subscribeToTracksAutomatically, token, url]
+    [join, subscribeToTracksAutomatically, token, url],
   );
 
   /**
@@ -151,7 +151,7 @@ export const useCallMachine = ({
        */
       if (
         [CALL_STATE_ENDED, CALL_STATE_AWAITING_ARGS, CALL_STATE_READY].includes(
-          state
+          state,
         )
       ) {
         return;
@@ -179,7 +179,7 @@ export const useCallMachine = ({
        */
       join(daily);
     },
-    [daily, state, join]
+    [daily, state, join],
   );
 
   // --- Effects ---
@@ -269,7 +269,7 @@ export const useCallMachine = ({
         case 'left-meeting':
           daily.destroy();
           setState(
-            !redirectOnLeave ? CALL_STATE_ENDED : CALL_STATE_REDIRECTING
+            !redirectOnLeave ? CALL_STATE_ENDED : CALL_STATE_REDIRECTING,
           );
           break;
         case 'error':

@@ -12,7 +12,7 @@ export const CombinedAudioTrack = ({ tracks }) => {
 
   const trackIds = useDeepCompareMemo(
     () => Object.values(tracks).map((t) => t?.persistentTrack?.id),
-    [tracks]
+    [tracks],
   );
 
   useDeepCompareEffect(() => {
@@ -35,7 +35,7 @@ export const CombinedAudioTrack = ({ tracks }) => {
               (ev) => {
                 stream.removeTrack(ev.target);
               },
-              { once: true }
+              { once: true },
             );
             stream.addTrack(persistentTrack);
             break;

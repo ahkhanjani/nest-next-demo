@@ -32,7 +32,7 @@ describe('PreregServiceProvider', () => {
         >
           <PreregForm />
         </PreregServiceContext.Provider>,
-        { wrapper: ApolloProvider }
+        { wrapper: ApolloProvider },
       );
 
       const user = userEvent.setup();
@@ -46,7 +46,7 @@ describe('PreregServiceProvider', () => {
         {
           email: 'john.dee@email.com',
         },
-        expect.anything()
+        expect.anything(),
       );
       expect(handleSubmit).toHaveBeenCalledTimes(1);
     });
@@ -67,7 +67,7 @@ describe('PreregServiceProvider', () => {
             }}
           </PreregServiceContext.Consumer>
         </PreregServiceProvider>,
-        { wrapper: ApolloProvider }
+        { wrapper: ApolloProvider },
       );
     });
   });

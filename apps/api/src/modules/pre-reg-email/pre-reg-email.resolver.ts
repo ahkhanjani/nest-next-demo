@@ -21,7 +21,7 @@ export class PreRegEmailsResolver {
 
   @Mutation(() => PreRegResponse)
   async createPreReg(
-    @Args('input') input: CreatePreRegInput
+    @Args('input') input: CreatePreRegInput,
   ): Promise<PreRegResponse> {
     const res = await this.preRegEmailsService.create(input);
 

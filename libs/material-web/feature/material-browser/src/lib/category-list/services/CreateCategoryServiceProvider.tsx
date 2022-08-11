@@ -16,7 +16,7 @@ import type { CreateCategoryServiceValues as Values } from '../types/CreateCateg
 
 export const CreateMaterialCategoryServiceContext =
   createContext<CreateMaterialCategoryServiceContextValue>(
-    {} as CreateMaterialCategoryServiceContextValue
+    {} as CreateMaterialCategoryServiceContextValue,
   );
 
 export const CreateMaterialCategoryServiceProvider: React.FC<
@@ -51,7 +51,7 @@ export const CreateMaterialCategoryServiceProvider: React.FC<
       const formErrors = data.createMaterialCategory.message;
       if (formErrors) {
         actions.setErrors(
-          toErrorMap([{ field: 'title', message: formErrors }])
+          toErrorMap([{ field: 'title', message: formErrors }]),
         );
         return;
       }
@@ -93,7 +93,7 @@ interface CreateMaterialCategoryServiceContextValue {
   loading: boolean;
   handleSubmit: (
     values: Values,
-    actions: FormikHelpers<Values>
+    actions: FormikHelpers<Values>,
   ) => Promise<void>;
   success: boolean;
 }

@@ -22,7 +22,7 @@ export const Button = forwardRef(
       shadow = false,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const cx = classnames('button', className, size, variant, {
       disabled,
@@ -385,7 +385,7 @@ export const Button = forwardRef(
         `}</style>
       </>
     );
-  }
+  },
 );
 
 Button.propTypes = {

@@ -50,7 +50,7 @@ export const useNetworkState = (co = null, quality = 'high') => {
           break;
       }
     },
-    [callObject]
+    [callObject],
   );
 
   const handleNetworkQualityChange = useCallback(
@@ -68,13 +68,13 @@ export const useNetworkState = (co = null, quality = 'high') => {
           break;
         case 'good':
           setQuality(
-            ['bandwidth-saver', 'low'].includes(quality) ? quality : 'high'
+            ['bandwidth-saver', 'low'].includes(quality) ? quality : 'high',
           );
           setThreshold('good');
           break;
       }
     },
-    [quality, setQuality, threshold]
+    [quality, setQuality, threshold],
   );
 
   useEffect(() => {

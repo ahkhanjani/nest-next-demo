@@ -33,7 +33,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
                 value: stateRef.current,
               },
             },
-            '*'
+            '*',
           );
           break;
         // if we receive a set-shared-state message type then, we check the state timestamp with the local one and
@@ -53,7 +53,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
           break;
       }
     },
-    [stateRef, callObject]
+    [stateRef, callObject],
   );
 
   // whenever local user joins, we randomly pick a participant from the call and request state from them.
@@ -69,7 +69,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
         const remoteParticipants = participants.filter(
           (p) =>
             !p.local &&
-            new Date(p.joined_at) < new Date(localParticipant.joined_at)
+            new Date(p.joined_at) < new Date(localParticipant.joined_at),
         );
 
         // avoid sending message if no remote participants are available
@@ -87,7 +87,7 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
               type: 'request-shared-state',
             },
           },
-          randomPeer.user_id
+          randomPeer.user_id,
         );
       } else {
         // if there is only one participant, don't try to request shared state again
@@ -137,13 +137,13 @@ export const useSharedState = ({ initialValues = {}, broadcast = true }) => {
                 value: stateObj,
               },
             },
-            '*'
+            '*',
           );
         }
         return stateObj;
       });
     },
-    [broadcast, callObject]
+    [broadcast, callObject],
   );
 
   // returns back the sharedState and the setSharedState function

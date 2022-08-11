@@ -30,7 +30,7 @@ export const Audio = () => {
         }
         return tracks;
       }, {}),
-    [audioTracks, disableAudio]
+    [audioTracks, disableAudio],
   );
 
   // On iOS safari, when headphones are disconnected, all audio elements are paused.

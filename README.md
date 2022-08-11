@@ -19,7 +19,7 @@ pnpm install
 fullmoon-core/
 ├── apps/
 │   ├── api/ # main server
-│   ├── main-web/ # main next app 
+│   ├── main-web/ # main next app
 │   └── material-web/ # material dashboard next app
 └── libs/ # most of the app logic
     ├── api/
@@ -30,7 +30,7 @@ fullmoon-core/
 
 ## Dev
 
-__Only push to 'dev' branch.__
+**Only push to 'dev' branch.**
 
 ### Start in watch mode
 

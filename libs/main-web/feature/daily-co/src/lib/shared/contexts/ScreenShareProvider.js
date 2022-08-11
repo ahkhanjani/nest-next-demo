@@ -12,7 +12,7 @@ export const ScreenShareProvider = ({ children }) => {
 
   const isDisabled = useMemo(
     () => screens.length >= MAX_SCREEN_SHARES && !isSharingScreen,
-    [isSharingScreen, screens.length]
+    [isSharingScreen, screens.length],
   );
 
   return (

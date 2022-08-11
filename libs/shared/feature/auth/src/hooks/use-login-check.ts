@@ -11,7 +11,7 @@ import jwtDecode, { JwtPayload } from 'jwt-decode';
 export const useLoginCheck = (): LoginReturnType => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [decodedToken, setDecodedToken] = useState<JwtPayload | undefined>(
-    undefined
+    undefined,
   );
 
   useEffect(() => {

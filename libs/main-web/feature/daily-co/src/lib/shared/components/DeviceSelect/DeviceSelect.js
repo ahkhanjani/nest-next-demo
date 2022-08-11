@@ -55,7 +55,7 @@ export const DeviceSelect = () => {
           <SelectInput
             onChange={(e) => setCurrentSpeaker(speakers[e.target.value])}
             value={speakers.findIndex(
-              (i) => i.deviceId === currentSpeaker.deviceId
+              (i) => i.deviceId === currentSpeaker.deviceId,
             )}
           >
             {speakers.map(({ deviceId, label }, i) => (

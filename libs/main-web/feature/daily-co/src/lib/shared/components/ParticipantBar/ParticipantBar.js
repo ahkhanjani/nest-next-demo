@@ -45,11 +45,11 @@ export const ParticipantBar = ({
   const { pinnedId, showParticipantsBar } = useUIState();
   const itemHeight = useMemo(
     () => width / aspectRatio + GAP,
-    [aspectRatio, width]
+    [aspectRatio, width],
   );
   const paddingTop = useMemo(
     () => itemHeight * fixed.length,
-    [fixed, itemHeight]
+    [fixed, itemHeight],
   );
   const scrollTop = useRef(0);
   const spaceBefore = useRef(null);
@@ -64,7 +64,7 @@ export const ParticipantBar = ({
   const othersCount = useMemo(() => others.length, [others]);
   const visibleOthers = useMemo(
     () => others.slice(range[0], range[1]),
-    [others, range]
+    [others, range],
   );
   const currentSpeakerId = useMemo(() => currentSpeaker?.id, [currentSpeaker]);
 
@@ -79,7 +79,7 @@ export const ParticipantBar = ({
   });
   useCamSubscriptions(
     camSubscriptions?.subscribedIds,
-    camSubscriptions?.pausedIds
+    camSubscriptions?.pausedIds,
   );
 
   /**
@@ -148,7 +148,7 @@ export const ParticipantBar = ({
       otherIds,
       pinnedId,
       showParticipantsBar,
-    ]
+    ],
   );
 
   /**
@@ -161,13 +161,13 @@ export const ParticipantBar = ({
       const visibleHeight = scrollRef.current.clientHeight - paddingTop;
       const scrollBuffer = Math.min(
         MAX_SCROLL_BUFFER,
-        (2 * visibleHeight) / itemHeight
+        (2 * visibleHeight) / itemHeight,
       );
       const visibleItemCount = Math.ceil(
-        visibleHeight / itemHeight + scrollBuffer
+        visibleHeight / itemHeight + scrollBuffer,
       );
       let start = Math.floor(
-        Math.max(0, st - (scrollBuffer / 2) * itemHeight) / itemHeight
+        Math.max(0, st - (scrollBuffer / 2) * itemHeight) / itemHeight,
       );
       const end = Math.min(start + visibleItemCount, othersCount);
       if (end - visibleItemCount < start) {
@@ -185,7 +185,7 @@ export const ParticipantBar = ({
       spaceAfter.current.style.height = `${(othersCount - end) * itemHeight}px`;
       return [start, end];
     },
-    [itemHeight, othersCount, paddingTop, spaceAfter, spaceBefore]
+    [itemHeight, othersCount, paddingTop, spaceAfter, spaceBefore],
   );
 
   useResize(() => {
@@ -251,7 +251,7 @@ export const ParticipantBar = ({
       }
 
       const activeTile = othersRef.current?.querySelector(
-        `[id="${currentSpeakerId}"]`
+        `[id="${currentSpeakerId}"]`,
       );
       // Ignore when active speaker is not within "others"
       if (!activeTile) return false;
@@ -300,7 +300,7 @@ export const ParticipantBar = ({
           participant={callItem}
         />
       )),
-    [aspectRatio, visibleOthers]
+    [aspectRatio, visibleOthers],
   );
 
   return (

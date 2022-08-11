@@ -8,7 +8,7 @@ export const useVideoTrack = (id) => {
 
   const videoTrack = useDeepCompareMemo(
     () => videoTracks?.[id],
-    [id, videoTracks]
+    [id, videoTracks],
   );
 
   /**

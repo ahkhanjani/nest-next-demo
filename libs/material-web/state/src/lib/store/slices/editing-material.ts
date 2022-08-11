@@ -13,14 +13,14 @@ export const editingMaterialSlice = createSlice({
   reducers: {
     setEditingMaterialId: (
       state: EditingMaterialState,
-      action: PayloadAction<string>
+      action: PayloadAction<string>,
     ) => {
       state.editingMaterialId = action.payload;
       state.editMode = true;
     },
     setEditingMaterialData: (
       state: EditingMaterialState,
-      action: PayloadAction<MaterialData>
+      action: PayloadAction<MaterialData>,
     ) => {
       state.editingMaterialData = action.payload;
     },

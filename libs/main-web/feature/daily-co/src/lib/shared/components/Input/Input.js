@@ -151,7 +151,7 @@ export const TextInput = forwardRef(
         <input type="text" onChange={onChange} ref={ref} {...rest} />
       </InputContainer>
     );
-  }
+  },
 );
 
 TextInput.propTypes = {

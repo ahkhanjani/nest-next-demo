@@ -8,13 +8,11 @@ const FormSchemaProvider: React.FC<PropsWithChildren<unknown>> = ({
   await Promise.all(
     files.map(async (file) => {
       try {
-
-
         createdSchemas.push(createdMaterialFormSchema);
       } catch (error) {
         errorFileNames.push(file.filename);
       }
-    })
+    }),
   );
 
   return (

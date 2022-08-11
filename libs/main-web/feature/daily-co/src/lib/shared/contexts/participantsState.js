@@ -58,7 +58,7 @@ function participantsReducer(prevState, action) {
       const localItem = getNewParticipant(action.participant);
 
       const participants = [...prevState.participants].map((p) =>
-        p.isLocal ? localItem : p
+        p.isLocal ? localItem : p,
       );
 
       return {
@@ -83,7 +83,7 @@ function participantsReducer(prevState, action) {
         participants.push(item);
       } else {
         const firstInactiveCamOffIndex = prevState.participants.findIndex(
-          (p) => p.isCamMuted && !p.isLocal && !p.isActiveSpeaker
+          (p) => p.isCamMuted && !p.isLocal && !p.isActiveSpeaker,
         );
         if (firstInactiveCamOffIndex >= 0) {
           participants.splice(firstInactiveCamOffIndex, 0, item);
@@ -117,7 +117,7 @@ function participantsReducer(prevState, action) {
     case 'PARTICIPANT_UPDATED': {
       const item = getUpdatedParticipant(
         action.participant,
-        prevState.participants
+        prevState.participants,
       );
       const { id } = item;
       const screenId = getScreenId(id);

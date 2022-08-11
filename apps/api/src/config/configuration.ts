@@ -37,11 +37,11 @@ const config = () => ({
       // e.g. API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_ORIGINGS=origin1 origin2 origin3
       origins:
         process.env['API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_ORIGINGS'].split(
-          ' '
+          ' ',
         ),
       headers:
         process.env['API_APOLLO_SERVER_ACCESS_CONTROL_ALLOW_HEADERS'].split(
-          ' '
+          ' ',
         ),
     },
 

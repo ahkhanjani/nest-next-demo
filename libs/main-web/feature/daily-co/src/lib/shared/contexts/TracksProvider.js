@@ -50,12 +50,12 @@ export const TracksProvider = ({ children }) => {
         .slice(-MAX_RECENT_SPEAKER_COUNT)
         .map((p) => p.id)
         .reverse(),
-    [participants]
+    [participants],
   );
 
   const remoteParticipantIds = useMemo(
     () => participants.filter((p) => !p.isLocal).map((p) => p.id),
-    [participants]
+    [participants],
   );
 
   const subscribeToCam = useCallback(
@@ -68,7 +68,7 @@ export const TracksProvider = ({ children }) => {
         setSubscribedTracks: { video: true },
       });
     },
-    [daily]
+    [daily],
   );
 
   /**
@@ -90,12 +90,12 @@ export const TracksProvider = ({ children }) => {
         remoteParticipantIds.length <= SUBSCRIBE_OR_STAGE_ALL_VIDEO_THRESHOLD
       ) {
         stagedIds = remoteParticipantIds.filter(
-          (id) => !subscribedIds.includes(id)
+          (id) => !subscribedIds.includes(id),
         );
       } else {
         if (viewMode !== 'grid') {
           stagedIds.push(
-            ...recentSpeakerIds.filter((id) => !subscribedIds.includes(id))
+            ...recentSpeakerIds.filter((id) => !subscribedIds.includes(id)),
           );
         }
       }
@@ -134,7 +134,7 @@ export const TracksProvider = ({ children }) => {
       if (Object.keys(updates).length === 0) return;
       daily.updateParticipants(updates);
     },
-    [daily, remoteParticipantIds, recentSpeakerIds, viewMode]
+    [daily, remoteParticipantIds, recentSpeakerIds, viewMode],
   );
 
   /**
@@ -205,7 +205,7 @@ export const TracksProvider = ({ children }) => {
         type: 'TRACKS_STOPPED',
         items: trackStoppedQueue.current.splice(
           0,
-          trackStoppedQueue.current.length
+          trackStoppedQueue.current.length,
         ),
       });
     }, 3000);
@@ -221,7 +221,7 @@ export const TracksProvider = ({ children }) => {
      */
     const stoppingIdx = trackStoppedQueue.current.findIndex(
       ([p, t]) =>
-        p.session_id === participant.session_id && t.kind === track.kind
+        p.session_id === participant.session_id && t.kind === track.kind,
     );
     if (stoppingIdx >= 0) {
       trackStoppedQueue.current.splice(stoppingIdx, 1);
@@ -261,7 +261,7 @@ export const TracksProvider = ({ children }) => {
           {
             ...(state.audioTracks?.[participant.user_id].blocked ?? {}),
             ...(state.audioTracks?.[participant.user_id].off ?? {}),
-          }
+          },
         );
       const hasVideoChanged =
         // State changed
@@ -276,7 +276,7 @@ export const TracksProvider = ({ children }) => {
           {
             ...(state.videoTracks?.[participant.user_id]?.blocked ?? {}),
             ...(state.videoTracks?.[participant.user_id]?.off ?? {}),
-          }
+          },
         );
 
       if (hasAudioChanged) {
@@ -295,7 +295,7 @@ export const TracksProvider = ({ children }) => {
         });
       }
     },
-    [state.audioTracks, state.videoTracks]
+    [state.audioTracks, state.videoTracks],
   );
 
   const handleParticipantLeft = useCallback(({ participant }) => {

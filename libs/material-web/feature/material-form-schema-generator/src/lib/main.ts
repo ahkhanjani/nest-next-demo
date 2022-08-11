@@ -16,7 +16,7 @@ export function generateMaterialFormSchemas(): MaterialFormSchema[] {
   const filenames = extractFilenames(DIRNAME);
   // generate schemas
   const materialFormSchemas: MaterialFormSchema[] = filenames.map((filename) =>
-    generateSchema(DIRNAME, filename)
+    generateSchema(DIRNAME, filename),
   );
 
   return materialFormSchemas;

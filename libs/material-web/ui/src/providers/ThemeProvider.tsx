@@ -18,7 +18,7 @@ export const ThemeProvider: React.FC<PropsWithChildren<unknown>> = ({
       createTheme({
         palette: { mode: colorMode.mode },
       }),
-    [colorMode.mode]
+    [colorMode.mode],
   );
 
   // ────────────────────────────────────────────────────────────────────────────────

@@ -246,7 +246,7 @@ export interface DailyAdvancedConfig {
   disableSimulcast?: boolean;
   experimentalChromeVideoMuteLightOff?: boolean;
   experimentalGetUserMediaConstraintsModify?: (
-    constraints: MediaStreamConstraints
+    constraints: MediaStreamConstraints,
   ) => void;
   fastConnect?: boolean;
   h264Profile?: string;
@@ -870,7 +870,7 @@ export interface DailyCallFactory {
   wrap(iframe: HTMLIFrameElement, properties?: DailyCallOptions): DailyCall;
   createFrame(
     parentElement: HTMLElement,
-    properties?: DailyCallOptions
+    properties?: DailyCallOptions,
   ): DailyCall;
   createFrame(properties?: DailyCallOptions): DailyCall;
   createTransparentFrame(properties?: DailyCallOptions): DailyCall;
@@ -1009,7 +1009,7 @@ export interface DailyCall {
   participantCounts(): DailyParticipantCounts;
   updateParticipant(
     sessionId: string,
-    updates: DailyParticipantUpdateOptions
+    updates: DailyParticipantUpdateOptions,
   ): DailyCall;
   updateParticipants(updates: {
     [sessionId: string]: DailyParticipantUpdateOptions;
@@ -1017,13 +1017,13 @@ export interface DailyCall {
   waitingParticipants(): { [id: string]: DailyWaitingParticipant };
   updateWaitingParticipant(
     id: string,
-    updates: DailyWaitingParticipantUpdateOptions
+    updates: DailyWaitingParticipantUpdateOptions,
   ): Promise<{ id: string }>;
   updateWaitingParticipants(updates: {
     [id: string]: DailyWaitingParticipantUpdateOptions;
   }): Promise<{ ids: string[] }>;
   requestAccess(
-    access: DailyAccessRequest
+    access: DailyAccessRequest,
   ): Promise<{ access: DailyAccess; granted: boolean }>;
   localAudio(): boolean;
   localVideo(): boolean;
@@ -1031,14 +1031,14 @@ export interface DailyCall {
   setLocalVideo(enabled: boolean): DailyCall;
   getReceiveSettings(
     id: string,
-    options?: { showInheritedValues: boolean }
+    options?: { showInheritedValues: boolean },
   ): Promise<DailySingleParticipantReceiveSettings>;
   getReceiveSettings(): Promise<DailyReceiveSettings>;
   updateReceiveSettings(
-    receiveSettings: DailyReceiveSettingsUpdates
+    receiveSettings: DailyReceiveSettingsUpdates,
   ): Promise<DailyReceiveSettings>;
   updateInputSettings(
-    inputSettings: DailyInputSettings
+    inputSettings: DailyInputSettings,
   ): Promise<DailyInputSettings>;
   getInputSettings(): Promise<DailyInputSettings>;
   updateCustomTrayButtons(customTrayButtons: DailyCustomTrayButtons): DailyCall;
@@ -1057,7 +1057,7 @@ export interface DailyCall {
   }>;
   setUserName(
     name: string,
-    options?: { thisMeetingOnly?: boolean }
+    options?: { thisMeetingOnly?: boolean },
   ): Promise<{ userName: string }>;
   startCamera(properties?: DailyCallOptions): Promise<DailyDeviceInfos>;
   cycleCamera(): Promise<{ device?: MediaDeviceInfo | null }>;
@@ -1096,11 +1096,11 @@ export interface DailyCall {
   }): void;
   stopLiveStreaming(): void;
   startRemoteMediaPlayer(
-    options: DailyRemoteMediaPlayerStartOptions
+    options: DailyRemoteMediaPlayerStartOptions,
   ): Promise<DailyRemoteMediaPlayerInfo>;
   stopRemoteMediaPlayer(session_id: string): Promise<void>;
   updateRemoteMediaPlayer(
-    options: DailyRemoteMediaPlayerUpdateOptions
+    options: DailyRemoteMediaPlayerUpdateOptions,
   ): Promise<DailyRemoteMediaPlayerInfo>;
   startTranscription(options?: DailyTranscriptionDeepgramOptions): void;
   stopTranscription(): void;
@@ -1139,15 +1139,15 @@ export interface DailyCall {
   setPlayNewParticipantSound(sound: boolean | number): void;
   on<T extends DailyEvent>(
     event: T,
-    handler: (event?: DailyEventObject<T>) => void
+    handler: (event?: DailyEventObject<T>) => void,
   ): DailyCall;
   once<T extends DailyEvent>(
     event: T,
-    handler: (event?: DailyEventObject<T>) => void
+    handler: (event?: DailyEventObject<T>) => void,
   ): DailyCall;
   off<T extends DailyEvent>(
     event: T,
-    handler: (event?: DailyEventObject<T>) => void
+    handler: (event?: DailyEventObject<T>) => void,
   ): DailyCall;
   properties: {
     dailyConfig?: DailyAdvancedConfig;

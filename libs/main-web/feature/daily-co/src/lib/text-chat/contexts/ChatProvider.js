@@ -41,7 +41,7 @@ export const ChatProvider = ({ children }) => {
 
       setHasNewMessages(true);
     },
-    [callObject, setSharedState]
+    [callObject, setSharedState],
   );
 
   const sendMessage = useCallback(
@@ -69,7 +69,7 @@ export const ChatProvider = ({ children }) => {
         ],
       }));
     },
-    [callObject, setSharedState]
+    [callObject, setSharedState],
   );
 
   useEffect(() => {

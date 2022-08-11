@@ -6,7 +6,7 @@ import type { MaterialFormSchema } from 'fm/material-web-types';
 
 export function generateSchema(
   dirname: string,
-  filename: string
+  filename: string,
 ): MaterialFormSchema {
   // read yaml file content
   const strYamlSchema = readYamlFile(dirname, filename);
