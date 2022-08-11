@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/main-web/ui/form/src",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/main-web/ui/src",
   "projectType": "library",
   "tags": ["react", "ui"],
   "targets": {
@@ -8,14 +8,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/main-web/ui/form/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["libs/main-web/ui/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/main-web/ui/form"],
+      "outputs": ["coverage/libs/main-web/ui"],
       "options": {
-        "jestConfig": "libs/main-web/ui/form/jest.config.ts",
+        "jestConfig": "libs/main-web/ui/jest.config.ts",
         "passWithNoTests": true
       }
     }
