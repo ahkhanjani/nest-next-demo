@@ -14,17 +14,11 @@ export class Session {
   @Field()
   readonly updatedAt: Date;
 
-  @Field(() => ID)
-  readonly studentId: string;
+  @Field(() => [ID])
+  readonly participantIds: string[];
 
-  @Field(() => User)
-  readonly student: User;
-
-  @Field(() => ID)
-  readonly teacherId: string;
-
-  @Field(() => User)
-  readonly teacher: User;
+  @Field(() => [User])
+  readonly participants: User[];
 
   @Field()
   readonly date: Date;

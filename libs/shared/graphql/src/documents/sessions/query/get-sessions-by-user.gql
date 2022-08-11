@@ -1,0 +1,10 @@
+query GetSessionsByUser($userId: ID!) {
+  sessionsByUser(userId: $userId) {
+    id
+    participants {
+      id
+      username
+    }
+    date
+  }
+}
