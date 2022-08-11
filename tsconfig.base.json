@@ -24,7 +24,7 @@
         "libs/main-web/feature/prereg/src/index.ts"
       ],
       "fm/main-web-scheduler": ["libs/main-web/feature/scheduler/src/index.ts"],
-      "fm/main-web-ui-form": ["libs/main-web/ui/form/src/index.ts"],
+      "fm/main-web-ui": ["libs/main-web/ui/src/index.ts"],
       "fm/main-web/types": ["libs/main-web/types/src/index.ts"],
       "fm/material-web-feature-auth": [
         "libs/material-web/feature/auth/src/index.ts"

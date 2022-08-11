@@ -11,7 +11,7 @@
     "main-web-feature-scheduler": "libs/main-web/feature/scheduler",
     "main-web-feature-student-dashboard": "libs/main-web/feature/student-dashboard",
     "main-web-state": "libs/main-web/state",
-    "main-web-ui-form": "libs/main-web/ui/form",
+    "main-web-ui": "libs/main-web/ui",
     "material-web": "apps/material-web",
     "material-web-e2e": "apps/material-web-e2e",
     "material-web-feature-auth": "libs/material-web/feature/auth",

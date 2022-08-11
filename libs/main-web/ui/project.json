@@ -1,0 +1,23 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/main-web/ui/src",
+  "projectType": "library",
+  "tags": ["react", "ui"],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/main-web/ui/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/main-web/ui"],
+      "options": {
+        "jestConfig": "libs/main-web/ui/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

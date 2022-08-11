@@ -4,20 +4,20 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import { capitalizeFirstLetter } from 'fm/shared-utils';
-import { tabs } from '../components/TabBar';
+import { tabs } from './TabBar';
 
-import { HorizontalLogo, VerticalLogo } from '../assets/icons';
+import { LogoHorizontal, LogoVertical } from '../assets/icons';
 
-const Sidebar: React.FC = () => {
+export const Sidebar: React.FC = () => {
   const domId = useId();
 
   return (
     <div className="tw-h-screen tw-bg-white tw-px-4 tw-flex tw-flex-col tw-items-center tw-shadow-[2px_0px_1px_rgba(0,0,0,0.1)]">
       <div className="tw-mt-8 tw-block 2xl:tw-hidden">
-        <VerticalLogo />
+        <LogoVertical />
       </div>
       <div className="tw-mt-8 tw-hidden 2xl:tw-block">
-        <HorizontalLogo />
+        <LogoHorizontal />
       </div>
       <div className="tw-flex tw-flex-col tw-items-center tw-my-12 tw-border-t-4 tw-border-field tw-py-4 2xl:tw-w-40">
         {tabs.map(({ name, icon }) => (
@@ -48,7 +48,7 @@ const TabButton: React.FC<{
   const title = capitalizeFirstLetter(name);
 
   return (
-    <Link shallow href={`/?tab=${name}`}>
+    <Link shallow href={`/dashboard/${name}`}>
       <button
         className="tw-flex tw-flex-row tw-items-center tw-py-2 tw-min-w-full"
         title={title}

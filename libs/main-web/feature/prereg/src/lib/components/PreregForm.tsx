@@ -1,7 +1,7 @@
 import { Formik, Form, type FormikHelpers } from 'formik';
 import * as yup from 'yup';
 // fm
-import { InputField, SubmitButton } from 'fm/main-web-ui-form';
+import { InputField, SubmitButton } from 'fm/main-web-ui';
 // context
 import { usePreregService } from '../service/PreregServiceProvider';
 // types
