@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import {
   CalendarIcon,
   ChartIcon,
-  SettingsIcon,
+  CogIcon,
   CategoryIcon,
   EditIcon,
   TwoUsersIcon,
@@ -19,7 +19,7 @@ export const tabs = [
   { name: 'calendar', icon: <CalendarIcon /> },
   { name: 'homework', icon: <EditIcon /> },
   { name: 'payments', icon: <ChartIcon /> },
-  { name: 'settings', icon: <SettingsIcon /> },
+  { name: 'settings', icon: <CogIcon /> },
 ] as const;
 export type TabName = typeof tabs[number]['name'];
 

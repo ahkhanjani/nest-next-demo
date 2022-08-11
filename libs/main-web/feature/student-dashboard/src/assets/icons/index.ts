@@ -1,2 +1,21 @@
-export { ReactComponent as VerticalLogo } from './vertical-logo.svg';
-export { ReactComponent as HorizontalLogo } from './horizontal-logo.svg';
+export { ReactComponent as TwoUsersIcon } from './2user.svg';
+export { ReactComponent as ThreeUsersIcon } from './3user.svg';
+export { ReactComponent as CogIcon } from './cog.svg';
+export { ReactComponent as CategoryIcon } from './category.svg';
+export { ReactComponent as CalendarIcon } from './calendar.svg';
+export { ReactComponent as CalendarBlueIcon } from './calendar-blue.svg';
+export { ReactComponent as CalendarOutlineIcon } from './calendar-outline.svg';
+export { ReactComponent as ChartIcon } from './chart.svg';
+export { ReactComponent as EditIcon } from './edit.svg';
+export { ReactComponent as EditSquareIcon } from './edit-square.svg';
+export { ReactComponent as InfoCircleIcon } from './info-cricle.svg';
+export { ReactComponent as ArrowIcon } from './arrow.svg';
+export { ReactComponent as BellIcon } from './bell.svg';
+export { ReactComponent as MailIcon } from './mail.svg';
+export { ReactComponent as ClockIcon } from './clock.svg';
+export { ReactComponent as PaperPlusIcon } from './paper-plus.svg';
+export { ReactComponent as SunIcon } from './sun.svg';
+export { ReactComponent as MoonIcon } from './moon.svg';
+
+export { ReactComponent as LogoVertical } from './logo-v.svg';
+export { ReactComponent as LogoHorizontal } from './logo-h.svg';
