@@ -1,8 +1,7 @@
 import { DocumentAddIcon } from '@heroicons/react/outline';
-// cmp
-import Sessions, { type Session } from '../components/Sessions';
+import Sessions, { type Session } from '../Sessions';
 
-const Dashboard: React.FC = () => {
+export const DashboardDesk: React.FC = () => {
   const fakeList: Session[] = [
     {
       id: 'A1B2',
@@ -35,4 +34,4 @@ const Dashboard: React.FC = () => {
     </>
   );
 };
-export default Dashboard;
+export default DashboardDesk;

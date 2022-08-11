@@ -1,9 +1,14 @@
 import { useContext } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import Sidebar from '../layout/Sidebar';
-import Dashboard from '../pages/Dashboard';
-import Classroom from '../pages/Classroom';
+import {
+  ClassroomDesk,
+  DashboardDesk,
+  Sidebar,
+  TabBar,
+  TabName,
+} from 'fm/main-web-feature-student-dashboard';
 
 import {
   BellIcon,
@@ -14,13 +19,11 @@ import {
   SunIcon,
 } from '@heroicons/react/outline';
 
-import { TabBar, TabName } from './TabBar';
-import { useRouter } from 'next/router';
 import { ColorModeContext } from 'fm/main-web-ui';
 
 export const StudentDashboard: React.FC = () => {
   const router = useRouter();
-  const activeTab = router.query['tab'] as TabName;
+  const activeDesk = router.query['desk'] as TabName;
 
   const colorMode = useContext(ColorModeContext);
 
@@ -52,7 +55,7 @@ export const StudentDashboard: React.FC = () => {
         <div className="tw-w-full">
           <div className="tw-bg-white tw-min-w-full  tw-py-6 tw-flex tw-flex-row tw-items-center tw-justify-around tw-shadow-md 2xl:tw-justify-between 2xl:tw-pr-9">
             <span className="tw-text-2xl tw-text-lightGray tw-font-normal tw-px-6 tw-border-r-4 tw-border-r-field 2xl:tw-border-none 2xl:tw-hidden">
-              {activeTab}
+              {activeDesk}
             </span>
             <div className="tw-px-9  ">
               <div
@@ -66,7 +69,7 @@ export const StudentDashboard: React.FC = () => {
                     Daily idiom:
                   </span>
                   <span className="tw-text-sm tw-font-normal">
-                    Sweep (someone) off (someone's) feet
+                    {"Sweep (someone) off (someone's) feet"}
                   </span>
                 </div>
                 <div className="tw-daisy-collapse-content">
@@ -111,10 +114,10 @@ export const StudentDashboard: React.FC = () => {
             </div>
           </div>
           <div className="tw-px-6 tw-py-10">
-            {activeTab === 'dashboard' ? (
-              <Dashboard />
-            ) : activeTab === 'classroom' ? (
-              <Classroom />
+            {activeDesk === 'dashboard' ? (
+              <DashboardDesk />
+            ) : activeDesk === 'classroom' ? (
+              <ClassroomDesk />
             ) : null}
           </div>
         </div>

@@ -8,7 +8,7 @@ export { ReactComponent as CalendarOutlineIcon } from './calendar-outline.svg';
 export { ReactComponent as ChartIcon } from './chart.svg';
 export { ReactComponent as EditIcon } from './edit.svg';
 export { ReactComponent as EditSquareIcon } from './edit-square.svg';
-export { ReactComponent as InfoCircleIcon } from './info-cricle.svg';
+export { ReactComponent as InfoCircleIcon } from './info-circle.svg';
 export { ReactComponent as ArrowIcon } from './arrow.svg';
 export { ReactComponent as BellIcon } from './bell.svg';
 export { ReactComponent as MailIcon } from './mail.svg';
