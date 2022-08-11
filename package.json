@@ -8,7 +8,10 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "gen": "graphql-codegen --config libs/shared/graphql/codegen.yml"
+    "gen": "graphql-codegen --config libs/shared/graphql/codegen.yml",
+    "format": "prettier --write",
+    "format-all": "prettier --write .",
+    "format-ckeck": "prettier --check ."
   },
   "private": true,
   "dependencies": {
