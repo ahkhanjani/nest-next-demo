@@ -2,19 +2,19 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     commit-message:
-      prefix: "deps prod"
-      prefix-development: "deps dev"
-      include: "scope"
+      prefix: 'deps prod'
+      prefix-development: 'deps dev'
+      include: 'scope'
     labels:
-      - "npm"
-      - "dependencies"
-      
-   - package-ecosystem: "github-actions"
-    directory: "/"
+      - 'npm'
+      - 'dependencies'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "daily"
+      interval: 'daily'
