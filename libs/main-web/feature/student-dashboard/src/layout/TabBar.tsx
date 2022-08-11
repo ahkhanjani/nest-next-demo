@@ -44,7 +44,7 @@ const TabButton: React.FC<{
   const activeTab = router.query['tab'];
 
   return (
-    <Link shallow href={`/?tab=${name}`}>
+    <Link href={`/dashboard/${name}`}>
       <button
         className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center  ${
           name === activeTab

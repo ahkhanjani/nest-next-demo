@@ -48,7 +48,7 @@ const TabButton: React.FC<{
   const title = capitalizeFirstLetter(name);
 
   return (
-    <Link shallow href={`/?tab=${name}`}>
+    <Link shallow href={`/dashboard/${name}`}>
       <button
         className="tw-flex tw-flex-row tw-items-center tw-py-2 tw-min-w-full"
         title={title}
