@@ -121,6 +121,7 @@
     "@nrwl/react": "14.5.5",
     "@nrwl/web": "14.5.5",
     "@nrwl/workspace": "14.5.5",
+    "@nx-tools/nx-docker": "^3.0.3",
     "@svgr/webpack": "^6.3.1",
     "@swc/core": "^1.2.229",
     "@swc/helpers": "^0.4.6",

@@ -2,16 +2,30 @@ version: '3.8'
 
 services:
   mongo:
-    image: mongo:${MONGO_VERSION}
+    image: bitnami/mongodb:latest
     restart: always
     container_name: 'mongo'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PWD}
     ports:
       - '27017:27017'
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PWD}
     volumes:
       - mongodb:/data/db
+    networks:
+      - fm-main-api
+
+  redis:
+    image: bitnami/redis:latest
+    restart: always
+    container_name: 'redis'
+    environment:
+      - REDIS_USERNAME=
+      - REDIS_PASSWORD=
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis:/data/db
     networks:
       - fm-main-api
 
@@ -21,8 +35,6 @@ services:
     container_name: 'main-api'
     environment:
       - NODE_ENV=production
-      - DATABASE_URI=mongodb://mongo:27017/${MONGO_COLLECTION_NAME}
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     ports:
       - ${API_PORT}:3333
     depends_on:
@@ -35,3 +47,4 @@ networks:
 
 volumes:
   mongodb:
+  redis:
