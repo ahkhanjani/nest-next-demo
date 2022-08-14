@@ -1,4 +1,4 @@
-import VideoContainer from '../../shared/components/VideoContainer/VideoContainer';
+import VideoContainer from '../VideoContainer';
 
 import { Container } from './Container';
 import { Header } from './Header';

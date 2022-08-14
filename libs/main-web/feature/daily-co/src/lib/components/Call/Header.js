@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import HeaderCapsule from '../../shared/components/HeaderCapsule';
+import HeaderCapsule from '../HeaderCapsule';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useUIState } from '../../contexts/UIStateProvider';
 

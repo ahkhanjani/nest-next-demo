@@ -1,7 +1,4 @@
-import {
-  WaitingRoomModal,
-  WaitingRoomNotification,
-} from '../../shared/components/WaitingRoom';
+import { WaitingRoomModal, WaitingRoomNotification } from '../WaitingRoom';
 import { useWaitingRoom } from '../../contexts/WaitingRoomProvider';
 
 export const WaitingRoom = () => {

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 
-import { useSound } from '../../shared/hooks/useSound';
+import { useSound } from '../../useSound';
 import { debounce } from 'debounce';
 
 /**

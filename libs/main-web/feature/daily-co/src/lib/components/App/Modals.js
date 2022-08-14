@@ -1,4 +1,4 @@
-import DeviceSelectModal from '../../shared/components/DeviceSelectModal/DeviceSelectModal';
+import DeviceSelectModal from '../DeviceSelectModal';
 import { useUIState } from '../../contexts/UIStateProvider';
 
 export const Modals = () => {

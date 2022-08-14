@@ -4,8 +4,8 @@ import { Aside } from '../../components/Aside';
 import Button from '../../components/Button';
 import { TextInput } from '../../components/Input';
 =======
-import Button from '../../shared/components/Button';
-import { TextInput } from '../../shared/components/Input';
+import Button from '../Button';
+import { TextInput } from '../Input';
 >>>>>>> b59527005b8b402555956b3e7d4718e1fb2e9e42
 import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useUIState } from '../../contexts/UIStateProvider';

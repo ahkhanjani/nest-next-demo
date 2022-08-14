@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import { useCallState } from './CallProvider';
-import { useSharedState } from '../../shared/hooks/useSharedState';
+import { useSharedState } from '../hooks/useSharedState';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 

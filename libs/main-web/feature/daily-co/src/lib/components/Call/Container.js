@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
-import { Audio } from '../../shared/components/Audio';
-import { BasicTray } from '../../shared/components/Tray';
+import { Audio } from '../Audio';
+import { BasicTray } from '../Tray';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
-import { useJoinSound } from '../../shared/hooks/useJoinSound';
+import { useJoinSound } from '../../hooks/useJoinSound';
 import PropTypes from 'prop-types';
 import { WaitingRoom } from './WaitingRoom';
 

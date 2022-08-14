@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader } from '../../shared/components/Card';
+import { Card, CardBody, CardHeader } from '../Card';
 
 export const NotConfigured = () => (
   <Card>

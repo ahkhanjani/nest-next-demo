@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import Tile from '../../shared/components/Tile';
-import { DEFAULT_ASPECT_RATIO } from '../../shared/constants';
+import Tile from '../Tile';
+import { DEFAULT_ASPECT_RATIO } from '../../constants';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useDeepCompareMemo } from 'use-deep-compare';
 

@@ -1,14 +1,9 @@
 import { useEffect, useState } from 'react';
-import Button from '../../shared/components/Button';
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-} from '../../shared/components/Card';
-import Field from '../../shared/components/Field';
-import { TextInput, BooleanInput } from '../../shared/components/Input';
-import Well from '../../shared/components/Well';
+import Button from '../Button';
+import { Card, CardBody, CardFooter, CardHeader } from '../Card';
+import Field from '../Field';
+import { TextInput, BooleanInput } from '../Input';
+import Well from '../Well';
 import PropTypes from 'prop-types';
 
 /**
