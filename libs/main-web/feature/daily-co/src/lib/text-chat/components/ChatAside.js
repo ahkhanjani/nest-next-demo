@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Aside } from '../../shared/components/Aside';
+import { useEffect, useRef, useState } from 'react';
+import { Aside } from '../../components/Aside';
 import Button from '../../shared/components/Button';
 import { TextInput } from '../../shared/components/Input';
-import { useParticipants } from '../../shared/contexts/ParticipantsProvider';
-import { useUIState } from '../../shared/contexts/UIStateProvider';
-import { useMessageSound } from '../../text-chat/hooks/useMessageSound';
-import { useChat } from '../contexts/ChatProvider';
+import { useParticipants } from '../../contexts/ParticipantsProvider';
+import { useUIState } from '../../contexts/UIStateProvider';
+import { useMessageSound } from '../../hooks/useMessageSound';
+import { useChat } from '../../contexts/ChatProvider';
 
 export const CHAT_ASIDE = 'chat';
 
