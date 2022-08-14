@@ -1,9 +1,7 @@
-import React from 'react';
-
 import { TrayButton } from '../../shared/components/Tray';
-import { useUIState } from '../../shared/contexts/UIStateProvider';
+import { useUIState } from '../../contexts/UIStateProvider';
 import { ReactComponent as IconChat } from '../../shared/icons/chat-md.svg';
-import { useChat } from '../contexts/ChatProvider';
+import { useChat } from '../../contexts/ChatProvider';
 import { CHAT_ASIDE } from './ChatAside';
 
 export const Tray = () => {
