@@ -1,4 +1,6 @@
 import { useEffect, useId, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 import {
   CalendarIcon,
@@ -10,8 +12,10 @@ import {
 import dayjs from 'dayjs';
 import dayjs_isToday from 'dayjs/plugin/isToday';
 import dayjs_isTomorrow from 'dayjs/plugin/isTomorrow';
+import dayjs_localizedFormat from 'dayjs/plugin/localizedFormat';
 dayjs.extend(dayjs_isToday);
 dayjs.extend(dayjs_isTomorrow);
+dayjs.extend(dayjs_localizedFormat);
 
 export interface Session {
   id: string;
@@ -21,13 +25,41 @@ export interface Session {
 }
 
 // TODO provide type for list
-const Sessions: React.FC<{ sessionList: Session[] }> = ({
-  sessionList: list,
-}) => {
+const Sessions: React.FC = () => {
+  // const { data, loading } = useGetSessionsByUserQuery({
+  //   variables: { userId: user.id },
+  // });
+
+  const today = new Date();
+  const tomorrow = new Date();
+  tomorrow.setDate(today.getDate() + 1);
+  const threeDaysLater = new Date();
+  threeDaysLater.setDate(today.getDate() + 3);
+  const fakeList: Session[] = [
+    {
+      id: 'A1B2',
+      date: today,
+      timeZone: 'New York city',
+      participants: 'Mohammad & you',
+    },
+    {
+      id: 'C3D4',
+      date: tomorrow,
+      timeZone: 'New York city',
+      participants: 'Mohammad & you',
+    },
+    {
+      id: 'E5F6',
+      date: threeDaysLater,
+      timeZone: 'New York city',
+      participants: 'Mohammad & you',
+    },
+  ];
+
   const domId = useId();
   return (
     <>
-      {list.map((s) => (
+      {fakeList.map((s) => (
         <SessionCard key={domId + s.id} session={s} />
       ))}
     </>
@@ -37,7 +69,8 @@ export default Sessions;
 
 const SessionCard: React.FC<{
   session: Session;
-}> = ({ session: { date, timeZone, participants } }) => {
+  loading?: boolean;
+}> = ({ session: { date, timeZone, participants }, loading = true }) => {
   const [displayDate, setDisplayDate] = useState<string>('');
   const [displayTime, setDisplayTime] = useState<string>('');
   const [isToday, setIsToday] = useState<boolean>(false);
@@ -58,8 +91,7 @@ const SessionCard: React.FC<{
       return;
     }
 
-    // Format: LLLL | English Locale: dddd, MMMM D, YYYY h:mm A | Thursday, August 16, 2018 8:02 PM
-    setDisplayDate(dayjs(date).format('LLLL'));
+    setDisplayDate(dayjs(date).format('ddd, MMM D'));
   }, [date, displayDate]);
 
   // ────────────────────────────────────────────────────────────────────────────────
@@ -70,58 +102,64 @@ const SessionCard: React.FC<{
         isToday ? 'tw-bg-blue' : 'tw-bg-white tw-shadow-lg'
       } `}
     >
-      <div className="tw-flex  tw-flex-row tw-items-center">
-        <CalendarIcon className={isToday ? 'tw-text-gray' : ''} />
-        <span
-          className={`tw-text-2xl tw-font-normal tw-pl-2 ${
-            isToday ? 'tw-text-white' : 'tw-text-dark'
-          }`}
-        >
-          {displayDate}
-        </span>
+      <div className="tw-flex tw-flex-row tw-justify-between">
+        <div className="tw-flex tw-flex-row tw-items-center">
+          {loading ? (
+            <Skeleton circle />
+          ) : (
+            <CalendarIcon className={isToday ? 'tw-text-gray' : ''} />
+          )}
+          <span
+            className={`tw-text-2xl tw-font-normal tw-pl-2 tw-truncate ${
+              isToday ? 'tw-text-white' : 'tw-text-dark'
+            }`}
+          >
+            {displayDate}
+          </span>
+        </div>
+
+        <div className="tw-flex tw-flex-row tw-items-center tw-py-2">
+          <span
+            className={`tw-text-xs tw-font-normal tw-pr-1 ${
+              isToday ? 'tw-text-white' : 'tw-text-lightGray'
+            }`}
+          >
+            reschedule
+          </span>
+          <EditIcon />
+        </div>
       </div>
 
       <hr className="tw-border-t-4 tw-border-field tw-my-4" />
 
       <InformationItem
         icon={<ClockIcon />}
-        text={`${displayTime} - ${timeZone}`}
-        isToday={isToday}
+        text={displayTime || `${displayTime} - ${timeZone}`}
+        {...{ isToday }}
       />
 
       <InformationItem
         icon={<ThreeUsersIcon />}
         text={participants}
-        isToday={isToday}
+        {...{ isToday }}
       />
-
-      <div className="tw-ml-[137px] tw-flex tw-flex-row tw-items-center tw-py-2">
-        <span
-          className={`tw-text-xs tw-font-normal tw-pr-1 ${
-            isToday ? 'tw-text-white' : 'tw-text-lightGray'
-          }`}
-        >
-          reschedule
-        </span>
-        <EditIcon />
-      </div>
     </div>
   );
 };
 
 const InformationItem: React.FC<{
-  icon?: JSX.Element;
+  icon: JSX.Element;
   text: string;
   isToday: boolean;
 }> = ({ icon, text, isToday }) => (
   <div className="tw-flex tw-flex-row tw-items-center">
-    {icon}
+    {icon || <Skeleton circle />}
     <span
       className={`tw-text-sm tw-font-normal tw-pl-4 ${
         isToday ? 'tw-text-white' : 'tw-text-gray'
       }`}
     >
-      {text}
+      {text || <Skeleton />}
     </span>
   </div>
 );
