@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Aside } from '../../components/Aside';
-import Button from '../../shared/components/Button';
-import { TextInput } from '../../shared/components/Input';
+import Button from '../../components/Button';
+import { TextInput } from '../../components/Input';
 import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useUIState } from '../../contexts/UIStateProvider';
 import { useMessageSound } from '../../hooks/useMessageSound';
