@@ -7,7 +7,9 @@ export default async function handler(
   const { roomName, isOwner } = req.body;
 
   if (req.method === 'POST' && roomName) {
-    console.log(`Getting token for room '${roomName}' as owner: ${isOwner}`);
+    if (process.env['NODE_ENV'] !== 'production') {
+      console.log(`Getting token for room '${roomName}' as owner: ${isOwner}`);
+    }
 
     const options = {
       method: 'POST',
