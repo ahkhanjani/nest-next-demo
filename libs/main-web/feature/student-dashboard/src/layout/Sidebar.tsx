@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { capitalizeFirstLetter } from 'fm/shared-utils';
 import { tabs } from './TabBar';
 
-import { LogoHorizontal, LogoVertical } from '../assets/icons';
+import { LogoHorizontal, LogoVertical } from 'fm/shared-assets/icons';
 
 export const Sidebar: React.FC = () => {
   const domId = useId();

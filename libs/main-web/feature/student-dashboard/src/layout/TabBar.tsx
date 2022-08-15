@@ -9,7 +9,7 @@ import {
   CategoryIcon,
   TwoUsersIcon,
   EditSquareIcon,
-} from '../assets/icons';
+} from '../../../../../shared/assets/src/icons';
 
 import { capitalizeFirstLetter } from 'fm/shared-utils';
 

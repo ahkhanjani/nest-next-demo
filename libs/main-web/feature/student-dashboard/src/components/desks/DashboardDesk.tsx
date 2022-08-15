@@ -1,4 +1,4 @@
-import { PaperPlusIcon } from '../../assets/icons';
+import { PaperPlusIcon } from '../../../../../../shared/assets/src/icons';
 import Sessions from '../Sessions';
 
 export const DashboardDesk: React.FC = () => {

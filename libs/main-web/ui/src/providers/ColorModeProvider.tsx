@@ -7,69 +7,61 @@ import {
 } from 'react';
 
 /** The constant string name for saving color mode in local storage. */
-const STORAGE_NAME = 'theme';
+const STORAGE_NAME = 'darkmode';
 
-export const ColorModeContext = createContext<ColorModeContextType>(
-  {} as ColorModeContextType,
+export const ColorModeContext = createContext<DarkModeContextType>(
+  {} as DarkModeContextType,
 );
 
-export const ColorModeProvider: React.FC<PropsWithChildren<unknown>> = ({
+export const DarkModeProvider: React.FC<PropsWithChildren<unknown>> = ({
   children,
 }) => {
-  const [mode, setMode] = useState<ColorMode>('light');
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
-  const colorMode = useMemo(
+  const darkMode = useMemo(
     () => ({
-      mode,
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      isDarkMode,
+      toggleDarkMode: () => {
+        setIsDarkMode((prevIsDarkMode) => !prevIsDarkMode);
       },
     }),
-    [mode],
+    [isDarkMode],
   );
 
   // get the color mode from the local storage cookie.
   useEffect(() => {
-    function getInitialMode() {
-      const userMode: string | null = localStorage.getItem(STORAGE_NAME);
+    const userDarkMode: string | null = localStorage.getItem(STORAGE_NAME);
 
-      if (
-        // if cookie doesn't exist...
-        !userMode ||
-        // or if the saved value doesn't match with the definition...
-        (userMode !== 'light' && userMode !== 'dark')
-      ) {
-        // force-set the value
-        const initialMode: ColorMode = 'light';
-        localStorage.setItem(STORAGE_NAME, initialMode);
-        setMode(initialMode);
-        return;
-      }
-
-      setMode(userMode);
+    if (
+      // if cookie doesn't exist...
+      !userDarkMode ||
+      // or if the saved value doesn't match with the definition...
+      (userDarkMode !== 'true' && userDarkMode !== 'false')
+    ) {
+      localStorage.setItem(STORAGE_NAME, 'false');
+      setIsDarkMode(false);
+      return;
     }
 
-    getInitialMode();
+    setIsDarkMode(userDarkMode === 'true');
   }, []);
 
   // saves color mode in the local storage cookie.
   useEffect(() => {
-    localStorage.setItem(STORAGE_NAME, mode);
-  }, [mode]);
+    localStorage.setItem(STORAGE_NAME, isDarkMode ? 'true' : 'false');
+  }, [isDarkMode]);
 
   // ────────────────────────────────────────────────────────────────────────────────
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ColorModeContext.Provider value={darkMode}>
       {children}
     </ColorModeContext.Provider>
   );
 };
-export default ColorModeProvider;
+export default DarkModeProvider;
 
-type ColorMode = 'light' | 'dark';
-
-export interface ColorModeContextType {
-  mode: ColorMode;
-  toggleColorMode: () => void;
+export interface DarkModeContextType {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
 }

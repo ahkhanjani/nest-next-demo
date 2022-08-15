@@ -7,7 +7,7 @@ import {
   ClockIcon,
   EditIcon,
   ThreeUsersIcon,
-} from '../assets/icons';
+} from '../../../../../shared/assets/src/icons';
 
 import dayjs from 'dayjs';
 import dayjs_isToday from 'dayjs/plugin/isToday';

@@ -17,13 +17,19 @@
     "baseUrl": ".",
     "paths": {
       "@rjsf/material-ui/*": ["node_modules/@rjsf/material-ui/dist/*"],
+      "fm/main-web-assets/*": ["libs/main-web/assets/*"],
+      "fm/main-web-feature-auth": ["libs/main-web/feature/auth/src/index.ts"],
       "fm/main-web-feature-daily-co": [
         "libs/main-web/feature/daily-co/src/index.ts"
       ],
-      "fm/main-web-assets/*": ["libs/main-web/assets/*"],
-      "fm/main-web-feature-auth": ["libs/main-web/feature/auth/src/index.ts"],
+      "fm/main-web-feature-darkmode-switch": [
+        "libs/main-web/feature/darkmode-switch/src/index.ts"
+      ],
       "fm/main-web-feature-prereg": [
         "libs/main-web/feature/prereg/src/index.ts"
+      ],
+      "fm/main-web-feature-student-dashboard": [
+        "libs/main-web/feature/student-dashboard/src/index.ts"
       ],
       "fm/main-web-scheduler": ["libs/main-web/feature/scheduler/src/index.ts"],
       "fm/main-web-ui": ["libs/main-web/ui/src/index.ts"],
@@ -40,12 +46,10 @@
       "fm/material-web-feature-schemagen": [
         "libs/material-web/feature/material-form-schema-generator/src/index.ts"
       ],
-      "fm/main-web-feature-student-dashboard": [
-        "libs/main-web/feature/student-dashboard/src/index.ts"
-      ],
       "fm/material-web-state": ["libs/material-web/state/src/index.ts"],
       "fm/material-web-types": ["libs/material-web/types/src/index.ts"],
       "fm/material-web-ui": ["libs/material-web/ui/src/index.ts"],
+      "fm/shared-assets/*": ["libs/shared/assets/src/*"],
       "fm/shared-feature-auth": ["libs/shared/feature/auth/src/index.ts"],
       "fm/shared-feature-network": ["libs/shared/feature/network/src/index.ts"],
       "fm/shared-graphql": ["libs/shared/graphql/src/generated.tsx"],
