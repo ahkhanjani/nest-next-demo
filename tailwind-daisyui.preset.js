@@ -4,10 +4,10 @@ module.exports = {
   // See https://daisyui.com/docs/config/
   daisyui: {
     styled: true,
-    themes: ['dark'],
+    themes: ['light', 'dark'],
     base: true,
     utils: true,
-    logs: true,
+    logs: false,
     rtl: false,
     prefix: 'daisy-', // use daisyui styles wiht 'tw-daisy-' prefix
     darkTheme: 'dark',
