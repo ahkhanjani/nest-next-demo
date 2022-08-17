@@ -1,17 +1,17 @@
 import React, { useState, useCallback } from 'react';
-import { CallProvider } from '../../contexts/CallProvider';
-import { MediaDeviceProvider } from '../../contexts/MediaDeviceProvider';
-import { ParticipantsProvider } from '../../contexts/ParticipantsProvider';
-import { ScreenShareProvider } from '../../contexts/ScreenShareProvider';
-import { TracksProvider } from '../../contexts/TracksProvider';
-import { UIStateProvider } from '../../contexts/UIStateProvider';
-import { WaitingRoomProvider } from '../../contexts/WaitingRoomProvider';
-import getDemoProps from '../../lib/demoProps';
-import { ChatProvider } from '../../contexts/ChatProvider';
-import CreatingRoom from '../../components/Prejoin/CreatingRoom';
-import Intro from '../../components/Prejoin/Intro';
-import NotConfigured from '../../components/Prejoin/NotConfigured';
-import AppBase from '../../components/App';
+import { CallProvider } from './contexts/CallProvider';
+import { MediaDeviceProvider } from './contexts/MediaDeviceProvider';
+import { ParticipantsProvider } from './contexts/ParticipantsProvider';
+import { ScreenShareProvider } from './contexts/ScreenShareProvider';
+import { TracksProvider } from './contexts/TracksProvider';
+import { UIStateProvider } from './contexts/UIStateProvider';
+import { WaitingRoomProvider } from './contexts/WaitingRoomProvider';
+import getDemoProps from './lib/demoProps';
+import { ChatProvider } from './contexts/ChatProvider';
+import CreatingRoom from './components/Prejoin/CreatingRoom';
+import Intro from './components/Prejoin/Intro';
+import NotConfigured from './components/Prejoin/NotConfigured';
+import AppBase from './components/App';
 import { DailyRoomInfo } from '@daily-co/daily-js';
 
 export const App: React.FC<AppProps> = ({

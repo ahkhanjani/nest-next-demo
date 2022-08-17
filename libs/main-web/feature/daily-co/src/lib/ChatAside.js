@@ -1,12 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Aside } from '../../components/Aside';
-<<<<<<< HEAD
 import Button from '../../components/Button';
 import { TextInput } from '../../components/Input';
-=======
-import Button from '../Button';
-import { TextInput } from '../Input';
->>>>>>> b59527005b8b402555956b3e7d4718e1fb2e9e42
 import { useParticipants } from '../../contexts/ParticipantsProvider';
 import { useUIState } from '../../contexts/UIStateProvider';
 import { useMessageSound } from '../../hooks/useMessageSound';
