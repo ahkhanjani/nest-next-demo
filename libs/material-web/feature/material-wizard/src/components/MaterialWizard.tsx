@@ -34,10 +34,10 @@ export const MaterialWizard: React.FC<WizardPageProps> = ({
   // ─── State ──────────────────────────────────────────────────────────────────────
 
   const { materialDataArray } = useAppSelector(
-    (state) => state.creatingMaterials
+    (state) => state.creatingMaterials,
   );
   const { editMode, editingMaterialId } = useAppSelector(
-    (state) => state.editingMaterial
+    (state) => state.editingMaterial,
   );
   const dispatch = useAppDispatch();
 
@@ -77,7 +77,7 @@ export const MaterialWizard: React.FC<WizardPageProps> = ({
               status: 'published',
               title,
               type,
-            })
+            }),
           );
           setCategoryIdArray(category);
         })

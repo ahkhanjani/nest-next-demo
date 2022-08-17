@@ -21,7 +21,7 @@ describe('LoginServiceProvider', () => {
       >
         <LoginForm />
       </LoginServiceContext.Provider>,
-      { wrapper: ApolloProvider }
+      { wrapper: ApolloProvider },
     );
 
     const fakeUsername = 'john.dee';
@@ -40,7 +40,7 @@ describe('LoginServiceProvider', () => {
         username: fakeUsername,
         password: fakePassword,
       },
-      expect.anything()
+      expect.anything(),
     );
   });
 });

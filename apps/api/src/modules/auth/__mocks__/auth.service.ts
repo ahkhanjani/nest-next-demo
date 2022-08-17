@@ -25,7 +25,7 @@ export const AuthService = jest.fn(
                 },
               ],
             }
-          : { userId: userStub().id }
+          : { userId: userStub().id },
     ),
-  })
+  }),
 );

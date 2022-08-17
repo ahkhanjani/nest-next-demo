@@ -25,7 +25,7 @@ const TypeSelectField: React.FC<TypeSelectFieldProps> = ({
       if (!materialFormSchemas) return;
 
       const selectedSchema = materialFormSchemas.find(
-        (schema) => schema.title === type
+        (schema) => schema.title === type,
       );
       if (selectedSchema) {
         const parsedSchema: JSONSchema7 = selectedSchema.schema;

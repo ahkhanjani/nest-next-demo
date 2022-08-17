@@ -10,7 +10,7 @@ import {
 const STORAGE_NAME = 'theme';
 
 export const ColorModeContext = createContext<ColorModeContextType>(
-  {} as ColorModeContextType
+  {} as ColorModeContextType,
 );
 
 export const ColorModeProvider: React.FC<PropsWithChildren<unknown>> = ({
@@ -25,7 +25,7 @@ export const ColorModeProvider: React.FC<PropsWithChildren<unknown>> = ({
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
       },
     }),
-    [mode]
+    [mode],
   );
 
   // get the color mode from the local storage cookie.

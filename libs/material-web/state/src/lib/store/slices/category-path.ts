@@ -9,14 +9,14 @@ export const currentPathSlice = createSlice({
   reducers: {
     addPathCategory: (
       state: CategoryPathState,
-      action: PayloadAction<PathCategory>
+      action: PayloadAction<PathCategory>,
     ) => {
       state.path.push(action.payload);
       state.lastId = action.payload.id;
     },
     removePathCategories: (
       state: CategoryPathState,
-      action: PayloadAction<number>
+      action: PayloadAction<number>,
     ) => {
       // number of items that are being removed from the end of the path
       const removedItemsCount: number = action.payload;

@@ -13,7 +13,7 @@ export const SnackbarMessageSlice = createSlice({
   reducers: {
     setSnackbarMessage: (
       state: SnackbarMessageState,
-      action: PayloadAction<SetMessagePayload>
+      action: PayloadAction<SetMessagePayload>,
     ) => {
       const { message, severity } = action.payload;
       state.message = message;

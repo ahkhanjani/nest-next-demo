@@ -18,19 +18,18 @@ export class SessionsResolver {
   constructor(
     private readonly sessionsService: SessionsService,
     private readonly usersService: UsersService,
-    private readonly enumsService: EnumsService
+    private readonly enumsService: EnumsService,
   ) {}
 
   // ─── Resolve Field ──────────────────────────────────────────────────────────────
 
-  @ResolveField(() => User, { name: 'student' })
-  async getStudent(@Parent() { studentId }: Session): Promise<User> {
-    return await this.usersService.findOne(studentId);
-  }
-
-  @ResolveField(() => User, { name: 'teacher' })
-  async getTeacher(@Parent() { teacherId }: Session): Promise<User> {
-    return await this.usersService.findOne(teacherId);
+  @ResolveField(() => [User], { name: 'participants' })
+  async getParticipants(
+    @Parent() { participantIds }: Session,
+  ): Promise<User[]> {
+    return await Promise.all(
+      participantIds.map(async (pid) => await this.usersService.findOne(pid)),
+    );
   }
 
   @ResolveField(() => Enum, { name: 'status' })
@@ -42,13 +41,15 @@ export class SessionsResolver {
 
   @Query(() => Session, { name: 'session' })
   async getSession(
-    @Args('id', { type: () => ID }) id: string
+    @Args('id', { type: () => ID }) id: string,
   ): Promise<Session> {
     return await this.sessionsService.findOne(id);
   }
 
-  @Query(() => [Session], { name: 'sessions' })
-  async getSessions(): Promise<Session[]> {
-    return await this.sessionsService.findAll();
+  @Query(() => [Session], { name: 'sessionsByUser' })
+  async getSessionsByUser(
+    @Args('userId', { type: () => ID }) userId: string,
+  ): Promise<Session[]> {
+    return await this.sessionsService.findAll({ participantIds: [userId] });
   }
 }

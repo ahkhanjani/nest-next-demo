@@ -12,7 +12,7 @@ import { useAppSelector } from 'fm/material-web-state';
 
 export const CategoryListServiceContext =
   createContext<CategoryListServiceContextValue>(
-    {} as CategoryListServiceContextValue
+    {} as CategoryListServiceContextValue,
   );
 
 export const CategoryListServiceProvider: React.FC<
@@ -59,7 +59,7 @@ export interface CategoryListServiceContextValue {
             limit: number;
           }>
         >
-      | undefined
+      | undefined,
   ) => Promise<ApolloQueryResult<GetMaterialCategoriesPaginateQuery>>;
 }
 

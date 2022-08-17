@@ -17,7 +17,7 @@ const initialState: InitialStateType = {
 };
 
 export const AuthContext = createContext<AuthContextType>(
-  {} as AuthContextType
+  {} as AuthContextType,
 );
 
 function authReducer(state: AuthState, action: AuthAction): AuthState {
@@ -66,7 +66,7 @@ export const AuthProvider: React.FC<PropsWithChildren<unknown>> = (props) => {
       login,
       logout,
     }),
-    [state.user]
+    [state.user],
   );
 
   return <AuthContext.Provider value={memoedValue} {...props} />;

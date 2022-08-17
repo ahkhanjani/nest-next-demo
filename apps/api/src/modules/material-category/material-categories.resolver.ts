@@ -12,7 +12,7 @@ import { MaterialCategoriesService } from './material-categories.service';
 @Resolver()
 export class MaterialCategoriesResolver {
   constructor(
-    private readonly materialCategoriesService: MaterialCategoriesService
+    private readonly materialCategoriesService: MaterialCategoriesService,
   ) {}
 
   //
@@ -24,14 +24,14 @@ export class MaterialCategoriesResolver {
   })
   async getMaterialCategoriesPaginate(
     @Args('dto', { type: () => MaterialCategoriesPaginateInput })
-    dto: MaterialCategoriesPaginateInput
+    dto: MaterialCategoriesPaginateInput,
   ): Promise<MaterialCategoriesPaginateResponse> {
     return await this.materialCategoriesService.paginate(dto);
   }
 
   @Query(() => MaterialCategory, { name: 'materialCategory' })
   async getMaterialCategory(
-    @Args('id', { type: () => ID }) id: string
+    @Args('id', { type: () => ID }) id: string,
   ): Promise<MaterialCategory> {
     return await this.materialCategoriesService.findOne(id);
   }
@@ -43,7 +43,7 @@ export class MaterialCategoriesResolver {
 
   @Query(() => [MaterialCategory], { name: 'materialCategoriesByParentId' })
   async getMaterialCategoriesByParentId(
-    @Args('parentId', { type: () => ID, nullable: true }) parentId: string
+    @Args('parentId', { type: () => ID, nullable: true }) parentId: string,
   ): Promise<MaterialCategory[]> {
     return await this.materialCategoriesService.findByParentId(parentId);
   }
@@ -55,7 +55,7 @@ export class MaterialCategoriesResolver {
   @Mutation(() => CreateMaterialCategoryResponse)
   async createMaterialCategory(
     @Args('dto', { type: () => CreateMaterialCategoryInput })
-    dto: CreateMaterialCategoryInput
+    dto: CreateMaterialCategoryInput,
   ): Promise<CreateMaterialCategoryResponse> {
     return await this.materialCategoriesService.createOne(dto);
   }
@@ -63,7 +63,7 @@ export class MaterialCategoriesResolver {
   @Mutation(() => UpdateMaterialCategoryResponse)
   async updateMaterialCategory(
     @Args('dto', { type: () => UpdateMaterialCategoryInput })
-    dto: UpdateMaterialCategoryInput
+    dto: UpdateMaterialCategoryInput,
   ): Promise<UpdateMaterialCategoryResponse> {
     return await this.materialCategoriesService.updateOne(dto);
   }

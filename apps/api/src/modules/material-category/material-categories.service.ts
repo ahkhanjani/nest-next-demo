@@ -16,8 +16,8 @@ import {
 export class MaterialCategoriesService {
   constructor(
     @InjectModel(MaterialCategory.name)
-    private readonly materialCategoryModel: Model<MaterialCategoryModel>
-  ) { }
+    private readonly materialCategoryModel: Model<MaterialCategoryModel>,
+  ) {}
 
   //
   // ─── QUERY ──────────────────────────────────────────────────────────────────────
@@ -58,7 +58,7 @@ export class MaterialCategoriesService {
    */
   async checkAlreadyExists(dto: CreateMaterialCategoryInput): Promise<boolean> {
     const found: MaterialCategory = await this.materialCategoryModel.findOne(
-      dto
+      dto,
     );
     return Boolean(found);
   }
@@ -102,7 +102,7 @@ export class MaterialCategoriesService {
         {
           _id: id,
         },
-        { $set: { title } }
+        { $set: { title } },
       );
 
       return { success: true };

@@ -1,6 +1,6 @@
-export * from './components/desks/ClassroomDesk';
-export * from './components/desks/DashboardDesk';
+export * from './desks/ClassroomDesk';
+export * from './desks/HomeDesk';
 
-export * from './layout/Sidebar';
-export * from './layout/TabBar';
-export * from './layout/Header';
+export * from './layout/DashboardLayout';
+
+export type { TabName } from './layout/TabBar';

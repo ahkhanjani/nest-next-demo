@@ -18,7 +18,7 @@ const NewButton: React.FC = () => {
   //
 
   const { selectedMaterialIndex } = useAppSelector(
-    (state) => state.creatingMaterials
+    (state) => state.creatingMaterials,
   );
 
   const dispatch = useAppDispatch();

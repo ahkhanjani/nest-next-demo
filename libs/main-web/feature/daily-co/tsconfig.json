@@ -1,5 +1,5 @@
 {
-  "extends": "../../../../tsconfig.base.json",
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "allowJs": true,
@@ -21,9 +21,6 @@
     },
     {
       "path": "./tsconfig.spec.json"
-    },
-    {
-      "path": "./.storybook/tsconfig.json"
     }
   ]
 }

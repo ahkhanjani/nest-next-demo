@@ -16,8 +16,8 @@ import type { UpdateMaterialResponse } from './dto/update-material-response.dto'
 export class MaterialsService {
   constructor(
     @InjectModel(Material.name)
-    private readonly materialModel: Model<MaterialModel>
-  ) { }
+    private readonly materialModel: Model<MaterialModel>,
+  ) {}
 
   //
   // ─── QUERY ──────────────────────────────────────────────────────────────────────
@@ -78,7 +78,7 @@ export class MaterialsService {
   //
 
   async createMany(
-    dto: CreateMaterialsInput
+    dto: CreateMaterialsInput,
   ): Promise<CreateMaterialsResponse> {
     const { category, materialDtoArray } = dto;
 
@@ -107,7 +107,7 @@ export class MaterialsService {
           ...rest,
         });
         createdMaterials.push(createdMaterial);
-      })
+      }),
     );
 
     return {
@@ -128,7 +128,7 @@ export class MaterialsService {
         $set: {
           ...rest,
         },
-      }
+      },
     );
 
     return { message: JSON.stringify(updatedMaterial) };

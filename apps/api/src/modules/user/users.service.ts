@@ -9,7 +9,7 @@ import type { CreateUserInput, CreateUserResponse } from './dto';
 export class UsersService {
   constructor(
     @InjectModel(User.name)
-    private readonly userModel: Model<UserModel>
+    private readonly userModel: Model<UserModel>,
   ) {}
 
   //

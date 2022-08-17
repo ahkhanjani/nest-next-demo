@@ -23,7 +23,7 @@ const CategoryBreadcrumbs: React.FC = () => {
 
   function handleItemClick(id: string) {
     const clickedItemIndex: number = categoryPath.findIndex(
-      (path) => path.id === id
+      (path) => path.id === id,
     );
     const removedItemsCount: number =
       categoryPath.length - clickedItemIndex - 1;
@@ -59,7 +59,7 @@ const CategoryBreadcrumbs: React.FC = () => {
               >
                 {title}
               </a>
-            )
+            ),
         )}
         <Typography color="text.primary">
           {categoryPath.at(categoryPath.length - 1)?.title}

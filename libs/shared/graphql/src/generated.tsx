@@ -54,6 +54,19 @@ export type CreateUserResponse = {
   success: Scalars['Boolean'];
 };
 
+export type Enum = {
+  __typename?: 'Enum';
+  createdAt: Scalars['DateTime'];
+  creator: User;
+  creatorId: Scalars['ID'];
+  /** The title of the enum that the value is for. Example: "user-role" */
+  enumTitle: Scalars['String'];
+  id: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+  /** The value for this enum item. Example: "admin" */
+  value: Scalars['String'];
+};
+
 export type FailedMaterialResponse = {
   __typename?: 'FailedMaterialResponse';
   materialTitle: Scalars['String'];
@@ -64,6 +77,11 @@ export type FieldError = {
   __typename?: 'FieldError';
   field: Scalars['String'];
   message: Scalars['String'];
+};
+
+export type GetEnumsDto = {
+  creatorId?: InputMaybe<Scalars['ID']>;
+  enumTitle?: InputMaybe<Scalars['String']>;
 };
 
 export type LoginInput = {
@@ -129,6 +147,7 @@ export type MaterialsPaginateResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createEnum: Enum;
   createMaterialCategory: CreateMaterialCategoryResponse;
   createMaterials: CreateMaterialsResponse;
   createPreReg: PreRegResponse;
@@ -136,6 +155,12 @@ export type Mutation = {
   login: LoginResponse;
   updateMaterial: UpdateMaterialResponse;
   updateMaterialCategory: UpdateMaterialCategoryResponse;
+};
+
+
+export type MutationCreateEnumArgs = {
+  dto: UpdateEnumDto;
+  id: Scalars['String'];
 };
 
 
@@ -187,6 +212,8 @@ export type PreRegResponse = {
 
 export type Query = {
   __typename?: 'Query';
+  enum: Enum;
+  enums: Array<Enum>;
   material: Material;
   materialByTitle: Array<Material>;
   materialCategories: Array<MaterialCategory>;
@@ -197,9 +224,21 @@ export type Query = {
   materials: Array<Material>;
   materialsByCategoryId: Array<Material>;
   materialsPaginate: MaterialsPaginateResponse;
+  session: Session;
+  sessionsByUser: Array<Session>;
   user: User;
   userCount: Scalars['Float'];
   users: Array<User>;
+};
+
+
+export type QueryEnumArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryEnumsArgs = {
+  dto: GetEnumsDto;
 };
 
 
@@ -243,13 +282,41 @@ export type QueryMaterialsPaginateArgs = {
 };
 
 
+export type QuerySessionArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QuerySessionsByUserArgs = {
+  userId: Scalars['ID'];
+};
+
+
 export type QueryUserArgs = {
   id: Scalars['ID'];
+};
+
+export type Session = {
+  __typename?: 'Session';
+  createdAt: Scalars['DateTime'];
+  date: Scalars['DateTime'];
+  id: Scalars['ID'];
+  participantIds: Array<Scalars['ID']>;
+  participants: Array<User>;
+  status: Enum;
+  statusId: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type Subscription = {
   __typename?: 'Subscription';
   preRegCreated: PreRegEmail;
+};
+
+export type UpdateEnumDto = {
+  creatorId?: InputMaybe<Scalars['ID']>;
+  enumTitle?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['String']>;
 };
 
 export type UpdateMaterialCategoryInput = {
@@ -405,6 +472,20 @@ export type CreatePreRegMutationVariables = Exact<{
 
 
 export type CreatePreRegMutation = { __typename?: 'Mutation', createPreReg: { __typename?: 'PreRegResponse', email?: { __typename?: 'PreRegEmail', id: string } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+
+export type GetSessionQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetSessionQuery = { __typename?: 'Query', session: { __typename?: 'Session', date: any, participants: Array<{ __typename?: 'User', id: string, username: string }> } };
+
+export type GetSessionsByUserQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+
+export type GetSessionsByUserQuery = { __typename?: 'Query', sessionsByUser: Array<{ __typename?: 'Session', id: string, date: any, participants: Array<{ __typename?: 'User', id: string, username: string }> }> };
 
 export type CreateUserMutationVariables = Exact<{
   username: Scalars['String'];
@@ -1019,6 +1100,85 @@ export function useCreatePreRegMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreatePreRegMutationHookResult = ReturnType<typeof useCreatePreRegMutation>;
 export type CreatePreRegMutationResult = Apollo.MutationResult<CreatePreRegMutation>;
 export type CreatePreRegMutationOptions = Apollo.BaseMutationOptions<CreatePreRegMutation, CreatePreRegMutationVariables>;
+export const GetSessionDocument = gql`
+    query GetSession($id: ID!) {
+  session(id: $id) {
+    participants {
+      id
+      username
+    }
+    date
+  }
+}
+    `;
+
+/**
+ * __useGetSessionQuery__
+ *
+ * To run a query within a React component, call `useGetSessionQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSessionQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSessionQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetSessionQuery(baseOptions: Apollo.QueryHookOptions<GetSessionQuery, GetSessionQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSessionQuery, GetSessionQueryVariables>(GetSessionDocument, options);
+      }
+export function useGetSessionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSessionQuery, GetSessionQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSessionQuery, GetSessionQueryVariables>(GetSessionDocument, options);
+        }
+export type GetSessionQueryHookResult = ReturnType<typeof useGetSessionQuery>;
+export type GetSessionLazyQueryHookResult = ReturnType<typeof useGetSessionLazyQuery>;
+export type GetSessionQueryResult = Apollo.QueryResult<GetSessionQuery, GetSessionQueryVariables>;
+export const GetSessionsByUserDocument = gql`
+    query GetSessionsByUser($userId: ID!) {
+  sessionsByUser(userId: $userId) {
+    id
+    participants {
+      id
+      username
+    }
+    date
+  }
+}
+    `;
+
+/**
+ * __useGetSessionsByUserQuery__
+ *
+ * To run a query within a React component, call `useGetSessionsByUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSessionsByUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSessionsByUserQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetSessionsByUserQuery(baseOptions: Apollo.QueryHookOptions<GetSessionsByUserQuery, GetSessionsByUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetSessionsByUserQuery, GetSessionsByUserQueryVariables>(GetSessionsByUserDocument, options);
+      }
+export function useGetSessionsByUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSessionsByUserQuery, GetSessionsByUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSessionsByUserQuery, GetSessionsByUserQueryVariables>(GetSessionsByUserDocument, options);
+        }
+export type GetSessionsByUserQueryHookResult = ReturnType<typeof useGetSessionsByUserQuery>;
+export type GetSessionsByUserLazyQueryHookResult = ReturnType<typeof useGetSessionsByUserLazyQuery>;
+export type GetSessionsByUserQueryResult = Apollo.QueryResult<GetSessionsByUserQuery, GetSessionsByUserQueryVariables>;
 export const CreateUserDocument = gql`
     mutation CreateUser($username: String!, $password: String!) {
   createUser(dto: {username: $username, password: $password}) {

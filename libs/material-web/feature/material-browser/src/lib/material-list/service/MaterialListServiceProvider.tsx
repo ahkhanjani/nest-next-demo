@@ -13,7 +13,7 @@ import { useAppSelector } from 'fm/material-web-state';
 
 export const MaterialListServiceContext =
   createContext<MaterialListServiceContextValue>(
-    {} as MaterialListServiceContextValue
+    {} as MaterialListServiceContextValue,
   );
 
 export const MaterialListServiceProvider: React.FC<
@@ -59,7 +59,7 @@ export interface MaterialListServiceContextValue {
             limit: number;
           }>
         >
-      | undefined
+      | undefined,
   ) => Promise<ApolloQueryResult<GetMaterialsPaginateQuery>>;
 }
 

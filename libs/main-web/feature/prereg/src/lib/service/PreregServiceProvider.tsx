@@ -10,7 +10,7 @@ import type { UnpredictedFormErrors } from 'fm/shared-types';
 import type { RegFormikValues as Values } from '../types/reg-formik-values';
 
 export const PreregServiceContext = createContext<PreregServiceContextValue>(
-  {} as PreregServiceContextValue
+  {} as PreregServiceContextValue,
 );
 
 export const PreregServiceProvider: React.FC<PropsWithChildren> = ({
@@ -84,7 +84,7 @@ export interface PreregServiceContextValue {
   loading: boolean;
   handleSubmit: (
     values: Values,
-    actions: FormikHelpers<Values>
+    actions: FormikHelpers<Values>,
   ) => Promise<void>;
   success: boolean;
 }

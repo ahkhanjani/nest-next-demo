@@ -19,7 +19,7 @@ const StackItem: React.FC<StackItemProps> = ({ index, title }) => {
   //
 
   const { selectedMaterialIndex } = useAppSelector(
-    (state) => state.creatingMaterials
+    (state) => state.creatingMaterials,
   );
 
   const dispatch = useAppDispatch();

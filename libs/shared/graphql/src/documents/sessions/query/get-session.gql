@@ -1,0 +1,9 @@
+query GetSession($id: ID!) {
+  session(id: $id) {
+    participants {
+      id
+      username
+    }
+    date
+  }
+}

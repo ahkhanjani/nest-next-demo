@@ -18,7 +18,7 @@ const TitleInputField: React.FC = () => {
   //
 
   const { materialDataArray, selectedMaterialIndex } = useAppSelector(
-    (state) => state.creatingMaterials
+    (state) => state.creatingMaterials,
   );
 
   //
@@ -39,7 +39,7 @@ const TitleInputField: React.FC = () => {
     //* 1. check if exists in current local list
     // search in local list
     const titleExistsInCurrentList = materialDataArray.find(
-      ({ title }) => values.title === title
+      ({ title }) => values.title === title,
     );
     // if title already exists set titleExists to true
     if (titleExistsInCurrentList) return true;
@@ -53,7 +53,7 @@ const TitleInputField: React.FC = () => {
         // if title already exists set titleExists to true
         ({ data: { materialTitleExists } }) => {
           if (materialTitleExists) return true;
-        }
+        },
       )
       .catch((error) => {
         console.error(error);
@@ -93,7 +93,7 @@ const TitleInputField: React.FC = () => {
 
   return useMemo(
     () => <InputField name="title" label="Material Title" type="text" />,
-    []
+    [],
   );
 };
 export default TitleInputField;

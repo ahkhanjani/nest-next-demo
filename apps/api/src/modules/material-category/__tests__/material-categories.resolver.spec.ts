@@ -24,7 +24,7 @@ describe('MaterialCategoriesResolver', () => {
     }).compile();
 
     resolver = module.get<MaterialCategoriesResolver>(
-      MaterialCategoriesResolver
+      MaterialCategoriesResolver,
     );
     service = module.get<MaterialCategoriesService>(MaterialCategoriesService);
     jest.clearAllMocks();
@@ -50,7 +50,7 @@ describe('MaterialCategoriesResolver', () => {
 
       beforeEach(async () => {
         materialCategory = await resolver.getMaterialCategory(
-          materialCategoryStub().id
+          materialCategoryStub().id,
         );
       });
 
@@ -61,7 +61,7 @@ describe('MaterialCategoriesResolver', () => {
 
       it('should return a material category', () => {
         expect(materialCategory).toEqual<MaterialCategory>(
-          materialCategoryStub()
+          materialCategoryStub(),
         );
       });
     });
@@ -94,13 +94,13 @@ describe('MaterialCategoriesResolver', () => {
 
       beforeEach(async () => {
         materialCategories = await resolver.getMaterialCategoriesByParentId(
-          materialCategoryStub().parentId
+          materialCategoryStub().parentId,
         );
       });
 
       it('should call materialCategoriesService', () => {
         expect(service.findByParentId).toHaveBeenCalledWith(
-          materialCategoryStub().parentId
+          materialCategoryStub().parentId,
         );
         expect(service.findByParentId).toHaveBeenCalledTimes(1);
       });
@@ -128,14 +128,14 @@ describe('MaterialCategoriesResolver', () => {
 
         beforeEach(async () => {
           response = await resolver.getMaterialCategoriesPaginate(
-            materialCategoriesPaginateDto
+            materialCategoriesPaginateDto,
           );
           console.log(response);
         });
 
         it('should call materialCategoriesService', () => {
           expect(service.paginate).toHaveBeenCalledWith(
-            materialCategoriesPaginateDto
+            materialCategoriesPaginateDto,
           );
           expect(service.paginate).toHaveBeenCalledTimes(1);
         });
@@ -167,13 +167,13 @@ describe('MaterialCategoriesResolver', () => {
 
         beforeEach(async () => {
           response = await resolver.getMaterialCategoriesPaginate(
-            materialCategoriesPaginateDto
+            materialCategoriesPaginateDto,
           );
         });
 
         it('should call materialCategoriesService', () => {
           expect(service.paginate).toHaveBeenCalledWith(
-            materialCategoriesPaginateDto
+            materialCategoriesPaginateDto,
           );
           expect(service.paginate).toHaveBeenCalledTimes(1);
         });
@@ -207,13 +207,13 @@ describe('MaterialCategoriesResolver', () => {
           parentId,
         };
         response = await resolver.createMaterialCategory(
-          createMaterialCategoryDto
+          createMaterialCategoryDto,
         );
       });
 
       it('should call materialCategoriesService', () => {
         expect(service.createOne).toHaveBeenCalledWith(
-          createMaterialCategoryDto
+          createMaterialCategoryDto,
         );
         expect(service.createOne).toHaveBeenCalledTimes(1);
       });
@@ -235,13 +235,13 @@ describe('MaterialCategoriesResolver', () => {
         const { id, title } = materialCategoryStub();
         updateMaterialCategoryDto = { id, title };
         response = await resolver.updateMaterialCategory(
-          updateMaterialCategoryDto
+          updateMaterialCategoryDto,
         );
       });
 
       it('should call materialCategoriessService', () => {
         expect(service.updateOne).toHaveBeenCalledWith(
-          updateMaterialCategoryDto
+          updateMaterialCategoryDto,
         );
         expect(service.updateOne).toHaveBeenCalledTimes(1);
       });

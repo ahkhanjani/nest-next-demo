@@ -32,7 +32,7 @@ describe('SignupServiceProvider', () => {
         >
           <SignupForm />
         </SignupServiceContext.Provider>,
-        { wrapper: ApolloProvider }
+        { wrapper: ApolloProvider },
       );
 
       const user = userEvent.setup();
@@ -48,7 +48,7 @@ describe('SignupServiceProvider', () => {
           username: 'john.dee',
           password: 's0mEpAsSw0Rd',
         },
-        expect.anything()
+        expect.anything(),
       );
       expect(handleSubmit).toHaveBeenCalledTimes(1);
     });
@@ -69,7 +69,7 @@ describe('SignupServiceProvider', () => {
             }}
           </SignupServiceContext.Consumer>
         </SignupServiceProvider>,
-        { wrapper: ApolloProvider }
+        { wrapper: ApolloProvider },
       );
     });
   });

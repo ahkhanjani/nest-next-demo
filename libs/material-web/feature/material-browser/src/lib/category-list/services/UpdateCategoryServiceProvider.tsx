@@ -11,7 +11,7 @@ import type { UpdateCategoryFormikValues as Values } from '../types/UpdateCatego
 
 export const UpdateMaterialCategoryServiceContext =
   createContext<UpdateMaterialCategoryServiceContextValue>(
-    {} as UpdateMaterialCategoryServiceContextValue
+    {} as UpdateMaterialCategoryServiceContextValue,
   );
 
 export const UpdateMaterialCategoryServiceProvider: React.FC<
@@ -46,7 +46,7 @@ export const UpdateMaterialCategoryServiceProvider: React.FC<
       const formErrors = data.updateMaterialCategory.error;
       if (formErrors) {
         actions.setErrors(
-          toErrorMap([{ field: 'title', message: formErrors }])
+          toErrorMap([{ field: 'title', message: formErrors }]),
         );
         return;
       }
@@ -88,7 +88,7 @@ export interface UpdateMaterialCategoryServiceContextValue {
   loading: boolean;
   handleSubmit: (
     values: Values,
-    actions: FormikHelpers<Values>
+    actions: FormikHelpers<Values>,
   ) => Promise<void>;
   success: boolean;
 }

@@ -1,9 +1,10 @@
 overwrite: true
-schema: 'http://localhost:3333/graphql'
-documents: 'libs/shared/graphql/src/documents/**/*.gql'
+verbose: true
+schema: http://localhost:3333/graphql
+documents: libs/shared/graphql/src/documents/**/*.gql
 generates:
   libs/shared/graphql/src/generated.tsx:
     plugins:
-      - 'typescript'
-      - 'typescript-operations'
-      - 'typescript-react-apollo'
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

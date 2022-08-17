@@ -11,12 +11,12 @@ import type { UpdateMaterialCategoryResponse } from '../dto/update-material-cate
 export const MaterialCategoriesService = jest.fn(
   (): MockType<ServiceType> => ({
     updateOne: jest.fn(
-      (): UpdateMaterialCategoryResponse => ({ success: true })
+      (): UpdateMaterialCategoryResponse => ({ success: true }),
     ),
     createOne: jest.fn(
       (): CreateMaterialCategoryResponse => ({
         materialCategory: materialCategoryStub(),
-      })
+      }),
     ),
     findOne: jest.fn((): MaterialCategory => materialCategoryStub()),
     findAll: jest.fn((): MaterialCategory[] => [materialCategoryStub()]),
@@ -24,7 +24,7 @@ export const MaterialCategoriesService = jest.fn(
     checkAlreadyExists: jest.fn(
       ({ title, parentId }: CreateMaterialCategoryInput): boolean =>
         title === materialCategoryStub().title &&
-        parentId === materialCategoryStub().parentId
+        parentId === materialCategoryStub().parentId,
     ),
     paginate: jest.fn(
       ({ page }: { page: number }): MaterialCategoriesPaginateResponse => {
@@ -38,7 +38,7 @@ export const MaterialCategoriesService = jest.fn(
               ]
             : [{ ...restData, id: 'someId1' }];
         return { materialCategories: categories, pagesCount: 2 };
-      }
+      },
     ),
-  })
+  }),
 );

@@ -12,7 +12,7 @@ export const SnackbarAlert: React.FC = () => {
   // ─── State ──────────────────────────────────────────────────────────────────────
 
   const { show, message, severity } = useAppSelector(
-    (state) => state.snackbarMessage
+    (state) => state.snackbarMessage,
   );
   const dispatch = useAppDispatch();
 

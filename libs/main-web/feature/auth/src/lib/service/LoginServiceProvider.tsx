@@ -7,7 +7,7 @@ import type { UnpredictedFormErrors } from 'fm/shared-types';
 import type { LoginFormikValues as Values } from '../types/login-formik-values';
 
 export const LoginServiceContext = createContext<LoginServiceContextValue>(
-  {} as LoginServiceContextValue
+  {} as LoginServiceContextValue,
 );
 
 export const LoginServiceProvider: React.FC<PropsWithChildren> = ({
@@ -81,7 +81,7 @@ export interface LoginServiceContextValue {
   loading: boolean;
   handleSubmit: (
     values: Values,
-    actions: FormikHelpers<Values>
+    actions: FormikHelpers<Values>,
   ) => Promise<void>;
   success: boolean;
 }

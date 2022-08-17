@@ -39,7 +39,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
   // ─── Store ──────────────────────────────────────────────────────────────────────
 
   const { path: categoryPath, lastId: parentId } = useAppSelector(
-    (state) => state.categoryPath
+    (state) => state.categoryPath,
   );
 
   // ─── Formik ─────────────────────────────────────────────────────────────────────
@@ -67,7 +67,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
         id: editingCategory.id,
         title: formik.values.title,
       },
-      { setErrors: formik.setErrors } as FormikHelpers<UpdateValues>
+      { setErrors: formik.setErrors } as FormikHelpers<UpdateValues>,
     );
 
     handleClose();
@@ -83,7 +83,7 @@ const EditDialog: React.FC<EditDialogProps> = ({
       },
       {
         setErrors: formik.setErrors,
-      } as FormikHelpers<CreateCategoryServiceValues>
+      } as FormikHelpers<CreateCategoryServiceValues>,
     );
 
     handleClose();
