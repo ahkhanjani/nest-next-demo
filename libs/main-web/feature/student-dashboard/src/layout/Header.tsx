@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import { TabName } from 'fm/main-web-feature-student-dashboard';
 
-import { DarkModeSwitch } from 'fm/main-web-feature-darkmode-switch';
+import { DarkModeSwitch } from 'fm/main-web-feature-theme-switch';
 import {
   BellIcon,
   CogIcon,

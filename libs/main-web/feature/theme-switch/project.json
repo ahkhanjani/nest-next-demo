@@ -1,6 +1,6 @@
 {
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/main-web/feature/darkmode-switch/src",
+  "sourceRoot": "libs/main-web/feature/theme-switch/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -9,15 +9,15 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/main-web/feature/darkmode-switch/**/*.{ts,tsx,js,jsx}"
+          "libs/main-web/feature/theme-switch/**/*.{ts,tsx,js,jsx}"
         ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/main-web/feature/darkmode-switch"],
+      "outputs": ["coverage/libs/main-web/feature/theme-switch"],
       "options": {
-        "jestConfig": "libs/main-web/feature/darkmode-switch/jest.config.ts",
+        "jestConfig": "libs/main-web/feature/theme-switch/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -23,8 +23,8 @@ export const DarkModeSwitch: React.FC = () => {
         </span>
         <input
           data-toggle-theme="dark,light"
-          type="checkbox"
           className="tw-daisy-toggle"
+          type="checkbox"
           checked={colorTheme === 'dark'}
           onChange={() => {
             setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));

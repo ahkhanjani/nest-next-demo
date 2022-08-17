@@ -22,16 +22,18 @@
       "fm/main-web-feature-daily-co": [
         "libs/main-web/feature/daily-co/src/index.ts"
       ],
-      "fm/main-web-feature-darkmode-switch": [
-        "libs/main-web/feature/darkmode-switch/src/index.ts"
-      ],
       "fm/main-web-feature-prereg": [
         "libs/main-web/feature/prereg/src/index.ts"
+      ],
+      "fm/main-web-feature-scheduler": [
+        "libs/main-web/feature/scheduler/src/index.ts"
       ],
       "fm/main-web-feature-student-dashboard": [
         "libs/main-web/feature/student-dashboard/src/index.ts"
       ],
-      "fm/main-web-scheduler": ["libs/main-web/feature/scheduler/src/index.ts"],
+      "fm/main-web-feature-theme-switch": [
+        "libs/main-web/feature/theme-switch/src/index.ts"
+      ],
       "fm/main-web-ui": ["libs/main-web/ui/src/index.ts"],
       "fm/main-web/types": ["libs/main-web/types/src/index.ts"],
       "fm/material-web-feature-auth": [

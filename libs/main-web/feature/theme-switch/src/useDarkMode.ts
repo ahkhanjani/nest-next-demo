@@ -4,9 +4,13 @@ function useDarkMode(): [
   ColorTheme,
   React.Dispatch<React.SetStateAction<ColorTheme>>,
 ] {
-  const [theme, setTheme] = useState<ColorTheme>(
-    typeof window !== 'undefined' ? localStorage['theme'] : 'dark',
-  );
+  const [theme, setTheme] = useState<ColorTheme>('dark');
+
+  useEffect(() => {
+    if (localStorage['theme']) {
+      setTheme(localStorage['theme']);
+    }
+  }, [setTheme]);
 
   useEffect(() => {
     if (
