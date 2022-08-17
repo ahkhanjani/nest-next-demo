@@ -1,1 +1,2 @@
-export * from './components/DarkModeSwitch';
+export * from './DarkModeSwitch';
+export * from './useDarkMode';

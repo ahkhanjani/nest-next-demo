@@ -1,9 +1,7 @@
-import { PaperPlusIcon } from '../../../../../../shared/assets/src/icons';
+import { PaperPlusIcon } from 'fm/shared-assets/icons';
 import Sessions from '../Sessions';
 
-export const DashboardDesk: React.FC = () => {
-  // ────────────────────────────────────────────────────────────────────────────────
-
+export const HomeDesk: React.FC = () => {
   return (
     <>
       <span className="tw-text-gray tw-text-xl tw-font-medium tw-p-4">
@@ -19,4 +17,4 @@ export const DashboardDesk: React.FC = () => {
     </>
   );
 };
-export default DashboardDesk;
+export default HomeDesk;

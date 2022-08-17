@@ -13,14 +13,20 @@ import {
 
 import { capitalizeFirstLetter } from 'fm/shared-utils';
 
-export const tabs = [
-  { name: 'dashboard', icon: <TwoUsersIcon /> },
+interface TabObject {
+  name: string;
+  url?: string;
+  icon: JSX.Element;
+}
+
+export const tabs: readonly TabObject[] = [
+  { name: 'home', icon: <TwoUsersIcon /> },
   { name: 'classroom', icon: <CategoryIcon /> },
   { name: 'calendar', icon: <CalendarIcon /> },
   { name: 'homework', icon: <EditSquareIcon /> },
   { name: 'payments', icon: <ChartIcon /> },
   { name: 'settings', icon: <CogIcon /> },
-] as const;
+];
 export type TabName = typeof tabs[number]['name'];
 
 export const TabBar: React.FC = () => {
@@ -28,8 +34,8 @@ export const TabBar: React.FC = () => {
 
   return (
     <div className="tw-w-full tw-flex tw-flex-row tw-items-center tw-justify-between">
-      {tabs.map(({ name, icon }) => (
-        <TabButton key={domId + name} {...{ name, icon }} />
+      {tabs.map((tabObj) => (
+        <TabButton key={domId + tabObj.name} tabObject={tabObj} />
       ))}
     </div>
   );
@@ -37,14 +43,13 @@ export const TabBar: React.FC = () => {
 export default TabBar;
 
 const TabButton: React.FC<{
-  name: string;
-  icon: JSX.Element;
-}> = ({ icon, name }) => {
+  tabObject: TabObject;
+}> = ({ tabObject: { icon, name, url } }) => {
   const router = useRouter();
   const activeTab = router.query['desk'];
 
   return (
-    <Link href={`/dashboard/${name}`}>
+    <Link href={`/dashboard/${url ?? name}`}>
       <button
         className={`tw-rounded-18 tw-p-[13px] tw-flex tw-items-center  ${
           name === activeTab

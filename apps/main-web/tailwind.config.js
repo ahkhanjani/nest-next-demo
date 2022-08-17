@@ -2,10 +2,7 @@ const { createGlobPatternsForDependencies } = require('@nrwl/next/tailwind');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  presets: [
-    require('../../tailwind.preset.js'),
-    require('../../tailwind-daisyui.preset.js'),
-  ],
+  darkMode: 'class',
   content: [
     '**/*.{jsx,tsx}',
     ...createGlobPatternsForDependencies(__dirname, '**/*.{jsx,tsx}'),
@@ -24,6 +21,7 @@ module.exports = {
         white: '#ffffff',
         dark: '#263238',
         bgColor: '#FAFAFA',
+        bgColorDark: '#000000',
         grayText: '#6F777C',
       },
       screens: {
@@ -35,5 +33,9 @@ module.exports = {
       },
     },
   },
+  presets: [
+    require('../../tailwind.preset.js'),
+    require('../../tailwind-daisyui.preset.js'),
+  ],
   plugins: [require('@tailwindcss/typography')],
 };
