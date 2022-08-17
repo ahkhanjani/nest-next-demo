@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
@@ -5,11 +6,8 @@ import {
   ClassroomDesk,
   HomeDesk,
   TabName,
+  DashboardLayout,
 } from 'fm/main-web-feature-student-dashboard';
-
-// TODO move icon to a feature lib
-import Head from 'next/head';
-import { DashboardLayout } from 'fm/main-web-feature-student-dashboard';
 
 const DashboardPage: NextPage = () => {
   const router = useRouter();

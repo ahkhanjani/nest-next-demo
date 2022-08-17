@@ -1,9 +1,9 @@
+import { useEffect } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import { DashboardLayout } from 'fm/main-web-feature-student-dashboard';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 const DashboardPage: NextPage = () => {
   const router = useRouter();
