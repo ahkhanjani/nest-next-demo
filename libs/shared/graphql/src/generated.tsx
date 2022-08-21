@@ -43,6 +43,13 @@ export type CreatePreRegInput = {
   email: Scalars['String'];
 };
 
+export type CreateSessionDto = {
+  date: Scalars['DateTime'];
+  statusId: Scalars['ID'];
+  studentId: Scalars['ID'];
+  teacherId: Scalars['ID'];
+};
+
 export type CreateUserInput = {
   password: Scalars['String'];
   username: Scalars['String'];
@@ -151,10 +158,12 @@ export type Mutation = {
   createMaterialCategory: CreateMaterialCategoryResponse;
   createMaterials: CreateMaterialsResponse;
   createPreReg: PreRegResponse;
+  createSession: Session;
   createUser: CreateUserResponse;
   login: LoginResponse;
   updateMaterial: UpdateMaterialResponse;
   updateMaterialCategory: UpdateMaterialCategoryResponse;
+  updateSession: Session;
 };
 
 
@@ -179,6 +188,11 @@ export type MutationCreatePreRegArgs = {
 };
 
 
+export type MutationCreateSessionArgs = {
+  dto: CreateSessionDto;
+};
+
+
 export type MutationCreateUserArgs = {
   dto: CreateUserInput;
 };
@@ -196,6 +210,12 @@ export type MutationUpdateMaterialArgs = {
 
 export type MutationUpdateMaterialCategoryArgs = {
   dto: UpdateMaterialCategoryInput;
+};
+
+
+export type MutationUpdateSessionArgs = {
+  dto: UpdateSessionDto;
+  sessionId: Scalars['ID'];
 };
 
 export type PreRegEmail = {
@@ -344,6 +364,11 @@ export type UpdateMaterialResponse = {
   message: Scalars['String'];
 };
 
+export type UpdateSessionDto = {
+  date: Scalars['DateTime'];
+  statusId: Scalars['ID'];
+};
+
 export type User = {
   __typename?: 'User';
   createdAt: Scalars['DateTime'];
@@ -472,6 +497,27 @@ export type CreatePreRegMutationVariables = Exact<{
 
 
 export type CreatePreRegMutation = { __typename?: 'Mutation', createPreReg: { __typename?: 'PreRegResponse', email?: { __typename?: 'PreRegEmail', id: string } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+
+export type CreateSessionMutationVariables = Exact<{
+  teacherId: Scalars['ID'];
+  studentId: Scalars['ID'];
+  date: Scalars['DateTime'];
+  statusId: Scalars['ID'];
+}>;
+
+
+export type CreateSessionMutation = { __typename?: 'Mutation', createSession: { __typename?: 'Session', id: string } };
+
+export type UpdateSessionMutationVariables = Exact<{
+  sessionId: Scalars['ID'];
+  teacherId: Scalars['ID'];
+  studentId: Scalars['ID'];
+  date: Scalars['DateTime'];
+  statusId: Scalars['ID'];
+}>;
+
+
+export type UpdateSessionMutation = { __typename?: 'Mutation', updateSession: { __typename?: 'Session', id: string } };
 
 export type GetSessionQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -1100,6 +1146,81 @@ export function useCreatePreRegMutation(baseOptions?: Apollo.MutationHookOptions
 export type CreatePreRegMutationHookResult = ReturnType<typeof useCreatePreRegMutation>;
 export type CreatePreRegMutationResult = Apollo.MutationResult<CreatePreRegMutation>;
 export type CreatePreRegMutationOptions = Apollo.BaseMutationOptions<CreatePreRegMutation, CreatePreRegMutationVariables>;
+export const CreateSessionDocument = gql`
+    mutation createSession($teacherId: ID!, $studentId: ID!, $date: DateTime!, $statusId: ID!) {
+  createSession(
+    dto: {teacherId: $teacherId, studentId: $studentId, date: $date, statusId: $statusId}
+  ) {
+    id
+  }
+}
+    `;
+export type CreateSessionMutationFn = Apollo.MutationFunction<CreateSessionMutation, CreateSessionMutationVariables>;
+
+/**
+ * __useCreateSessionMutation__
+ *
+ * To run a mutation, you first call `useCreateSessionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateSessionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createSessionMutation, { data, loading, error }] = useCreateSessionMutation({
+ *   variables: {
+ *      teacherId: // value for 'teacherId'
+ *      studentId: // value for 'studentId'
+ *      date: // value for 'date'
+ *      statusId: // value for 'statusId'
+ *   },
+ * });
+ */
+export function useCreateSessionMutation(baseOptions?: Apollo.MutationHookOptions<CreateSessionMutation, CreateSessionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateSessionMutation, CreateSessionMutationVariables>(CreateSessionDocument, options);
+      }
+export type CreateSessionMutationHookResult = ReturnType<typeof useCreateSessionMutation>;
+export type CreateSessionMutationResult = Apollo.MutationResult<CreateSessionMutation>;
+export type CreateSessionMutationOptions = Apollo.BaseMutationOptions<CreateSessionMutation, CreateSessionMutationVariables>;
+export const UpdateSessionDocument = gql`
+    mutation updateSession($sessionId: ID!, $teacherId: ID!, $studentId: ID!, $date: DateTime!, $statusId: ID!) {
+  updateSession(sessionId: $sessionId, dto: {date: $date, statusId: $statusId}) {
+    id
+  }
+}
+    `;
+export type UpdateSessionMutationFn = Apollo.MutationFunction<UpdateSessionMutation, UpdateSessionMutationVariables>;
+
+/**
+ * __useUpdateSessionMutation__
+ *
+ * To run a mutation, you first call `useUpdateSessionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateSessionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateSessionMutation, { data, loading, error }] = useUpdateSessionMutation({
+ *   variables: {
+ *      sessionId: // value for 'sessionId'
+ *      teacherId: // value for 'teacherId'
+ *      studentId: // value for 'studentId'
+ *      date: // value for 'date'
+ *      statusId: // value for 'statusId'
+ *   },
+ * });
+ */
+export function useUpdateSessionMutation(baseOptions?: Apollo.MutationHookOptions<UpdateSessionMutation, UpdateSessionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateSessionMutation, UpdateSessionMutationVariables>(UpdateSessionDocument, options);
+      }
+export type UpdateSessionMutationHookResult = ReturnType<typeof useUpdateSessionMutation>;
+export type UpdateSessionMutationResult = Apollo.MutationResult<UpdateSessionMutation>;
+export type UpdateSessionMutationOptions = Apollo.BaseMutationOptions<UpdateSessionMutation, UpdateSessionMutationVariables>;
 export const GetSessionDocument = gql`
     query GetSession($id: ID!) {
   session(id: $id) {

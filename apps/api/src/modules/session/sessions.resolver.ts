@@ -1,6 +1,7 @@
 import {
   Args,
   ID,
+  Mutation,
   Parent,
   Query,
   ResolveField,
@@ -10,6 +11,8 @@ import { EnumsService } from '../enum/enums.service';
 import { Enum } from '../enum/interface/enum.interface';
 import { User } from '../user/interface/user.interface';
 import { UsersService } from '../user/users.service';
+import { CreateSessionDto } from './dto/create-session.dto';
+import { UpdateSessionDto } from './dto/update-session.dto';
 import { Session } from './interface/session.interface';
 import { SessionsService } from './sessions.service';
 
@@ -51,5 +54,22 @@ export class SessionsResolver {
     @Args('userId', { type: () => ID }) userId: string,
   ): Promise<Session[]> {
     return await this.sessionsService.findAll({ participantIds: [userId] });
+  }
+
+  // ─── Mutation ───────────────────────────────────────────────────────────────────
+
+  @Mutation(() => Session)
+  async createSession(
+    @Args('dto', { type: () => CreateSessionDto }) dto: CreateSessionDto,
+  ): Promise<Session> {
+    return await this.sessionsService.createOne(dto);
+  }
+
+  @Mutation(() => Session)
+  async updateSession(
+    @Args('sessionId', { type: () => ID }) id: string,
+    @Args('dto', { type: () => UpdateSessionDto }) dto: UpdateSessionDto,
+  ): Promise<Session> {
+    return await this.sessionsService.updateOne(id, dto);
   }
 }

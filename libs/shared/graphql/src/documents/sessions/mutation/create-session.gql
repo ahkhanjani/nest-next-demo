@@ -1,0 +1,17 @@
+mutation createSession(
+  $teacherId: ID!
+  $studentId: ID!
+  $date: DateTime!
+  $statusId: ID!
+) {
+  createSession(
+    dto: {
+      teacherId: $teacherId
+      studentId: $studentId
+      date: $date
+      statusId: $statusId
+    }
+  ) {
+    id
+  }
+}
