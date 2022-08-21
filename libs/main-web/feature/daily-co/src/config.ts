@@ -9,6 +9,6 @@ const config = {
   // - Daily REST API endpoint
   restDomain: getEnvironmentVariable('DAILY_REST_DOMAIN'),
   // - run in demo mode (will create a demo room for you to try)
-  demoMode: !!getEnvironmentVariable('DAILY_DEMO_MODE'),
+  demoMode: Boolean(getEnvironmentVariable('DAILY_DEMO_MODE')),
 };
 export default config;
