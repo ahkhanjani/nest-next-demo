@@ -5,7 +5,6 @@
     "api": "apps/api",
     "main-web": "apps/main-web",
     "main-web-e2e": "apps/main-web-e2e",
-    "main-web-feature-auth": "libs/main-web/feature/auth",
     "main-web-feature-daily-co": "libs/main-web/feature/daily-co",
     "main-web-feature-prereg": "libs/main-web/feature/prereg",
     "main-web-feature-scheduler": "libs/main-web/feature/scheduler",
