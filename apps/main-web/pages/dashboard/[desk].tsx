@@ -19,7 +19,7 @@ const DashboardPage: NextPage = () => {
         <title>Dashboard | New Moon</title>
       </Head>
       <DashboardLayout>
-        {!activeDesk ? (
+        {activeDesk === 'home' ? (
           <HomeDesk />
         ) : activeDesk === 'classroom' ? (
           <ClassroomDesk />
