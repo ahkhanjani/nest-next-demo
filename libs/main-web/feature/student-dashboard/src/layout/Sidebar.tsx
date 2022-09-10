@@ -24,15 +24,18 @@ export const Sidebar: React.FC = () => {
           <TabButton key={domId + name} {...{ name, icon }} />
         ))}
       </div>
-      <div className="tw-border-[3px] tw-border-blue tw-rounded-full tw-flex tw-items-center tw-justify-center tw-w-[42px] tw-h-[42px] ">
-        <Image
-          src="/jpg/avatar-test.jpg"
-          alt="avatar"
-          width={42}
-          height={42}
-          className="tw-rounded-full tw-object-cover"
-        />
-      </div>
+
+      <a href="/api/auth/login">
+        <div className="tw-border-[3px] tw-border-blue tw-rounded-full tw-flex tw-items-center tw-justify-center tw-w-[42px] tw-h-[42px] ">
+          <Image
+            src="/jpg/avatar-test.jpg"
+            alt="avatar"
+            width={42}
+            height={42}
+            className="tw-rounded-full tw-object-cover"
+          />
+        </div>
+      </a>
     </div>
   );
 };

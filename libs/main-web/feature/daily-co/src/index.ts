@@ -1,1 +1,1 @@
-export { default as TextChat } from './lib/text-chat/components/App';
+export { default as TextChat } from './lib/App';

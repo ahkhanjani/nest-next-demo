@@ -1,0 +1,14 @@
+mutation updateSession(
+  $sessionId: ID!
+  $teacherId: ID!
+  $studentId: ID!
+  $date: DateTime!
+  $statusId: ID!
+) {
+  updateSession(
+    sessionId: $sessionId
+    dto: { date: $date, statusId: $statusId }
+  ) {
+    id
+  }
+}

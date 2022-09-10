@@ -1,9 +1,8 @@
-import { forwardRef } from 'react';
+import { forwardRef, PropsWithChildren } from 'react';
 import classnames from 'classnames';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 
-export const Button = forwardRef(
+export const Button = forwardRef<PropsWithChildren<any>>(
   (
     {
       children,
@@ -11,15 +10,15 @@ export const Button = forwardRef(
       disabled = false,
       fullWidth,
       href,
-      IconAfter = null,
-      IconBefore = null,
+      IconAfter,
+      IconBefore,
       loading = false,
       size = 'medium',
       type = 'button',
       variant = 'primary',
       shadow = false,
       ...rest
-    },
+    }: PropsWithChildren<ButtonProps>,
     ref,
   ) => {
     const cx = classnames('button', className, size, variant, {
@@ -57,20 +56,18 @@ export const Button = forwardRef(
     );
   },
 );
-
-Button.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  fullWidth: PropTypes.bool,
-  href: PropTypes.string,
-  IconAfter: PropTypes.node,
-  IconBefore: PropTypes.node,
-  loading: PropTypes.bool,
-  size: PropTypes.string,
-  type: PropTypes.oneOf(['button', 'reset', 'submit']),
-  variant: PropTypes.string,
-  shadow: PropTypes.bool,
-};
-
 export default Button;
+
+interface ButtonProps {
+  className?: string;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  href?: string;
+  IconAfter?: React.FC<any>;
+  IconBefore?: React.FC<any>;
+  loading?: boolean;
+  size?: string;
+  type?: 'button' | 'reset' | 'submit';
+  variant?: string;
+  shadow?: boolean;
+}
