@@ -7,6 +7,7 @@ import {
   HomeDesk,
   TabName,
   DashboardLayout,
+  CalendarDesk,
 } from 'fm/main-web-feature-student-dashboard';
 
 const DashboardPage: NextPage = () => {
@@ -23,6 +24,8 @@ const DashboardPage: NextPage = () => {
           <HomeDesk />
         ) : activeDesk === 'classroom' ? (
           <ClassroomDesk />
+        ) : activeDesk === 'calendar' ? (
+          <CalendarDesk />
         ) : null}
       </DashboardLayout>
     </>

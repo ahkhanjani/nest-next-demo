@@ -16,6 +16,7 @@ export { ReactComponent as ClockIcon } from './svg/clock.svg';
 export { ReactComponent as PaperPlusIcon } from './svg/paper-plus.svg';
 export { ReactComponent as SunIcon } from './svg/sun.svg';
 export { ReactComponent as MoonIcon } from './svg/moon.svg';
-
 export { ReactComponent as LogoVertical } from './svg/logo-v.svg';
 export { ReactComponent as LogoHorizontal } from './svg/logo-h.svg';
+export { ReactComponent as PlusIcon } from './svg/plus.svg';
+export { ReactComponent as TimeCircleIcon } from './svg/time-circle.svg';

@@ -47,7 +47,7 @@ const TabButton: React.FC<{
 }> = ({ tabObject: { icon, name, url } }) => {
   const router = useRouter();
   const activeTab = router.query['desk'];
-
+  console.log(activeTab);
   return (
     <Link href={`/dashboard/${url ?? name}`}>
       <button
