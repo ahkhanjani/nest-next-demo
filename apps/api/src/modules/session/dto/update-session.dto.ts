@@ -1,5 +1,6 @@
-import { Field, ID, InputType } from '@nestjs/graphql';
-import { IsEnumExist } from '../../enum/validator/enum-exist.validator';
+import { Field, InputType } from '@nestjs/graphql';
+
+import { SessionState } from '../enums/session-state.enum';
 import { IsValidSessionDate } from '../validator/date.validator';
 
 @InputType()
@@ -8,7 +9,6 @@ export class UpdateSessionDto {
   @Field()
   date: Date;
 
-  @IsEnumExist()
-  @Field(() => ID)
-  statusId: string;
+  @Field(() => SessionState)
+  state: SessionState;
 }

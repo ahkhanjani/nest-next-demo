@@ -1,24 +1,19 @@
 import { Field, ID, InputType } from '@nestjs/graphql';
 import { IsMongoId } from 'class-validator';
-import { IsEnumExist } from '../../enum/validator/enum-exist.validator';
 
+import { SessionState } from '../enums/session-state.enum';
 import { IsValidSessionDate } from '../validator/date.validator';
 
 @InputType()
 export class CreateSessionDto {
   @IsMongoId()
-  @Field(() => ID)
-  teacherId: string;
-
-  @IsMongoId()
-  @Field(() => ID)
-  studentId: string;
+  @Field(() => [ID])
+  participantIds: string[];
 
   @IsValidSessionDate()
   @Field()
   date: Date;
 
-  @IsEnumExist()
-  @Field(() => ID)
-  statusId: string;
+  @Field(() => SessionState)
+  state: SessionState;
 }

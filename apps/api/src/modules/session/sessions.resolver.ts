@@ -7,8 +7,6 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { EnumsService } from '../enum/enums.service';
-import { Enum } from '../enum/interface/enum.interface';
 import { User } from '../user/interface/user.interface';
 import { UsersService } from '../user/users.service';
 import { CreateSessionDto } from './dto/create-session.dto';
@@ -21,7 +19,6 @@ export class SessionsResolver {
   constructor(
     private readonly sessionsService: SessionsService,
     private readonly usersService: UsersService,
-    private readonly enumsService: EnumsService,
   ) {}
 
   // ─── Resolve Field ──────────────────────────────────────────────────────────────
@@ -33,11 +30,6 @@ export class SessionsResolver {
     return await Promise.all(
       participantIds.map(async (pid) => await this.usersService.findOne(pid)),
     );
-  }
-
-  @ResolveField(() => Enum, { name: 'status' })
-  async getStatus(@Parent() { statusId }: Session): Promise<Enum> {
-    return await this.enumsService.findOne(statusId);
   }
 
   // ─── Query ──────────────────────────────────────────────────────────────────────
