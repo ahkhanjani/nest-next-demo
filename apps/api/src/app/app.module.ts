@@ -20,7 +20,6 @@ import { UsersModule } from '../modules/user/users.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { PreRegEmailsModule } from '../modules/pre-reg-email/pre-reg-email.module';
 import { SessionsModule } from '../modules/session/sessions.module';
-import { EnumsModule } from '../modules/enum/enums.module';
 
 @Module({
   imports: [
@@ -110,7 +109,6 @@ import { EnumsModule } from '../modules/enum/enums.module';
     AuthModule,
     PreRegEmailsModule,
     SessionsModule,
-    EnumsModule,
   ],
   controllers: [AppController],
 })

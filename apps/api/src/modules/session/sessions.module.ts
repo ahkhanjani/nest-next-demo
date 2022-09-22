@@ -5,7 +5,6 @@ import { SessionsResolver } from './sessions.resolver';
 import { SessionsService } from './sessions.service';
 import { SessionSchema } from './schema/session.schema';
 import { UsersModule } from '../user/users.module';
-import { EnumsModule } from '../enum/enums.module';
 
 @Module({
   imports: [
@@ -17,7 +16,6 @@ import { EnumsModule } from '../enum/enums.module';
     ]),
 
     UsersModule,
-    EnumsModule,
   ],
   providers: [SessionsResolver, SessionsService],
   exports: [SessionsService],
